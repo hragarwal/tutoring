@@ -1,10 +1,6 @@
 package com.tutoring.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,10 +14,6 @@ public class LessonAnswer extends AuditableBaseEntity {
     private String filePath;
 
     private String description;
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "LESSON_ID")
-    private Lesson lesson;
 
     public String getFilePath() {
         return filePath;
@@ -37,13 +29,5 @@ public class LessonAnswer extends AuditableBaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Lesson getLesson() {
-        return lesson;
-    }
-
-    public void setLesson(Lesson lesson) {
-        this.lesson = lesson;
     }
 }

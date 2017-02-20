@@ -4,9 +4,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by himanshu.agarwal on 20-02-2017.
@@ -16,7 +18,7 @@ import java.util.Date;
 @Table(name = "LESSON")
 public class Lesson extends AuditableBaseEntity {
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "SUBJECT_ID")
     private Subject subject;
 
@@ -28,11 +30,11 @@ public class Lesson extends AuditableBaseEntity {
 
     private Date deadline;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PROFILE_ID")
     private Profile studentProfile;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "STATUS_ID")
     private Status status;
 
@@ -40,13 +42,37 @@ public class Lesson extends AuditableBaseEntity {
 
     private Double estimatedWorkEffort;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TUTOR_ID")
     private Profile tutorProfile;
 
     private String feedback;
 
     private String lessonResponse;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "LESSON_ID")
+    private Set<Files> questionFileList;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "LESSON_ID")
+    private Set<LessonAnswer> answerFileList;
+
+    public Set<Files> getQuestionFileList() {
+        return questionFileList;
+    }
+
+    public void setQuestionFileList(Set<Files> questionFileList) {
+        this.questionFileList = questionFileList;
+    }
+
+    public Set<LessonAnswer> getAnswerFileList() {
+        return answerFileList;
+    }
+
+    public void setAnswerFileList(Set<LessonAnswer> answerFileList) {
+        this.answerFileList = answerFileList;
+    }
 
     public Subject getSubject() {
         return subject;
