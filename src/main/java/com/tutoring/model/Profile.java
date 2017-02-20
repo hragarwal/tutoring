@@ -1,29 +1,36 @@
 package com.tutoring.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by himanshu.agarwal on 20-02-2017.
  */
 @Entity
-@Table(name = "PROFILE")
+@Table(name = "PROFILE", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class Profile extends AuditableBaseEntity {
 
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String country;
     private String contactNumber;
     private String skypeId;
+    @Column(nullable = false)
     private String password;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ROLE_ID")
+    @JoinColumn(name = "ROLE_ID", nullable = false)
     private Role role;
 
     public String getName() {

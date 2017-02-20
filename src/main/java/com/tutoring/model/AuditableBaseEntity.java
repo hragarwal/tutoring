@@ -17,20 +17,20 @@ import java.util.Date;
 @EntityListeners(AuditChangeListener.class)
 public abstract class AuditableBaseEntity extends PersistableBaseEntity {
 
-    @Column(name = "created_date")
+    @Column(name = "CREATED_DATE")
     @CreatedDate
     private Date createdDate;
 
     @LastModifiedDate
-    @Column(name = "modified_date")
+    @Column(name = "MODIFIED_DATE")
     private Date modifiedDate;
 
     @CreatedBy
-    @Column(name = "created_by", nullable = false)
+    @Column(name = "CREATED_BY", nullable = false)
     private String createdBy = "";
 
     @LastModifiedBy
-    @Column(name = "modified_by", nullable = false)
+    @Column(name = "MODIFIED_BY", nullable = false)
     private String modifiedBy = "";
 
 

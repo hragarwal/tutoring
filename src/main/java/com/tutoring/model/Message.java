@@ -1,5 +1,6 @@
 package com.tutoring.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -14,18 +15,19 @@ import javax.persistence.Table;
 @Table(name = "MESSAGE")
 public class Message extends AuditableBaseEntity {
 
+    @Column(nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "LESSON_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LESSON_ID", nullable = false)
     private Lesson lesson;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "SENDER_PROFILE_ID")
+    @JoinColumn(name = "SENDER_PROFILE_ID", nullable = false)
     private Profile senderProfile;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "RECEIVER_PROFILE_ID")
+    @JoinColumn(name = "RECEIVER_PROFILE_ID", nullable = false)
     private Profile receiverProfile;
 
     public String getDescription() {

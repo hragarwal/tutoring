@@ -1,5 +1,6 @@
 package com.tutoring.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -13,6 +14,7 @@ public class LessonAnswer extends AuditableBaseEntity {
 
     private String filePath;
 
+    @Column(nullable = false)
     private String description;
 
     public String getFilePath() {

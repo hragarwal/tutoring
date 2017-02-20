@@ -1,6 +1,7 @@
 package com.tutoring.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -19,15 +20,18 @@ import java.util.Set;
 public class Lesson extends AuditableBaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "SUBJECT_ID")
+    @JoinColumn(name = "SUBJECT_ID",nullable = false)
     private Subject subject;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String taskDescription;
 
     private String specialRequirement;
 
+    @Column(nullable = false)
     private Date deadline;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -35,7 +39,7 @@ public class Lesson extends AuditableBaseEntity {
     private Profile studentProfile;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "STATUS_ID")
+    @JoinColumn(name = "STATUS_ID", nullable = false)
     private Status status;
 
     private Double dueAmount;
@@ -43,7 +47,7 @@ public class Lesson extends AuditableBaseEntity {
     private Double estimatedWorkEffort;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TUTOR_ID")
+    @JoinColumn(name = "TUTOR_ID", nullable = false)
     private Profile tutorProfile;
 
     private String feedback;

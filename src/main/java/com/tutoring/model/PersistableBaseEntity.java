@@ -14,7 +14,7 @@ public abstract class PersistableBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false)
     protected long id;
 
     public long getId() {
