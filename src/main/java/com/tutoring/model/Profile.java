@@ -33,6 +33,8 @@ public class Profile extends AuditableBaseEntity {
     @JoinColumn(name = "ROLE_ID", nullable = false)
     private Role role;
 
+    private boolean isActive;
+
     public String getName() {
         return name;
     }
@@ -87,6 +89,14 @@ public class Profile extends AuditableBaseEntity {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 }
 

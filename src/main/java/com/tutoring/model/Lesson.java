@@ -54,6 +54,8 @@ public class Lesson extends AuditableBaseEntity {
 
     private String lessonResponse;
 
+    private boolean isActive;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "LESSON_ID")
     private Set<Files> questionFileList;
@@ -172,5 +174,13 @@ public class Lesson extends AuditableBaseEntity {
 
     public void setLessonResponse(String lessonResponse) {
         this.lessonResponse = lessonResponse;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 }
