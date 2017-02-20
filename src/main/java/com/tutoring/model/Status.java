@@ -9,19 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "STATUS")
-public class Status{
-
-    private long id;
+public class Status extends PersistableBaseEntity {
 
     private String name;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
