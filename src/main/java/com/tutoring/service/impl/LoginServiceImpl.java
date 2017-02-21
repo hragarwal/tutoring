@@ -1,10 +1,10 @@
-package com.tutoring.service.impl.impl;
+package com.tutoring.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tutoring.dao.ProfileDAO;
 import com.tutoring.model.Profile;
-import com.tutoring.service.impl.LoginService;
+import com.tutoring.service.LoginService;
 import com.tutoring.util.ApplicationConstants;
 import com.tutoring.util.JWTGenerators;
 import com.tutoring.util.PasswordUtil;

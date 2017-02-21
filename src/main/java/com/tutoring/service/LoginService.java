@@ -1,4 +1,4 @@
-package com.tutoring.service.impl;
+package com.tutoring.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tutoring.model.Profile;
