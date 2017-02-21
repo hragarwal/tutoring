@@ -6,7 +6,7 @@ import com.tutoring.dao.ProfileDAO;
 import com.tutoring.model.Profile;
 import com.tutoring.service.impl.LoginService;
 import com.tutoring.util.ApplicationConstants;
-import com.tutoring.util.JWTGenerator;
+import com.tutoring.util.JWTGenerators;
 import com.tutoring.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,7 +22,7 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     ProfileDAO profileDAO;
     @Autowired
-    JWTGenerator jwtGenerator;
+    JWTGenerators jwtGenerator;
 
     @Override
     public Map<String, String> validateUser(Profile profile) throws JsonProcessingException{

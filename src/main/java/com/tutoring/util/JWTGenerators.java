@@ -1,0 +1,44 @@
+package com.tutoring.util;
+
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.security.Key;
+import java.util.Date;
+
+/**
+ * Created by himanshu.agarwal on 21-02-2017.
+ */
+public class JWTGenerators {
+
+    @Autowired
+    Environment environment;
+
+    public String encrypt(String textData){
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+        Date date = new Date();
+        byte[] apiSecretKeyBytes = DatatypeConverter.parseBase64Binary(environment.getProperty("aes.secretKey"));
+        Key signingKey = new SecretKeySpec(apiSecretKeyBytes,signatureAlgorithm.getJcaName());
+        JwtBuilder jwtBuilder = Jwts.builder().setId(textData).setIssuedAt(date).signWith(signatureAlgorithm,signingKey);
+        return jwtBuilder.compact();
+    }
+
+    public boolean decrypt(String encryptedData){
+        boolean flag=true;
+        try {
+            byte[] apiSecretKeyBytes = DatatypeConverter.parseBase64Binary(environment.getProperty("aes.secretKey"));
+            Jwts.parser().setSigningKey(apiSecretKeyBytes).parseClaimsJws(encryptedData).getBody();
+        }catch (JwtException e){
+            flag = false;
+
+        }
+        return flag;
+    }
+
+}
