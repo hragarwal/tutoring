@@ -20,6 +20,22 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         if (!registry.hasMappingForPattern("/static/**")) {
             registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         }
+        if (!registry.hasMappingForPattern("/css/**")) {
+            registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
+        }
+        if (!registry.hasMappingForPattern("/custom/**")) {
+            registry.addResourceHandler("/custom/**").addResourceLocations("classpath:/static/custom/");
+        }
+        if (!registry.hasMappingForPattern("/images/**")) {
+            registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
+        }
+        if (!registry.hasMappingForPattern("/js/**")) {
+            registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
+        }
+        if (!registry.hasMappingForPattern("/views*")) {
+            registry.addResourceHandler("/views/*").addResourceLocations("classpath:/static/views/");
+        }
+
     }
 
     @Bean
