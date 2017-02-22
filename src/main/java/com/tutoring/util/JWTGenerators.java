@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -15,6 +16,7 @@ import java.util.Date;
 /**
  * Created by himanshu.agarwal on 21-02-2017.
  */
+@Service
 public class JWTGenerators {
 
     @Autowired

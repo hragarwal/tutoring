@@ -1,4 +1,6 @@
-var app = angular.module('app', ['ngRoute','ngResource','loginController','registerController']);
+var app = angular.module('app', ['ngRoute','ngResource',
+                                'loginController','registerController',
+                                'factories','services']);
 app.config(function($routeProvider){
     $routeProvider
         .when('/login',{

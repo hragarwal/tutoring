@@ -1,9 +1,13 @@
 <div class="section">
-    <h3>{{headingTitle}}</h3>
+    <h3>Login</h3>
 
     <div class="home-section">
-        <ul class="menu-list">
-            <li><a href="#/register">Register</a></li>
-        </ul>
+        <form name="loginForm" novalidate="">
+            <input type="text" ng-model="login.email"/>
+            <input type="password" ng-model="login.password">
+        </form>
+        <button type="submit" ng-click="validateUser(loginForm)">
+            <span>LOGIN</span>
+        </button>
     </div>
 </div>

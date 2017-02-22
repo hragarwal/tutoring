@@ -10,5 +10,5 @@ import java.util.Map;
  */
 public interface LoginService {
 
-    public Map<String,String> validateUser(Profile profile) throws JsonProcessingException;
+     Map<String,String> validateUser(Profile profile) throws JsonProcessingException;
 }

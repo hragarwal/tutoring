@@ -9,6 +9,8 @@ import com.tutoring.util.ApplicationConstants;
 import com.tutoring.util.JWTGenerators;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,6 +20,9 @@ import java.util.Map;
 /**
  * Created by himanshu.agarwal on 21-02-2017.
  */
+
+@Service
+@Transactional
 public class ProfileServiceImpl implements ProfileService {
 
     @Autowired

@@ -9,6 +9,8 @@ import com.tutoring.util.ApplicationConstants;
 import com.tutoring.util.JWTGenerators;
 import com.tutoring.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,9 @@ import java.util.Objects;
 /**
  * Created by himanshu.agarwal on 21-02-2017.
  */
+
+@Service
+@Transactional
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
