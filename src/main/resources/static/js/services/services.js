@@ -1,5 +1,7 @@
 angular.module('services', ['factories'])
-    .service('ProfileService', function ($http) {
+ 
+
+	.service('ProfileService', function ($http) {
       this.createProfile = function (profile){
 
       }

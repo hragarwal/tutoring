@@ -6,6 +6,7 @@ package com.tutoring.util;
 public final class ApplicationConstants {
 
     public static final String PROFILE="profile";
+    
     public static final String ACCESS_TOKEN="accessToken";
 
 }
