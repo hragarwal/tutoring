@@ -26,4 +26,6 @@ public class LoginController {
         System.out.println("inside validateUser");
         return loginService.validateUser(profile);
     }
+    
+    
 }
