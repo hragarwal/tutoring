@@ -1,18 +1,48 @@
 package com.tutoring.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.tutoring.model.Profile;
-
 import java.util.List;
-import java.util.Map;
+
+import com.tutoring.exception.AppException;
+import com.tutoring.model.Profile;
+import com.tutoring.util.ResponseVO;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.
  */
 public interface ProfileService {
 
-    Map<String,String> createProfile(Profile profile) throws JsonProcessingException;
-    Profile updateProfile(Profile profile);
-    Profile getProfile(long id);
-    List<Profile> getAllProfiles();
+    /**
+     * Creates the user profile.
+     *
+     * @param profile the profile
+     * @return the response VO
+     * @throws AppException the app exception
+     */
+    public ResponseVO createProfile(Profile profile) throws AppException;
+    
+    /**
+     * Update user profile.
+     *
+     * @param profile the profile
+     * @return the profile
+     * @throws AppException the app exception
+     */
+    public Profile updateProfile(Profile profile) throws AppException;
+    
+    /**
+     * Gets the user profile by user id.
+     *
+     * @param id the id
+     * @return the profile
+     * @throws AppException the app exception
+     */
+    public Profile getProfile(long id) throws AppException;
+    
+    /**
+     * Gets the all user profiles.
+     *
+     * @return the all profiles
+     * @throws AppException the app exception
+     */
+    public List<Profile> getAllProfiles() throws AppException;
 }

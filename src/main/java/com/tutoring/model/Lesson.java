@@ -40,7 +40,7 @@ public class Lesson extends AuditableBaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "STATUS_ID", nullable = false)
-    private Status status;
+    private LessonStatus status;
 
     private Double dueAmount;
 
@@ -54,7 +54,7 @@ public class Lesson extends AuditableBaseEntity {
 
     private String lessonResponse;
 
-    private boolean isActive;
+    private boolean isActive = true;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "LESSON_ID")
@@ -128,11 +128,11 @@ public class Lesson extends AuditableBaseEntity {
         this.studentProfile = studentProfile;
     }
 
-    public Status getStatus() {
+    public LessonStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(LessonStatus status) {
         this.status = status;
     }
 

@@ -8,8 +8,8 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "STATUS")
-public class Status extends PersistableBaseEntity {
+@Table(name = "LESSON_STATUS")
+public class LessonStatus extends PersistableBaseEntity {
 
     private String name;
 

@@ -34,6 +34,9 @@ public class LessonStates {
 
 	/** The cancelled. */
 	public static int CANCELLED = 128;
+	
+	/** The expired. */
+	public static int EXPIRED = 256;
 
 	/** The  available. */
 	public static String _AVAILABLE = "Available";
@@ -58,6 +61,9 @@ public class LessonStates {
 
 	/** The  cancelled. */
 	public static String _CANCELLED = "Cancelled";
+	
+	/** The  expired. */
+	public static String _EXPIRED = "Expired";
 
 	/** The states. */
 	private static Map<Integer, String> states = new HashMap<>();
@@ -71,6 +77,7 @@ public class LessonStates {
 		states.put(SUBMITTED, _SUBMITTED);
 		states.put(COMPLETED, _COMPLETED);
 		states.put(CANCELLED, _CANCELLED);
+		states.put(EXPIRED, _EXPIRED);
 	}
 
 	/**

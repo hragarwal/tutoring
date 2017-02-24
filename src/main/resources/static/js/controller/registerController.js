@@ -1,9 +1,9 @@
-angular.module('registerController', [])
-    .controller('RegisterController', function($scope) {
+angular.module('registerController', ['factories','services'])
+    .controller('RegisterController', function($scope, ProfileService, AppConstants) {
       console.log("Inside registerController");
       $scope.headingTitle = "Register HTML";
       
-      $scope.register={
+      $scope.profile={
     	        "name":"",
     	        "email":"",
     	        "country":"",
@@ -11,14 +11,18 @@ angular.module('registerController', [])
     	        "skypeId":"",
     	        "password":"",
     	        "confirmPassword":"",
-    	      };
+      };
       
-      $scope.createProfile = function(loginForm){
-          console.log("register details:"+$scope.resgitser);
+      $scope.createProfile = function(registerForm){
+          console.log("register details:"+JSON.stringify($scope.profile.name));
           if(registerForm.$valid){
-        	  ProfileService.createProfile($scope.register)
+        	  ProfileService.createProfile($scope.profile)
                 .then(function successCallback(response) {
-                  console.log("register successfull");
+                  if(response.data.status = AppConstants.API_SUCCESS) {
+               		  alert(response.data.message);
+               	  } else {
+               		  alert(response.data.message);
+               	  }
                 }, function errorCallback(response) {
                   console.error("There is a error..");
                 });

@@ -1,28 +1,41 @@
 package com.tutoring.controller;
 
-import com.tutoring.model.Lesson;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.tutoring.model.Lesson;
+import com.tutoring.service.LessonService;
+import com.tutoring.util.AppConstants;
+import com.tutoring.util.Mappings;
+import com.tutoring.util.ResponseVO;
 
 /**
  * Created by himanshu.agarwal on 20-02-2017.
  */
 
 @RestController
-@RequestMapping("/api/lesson/")
-public class LessonController {
+public class LessonController extends AppController {
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public void createLesson(@RequestBody Lesson lesson){
-
+	@Autowired
+	private LessonService lessonService;
+	
+    @RequestMapping(value = Mappings.NEW_LESSON, method = RequestMethod.POST)
+    public ResponseVO createLesson(@RequestBody Lesson lesson) {
+    	ResponseVO responseVO = null;
+		try {
+			responseVO = lessonService.createLesson(lesson);
+		} catch (Exception e) {
+			//throw new AppException(logger, msgKey, entityName)
+			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
+			e.getMessage();
+		}
+		return responseVO;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Lesson getLesson(@PathVariable(name = "id") long id){
         return null;
     }
@@ -35,5 +48,5 @@ public class LessonController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Lesson> getAllLesson(){
         return null;
-    }
+    }*/
 }

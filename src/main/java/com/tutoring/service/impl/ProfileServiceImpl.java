@@ -1,21 +1,25 @@
 package com.tutoring.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tutoring.dao.ProfileDAO;
-import com.tutoring.model.Profile;
-import com.tutoring.service.ProfileService;
-import com.tutoring.util.ApplicationConstants;
-import com.tutoring.util.JWTGenerators;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.tutoring.dao.ProfileDAO;
+import com.tutoring.dao.RoleDAO;
+import com.tutoring.exception.AppException;
+import com.tutoring.model.Profile;
+import com.tutoring.service.ProfileService;
+import com.tutoring.util.AppConstants;
+import com.tutoring.util.JWTGenerators;
+import com.tutoring.util.MessageReader;
+import com.tutoring.util.PasswordUtil;
+import com.tutoring.util.ResponseVO;
+import com.tutoring.util.RoleStates;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.
@@ -26,19 +30,28 @@ import java.util.Map;
 public class ProfileServiceImpl implements ProfileService {
 
     @Autowired
-    ProfileDAO profileDAO;
+    private ProfileDAO profileDAO;
+    
     @Autowired
-    JWTGenerators jwtGenerators;
+    private JWTGenerators jwtGenerators;
+    
+    @Autowired
+    private RoleDAO roleDAO;
 
     @Override
-    public Map<String, String> createProfile(Profile profile) throws JsonProcessingException{
-        Map<String,String> userMap = new HashMap<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        Profile returnProfile = profileDAO.save(profile);
-        String accessToken = jwtGenerators.encrypt(returnProfile.getEmail());
-        userMap.put(ApplicationConstants.PROFILE,objectMapper.writeValueAsString(returnProfile));
-        userMap.put(ApplicationConstants.ACCESS_TOKEN,accessToken);
-        return userMap;
+    public ResponseVO createProfile(Profile profile) throws AppException {
+    	// check weather email is already exist.
+    	if(Objects.nonNull(profileDAO.findByEmail(profile.getEmail()))) {
+    		return new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, 
+    				MessageReader.READER.getProperty("api.profile.create.emailexist"));
+    	}
+    	// try to create new profile
+    	profile.setRole(roleDAO.findByName(RoleStates._STUDENT));
+    	profile.setPassword(PasswordUtil.hashPassword(profile.getPassword()));
+        profile = profileDAO.save(profile);
+        String accessToken = jwtGenerators.encrypt(profile.getEmail());
+        return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, 
+        		MessageReader.READER.getProperty("api.profile.create.success"), profile, accessToken);
     }
 
     @Override

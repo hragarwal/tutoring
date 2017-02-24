@@ -30,7 +30,7 @@ public class Profile extends AuditableBaseEntity {
     @JoinColumn(name = "ROLE_ID", nullable = false)
     private Role role;
 
-    private boolean isActive;
+    private boolean isActive = true;
 
     public String getName() {
         return name;

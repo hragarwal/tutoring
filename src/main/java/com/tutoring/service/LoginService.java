@@ -1,14 +1,19 @@
 package com.tutoring.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.tutoring.exception.AppException;
 import com.tutoring.model.Profile;
-
-import java.util.Map;
+import com.tutoring.util.ResponseVO;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.
  */
 public interface LoginService {
-
-     Map<String,String> validateUser(Profile profile) throws JsonProcessingException;
+	
+	 /**
+	  * Authenticate the user on the basis of provided details. 
+	  * @param profile - profile details
+	  * @return - SUCCESS if profile details valid otherwise false
+	  * @throws AppException - throws exception
+	  */
+     public ResponseVO validateUser(Profile profile) throws AppException;
 }
