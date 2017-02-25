@@ -2,22 +2,22 @@
 angular.module('homePageController', ['factories','services'])
 .controller('homePageController', function($scope, LessonService, AppConstants) {
 	
-	
 	console.log("Inside lessonController");
 	
     $scope.headingTitle = "Create Lesson";
-    var lessons;
+
     LessonService.getAllLessons()
     .then(function successCallback(response) {
                 if(response.data.status = AppConstants.API_SUCCESS) {
-                	lessons = response.data.data;
+                	$scope.lessonList = response.data.data;
              	  } else {
              		  alert(response);
              	  }
               }, function errorCallback(response) {
                 console.error("There is a error..");
      });
-    $scope.lessonList = lessons;
+    
+    
     
     LessonService.getLessonSubjects()
     .then(function successCallback(response) {
