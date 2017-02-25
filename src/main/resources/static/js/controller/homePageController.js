@@ -59,7 +59,7 @@ angular.module('homePageController', ['factories','services'])
     	LessonService.getLesson(lessonId)
         .then(function successCallback(response) {
                     if(response.data.status = AppConstants.API_SUCCESS) {
-                 		  $scope.lesson = response.data.data;
+                 		  $location.path('openLesson.html')
                  	  } else {
                  		  alert(response);
                  	  }

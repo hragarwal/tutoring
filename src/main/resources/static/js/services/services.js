@@ -66,14 +66,17 @@ angular.module('services', ['factories'])
 		      });
 		    }
 	    this.getLesson = function (lessonId){
+	    	var lessonIDObj = {
+	    			"id":lessonID
+	    	}
 			  return $http({
-		        method: 'GET',
+		        method: 'POST',
 		        headers: {
 		          'accept': 'application/json',
 		          'content-type': 'application/json'
 		        },
-		        data: 
-		        url: '/fetchsubjects/'
+		        data: lessonIDObj,
+		        url: '/lessonByID/'
 		      });
 		    }
 	  });
