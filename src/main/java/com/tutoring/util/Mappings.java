@@ -17,4 +17,6 @@ public class Mappings {
 	
 	public static final String SEND_MESSAGE ="sendmessage";
 	
+	public static final String FETCH_SUBJECTS ="fetchsubjects";
+	
 }

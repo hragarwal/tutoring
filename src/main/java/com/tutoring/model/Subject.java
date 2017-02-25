@@ -12,6 +12,8 @@ import javax.persistence.Table;
 public class Subject extends PersistableBaseEntity {
 
     private String name;
+    
+    private boolean isActive = true;
 
     public String getName() {
         return name;
@@ -20,4 +22,13 @@ public class Subject extends PersistableBaseEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+    
 }
