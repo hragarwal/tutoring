@@ -21,12 +21,14 @@ public class Mappings {
 	
 	public static final String FETCH_LESSONS_BY_PROFILE ="fetchlessonsbyprofile";
 
-	public static final String IMAGE_URL="/images/";
+	public static final String IMAGE_URL=".jpeg";
 
-	public static final String JS_URL="/js/";
+	public static final String JS_URL=".js";
+
+	public static final String CSS_URL=".css";
+
+	public static final String HTML_URL=".html";
 
 	public static final String DEFAULT_URL="/";
 
-	public static final String STATIC_URL="/static";
-	
 }

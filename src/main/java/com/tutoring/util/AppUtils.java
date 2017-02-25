@@ -19,7 +19,7 @@ public class AppUtils {
 
 	/** The exclude URL. */
 	private static String [] excludeURL = { Mappings.LOGIN, Mappings.PROFILE,
-			Mappings.IMAGE_URL, Mappings.JS_URL, Mappings.STATIC_URL};
+			Mappings.IMAGE_URL, Mappings.JS_URL, Mappings.CSS_URL, Mappings.HTML_URL};
 	
 	static {
 		
