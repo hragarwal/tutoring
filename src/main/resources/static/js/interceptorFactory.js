@@ -1,6 +1,6 @@
 angular.module('interceptorFactory',[])
 
-    .factory('httpInterceptor',function($q){
+    .factory('httpInterceptor',function($q,$rootScope){
       var httpInterceptor = {
         request:function(config){
           return config;

@@ -25,9 +25,9 @@ app.config(function($routeProvider,$httpProvider){
         );
 })
 
-.run(function($rootScope){
+.run(function($rootScope,$location){
     $rootScope.$on('unauthorized', function() {
-        alert("user is not authorized");
+        console.log("user is not authorized");
         $location.path('login');
     });
 });

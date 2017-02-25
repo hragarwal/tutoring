@@ -18,7 +18,7 @@ angular.module('registerController', ['factories','services'])
           if(registerForm.$valid){
         	  ProfileService.createProfile($scope.profile)
                 .then(function successCallback(response) {
-                  if(response.data.status = AppConstants.API_SUCCESS) {
+                  if(response.data.status == AppConstants.API_SUCCESS) {
                		  alert(response.data.message);
                	  } else {
                		  alert(response.data.message);

@@ -14,7 +14,7 @@ angular.module('lessonController', ['factories','services'])
           if(lessonForm.$valid){
         	  LessonService.createLesson($scope.lesson)
                 .then(function successCallback(response) {
-                  if(response.data.status = AppConstants.API_SUCCESS) {
+                  if(response.data.status == AppConstants.API_SUCCESS) {
                		  alert(response.data.message);
                	  } else {
                		  alert(response.data.message);

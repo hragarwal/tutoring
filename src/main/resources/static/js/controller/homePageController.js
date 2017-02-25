@@ -8,7 +8,7 @@ angular.module('homePageController', ['factories','services'])
 
     LessonService.getAllLessons()
     .then(function successCallback(response) {
-                if(response.data.status = AppConstants.API_SUCCESS) {
+                if(response.data.status == AppConstants.API_SUCCESS) {
                 	$scope.lessonList = response.data.data;
              	  } else {
              		  alert(response);
@@ -21,7 +21,7 @@ angular.module('homePageController', ['factories','services'])
     
     LessonService.getLessonSubjects()
     .then(function successCallback(response) {
-                if(response.data.status = AppConstants.API_SUCCESS) {
+                if(response.data.status == AppConstants.API_SUCCESS) {
              		  $scope.subjectsList= response.data.data;
              	  } else {
              		  alert(response);
@@ -41,7 +41,7 @@ angular.module('homePageController', ['factories','services'])
         if(lessonForm.$valid){
       	  LessonService.createLesson($scope.lesson)
               .then(function successCallback(response) {
-                if(response.data.status = AppConstants.API_SUCCESS) {
+                if(response.data.status == AppConstants.API_SUCCESS) {
                 	$scope.lessonList = response.data.data;
              	  } else {
              		  alert(response.data.message);
@@ -58,7 +58,7 @@ angular.module('homePageController', ['factories','services'])
     {
     	LessonService.getLesson(lessonId)
         .then(function successCallback(response) {
-                    if(response.data.status = AppConstants.API_SUCCESS) {
+                    if(response.data.status == AppConstants.API_SUCCESS) {
                  		  $location.path('openLesson.html')
                  	  } else {
                  		  alert(response);
