@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tutoring.exception.AppException;
 import com.tutoring.model.Profile;
 import com.tutoring.service.LoginService;
 import com.tutoring.util.AppConstants;
@@ -27,7 +28,7 @@ public class CommonController extends AppController {
 	private LoginService loginService;
 
 	@RequestMapping(value = Mappings.LOGIN, method = RequestMethod.POST)
-	public ResponseVO validateUser(@RequestBody Profile profile, HttpServletRequest request, HttpServletResponse response) {
+	public ResponseVO validateUser(@RequestBody Profile profile, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
 		try {
 			responseVO = loginService.validateUser(profile);
@@ -36,9 +37,8 @@ public class CommonController extends AppController {
 				request.getSession().setAttribute(AppConstants.PROFILE, (Profile) responseVO.getData());
 			}
 		} catch (Exception e) {
-			//throw new AppException(logger, msgKey, entityName)
 			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
-			e.getMessage();
+			throw new AppException("Exception occurred while executing method validateUser with input ", e);
 		}
 		return responseVO;
 	}

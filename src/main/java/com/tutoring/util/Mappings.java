@@ -15,5 +15,6 @@ public class Mappings {
 	
 	public static final String NEW_LESSON ="newlesson";
 	
+	public static final String SEND_MESSAGE ="sendmessage";
 	
 }

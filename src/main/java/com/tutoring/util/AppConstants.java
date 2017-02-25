@@ -11,6 +11,18 @@ public final class AppConstants {
 	
 	public static final String DEFAULT_ERROR_MESSAGE = "Something went wrong. Please try again later. Thanks!";
 	
+	public static final String NEW_LINE = "\n";
+	
+	public static final String BLANK = "";
+	
+	public static final String SPACE = " ";
+	
+	public static final String HYPHEN = "-";
+	
+	public static final String COMMA = ",";
+	
+	public static final String SEMI_COLON = ";";
+	
 	public static final String TEXT_MESSAGE = "Message";
 	
 	public static final String TEXT_ERROR = "Error";

@@ -31,6 +31,8 @@ public class Profile extends AuditableBaseEntity {
     private Role role;
 
     private boolean isActive = true;
+    
+    private boolean isAllowedShare;
 
     public String getName() {
         return name;
@@ -95,5 +97,19 @@ public class Profile extends AuditableBaseEntity {
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
+
+	public boolean isAllowedShare() {
+		return isAllowedShare;
+	}
+
+	public void setAllowedShare(boolean isAllowedShare) {
+		this.isAllowedShare = isAllowedShare;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+    
+    
 }
 
