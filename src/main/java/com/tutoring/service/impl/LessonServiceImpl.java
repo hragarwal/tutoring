@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tutoring.dao.LessonDAO;
 import com.tutoring.dao.LessonStatusDAO;
+import com.tutoring.dao.SubjectDAO;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.service.LessonService;
@@ -24,7 +25,11 @@ public class LessonServiceImpl implements LessonService {
 	@Autowired
 	private LessonStatusDAO lessonStatusDAO;
 	
+	@Autowired
+	private SubjectDAO subjectDAO;
+	
 	public ResponseVO createLesson(Lesson lesson) throws AppException {
+		lesson.setSubject(subjectDAO.findOne(Long.valueOf(lesson.getSubjectID())));
 		lesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.AVAILABLE)));
 		lessonDAO.save(lesson);
 		return null;

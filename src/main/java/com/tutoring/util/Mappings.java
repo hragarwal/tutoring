@@ -19,4 +19,6 @@ public class Mappings {
 	
 	public static final String FETCH_SUBJECTS ="fetchsubjects";
 	
+	public static final String FETCH_LESSONS_BY_PROFILE ="fetchlessonsbyprofile";
+	
 }

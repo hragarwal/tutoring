@@ -63,6 +63,8 @@ public class Lesson extends AuditableBaseEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "LESSON_ID")
     private Set<LessonAnswer> answerFileList;
+    
+    private transient int subjectID;
 
     public Set<Files> getQuestionFileList() {
         return questionFileList;
@@ -183,4 +185,18 @@ public class Lesson extends AuditableBaseEntity {
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
+
+	public int getSubjectID() {
+		return subjectID;
+	}
+
+	public void setSubjectID(int subjectID) {
+		this.subjectID = subjectID;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+    
+    
 }
