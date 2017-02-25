@@ -77,7 +77,7 @@ public class MessageAspect {
 					logger.info("Message details= Description: " + message.getDescription()+ AppConstants.SPACE 
 								+" Sent By: " + message.getSenderProfile().getId() + AppConstants.SPACE 
 								+" Recevied To: " + message.getReceiverProfile().getId());
-					logger.error("Filtered Emails: "+ emails);
+					logger.info("Filtered Emails: "+ emails);
 					return new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, 
 								MessageReader.READER.getProperty("api.message.contains.illegal"));
 					
