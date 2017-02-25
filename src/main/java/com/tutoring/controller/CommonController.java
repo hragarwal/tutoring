@@ -38,7 +38,7 @@ public class CommonController extends AppController {
 			}
 		} catch (Exception e) {
 			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
-			throw new AppException("Exception occurred while executing method validateUser with input ", e);
+			throw new AppException(e);
 		}
 		return responseVO;
 	}

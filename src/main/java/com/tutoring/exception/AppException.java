@@ -22,6 +22,10 @@ public class AppException extends Exception {
 		this.message = msg;
 	}
 	
+	public AppException(Throwable e) {
+		this.nestedException = e;
+	}
+	
 	public AppException(String msg, Throwable nestedException) {
 		this.message = msg;
 		this.nestedException = nestedException;

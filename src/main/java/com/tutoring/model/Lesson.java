@@ -47,7 +47,7 @@ public class Lesson extends AuditableBaseEntity {
     private Double estimatedWorkEffort;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TUTOR_ID", nullable = false)
+    @JoinColumn(name = "TUTOR_ID")
     private Profile tutorProfile;
 
     private String feedback;

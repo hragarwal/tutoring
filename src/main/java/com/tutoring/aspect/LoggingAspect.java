@@ -22,7 +22,7 @@ public class LoggingAspect {
 	 */
 	@AfterThrowing(pointcut = "within(com.tutoring.controller.*)", throwing= "exception")
 	public void exceptionAdvice(JoinPoint joinPoint, AppException exception) {
-		logger.error(joinPoint.toString(), exception);
+		logger.error("An exception has been occurred while "+ joinPoint.toString(), exception);
 	}
 	
 }
