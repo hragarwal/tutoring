@@ -18,20 +18,21 @@ import com.tutoring.util.Mappings;
 import com.tutoring.util.ResponseVO;
 
 @RestController
-public class SubjectController extends AppController {
+@RequestMapping(Mappings.SUBJECT)
+public class SubjectController{
 
 	
 	@Autowired
 	private SubjectService subjectService;
 
-	@RequestMapping(value = Mappings.FETCH_SUBJECTS, method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseVO fetchSubjects(HttpServletRequest request, HttpServletResponse response) throws AppException {
-		ResponseVO responseVO = null;
+		ResponseVO responseVO;
 		try {
 			List<Subject> subjects = subjectService.getAllSubjects();
 			responseVO  = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,AppConstants.BLANK, subjects, null);
 		} catch (Exception e) {
-			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException("Exception occurred while executing method fetchSubjects ", e);
 		}
 		return responseVO;

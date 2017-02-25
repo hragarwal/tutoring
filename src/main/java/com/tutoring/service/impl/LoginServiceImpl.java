@@ -32,7 +32,7 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public ResponseVO validateUser(Profile profile) throws AppException {
-		ResponseVO responseVO = null;
+		ResponseVO responseVO;
 		String accessToken;
 		Profile returnProfile = profileDAO.findByEmail(profile.getEmail());
 		if(Objects.nonNull(returnProfile)){

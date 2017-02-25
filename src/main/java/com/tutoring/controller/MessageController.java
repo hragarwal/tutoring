@@ -16,7 +16,7 @@ import com.tutoring.util.Mappings;
 import com.tutoring.util.ResponseVO;
 
 @RestController
-public class MessageController extends AppController {
+public class MessageController{
 	
 	@InvalidMessage
 	@RequestMapping(value = Mappings.SEND_MESSAGE, method = RequestMethod.POST)
@@ -24,8 +24,8 @@ public class MessageController extends AppController {
 		ResponseVO responseVO = null;
 		try {
 		} catch (Exception e) {
-			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
-			throw new AppException("Exception occurred while executing method validateUser with input ");
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			throw new AppException(e);
 		}
 		return responseVO;
 	}

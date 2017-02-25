@@ -3,7 +3,7 @@ angular.module('factories',[])
 
     .constant("AppConstants", {
       "HTTP_BASE_URL": "http://localhost:8080",
-      "API_SUCCESS" : "0"
+      "API_SUCCESS" : 0
     })
 
     .factory('TutoringFactory', function(){

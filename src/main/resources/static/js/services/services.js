@@ -40,43 +40,40 @@ angular.module('services', ['factories'])
 	          'content-type': 'application/json'
 	        },
 	        data: lesson,
-	        url: '/newlesson/'
+	        url: '/lesson/'
 	      });
 	    }
 	    
 	    this.getLessonSubjects = function (){
 			  return $http({
-		        method: 'POST',
+		        method: 'GET',
 		        headers: {
 		          'accept': 'application/json',
 		          'content-type': 'application/json'
 		        },
-		        url: '/fetchsubjects/'
+		        url: '/subject/'
 		      });
 		    }
 	    
 	    this.getAllLessons = function (){
 			  return $http({
-		        method: 'POST',
+		        method: 'GET',
 		        headers: {
 		          'accept': 'application/json',
 		          'content-type': 'application/json'
 		        },
-		        url: '/fetchlessonsbyprofile/'
+		        url: '/lesson/profile'
 		      });
 		    }
+
 	    this.getLesson = function (lessonId){
-	    	var lessonIDObj = {
-	    			"id":lessonID
-	    	}
 			  return $http({
-		        method: 'POST',
+		        method: 'GET',
 		        headers: {
 		          'accept': 'application/json',
 		          'content-type': 'application/json'
 		        },
-		        data: lessonIDObj,
-		        url: '/lessonByID/'
+		        url: '/lesson/'+lessonId
 		      });
 		    }
 	  });

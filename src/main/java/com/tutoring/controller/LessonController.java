@@ -27,14 +27,15 @@ import com.tutoring.util.ResponseVO;
  */
 
 @RestController
-public class LessonController extends AppController {
+@RequestMapping(Mappings.LESSON)
+public class LessonController{
 
 	@Autowired
 	private LessonService lessonService;
 
-	@RequestMapping(value = Mappings.NEW_LESSON, method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseVO createLesson(@RequestBody Lesson lesson, HttpServletRequest request, HttpServletResponse response) throws AppException {
-		ResponseVO responseVO = null;
+		ResponseVO responseVO;
 		try {
 			//make sure only student are submitting lesson for now
 			Profile studentProfile = AppUtils.getCurrentUserProfile(request);
@@ -48,36 +49,36 @@ public class LessonController extends AppController {
 				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("api.message.lesson.create.error"));
 			}
 		} catch (Exception e) {
-			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("api.message.lesson.create.error"));
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 		return responseVO;
 	}
 
-	@RequestMapping(value = Mappings.FETCH_LESSONS_BY_PROFILE, method = RequestMethod.POST)
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ResponseVO getLessonByStudentProfile(HttpServletRequest request, HttpServletResponse response) throws AppException {
-		ResponseVO responseVO = null;
+		ResponseVO responseVO;
 		try {
 			Profile profile = AppUtils.getCurrentUserProfile(request);
 			List<Lesson> lessons = lessonService.getLessonsByProfile(profile.getId());
 			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_ERROR, AppConstants.SPACE,
 					lessons, null);
 		} catch (Exception e) {
-			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 		return responseVO;
 	}
 	
-	@RequestMapping(value = Mappings.LESSON, method = RequestMethod.POST) 
-    public ResponseVO getLesson(@RequestBody Lesson lesson, HttpServletRequest request, HttpServletResponse response) throws AppException {
-		ResponseVO responseVO = null;
+	@RequestMapping(value = "/{lessonId}", method = RequestMethod.GET)
+    public ResponseVO getLesson(@PathVariable("lessonId") long lessonId, HttpServletRequest request, HttpServletResponse response) throws AppException {
+		ResponseVO responseVO;
 		try {
-			Lesson lesson2 = lessonService.getLessonsByLessonId(lesson.getId());
+			Lesson lesson2 = lessonService.getLessonsByLessonId(lessonId);
 			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_ERROR, AppConstants.SPACE,
 					lesson2, null);
 		} catch (Exception e) {
-			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 		return responseVO;

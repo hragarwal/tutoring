@@ -1,7 +1,8 @@
-var app = angular.module('app', ['ngRoute','ngResource',
+var app = angular.module('app', ['ngRoute','ngResource','interceptorFactory',
                                 'loginController','registerController','lessonController','homePageController',
                                 'factories','services']);
-app.config(function($routeProvider){
+app.config(function($routeProvider,$httpProvider){
+    $httpProvider.interceptors.push('httpInterceptor');
     $routeProvider
         .when('/login',{
             templateUrl: '../views/login.html',
@@ -15,12 +16,19 @@ app.config(function($routeProvider){
             templateUrl: '../views/lesson.html',
             controller: 'LessonController'
         })
-        .when('/homePage',{
-            templateUrl: '../views/homePage.html',
+        .when('/home',{
+            templateUrl: '../views/home.html',
             controller: 'homePageController'
         })
         .otherwise(
             { redirectTo: '/login'}
         );
+})
+
+.run(function($rootScope){
+    $rootScope.$on('unauthorized', function() {
+        alert("user is not authorized");
+        $location.path('login');
+    });
 });
 

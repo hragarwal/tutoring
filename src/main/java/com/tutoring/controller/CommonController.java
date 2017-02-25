@@ -22,14 +22,14 @@ import com.tutoring.util.ResponseVO;
  * Created by himanshu.agarwal on 23-02-2017.
  */
 @RestController
-public class CommonController extends AppController {
+public class CommonController{
 
 	@Autowired
 	private LoginService loginService;
 
 	@RequestMapping(value = Mappings.LOGIN, method = RequestMethod.POST)
 	public ResponseVO validateUser(@RequestBody Profile profile, HttpServletRequest request, HttpServletResponse response) throws AppException {
-		ResponseVO responseVO = null;
+		ResponseVO responseVO;
 		try {
 			responseVO = loginService.validateUser(profile);
 			if(Objects.nonNull(responseVO) && responseVO.getStatus() == AppConstants.SUCCESS) {
@@ -37,7 +37,7 @@ public class CommonController extends AppController {
 				request.getSession().setAttribute(AppConstants.PROFILE, (Profile) responseVO.getData());
 			}
 		} catch (Exception e) {
-			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 		return responseVO;

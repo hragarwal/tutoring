@@ -12,8 +12,8 @@ angular.module('loginController', ['factories','services'])
         if(loginForm.$valid){
           LoginService.validateUser($scope.login)
               .then(function successCallback(response) {
-            	  if(response.data.status = AppConstants.API_SUCCESS) {
-            		  $location.path('homePage');
+            	  if(response.data.status == AppConstants.API_SUCCESS) {
+            		  $location.path('home');
             	  } else {
             		  alert(response.data.message);
             	  }
