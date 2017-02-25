@@ -10,7 +10,7 @@ angular.module('registerController', ['factories','services'])
     	        "contactNumber":"",
     	        "skypeId":"",
     	        "password":"",
-    	        "confirmPassword":"",
+    	        "confirmPassword":""
       };
       
       $scope.createProfile = function(registerForm){
