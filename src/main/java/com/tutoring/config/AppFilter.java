@@ -1,6 +1,7 @@
 package com.tutoring.config;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,6 +12,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tutoring.util.AppConstants;
+import com.tutoring.util.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -29,10 +32,7 @@ public class AppFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
-		chain.doFilter(request,response);
-		
-		/*HttpServletRequest  httpServletRequest = (HttpServletRequest) request;
+		HttpServletRequest  httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse  httpServletResponse = (HttpServletResponse) response;
 		setResponseHeaders(httpServletRequest, httpServletResponse);
 
@@ -47,7 +47,7 @@ public class AppFilter implements Filter {
 			httpServletResponse.setStatus(HttpServletResponse.SC_OK);
 			return;
 		}
-		else if(!AppUtils.isGoToLogin(httpServletRequest)){
+		else if(AppUtils.isExcludedURL(httpServletRequest)){
 			chain.doFilter(request,response);
 		}
 		else{
@@ -59,7 +59,7 @@ public class AppFilter implements Filter {
 					return;
 				}
 			}
-		}*/
+		}
 	}
 
 	public void setResponseHeaders(HttpServletRequest request, HttpServletResponse response){

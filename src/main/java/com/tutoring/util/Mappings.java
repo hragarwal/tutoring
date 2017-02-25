@@ -20,5 +20,13 @@ public class Mappings {
 	public static final String FETCH_SUBJECTS ="fetchsubjects";
 	
 	public static final String FETCH_LESSONS_BY_PROFILE ="fetchlessonsbyprofile";
+
+	public static final String IMAGE_URL="/images/";
+
+	public static final String JS_URL="/js/";
+
+	public static final String DEFAULT_URL="/";
+
+	public static final String STATIC_URL="/static";
 	
 }

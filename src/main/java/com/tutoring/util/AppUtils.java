@@ -18,7 +18,8 @@ public class AppUtils {
 	private static Pattern pattern;
 
 	/** The exclude URL. */
-	private static String [] excludeURL = { Mappings.LOGIN, Mappings.PROFILE};
+	private static String [] excludeURL = { Mappings.LOGIN, Mappings.PROFILE,
+			Mappings.IMAGE_URL, Mappings.JS_URL, Mappings.STATIC_URL};
 	
 	static {
 		
@@ -31,8 +32,11 @@ public class AppUtils {
 	 * @param request the request
 	 * @return true, if is go to login
 	 */
-	public static boolean isGoToLogin(HttpServletRequest request){
+	public static boolean isExcludedURL(HttpServletRequest request){
 		String uri = request.getRequestURI();
+		if(uri.equals(Mappings.DEFAULT_URL)){
+			return true;
+		}
 		for(String urlPart : excludeURL){
 			if(uri.contains(urlPart))
 				return true;

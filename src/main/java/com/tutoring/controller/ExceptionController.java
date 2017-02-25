@@ -1,5 +1,6 @@
 package com.tutoring.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tutoring.exception.AppException;
 
 
-@RestController
+@Controller
 @ControllerAdvice
 public class ExceptionController {
 	
