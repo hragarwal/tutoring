@@ -42,7 +42,7 @@ angular.module('homePageController', ['factories','services'])
       	  LessonService.createLesson($scope.lesson)
               .then(function successCallback(response) {
                 if(response.data.status = AppConstants.API_SUCCESS) {
-             		  alert('Created');
+                	$scope.lessonList = response.data.data;
              	  } else {
              		  alert(response.data.message);
              	  }
