@@ -1,4 +1,4 @@
-CREATE DATABASE 'tutoring';
+CREATE DATABASE tutoring;
 
 -- data for the table 'role'
 insert into role (id,name) values

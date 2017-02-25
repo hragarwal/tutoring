@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
-import com.tutoring.util.ResponseVO;
 
 public interface LessonService {
 	
@@ -14,7 +13,7 @@ public interface LessonService {
 	 * @return response for newly submitted lesson
 	 * @throws AppException
 	 */
-	public ResponseVO createLesson(Lesson lesson) throws AppException;
+	public boolean createLesson(Lesson lesson) throws AppException;
 	
 	/**
 	 * Returns list of all past lessons.
@@ -30,5 +29,12 @@ public interface LessonService {
 	 * @throws AppException
 	 */
 	public List<Lesson> getLessonsByProfile(long profileId) throws AppException;
+	
+	/**
+	 * Returns lesson details by lesson id.
+	 * @return lesson details for specific lesson id.
+	 * @throws AppException
+	 */
+	public Lesson getLessonsByLessonId(long lessonId) throws AppException;
 	
 }

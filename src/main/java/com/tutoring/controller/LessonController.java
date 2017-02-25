@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import com.tutoring.service.LessonService;
 import com.tutoring.util.AppConstants;
 import com.tutoring.util.AppUtils;
 import com.tutoring.util.Mappings;
+import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
 
 /**
@@ -34,11 +36,19 @@ public class LessonController extends AppController {
 	public ResponseVO createLesson(@RequestBody Lesson lesson, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
 		try {
+			//make sure only student are submitting lesson for now
 			Profile studentProfile = AppUtils.getCurrentUserProfile(request);
 			lesson.setStudentProfile(studentProfile);
-			responseVO = lessonService.createLesson(lesson);
+			boolean isSuccess = lessonService.createLesson(lesson);
+			if(isSuccess) {
+				List<Lesson> lessons = lessonService.getLessonsByProfile(studentProfile.getId());
+				responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.create.success"),
+						lessons, null);
+			} else {
+				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("api.message.lesson.create.error"));
+			}
 		} catch (Exception e) {
-			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
+			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("api.message.lesson.create.error"));
 			throw new AppException(e);
 		}
 		return responseVO;
@@ -58,13 +68,22 @@ public class LessonController extends AppController {
 		}
 		return responseVO;
 	}
-
-	/*@RequestMapping(value = "/", method = RequestMethod.PUT)
-    public void updateLesson(@RequestBody Lesson lesson){
-
+	
+	@RequestMapping(value = Mappings.LESSON, method = RequestMethod.POST) 
+    public ResponseVO getLesson(@RequestBody Lesson lesson, HttpServletRequest request, HttpServletResponse response) throws AppException {
+		ResponseVO responseVO = null;
+		try {
+			Lesson lesson2 = lessonService.getLessonsByLessonId(lesson.getId());
+			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_ERROR, AppConstants.SPACE,
+					lesson2, null);
+		} catch (Exception e) {
+			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
+			throw new AppException(e);
+		}
+		return responseVO;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Lesson> getAllLesson(){
         return null;
     }*/

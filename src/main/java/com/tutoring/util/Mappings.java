@@ -30,5 +30,7 @@ public class Mappings {
 	public static final String HTML_URL=".html";
 
 	public static final String DEFAULT_URL="/";
+	
+	public static final String LESSON = "lessonByID";
 
 }

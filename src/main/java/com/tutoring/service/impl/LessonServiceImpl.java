@@ -15,7 +15,6 @@ import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.service.LessonService;
 import com.tutoring.util.LessonStates;
-import com.tutoring.util.ResponseVO;
 
 @Service
 @Transactional
@@ -30,11 +29,11 @@ public class LessonServiceImpl implements LessonService {
 	@Autowired
 	private SubjectDAO subjectDAO;
 
-	public ResponseVO createLesson(Lesson lesson) throws AppException {
+	public boolean createLesson(Lesson lesson) throws AppException {
 		lesson.setSubject(subjectDAO.findOne(Long.valueOf(lesson.getSubjectID())));
 		lesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.AVAILABLE)));
 		lessonDAO.save(lesson);
-		return null;
+		return true;
 	}
 
 	@Override
@@ -48,4 +47,8 @@ public class LessonServiceImpl implements LessonService {
 		return lessonDAO.getLessonsByProfileID(profileId);
 	}
 
+	@Override
+	public Lesson getLessonsByLessonId(long lessonId) throws AppException {
+		return lessonDAO.findOne(Long.valueOf(lessonId));
+	}
 }
