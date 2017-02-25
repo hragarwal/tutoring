@@ -30,7 +30,9 @@
    
    <tr ng-repeat = "lesson in lessonList">
       <td>{{$index+1}}</td>
-      <td>{{lesson.subject.name}}</td>
+      
+      <td><a href ng-click="openLesson(lesson.id)">{{lesson.subject.name}}</a></td>
+      
       <td>{{lesson.taskDescription}}</td>
       <td>{{lesson.title}}</td>
       <td>{{lesson.status.name}}</td>
@@ -102,6 +104,11 @@
     </div>
 
 </div>
+		</div>
+		
+		
+		<div ng-show="active" ng-if="active=='viewLesson'">
+		hihihiih
 		</div>
 		
 		<div ng-show="active" ng-if="active=='profile'">

@@ -54,4 +54,18 @@ angular.module('homePageController', ['factories','services'])
         }
       }
     
+    $scope.openLesson = function(lessonId)
+    {
+    	LessonService.getLesson(lessonId)
+        .then(function successCallback(response) {
+                    if(response.data.status = AppConstants.API_SUCCESS) {
+                 		  $scope.lesson = response.data.data;
+                 	  } else {
+                 		  alert(response);
+                 	  }
+                  }, function errorCallback(response) {
+                    console.error("There is a error..");
+         });
+    };
+    
 });

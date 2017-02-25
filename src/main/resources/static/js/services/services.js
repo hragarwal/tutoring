@@ -65,4 +65,15 @@ angular.module('services', ['factories'])
 		        url: '/fetchlessonsbyprofile/'
 		      });
 		    }
+	    this.getLesson = function (lessonId){
+			  return $http({
+		        method: 'GET',
+		        headers: {
+		          'accept': 'application/json',
+		          'content-type': 'application/json'
+		        },
+		        data: 
+		        url: '/fetchsubjects/'
+		      });
+		    }
 	  });
