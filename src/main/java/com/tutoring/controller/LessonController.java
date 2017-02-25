@@ -1,5 +1,8 @@
 package com.tutoring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tutoring.model.Lesson;
 import com.tutoring.service.LessonService;
-import com.tutoring.service.SubjectService;
 import com.tutoring.util.AppConstants;
 import com.tutoring.util.Mappings;
 import com.tutoring.util.ResponseVO;
@@ -24,7 +26,7 @@ public class LessonController extends AppController {
 	private LessonService lessonService;
 	
     @RequestMapping(value = Mappings.NEW_LESSON, method = RequestMethod.POST)
-    public ResponseVO createLesson(@RequestBody Lesson lesson) {
+    public ResponseVO createLesson(@RequestBody Lesson lesson, HttpServletRequest request, HttpServletResponse response) {
     	ResponseVO responseVO = null;
 		try {
 			responseVO = lessonService.createLesson(lesson);
