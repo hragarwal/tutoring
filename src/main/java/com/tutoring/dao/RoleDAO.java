@@ -1,7 +1,8 @@
 package com.tutoring.dao;
 
-import com.tutoring.model.Role;
 import org.springframework.data.repository.CrudRepository;
+
+import com.tutoring.model.Role;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.

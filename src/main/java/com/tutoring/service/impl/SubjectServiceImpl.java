@@ -26,5 +26,4 @@ public class SubjectServiceImpl implements SubjectService {
 		return IteratorUtils.toList(profileIterable);
 	}
 
-
 }

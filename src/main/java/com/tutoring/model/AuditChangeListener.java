@@ -1,10 +1,11 @@
 package com.tutoring.model;
 
-import org.springframework.beans.factory.annotation.Configurable;
+import java.util.Date;
 
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Configurable;
 
 /**
  * Created by himanshu.agarwal on 20-02-2017.

@@ -1,7 +1,8 @@
 package com.tutoring.dao;
 
-import com.tutoring.model.Files;
 import org.springframework.data.repository.CrudRepository;
+
+import com.tutoring.model.Files;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.

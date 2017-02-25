@@ -25,10 +25,10 @@ public interface LessonService {
 	
 	
 	/**
-	 * Returns list of all past lessons for student profile.
+	 * Returns list of all past lessons for profile.
 	 * @return list of all lesson for specific student
 	 * @throws AppException
 	 */
-	public List<Lesson> getLessonsByStudentProfile() throws AppException;
+	public List<Lesson> getLessonsByProfile(long profileId) throws AppException;
 	
 }

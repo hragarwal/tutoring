@@ -18,7 +18,7 @@ public class AppUtils {
 	private static Pattern pattern;
 
 	/** The exclude URL. */
-	private static String [] excludeURL = { Mappings.HOME, Mappings.LOGIN, Mappings.PROFILE};
+	private static String [] excludeURL = { Mappings.LOGIN, Mappings.PROFILE};
 	
 	static {
 		

@@ -1,11 +1,25 @@
 package com.tutoring.dao;
 
-import com.tutoring.model.Lesson;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import com.tutoring.model.Lesson;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.
  */
 public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	
+	
+	/**
+	 * 
+	 * @param profileID - profile id of user to fetch lesson
+	 * @return
+	 */
+	@Query("select l from Lesson l where studentProfile.id=:profileId")
+	public List<Lesson> getLessonsByProfileID(@Param("profileId") long profileId);
+		
 }

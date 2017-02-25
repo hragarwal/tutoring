@@ -32,8 +32,6 @@ public class AppFilter implements Filter {
 		
 		chain.doFilter(request,response);
 		
-		
-		
 		/*HttpServletRequest  httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse  httpServletResponse = (HttpServletResponse) response;
 		setResponseHeaders(httpServletRequest, httpServletResponse);

@@ -1,13 +1,13 @@
 package com.tutoring.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.tutoring.exception.AppException;
 
 
-@Controller
+@RestController
 @ControllerAdvice
 public class ExceptionController {
 	

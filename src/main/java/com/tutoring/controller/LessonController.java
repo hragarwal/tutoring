@@ -48,7 +48,8 @@ public class LessonController extends AppController {
 	public ResponseVO getLessonByStudentProfile(HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
 		try {
-			List<Lesson> lessons = lessonService.getLessonsByStudentProfile();
+			Profile profile = AppUtils.getCurrentUserProfile(request);
+			List<Lesson> lessons = lessonService.getLessonsByProfile(profile.getId());
 			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_ERROR, AppConstants.SPACE,
 					lessons, null);
 		} catch (Exception e) {
