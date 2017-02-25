@@ -76,4 +76,15 @@ angular.module('services', ['factories'])
 		        url: '/lesson/'+lessonId
 		      });
 		    }
-	  });
+	  })
+
+		.service('FileService', function ($http) {
+				this.uploadFile = function(file){
+					var fd = new FormData();
+					fd.append('file', file);
+					$http.post('/file/upload', fd, {
+						transformRequest: angular.identity,
+						headers: {'Content-Type': undefined}
+					});
+				}
+		});
