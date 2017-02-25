@@ -43,4 +43,26 @@ angular.module('services', ['factories'])
 	        url: '/newlesson/'
 	      });
 	    }
+	    
+	    this.getLessonSubjects = function (){
+			  return $http({
+		        method: 'POST',
+		        headers: {
+		          'accept': 'application/json',
+		          'content-type': 'application/json'
+		        },
+		        url: '/fetchsubjects/'
+		      });
+		    }
+	    
+	    this.getAllLessons = function (){
+			  return $http({
+		        method: 'POST',
+		        headers: {
+		          'accept': 'application/json',
+		          'content-type': 'application/json'
+		        },
+		        url: '/fetchlessonsbyprofile/'
+		      });
+		    }
 	  });

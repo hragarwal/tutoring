@@ -1,5 +1,5 @@
 var app = angular.module('app', ['ngRoute','ngResource',
-                                'loginController','registerController','lessonController',
+                                'loginController','registerController','lessonController','homePageController',
                                 'factories','services']);
 app.config(function($routeProvider){
     $routeProvider
@@ -14,6 +14,10 @@ app.config(function($routeProvider){
         .when('/newlesson',{
             templateUrl: '../views/lesson.html',
             controller: 'LessonController'
+        })
+        .when('/homePage',{
+            templateUrl: '../views/homePage.html',
+            controller: 'homePageController'
         })
         .otherwise(
             { redirectTo: '/login'}

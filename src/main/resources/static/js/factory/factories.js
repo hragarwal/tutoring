@@ -2,7 +2,7 @@ angular.module('factories',[])
 
 
     .constant("AppConstants", {
-      "HTTP_BASE_URL": "http://localhost:8080",
+      "HTTP_BASE_URL": "http://192.168.0.14:8080",
       "API_SUCCESS" : "0"
     })
 

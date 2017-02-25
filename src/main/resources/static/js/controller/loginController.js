@@ -1,5 +1,5 @@
 angular.module('loginController', ['factories','services'])
-    .controller('LoginController', function($scope,LoginService,AppConstants) {
+    .controller('LoginController', function($scope,LoginService,AppConstants,$location) {
       console.log("Inside loginController");
 
       $scope.login={
@@ -13,7 +13,7 @@ angular.module('loginController', ['factories','services'])
           LoginService.validateUser($scope.login)
               .then(function successCallback(response) {
             	  if(response.data.status = AppConstants.API_SUCCESS) {
-            		  alert(response.data.message);
+            		  $location.path('homePage');
             	  } else {
             		  alert(response.data.message);
             	  }
