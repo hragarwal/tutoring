@@ -61,4 +61,6 @@ public class Message extends AuditableBaseEntity {
     public void setReceiverProfile(Profile receiverProfile) {
         this.receiverProfile = receiverProfile;
     }
+    
+    
 }

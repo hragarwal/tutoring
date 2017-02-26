@@ -28,7 +28,7 @@ import com.tutoring.util.ResponseVO;
 
 @RestController
 @RequestMapping(Mappings.LESSON)
-public class LessonController{
+public class LessonController {
 
 	@Autowired
 	private LessonService lessonService;
@@ -40,6 +40,7 @@ public class LessonController{
 			//make sure only student are submitting lesson for now
 			Profile studentProfile = AppUtils.getCurrentUserProfile(request);
 			lesson.setStudentProfile(studentProfile);
+			lesson.setCreatedBy(studentProfile.getEmail());
 			boolean isSuccess = lessonService.createLesson(lesson);
 			if(isSuccess) {
 				List<Lesson> lessons = lessonService.getLessonsByProfile(studentProfile.getId());

@@ -77,6 +77,20 @@ public class AppUtils {
 
 		return null;
 	}
+	
+	/**
+	 * Return the profile id of current user
+	 * @param request - http servlet request 
+	 * @return current profile details
+	 */
+	public static long getCurrentUserProfileID(HttpServletRequest  request)  {
+		Object object = request.getSession().getAttribute(AppConstants.PROFILE);
+		if(Objects.nonNull(object)) {
+			Profile profile =  (Profile) object;
+				return profile.getId();
+		}
+		return 0;
+	}
 
 	/**
 	 * Return list of email contains in message

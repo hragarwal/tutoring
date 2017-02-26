@@ -3,6 +3,7 @@ package com.tutoring.aspect;
 import java.util.List;
 import java.util.Objects;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -30,7 +31,6 @@ public class MessageAspect {
 
 	/** The logger. */
 	private Logger logger = LoggerFactory.getLogger(MessageAspect.class);
-
 	
 	/**
 	 * This advice process the message transfer between users. If any message contains illegal text
@@ -45,42 +45,45 @@ public class MessageAspect {
 		ResponseVO responseVO = null;
 		try {
 			Object [] args = proceedingJoinPoint.getArgs();
-			Profile profile = null;
+			Profile currentProfile = null;
 			Message message = null;
 			// retrieve the input arguments
-			if(args != null) {
+			if(Objects.nonNull(args)) {
 				for(Object object : args) {
-					if(object instanceof HttpServletRequest) {
+					if(object instanceof ServletRequest) {
 						HttpServletRequest request = (HttpServletRequest) object;
-						profile = AppUtils.getCurrentUserProfile(request);
+						currentProfile = AppUtils.getCurrentUserProfile(request);
 					}
 					else if(object instanceof Message) {
 						message = (Message) object;
-					}
+					} 
 				}
 			}
-			if(profile == null) {
+			
+			if(Objects.isNull(message)) {
+				proceedingJoinPoint.proceed();
+			}
+			else if(Objects.isNull(currentProfile)) {
 				logger.info(AppConstants.NEW_LINE+ "Please check method signature -> profile == null: "+ 
 						proceedingJoinPoint.toString() + AppConstants.NEW_LINE);
 				responseVO = (ResponseVO) proceedingJoinPoint.proceed();
 			}
 			// any message is allowed 
-			else if(profile.isAllowedShare()) {
+			else if(currentProfile.isAllowedShare()) {
 				responseVO = (ResponseVO) proceedingJoinPoint.proceed();
 			}  
 			else {
 				List<String> emails = AppUtils.containsEmailInMessage(message.getDescription());
-				// trying to share personal information
+				// if trying to share personal information
 				if(Objects.nonNull(emails) && !emails.isEmpty()) {
 					logger.info("======== Personal Information Shared Capture ========");
-					logger.info("Profile details= Email: " + profile.getEmail()+ AppConstants.SPACE +" Role: " + profile.getRole().getName());
-					logger.info("Message details= Description: " + message.getDescription()+ AppConstants.SPACE 
-								+" Sent By: " + message.getSenderProfile().getId() + AppConstants.SPACE 
-								+" Recevied To: " + message.getReceiverProfile().getId());
+					logger.info("Profile details= Email: " + currentProfile.getEmail()+ AppConstants.SPACE +" Role: " + currentProfile.getRole().getName());
+					logger.info("Message details= Description: " + message.getDescription()); 
+					logger.info("Sent By: " + currentProfile.getId()); 
+					logger.info(" Lesson Id: " + message.getLesson().getId());
 					logger.info("Filtered Emails: "+ emails);
 					return new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, 
 								MessageReader.READER.getProperty("api.message.contains.illegal"));
-					
 				} else {
 					responseVO = (ResponseVO) proceedingJoinPoint.proceed();
 				}

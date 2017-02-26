@@ -13,11 +13,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.tutoring.util.AppConstants;
-import com.tutoring.util.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import com.tutoring.util.AppConstants;
+import com.tutoring.util.AppUtils;
 import com.tutoring.util.JWTGenerators;
 
 public class AppFilter implements Filter {
