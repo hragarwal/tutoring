@@ -1,5 +1,7 @@
 package com.tutoring.service;
 
+import java.util.List;
+
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Message;
 import com.tutoring.util.ResponseVO;
@@ -14,4 +16,12 @@ public interface MessageService {
 	 * @throws AppException
 	 */
 	public ResponseVO save(Message message) throws AppException;
+	
+	/**
+	 * Fetch all message for lesson.
+	 * @param lessonId - lesson id 
+	 * @return list of message details
+	 * @throws AppException
+	 */
+	public List<Message> getMessageByLessonId(long lessonId) throws AppException;
 }

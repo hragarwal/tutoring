@@ -1,5 +1,8 @@
 package com.tutoring.controller;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
+import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,10 +70,8 @@ public class MessageController{
 	public ResponseVO getMessageByLessonId(@PathVariable("lessonId") long lessonId, @RequestBody Message message, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
 		try {
-			responseVO = messageService.save(message);
-			if(Objects.isNull(responseVO)) {
-				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.message.send.error"));
-			}
+			List<Message> messages = messageService.getMessageByLessonId(lessonId);
+			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, messages, null);
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
