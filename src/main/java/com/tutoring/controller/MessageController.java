@@ -69,7 +69,7 @@ public class MessageController{
 	}
 
 	@RequestMapping(value = "/{lessonId}", method = RequestMethod.GET)
-	public ResponseVO getMessageByLessonId(@PathVariable("lessonId") long lessonId, @RequestBody Message message, HttpServletRequest request, HttpServletResponse response) throws AppException {
+	public ResponseVO getMessageByLessonId(@PathVariable("lessonId") long lessonId, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
 		try {
 			List<Message> messages = messageService.getMessageByLessonId(lessonId);

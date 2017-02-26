@@ -17,7 +17,6 @@ import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.model.Profile;
 import com.tutoring.service.LessonService;
-import com.tutoring.service.ProfileService;
 import com.tutoring.util.AppUtils;
 import com.tutoring.util.LessonStates;
 import com.tutoring.util.MessageReader;
@@ -34,9 +33,6 @@ public class AuthorizeAspect {
 	@Autowired
 	private LessonService lessonService;
 	
-	@Autowired
-	private ProfileService profileService;
-
 	/**
 	 * This advice used to authorize lesson details for only allowed user.
 	 *
@@ -44,7 +40,7 @@ public class AuthorizeAspect {
 	 * @throws AppException the app exception
 	 */
 	@Before("@annotation(com.tutoring.annotations.LessonAuthorize) && args(..)")
-	public void lessonAuthorize(JoinPoint joinPoint) throws AppException {
+	public void lessonAuthorizeAdvice(JoinPoint joinPoint) throws AppException {
 
 		Profile currentProfile = null;
 		HttpServletResponse response = null;
@@ -88,7 +84,6 @@ public class AuthorizeAspect {
 			}
 		}
 	}
-	
 	
 
 	/**
