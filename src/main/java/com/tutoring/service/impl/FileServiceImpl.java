@@ -28,7 +28,8 @@ public class FileServiceImpl implements FileService {
     private String directory;
 
     @Override
-    public ResponseVO uploadFile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException{
+    public ResponseVO uploadFile(MultipartHttpServletRequest multipartHttpServletRequest,
+                                 long profileId) throws IOException{
         ResponseVO responseVO = new ResponseVO();
         FileOutputStream fileOutputStream=null;
         try {
@@ -38,7 +39,8 @@ public class FileServiceImpl implements FileService {
                 MultipartFile multipartFile = multipartHttpServletRequest.getFile(uploadedFile);
                 String filename = multipartFile.getOriginalFilename();
                 byte[] bytes = multipartFile.getBytes();
-                File file = new File(directory+filename);
+                File file = new File(directory+profileId+AppConstants.FORWARD_SLASH+filename);
+                file.getParentFile().mkdirs();
                 file.createNewFile();
                 fileOutputStream = new FileOutputStream(file);
                 fileOutputStream.write(bytes);

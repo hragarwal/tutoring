@@ -14,6 +14,8 @@ public final class AppConstants {
 	public static final String NEW_LINE = "\n";
 	
 	public static final String BLANK = "";
+
+	public static final String FORWARD_SLASH = "/";
 	
 	public static final String SPACE = " ";
 	

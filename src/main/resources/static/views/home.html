@@ -99,6 +99,26 @@
 	        </div>
 	    </div> -->
 	</form>
+
+		<div class="col-xs-6 col-xs-offset-3" style="width: 600px;">
+			<div class="well">
+				<form action="" class="dropzone" dropzone="" id="dropzone">
+					<div class="dz-default dz-message">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="pull-right">
+			<!--<button class="btn btn-success" ng-click="processDropzone()">Upload File</button>-->
+			<button class="btn btn-danger" ng-click="resetDropzone()">Reset drop wizard</button>
+		</div>
+		<!--<div>
+			<form>
+				<label>File to download</label>
+				<input ng-model="filename" type="text" placeholder="Filename" />
+				<a class="btn btn-primary" href="" ng-href="{{ partialDownloadLink + filename }}">Download File</a>
+			</form>
+		</div>-->
 	
         <button type="submit" ng-click="createLesson(lessonForm)">
             <span>Submit Lesson</span>

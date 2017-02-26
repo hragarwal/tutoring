@@ -11,5 +11,5 @@ import com.tutoring.util.ResponseVO;
  */
 public interface FileService {
 
-    ResponseVO uploadFile(MultipartHttpServletRequest multipartHttpServletRequest) throws IOException;
+    ResponseVO uploadFile(MultipartHttpServletRequest multipartHttpServletRequest, long profileId) throws IOException;
 }

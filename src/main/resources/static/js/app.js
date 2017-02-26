@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute','ngResource','ngStorage','interceptorFactory',
+var app = angular.module('app', ['ngRoute','ngResource','ngStorage','interceptorFactory','fileAppDirectives',
                                 'loginController','registerController','homeController','lessonController',
                                 'factories','services']);
 app.config(function($routeProvider,$httpProvider){
