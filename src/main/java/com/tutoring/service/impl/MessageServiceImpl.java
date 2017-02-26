@@ -3,6 +3,8 @@ package com.tutoring.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tutoring.dao.MessageDAO;
 import com.tutoring.exception.AppException;
@@ -11,7 +13,8 @@ import com.tutoring.service.MessageService;
 import com.tutoring.util.AppConstants;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
-
+@Service
+@Transactional
 public class MessageServiceImpl implements MessageService {
 
 	@Autowired
