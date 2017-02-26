@@ -12,31 +12,31 @@ import java.util.Map;
 public class LessonStates {
 
 	/**  lesson requested. */
-	public static int AVAILABLE = 1;
+	public static long AVAILABLE = 1;
 
 	/** The accepted. */
-	public static int ACCEPTED = 2;
+	public static long ACCEPTED = 2;
 
 	/** The rejected. */
-	public static int REJECTED = 4;
+	public static long REJECTED = 4;
 
 	/** The in progress. */
-	public static int IN_PROGRESS = 8;
+	public static long IN_PROGRESS = 8;
 
 	/** The waiting payment. */
-	public static int WAITING_PAYMENT = 16;
+	public static long WAITING_PAYMENT = 16;
 
 	/** The submitted. */
-	public static int SUBMITTED = 32;
+	public static long SUBMITTED = 32;
 
 	/** The completed. */
-	public static int COMPLETED = 64;
+	public static long COMPLETED = 64;
 
 	/** The cancelled. */
-	public static int CANCELLED = 128;
+	public static long CANCELLED = 128;
 	
 	/** The expired. */
-	public static int EXPIRED = 256;
+	public static long EXPIRED = 256;
 
 	/** The  available. */
 	public static String _AVAILABLE = "Available";
@@ -66,7 +66,7 @@ public class LessonStates {
 	public static String _EXPIRED = "Expired";
 
 	/** The states. */
-	private static Map<Integer, String> states = new HashMap<>();
+	private static Map<Long, String> states = new HashMap<>();
 
 	static {
 		states.put(AVAILABLE, _AVAILABLE);
@@ -95,8 +95,19 @@ public class LessonStates {
 	 *
 	 * @return the all lesson states
 	 */
-	public static Map<Integer, String> getAllLessonStates() {
+	public static Map<Long, String> getAllLessonStates() {
 		return states;
+	}
+	
+	/**
+	 * Checks lesson states.
+	 *
+	 * @param lessonStates status of lesson
+	 * @param allowedStates the allowed states
+	 * @return true, if is role accessible
+	 */
+	public static boolean isLessonStates(long lessonStates, long allowedStates){
+		return (lessonStates & allowedStates) > 0 ? true : false;
 	}
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tutoring.annotations.LessonAuthorize;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.model.Profile;
@@ -56,6 +57,7 @@ public class LessonController {
 		return responseVO;
 	}
 
+	//@LessonAuthorize - not required as we are fetching profile for that particular user only from current session
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ResponseVO getLessonByStudentProfile(HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO;
@@ -71,6 +73,7 @@ public class LessonController {
 		return responseVO;
 	}
 	
+	@LessonAuthorize
 	@RequestMapping(value = "/{lessonId}", method = RequestMethod.GET)
     public ResponseVO getLesson(@PathVariable("lessonId") long lessonId, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO;

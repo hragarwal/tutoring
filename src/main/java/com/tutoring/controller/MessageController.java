@@ -29,13 +29,13 @@ import com.tutoring.util.ResponseVO;
 @RestController
 @RequestMapping(Mappings.MESSAGE)
 public class MessageController{
-	
+
 	@Autowired
 	private MessageService messageService;
-	
+
 	@Autowired
 	private LessonService lessonService;
-	
+
 	@InvalidMessage
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseVO sendMessage(@RequestBody Message message, HttpServletRequest request, HttpServletResponse response) throws AppException {
@@ -44,13 +44,17 @@ public class MessageController{
 			Lesson lesson = lessonService.getLessonsByLessonId(message.getLesson().getId());
 			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
 			message.setSenderProfile(currentProfile);
-			
+
 			//if sender id  equals student id than message is generated for tutor 
-			if(currentProfile.getId() == lesson.getStudentProfile().getId())
-				message.setReceiverProfile(lesson.getTutorProfile());
-			else   
+			if(currentProfile.getId() == lesson.getStudentProfile().getId()) {
+				Profile tutorProfile = lesson.getTutorProfile();
+				if(Objects.nonNull(tutorProfile)) 
+					message.setReceiverProfile(tutorProfile);
+			}
+			else {   
 				message.setReceiverProfile(lesson.getStudentProfile());
-			
+			}
+
 			message.setLesson(lesson);
 			message.setCreatedBy(currentProfile.getEmail());
 			responseVO = messageService.save(message);
@@ -63,7 +67,7 @@ public class MessageController{
 		}
 		return responseVO;
 	}
-	
+
 	@RequestMapping(value = "/{lessonId}", method = RequestMethod.GET)
 	public ResponseVO getMessageByLessonId(@PathVariable("lessonId") long lessonId, @RequestBody Message message, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
