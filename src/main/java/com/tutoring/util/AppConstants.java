@@ -30,6 +30,8 @@ public final class AppConstants {
 	public static final String TEXT_ERROR = "Error";
 	
     public static final String PROFILE="profile";
+
+	public static final String LESSON="lesson";
     
     public static final String ACCESS_TOKEN="accessToken";
     

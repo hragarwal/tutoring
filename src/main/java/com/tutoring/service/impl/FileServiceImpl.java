@@ -39,7 +39,10 @@ public class FileServiceImpl implements FileService {
                 MultipartFile multipartFile = multipartHttpServletRequest.getFile(uploadedFile);
                 String filename = multipartFile.getOriginalFilename();
                 byte[] bytes = multipartFile.getBytes();
-                File file = new File(directory+profileId+AppConstants.FORWARD_SLASH+filename);
+                File file = new File(directory+
+                        AppConstants.PROFILE+AppConstants.FORWARD_SLASH+
+                        profileId+AppConstants.FORWARD_SLASH+
+                        filename);
                 file.getParentFile().mkdirs();
                 file.createNewFile();
                 fileOutputStream = new FileOutputStream(file);

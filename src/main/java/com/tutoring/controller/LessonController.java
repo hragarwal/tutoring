@@ -42,7 +42,7 @@ public class LessonController {
 			Profile studentProfile = AppUtils.getCurrentUserProfile(request);
 			lesson.setStudentProfile(studentProfile);
 			lesson.setCreatedBy(studentProfile.getEmail());
-			boolean isSuccess = lessonService.createLesson(lesson);
+			boolean isSuccess = lessonService.createLesson(lesson,studentProfile.getId());
 			if(isSuccess) {
 				List<Lesson> lessons = lessonService.getLessonsByProfile(studentProfile.getId());
 				responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.create.success"),
