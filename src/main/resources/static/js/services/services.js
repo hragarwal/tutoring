@@ -76,6 +76,38 @@ angular.module('services', ['factories'])
 		        url: '/lesson/'+lessonId
 		      });
 		    }
+	    
+	    this.postMyMessage = function (userMessage, lessonID){
+	    	var postLessonMessage = {
+	    			"lesson":{
+	    				"id":lessonID
+	    			},
+	    			"description":userMessage
+	    		
+	    	}
+			  return $http({
+		        method: 'POST',
+		        headers: {
+		          'accept': 'application/json',
+		          'content-type': 'application/json'
+		        },
+		        data: postLessonMessage,
+		        url: '/message/'
+		      });
+		    }
+	    
+	    this.getAllMessagesForLesson = function (lessonID){
+	    	
+			  return $http({
+		        method: 'GET',
+		        headers: {
+		          'accept': 'application/json',
+		          'content-type': 'application/json'
+		        },
+		        url: '/message/'+lessonID
+		      });
+		    }
+	    
 	  })
 
 		.service('FileService', function ($http) {

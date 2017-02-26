@@ -1,6 +1,6 @@
 
 angular.module('homePageController', ['factories','services'])
-.controller('homePageController', function($scope, LessonService, AppConstants) {
+.controller('homePageController', function($scope, LessonService, AppConstants, $location, $sessionStorage) {
 	
 	console.log("Inside lessonController");
 	
@@ -43,6 +43,7 @@ angular.module('homePageController', ['factories','services'])
               .then(function successCallback(response) {
                 if(response.data.status == AppConstants.API_SUCCESS) {
                 	$scope.lessonList = response.data.data;
+                	alert("created");
              	  } else {
              		  alert(response.data.message);
              	  }
@@ -59,7 +60,9 @@ angular.module('homePageController', ['factories','services'])
     	LessonService.getLesson(lessonId)
         .then(function successCallback(response) {
                     if(response.data.status == AppConstants.API_SUCCESS) {
-                 		  $location.path('openLesson.html')
+                    	$sessionStorage.lesson = response.data.data;
+                    	$location.path('lessondetail');
+                    	
                  	  } else {
                  		  alert(response);
                  	  }

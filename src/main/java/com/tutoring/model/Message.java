@@ -18,7 +18,7 @@ public class Message extends AuditableBaseEntity {
     @Column(nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "LESSON_ID", nullable = false)
     private Lesson lesson;
 

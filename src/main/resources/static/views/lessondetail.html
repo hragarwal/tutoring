@@ -1,0 +1,54 @@
+<div align="center">
+	<table border="1">
+   <tr>
+   	
+   	<th>Subject</th>
+      <th>Task Description</th>
+      <th>Title</th>
+      <th>Status</th>
+   </tr>
+   
+   <tr>
+      
+      <td>{{lesson.subject.name}}</td>
+      
+      <td>{{lesson.taskDescription}}</td>
+      <td>{{lesson.title}}</td>
+      <td>{{lesson.status.name}}</td>
+   </tr>
+</table>
+
+<br><br>
+
+<b>Messages</b>
+
+
+<div align="center">
+<table border="1">
+   <tr>
+   	<th>#</th>
+   	<th>Sender</th>
+      <th>Message/Query</th>
+      <th>Sent At</th>
+   </tr>
+   
+   <tr ng-repeat="message in messageList">
+      <td>{{$index+1}}</td>
+      <td>{{message.createdBy}}</td>
+      
+      <td>{{message.description}}</td>
+      <td>{{message.createdDate | date:'dd MMM yyyy h:m a'}}</td>
+    
+   </tr>
+</table>
+
+</div>
+<br><br>
+<div align="center">
+<b>Post Your Messages</b>
+<textarea rows="4" cols="50" ng-model="userMessage" id="userMessage" wrap="hard">
+</textarea>
+<br>
+<button type="button" ng-click="postMessage()">Post Your Question</button>
+</div>
+</div>

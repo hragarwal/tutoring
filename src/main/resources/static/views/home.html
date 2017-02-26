@@ -1,6 +1,6 @@
 <div align="center">
 <!-- <div ng-include="demo.html"></div> -->
-<nav class="{{active}}" ng-click="$event.preventDefault()">
+<nav class="{{active}}" ng-click="$event.preventDefault()" ng-init="active='lessons'">
 
 			<!-- When a link in the menu is clicked, we set the active variable -->
 
@@ -38,7 +38,8 @@
       <td>{{lesson.title}}</td>
       <td>{{lesson.status.name}}</td>
    </tr>
-</table>        </div>
+</table>
+        </div>
         </div>
 
 		</div>
