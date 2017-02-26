@@ -22,8 +22,7 @@ public class AppUtils {
 			Mappings.IMAGE_URL, Mappings.JS_URL, Mappings.CSS_URL, Mappings.HTML_URL};
 	
 	static {
-		
-		pattern = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+");
+		pattern = Pattern.compile("[a-zA-Z0-9_.+-]+\\s*@+\\s*[a-zA-Z0-9-]+\\s*\\.+\\s*[a-zA-Z0-9-.]+");
 	}
 
 	/**

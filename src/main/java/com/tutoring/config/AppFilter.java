@@ -52,7 +52,7 @@ public class AppFilter implements Filter {
 			chain.doFilter(request,response);
 		}
 		else{
-			if(AppUtils.isNotBlank(token) && jwtGenerator.decrypt(token)){
+			if(AppUtils.isNotBlank(token) && jwtGenerator.decrypt(token) && Objects.nonNull(AppUtils.getCurrentUserProfile(httpServletRequest))){
 				chain.doFilter(request,response);
 			}else{
 				if(response instanceof ServletResponse){
