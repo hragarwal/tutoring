@@ -1,6 +1,6 @@
 
-angular.module('homePageController', ['factories','services'])
-.controller('homePageController', function($scope, LessonService, AppConstants, $location, $sessionStorage) {
+angular.module('homeController', ['factories','services'])
+.controller('homeController', function($scope, LessonService, AppConstants, $location, $sessionStorage) {
 	
 	console.log("Inside lessonController");
 	

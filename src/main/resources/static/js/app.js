@@ -1,5 +1,5 @@
 var app = angular.module('app', ['ngRoute','ngResource','ngStorage','interceptorFactory',
-                                'loginController','registerController','homePageController','openLessonController',
+                                'loginController','registerController','homeController','lessonController',
                                 'factories','services']);
 app.config(function($routeProvider,$httpProvider){
     $httpProvider.interceptors.push('httpInterceptor');
@@ -15,11 +15,11 @@ app.config(function($routeProvider,$httpProvider){
         
         .when('/home',{
             templateUrl: '../views/home.html',
-            controller: 'homePageController'
+            controller: 'homeController'
         })
         .when('/lessondetail',{
             templateUrl: '../views/lessondetail.html',
-            controller: 'openLessonController'
+            controller: 'lessonController'
         })
         .otherwise(
             { redirectTo: '/login'}

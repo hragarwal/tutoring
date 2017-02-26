@@ -1,5 +1,5 @@
-angular.module('openLessonController', ['factories','services'])
-    .controller('openLessonController', function($scope, LessonService, AppConstants, $sessionStorage) {
+angular.module('lessonController', ['factories','services'])
+    .controller('lessonController', function($scope, LessonService, AppConstants, $sessionStorage) {
     	
     		$scope.lesson = $sessionStorage.lesson;    		
     		//delete $sessionStorage.lesson;
