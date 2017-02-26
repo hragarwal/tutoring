@@ -119,4 +119,15 @@ angular.module('services', ['factories'])
 						headers: {'Content-Type': undefined}
 					});
 				}
+
+			this.deleteTempUserFiles = function(){
+				return $http({
+					method: 'DELETE',
+					headers: {
+						'accept': 'application/json',
+						'content-type': 'application/json'
+					},
+					url: '/files/delete'
+				});
+			}
 		});

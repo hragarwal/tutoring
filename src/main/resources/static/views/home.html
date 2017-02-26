@@ -1,14 +1,14 @@
 <div align="center">
 <!-- <div ng-include="demo.html"></div> -->
-<nav class="{{active}}" ng-click="$event.preventDefault()" ng-init="active='lessons'">
+<nav class="{{active}}" ng-click="$event.preventDefault()">
 
 			<!-- When a link in the menu is clicked, we set the active variable -->
 
-			<a href="#" class="home" ng-click="active='lessons'">List Lessons</a>
+			<a href="#" class="home" ng-click="setActiveTab('lessons')">List Lessons</a>
 			||
-			<a href="#" class="about" ng-click="active='newLesson'">New Lesson</a>
+			<a href="#" class="about" ng-click="setActiveTab('newLesson')">New Lesson</a>
 			||
-			<a href="#" class="contact" ng-click="active='profile'">Profile</a>
+			<a href="#" class="contact" ng-click="setActiveTab('profile')">Profile</a>
 		</nav>
 
 		<!-- ng-show will show an element if the value in the quotes is truthful,

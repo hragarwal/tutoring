@@ -1,9 +1,8 @@
-
 angular.module('homeController', ['factories','services'])
-.controller('homeController', function($scope, LessonService, AppConstants, $location, $sessionStorage) {
+.controller('homeController', function($scope, LessonService, AppConstants, $location, $sessionStorage, FileService) {
 	
 	console.log("Inside lessonController");
-	
+	  $scope.active="lessons";
     $scope.headingTitle = "Create Lesson";
 
     LessonService.getAllLessons()
@@ -69,6 +68,18 @@ angular.module('homeController', ['factories','services'])
                   }, function errorCallback(response) {
                     console.error("There is a error..");
          });
+    };
+
+    $scope.setActiveTab = function(tabName){
+        $scope.active=tabName;
+        if(tabName=="newLesson"){
+          FileService.deleteTempUserFiles()
+              .then(function successCallback(response) {
+                console.log("Success, files deleted");
+              }, function errorCallback(response) {
+                console.error("There is a error..");
+              });
+        }
     };
     
 });
