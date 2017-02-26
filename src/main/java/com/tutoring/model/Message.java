@@ -27,7 +27,7 @@ public class Message extends AuditableBaseEntity {
     private Profile senderProfile;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "RECEIVER_PROFILE_ID", nullable = false)
+    @JoinColumn(name = "RECEIVER_PROFILE_ID")
     private Profile receiverProfile;
 
     public String getDescription() {
