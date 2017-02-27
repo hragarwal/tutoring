@@ -64,7 +64,18 @@ angular.module('services', ['factories'])
 		        },
 		        url: '/lesson/profile'
 		      });
-		    }
+		}
+	    
+	    this.getAllAvailableLessons = function (){
+			  return $http({
+		        method: 'GET',
+		        headers: {
+		          'accept': 'application/json',
+		          'content-type': 'application/json'
+		        },
+		        url: '/lesson/available'
+		      });
+		}
 
 	    this.getLesson = function (lessonId){
 			  return $http({
@@ -110,24 +121,26 @@ angular.module('services', ['factories'])
 	    
 	  })
 
+	  	// upload file service
 		.service('FileService', function ($http) {
-				this.uploadFile = function(file){
-					var fd = new FormData();
-					fd.append('file', file);
-					$http.post('/file/upload', fd, {
-						transformRequest: angular.identity,
-						headers: {'Content-Type': undefined}
-					});
-				}
-
-			this.deleteTempUserFiles = function(){
-				return $http({
-					method: 'DELETE',
-					headers: {
-						'accept': 'application/json',
-						'content-type': 'application/json'
-					},
-					url: '/files/delete'
+			this.uploadFile = function(file){
+				var fd = new FormData();
+				fd.append('file', file);
+				$http.post('/file/upload', fd, {
+					transformRequest: angular.identity,
+					headers: {'Content-Type': undefined}
 				});
 			}
+			
+		//delete temporary files 		
+		this.deleteTempUserFiles = function(){
+			return $http({
+				method: 'DELETE',
+				headers: {
+					'accept': 'application/json',
+					'content-type': 'application/json'
+				},
+				url: '/files/delete'
+			});
+		}
 		});

@@ -23,11 +23,12 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	public List<Lesson> getLessonsByProfileID(@Param("profileId") long profileId);
 	
 	/**
-	 * Fetch the lesson list by lesson status.
+	 * Fetch only the available lesson list.
 	 * @param status - profile id of user to fetch lesson
 	 * @return
 	 */
 	@Query("select l from Lesson l where status.id=:lessonStatus")
-	public List<Lesson> getLessonsByLessonStatus(@Param("lessonStatus") long lessonStatus);
-		
+	public List<Lesson> getAvailableLessons(@Param("lessonStatus") long lessonStatus);
+
+
 }

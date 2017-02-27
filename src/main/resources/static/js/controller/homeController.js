@@ -4,7 +4,8 @@ angular.module('homeController', ['factories','services'])
 	console.log("Inside lessonController");
 	  $scope.active="lessons";
     $scope.headingTitle = "Create Lesson";
-
+    
+    // get all lesson for profile
     LessonService.getAllLessons()
     .then(function successCallback(response) {
                 if(response.data.status == AppConstants.API_SUCCESS) {
@@ -16,8 +17,19 @@ angular.module('homeController', ['factories','services'])
                 console.error("There is a error..");
      });
     
+    // get all available lesson for profile not for student
+    LessonService.getAllAvailableLessons()
+    .then(function successCallback(response) {
+                if(response.data.status == AppConstants.API_SUCCESS) {
+                	$scope.availableLessonList = response.data.data;
+             	  } else {
+             		  alert(response);
+             	  }
+              }, function errorCallback(response) {
+                console.error("There is a error..");
+     });
     
-    
+    // fetch all subjects from lesson
     LessonService.getLessonSubjects()
     .then(function successCallback(response) {
                 if(response.data.status == AppConstants.API_SUCCESS) {

@@ -96,11 +96,30 @@ public class LessonController {
 			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
 			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.SUPER_ADMIN |
 					RoleStates.ADMIN | RoleStates.TUTOR)) {
-				lessonService.getLessonsByStatus(LessonStates.AVAILABLE);
+				List<Lesson> lessons = lessonService.getAvailableLessons(LessonStates.AVAILABLE);
+				responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, lessons, null);
 			} else {
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.unauthorized.data.error"));
 			}
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			throw new AppException(e);
+		}
+		return responseVO;
+    }
+	
+	
+	@RequestMapping(value = Mappings.LESSON_BY_STATUS, method = RequestMethod.GET)
+    public ResponseVO getLessonByStatus(HttpServletRequest request, HttpServletResponse response) throws AppException {
+		ResponseVO responseVO = null;
+		try {
+			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
+			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.SUPER_ADMIN |
+					RoleStates.ADMIN | RoleStates.TUTOR)) {
+				List<Lesson> lessons = lessonService.getAvailableLessons(LessonStates.AVAILABLE);
+				responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, lessons, null);
+			} 
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);

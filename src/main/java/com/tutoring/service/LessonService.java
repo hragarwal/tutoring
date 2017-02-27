@@ -38,11 +38,11 @@ public interface LessonService {
 	public Lesson getLessonsByLessonId(long lessonId) throws AppException;
 	
 	/**
-	 * Returns the list of lesson 
+	 * Returns the list of available lesson. 
 	 * @param lessonStatus - status of lesson
 	 * @return List of all lesson with specified status
 	 * @throws AppException
 	 */
-	public List<Lesson> getLessonsByStatus(long lessonStatus) throws AppException;
+	public List<Lesson> getAvailableLessons(long lessonStatus) throws AppException;
 	
 }

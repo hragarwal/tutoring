@@ -67,7 +67,7 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
-	public List<Lesson> getLessonsByStatus(long lessonStatus) throws AppException {
-		return lessonDAO.getLessonsByLessonStatus(lessonStatus);
+	public List<Lesson> getAvailableLessons(long lessonStatus) throws AppException {
+		return lessonDAO.getAvailableLessons(lessonStatus);
 	}
 }

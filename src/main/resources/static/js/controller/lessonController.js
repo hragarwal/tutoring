@@ -24,7 +24,6 @@ angular.module('lessonController', ['factories','services'])
                     	alert("Message Posted Successfully");
                     	$scope.userMessage = null;
                     	$scope.messageList.push($scope.message);
-                    	
                  	  } else {
                  		  alert(response.data.message);
                  	  }
