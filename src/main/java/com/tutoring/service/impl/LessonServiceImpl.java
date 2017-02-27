@@ -65,4 +65,9 @@ public class LessonServiceImpl implements LessonService {
 	public Lesson getLessonsByLessonId(long lessonId) throws AppException {
 		return lessonDAO.findOne(Long.valueOf(lessonId));
 	}
+
+	@Override
+	public List<Lesson> getLessonsByStatus(long lessonStatus) throws AppException {
+		return lessonDAO.getLessonsByLessonStatus(lessonStatus);
+	}
 }

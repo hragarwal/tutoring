@@ -28,5 +28,7 @@ public class Mappings {
 	public static final String LESSON = "lesson";
 	
 	public static final String MESSAGE = "message";
+	
+	public static final String LESSON_AVAILABLE = "lessonavailable";
 
 }

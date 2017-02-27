@@ -2,7 +2,6 @@ angular.module('lessonController', ['factories','services'])
     .controller('lessonController', function($scope, LessonService, AppConstants, $sessionStorage) {
     	
     		$scope.lesson = $sessionStorage.lesson;    		
-    		//delete $sessionStorage.lesson;
     		
     		LessonService.getAllMessagesForLesson($scope.lesson.id)
 			.then(function successCallback(response) {

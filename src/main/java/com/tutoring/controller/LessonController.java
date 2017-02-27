@@ -19,9 +19,11 @@ import com.tutoring.model.Profile;
 import com.tutoring.service.LessonService;
 import com.tutoring.util.AppConstants;
 import com.tutoring.util.AppUtils;
+import com.tutoring.util.LessonStates;
 import com.tutoring.util.Mappings;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
+import com.tutoring.util.RoleStates;
 
 /**
  * Created by himanshu.agarwal on 20-02-2017.
@@ -60,17 +62,15 @@ public class LessonController {
 	//@LessonAuthorize - not required as we are fetching profile for that particular user only from current session
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ResponseVO getLessonByStudentProfile(HttpServletRequest request, HttpServletResponse response) throws AppException {
-		ResponseVO responseVO;
 		try {
 			Profile profile = AppUtils.getCurrentUserProfile(request);
 			List<Lesson> lessons = lessonService.getLessonsByProfile(profile.getId());
-			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_ERROR, AppConstants.SPACE,
+			return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_ERROR, AppConstants.SPACE,
 					lessons, null);
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
-		return responseVO;
 	}
 	
 	@LessonAuthorize
@@ -87,9 +87,29 @@ public class LessonController {
 		}
 		return responseVO;
     }
-
+	
+	// this method only for tutor profile to list all available lesson
+	@RequestMapping(value = Mappings.LESSON_AVAILABLE, method = RequestMethod.GET)
+    public ResponseVO getLesson(HttpServletRequest request, HttpServletResponse response) throws AppException {
+		ResponseVO responseVO = null;
+		try {
+			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
+			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.SUPER_ADMIN |
+					RoleStates.ADMIN | RoleStates.TUTOR)) {
+				lessonService.getLessonsByStatus(LessonStates.AVAILABLE);
+			} else {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.unauthorized.data.error"));
+			}
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			throw new AppException(e);
+		}
+		return responseVO;
+    }
+	
     /*@RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Lesson> getAllLesson(){
+    public List<Lesson> getAllLessons(HttpServletRequest request, HttpServletResponse response){
         return null;
     }*/
 }
