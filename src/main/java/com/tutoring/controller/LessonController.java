@@ -73,7 +73,7 @@ public class LessonController {
 		}
 	}
 	
-	@LessonAuthorize
+	//@LessonAuthorize
 	@RequestMapping(value = "/{lessonId}", method = RequestMethod.GET)
     public ResponseVO getLesson(@PathVariable("lessonId") long lessonId, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO;

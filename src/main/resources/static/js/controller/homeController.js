@@ -18,7 +18,7 @@ angular.module('homeController', ['factories','services'])
      });
     
     // get all available lesson for profile not for student
-    LessonService.getAllAvailableLessons()
+   /* LessonService.getAllAvailableLessons()
     .then(function successCallback(response) {
                 if(response.data.status == AppConstants.API_SUCCESS) {
                 	$scope.availableLessonList = response.data.data;
@@ -27,7 +27,7 @@ angular.module('homeController', ['factories','services'])
              	  }
               }, function errorCallback(response) {
                 console.error("There is a error..");
-     });
+     });*/
     
     // fetch all subjects from lesson
     LessonService.getLessonSubjects()

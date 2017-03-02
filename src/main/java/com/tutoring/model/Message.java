@@ -29,6 +29,10 @@ public class Message extends AuditableBaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "RECEIVER_PROFILE_ID")
     private Profile receiverProfile;
+    
+    private boolean isRead;
+    
+    private transient long currentProfile;
 
     public String getDescription() {
         return description;
@@ -61,6 +65,22 @@ public class Message extends AuditableBaseEntity {
     public void setReceiverProfile(Profile receiverProfile) {
         this.receiverProfile = receiverProfile;
     }
+
+	public long getCurrentProfile() {
+		return currentProfile;
+	}
+
+	public void setCurrentProfile(long currentProfile) {
+		this.currentProfile = currentProfile;
+	}
+
+	public boolean isRead() {
+		return isRead;
+	}
+
+	public void setRead(boolean isRead) {
+		this.isRead = isRead;
+	}
     
-    
+	
 }

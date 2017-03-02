@@ -11,10 +11,12 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tutoring.model.Message;
 import com.tutoring.model.Profile;
+import com.tutoring.service.ProfileService;
 import com.tutoring.util.AppConstants;
 import com.tutoring.util.AppUtils;
 import com.tutoring.util.MessageReader;
@@ -29,6 +31,9 @@ import com.tutoring.util.ResponseVO;
 @Aspect
 public class MessageAspect {
 
+	@Autowired
+	private ProfileService profileService;
+	
 	/** The logger. */
 	private Logger logger = LoggerFactory.getLogger(MessageAspect.class);
 	
@@ -56,6 +61,7 @@ public class MessageAspect {
 					}
 					else if(object instanceof Message) {
 						message = (Message) object;
+						currentProfile = profileService.getProfile(message.getCurrentProfile());
 					} 
 				}
 			}

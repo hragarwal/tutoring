@@ -6,14 +6,13 @@ angular.module('factories',[])
       "API_SUCCESS" : 0
     })
 
-    .factory('TutoringFactory', function(){
+    .factory('TutoringFactory', function($sessionStorage){
         var factory={};
-        var profile;
         factory.setProfile= function (profile) {
-          this.profile = profile;
+          $sessionStorage.profile = profile;
         }
         factory.getProfile= function () {
-          return this.profile;
+          return $sessionStorage.profile;
         }
       return factory;
     });
