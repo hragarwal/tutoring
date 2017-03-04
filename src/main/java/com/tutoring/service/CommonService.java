@@ -1,6 +1,7 @@
 package com.tutoring.service;
 
 import com.tutoring.exception.AppException;
+import com.tutoring.model.Profile;
 import com.tutoring.util.ResponseVO;
 
 /**
@@ -9,4 +10,5 @@ import com.tutoring.util.ResponseVO;
 public interface CommonService {
 
     ResponseVO forgotPassword (String emailId) throws AppException;
+    ResponseVO changePassword (Profile passwordUpdateProfile, Profile userProfile) throws AppException;
 }

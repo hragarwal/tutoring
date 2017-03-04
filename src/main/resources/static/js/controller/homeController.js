@@ -93,5 +93,9 @@ angular.module('homeController', ['factories','services'])
               });
         }
     };
+
+      $scope.changePassword = function(){
+        $location.path('changePassword');
+      }
     
 });

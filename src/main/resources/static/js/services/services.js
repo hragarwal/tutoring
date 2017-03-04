@@ -25,6 +25,19 @@ angular.module('services', ['factories'])
 					url: '/forgotPassword'
 				});
 			}
+
+			this.changePassword = function (profile){
+				return $http({
+					method: 'POST',
+					headers: {
+						'accept': 'application/json',
+						'content-type': 'application/json'
+					},
+					data: profile,
+					url: '/changePassword'
+				});
+			}
+
     })
 
     // login service

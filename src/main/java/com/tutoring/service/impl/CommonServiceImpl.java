@@ -46,4 +46,22 @@ public class CommonServiceImpl implements CommonService {
         }
         return responseVO;
     }
+
+    @Override
+    public ResponseVO changePassword(Profile passwordUpdateProfile, Profile userProfile) throws AppException {
+        ResponseVO responseVO;
+        boolean passwordVerify =  PasswordUtil.verifyPassword(passwordUpdateProfile.getOldPassword(),
+                userProfile.getPassword());
+        if(passwordVerify){
+            Profile profile = profileDAO.findOne(userProfile.getId());
+            profile.setPassword(PasswordUtil.hashPassword(passwordUpdateProfile.getConfirmPassword()));
+            responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,
+                    MessageReader.READER.getProperty("api.message.message.password.success"));
+            responseVO.setData(profile);
+        }else{
+            responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR,
+                    MessageReader.READER.getProperty("api.message.message.password.error"));
+        }
+        return responseVO;
+    }
 }

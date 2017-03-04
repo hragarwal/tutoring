@@ -35,4 +35,6 @@ public class Mappings {
 
 	public static final String FORGOT_PASSWORD="forgotPassword";
 
+	public static final String CHANGE_PASSWORD="changePassword";
+
 }

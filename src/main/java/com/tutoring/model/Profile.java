@@ -34,6 +34,30 @@ public class Profile extends AuditableBaseEntity {
     
     private boolean isAllowedShare;
 
+    private transient String confirmPassword;
+
+    private transient String oldPassword;
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public void setIsAllowedShare(boolean isAllowedShare) {
+        this.isAllowedShare = isAllowedShare;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     public String getName() {
         return name;
     }

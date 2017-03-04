@@ -76,4 +76,19 @@ public class CommonController{
 		return responseVO;
 	}
 
+	@RequestMapping(value = Mappings.CHANGE_PASSWORD, method = RequestMethod.POST)
+	public ResponseVO changePassword(HttpServletRequest httpServletRequest, @RequestBody Profile passwordUpdateProfile) throws AppException{
+		ResponseVO responseVO;
+		try {
+			Profile profile = AppUtils.getCurrentUserProfile(httpServletRequest);
+			responseVO = commonService.changePassword(passwordUpdateProfile, profile);
+			if(responseVO.getStatus()==AppConstants.SUCCESS) {
+				httpServletRequest.getSession().setAttribute(AppConstants.PROFILE, responseVO.getData());
+			}
+		}catch (Exception e){
+			throw new AppException(e);
+		}
+		return responseVO;
+	}
+
 }

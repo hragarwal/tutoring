@@ -15,7 +15,6 @@ angular.module('loginController', ['factories','services'])
             	  if(response.data.status == AppConstants.API_SUCCESS) {
             		  TutoringFactory.setProfile(response.data.data);
             		  $location.path('home');
-            		  
             	  } else {
             		  alert(response.data.message);
             	  }
