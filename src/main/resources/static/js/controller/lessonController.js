@@ -36,15 +36,6 @@ angular.module('lessonController', ['factories','services','chatServices'])
     	    	  alert(responseMessage.message);
     	      }
     	    });
-
-				$scope.downloadFile = function(filename){
-					FileService.downloadFile(filename,$scope.lesson.id)
-							.then(function successCallback(response) {
-									console.log("File downloaded successfully.")
-							}, function errorCallback(response) {
-								console.error("There is a error..");
-							});
-				}
     	    
     		/*$scope.postMessage = function(){
     			LessonService.postMyMessage($scope.userMessage, $scope.lesson.id)

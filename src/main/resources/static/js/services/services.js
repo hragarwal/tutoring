@@ -169,18 +169,6 @@ angular.module('services', ['factories'])
 				});
 			}
 
-			this.downloadFile = function(filename,lessonId){
-				return $http({
-					method: 'POST',
-					headers: {
-						'accept': 'application/json',
-						'content-type': 'application/json'
-					},
-					data:filename,
-					url: '/file/download/'+lessonId
-				});
-			}
-			
 		//delete temporary files 		
 		this.deleteTempUserFiles = function(){
 			return $http({

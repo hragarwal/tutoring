@@ -127,6 +127,5 @@ public class AppUtils {
 		response.setContentType(mimetypesFileTypeMap.getContentType(filename));
 		response.setContentLength(bytes.length);
 		FileCopyUtils.copy(bytes, response.getOutputStream());
-		response.flushBuffer();
 	}
 }

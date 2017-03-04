@@ -32,7 +32,7 @@
 
         <tr ng-repeat="file in lesson.questionFileList">
             <td>{{$index+1}}</td>
-            <td><a class="contact" ng-click="downloadFile(file.filePath)">{{file.filePath}}</a></td>
+            <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}" class="contact">{{file.filePath}}</a></td>
         </tr>
     </table>
 
