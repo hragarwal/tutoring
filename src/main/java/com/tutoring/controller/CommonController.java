@@ -2,6 +2,7 @@ package com.tutoring.controller;
 
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Profile;
+import com.tutoring.service.CommonService;
 import com.tutoring.service.LoginService;
 import com.tutoring.util.AppConstants;
 import com.tutoring.util.AppUtils;
@@ -28,6 +29,9 @@ public class CommonController{
 
 	@Autowired
 	private LoginService loginService;
+
+	@Autowired
+	private CommonService commonService;
 
 	@Value("${file.save.location}")
 	private String directory;
@@ -59,6 +63,17 @@ public class CommonController{
 		}catch (Exception e){
 			throw new AppException(e);
 		}
+	}
+
+	@RequestMapping(value = Mappings.FORGOT_PASSWORD, method = RequestMethod.POST)
+	public ResponseVO forgotPassword(@RequestBody String emailId) throws AppException{
+		ResponseVO responseVO;
+		try {
+			responseVO =  commonService.forgotPassword(emailId);
+		}catch (Exception e){
+			throw new AppException(e);
+		}
+		return responseVO;
 	}
 
 }

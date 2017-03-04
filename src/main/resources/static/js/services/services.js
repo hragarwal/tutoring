@@ -3,16 +3,28 @@ angular.module('services', ['factories'])
 	// create profile service
 	.service('ProfileService', function ($http) {
       this.createProfile = function (profile){
-	  return $http({
-          method: 'POST',
-          headers: {
-            'accept': 'application/json',
-            'content-type': 'application/json'
-          },
-          data: profile,
-          url: '/profile/'
-        });
+				return $http({
+							method: 'POST',
+							headers: {
+								'accept': 'application/json',
+								'content-type': 'application/json'
+							},
+							data: profile,
+							url: '/profile/'
+						});
       }
+
+			this.forgotPassword = function (emailId){
+				return $http({
+					method: 'POST',
+					headers: {
+						'accept': 'application/json',
+						'content-type': 'application/json'
+					},
+					data: emailId,
+					url: '/forgotPassword'
+				});
+			}
     })
 
     // login service

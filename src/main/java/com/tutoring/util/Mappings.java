@@ -33,4 +33,6 @@ public class Mappings {
 	
 	public static final String LESSON_BY_STATUS = "status";
 
+	public static final String FORGOT_PASSWORD="forgotPassword";
+
 }
