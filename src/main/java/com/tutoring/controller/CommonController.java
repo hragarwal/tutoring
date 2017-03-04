@@ -33,8 +33,8 @@ public class CommonController{
 	@Autowired
 	private CommonService commonService;
 
-	@Value("${file.save.location}")
-	private String directory;
+	@Value("${file.save.location.profile}")
+	private String profileDirectory;
 
 	@RequestMapping(value = Mappings.LOGIN, method = RequestMethod.POST)
 	public ResponseVO validateUser(@RequestBody Profile profile, HttpServletRequest request, HttpServletResponse response) throws AppException {
@@ -56,9 +56,7 @@ public class CommonController{
 	public void deleteTemporaryUserFiles(HttpServletRequest httpServletRequest) throws AppException{
 		try{
 			long profileId = AppUtils.getCurrentUserProfileID(httpServletRequest);
-			File file = new File(directory+
-					AppConstants.PROFILE+AppConstants.FORWARD_SLASH+
-					profileId);
+			File file = new File(profileDirectory + profileId);
 			FileUtils.deleteDirectory(file);
 		}catch (Exception e){
 			throw new AppException(e);

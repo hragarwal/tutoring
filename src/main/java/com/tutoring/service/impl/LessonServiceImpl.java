@@ -4,9 +4,9 @@ import com.tutoring.dao.LessonDAO;
 import com.tutoring.dao.LessonStatusDAO;
 import com.tutoring.dao.SubjectDAO;
 import com.tutoring.exception.AppException;
+import com.tutoring.model.Files;
 import com.tutoring.model.Lesson;
 import com.tutoring.service.LessonService;
-import com.tutoring.util.AppConstants;
 import com.tutoring.util.LessonStates;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.io.FileUtils;
@@ -17,8 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -33,17 +35,30 @@ public class LessonServiceImpl implements LessonService {
 	@Autowired
 	private SubjectDAO subjectDAO;
 
-	@Value("${file.save.location}")
-	private String directory;
+	@Value("${file.save.location.profile}")
+	private String profileSaveLocation;
+	@Value("${file.save.location.lesson}")
+	private String lessonSaveLocation;
 
 	public boolean createLesson(Lesson lesson, long studentId) throws AppException {
 		try {
 			lesson.setSubject(subjectDAO.findOne(Long.valueOf(lesson.getSubjectID())));
 			lesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.AVAILABLE)));
 			Lesson returnLesson = lessonDAO.save(lesson);
-			FileUtils
-					.copyDirectory(new File(directory + AppConstants.PROFILE + AppConstants.FORWARD_SLASH + studentId),
-							new File(directory + AppConstants.LESSON + AppConstants.FORWARD_SLASH + returnLesson.getId()));
+			File profileDir = new File(profileSaveLocation + studentId);
+			File lessonDir = new File(lessonSaveLocation + returnLesson.getId());
+			FileUtils.copyDirectory(profileDir, lessonDir);
+			Set<Files> questionFileList = new HashSet<>();
+			Files questionFile;
+			File[] listOfFiles = lessonDir.listFiles();
+			for(File file : listOfFiles){
+				if(file.isFile()){
+					questionFile = new Files();
+					questionFile.setFilePath(file.getName());
+					questionFileList.add(questionFile);
+				}
+			}
+			returnLesson.setQuestionFileList(questionFileList);
 			return true;
 		}catch (IOException e){
 			throw new AppException(e);

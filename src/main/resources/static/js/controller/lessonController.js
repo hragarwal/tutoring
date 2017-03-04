@@ -1,18 +1,19 @@
 angular.module('lessonController', ['factories','services','chatServices'])
-    .controller('lessonController', function($scope, LessonService, AppConstants, $sessionStorage, ChatServices, TutoringFactory) {
+    .controller('lessonController', function($scope, LessonService, AppConstants,FileService,
+																						 $sessionStorage, ChatServices, TutoringFactory) {
     	
     		$scope.lesson = $sessionStorage.lesson;    		
     		
     		LessonService.getAllMessagesForLesson($scope.lesson.id)
-			.then(function successCallback(response) {
-                if(response.data.status == AppConstants.API_SUCCESS) {
-                	$scope.messageList = response.data.data;
-             	  } else {
-             		  alert(response.data.message);
-             	  }
-              }, function errorCallback(response) {
-                console.error("There is a error..");
-         });
+					.then(function successCallback(response) {
+										if(response.data.status == AppConstants.API_SUCCESS) {
+											$scope.messageList = response.data.data;
+										} else {
+											alert(response.data.message);
+										}
+									}, function errorCallback(response) {
+										console.error("There is a error..");
+						 });
     		
     	    $scope.message={
     	    		"lesson":{
@@ -35,6 +36,15 @@ angular.module('lessonController', ['factories','services','chatServices'])
     	    	  alert(responseMessage.message);
     	      }
     	    });
+
+				$scope.downloadFile = function(filename){
+					FileService.downloadFile(filename,$scope.lesson.id)
+							.then(function successCallback(response) {
+									console.log("File downloaded successfully.")
+							}, function errorCallback(response) {
+								console.error("There is a error..");
+							});
+				}
     	    
     		/*$scope.postMessage = function(){
     			LessonService.postMyMessage($scope.userMessage, $scope.lesson.id)

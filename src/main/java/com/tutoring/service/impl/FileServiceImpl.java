@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Objects;
 
+import com.tutoring.exception.AppException;
+import com.tutoring.util.AppUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +26,11 @@ import com.tutoring.util.ResponseVO;
 @Transactional
 public class FileServiceImpl implements FileService {
 
-    @Value("${file.save.location}")
-    private String directory;
+    @Value("${file.save.location.profile}")
+    private String profileDirectory;
+
+    @Value("${file.save.location.lesson}")
+    private String lessonDirectory;
 
     @Override
     public ResponseVO uploadFile(MultipartHttpServletRequest multipartHttpServletRequest,
@@ -39,10 +44,7 @@ public class FileServiceImpl implements FileService {
                 MultipartFile multipartFile = multipartHttpServletRequest.getFile(uploadedFile);
                 String filename = multipartFile.getOriginalFilename();
                 byte[] bytes = multipartFile.getBytes();
-                File file = new File(directory+
-                        AppConstants.PROFILE+AppConstants.FORWARD_SLASH+
-                        profileId+AppConstants.FORWARD_SLASH+
-                        filename);
+                File file = new File(profileDirectory+ profileId+AppConstants.FORWARD_SLASH+ filename);
                 file.getParentFile().mkdirs();
                 file.createNewFile();
                 fileOutputStream = new FileOutputStream(file);
@@ -55,5 +57,17 @@ public class FileServiceImpl implements FileService {
             }
         }
         return responseVO;
+    }
+
+    @Override
+    public byte[] downloadFile(long lessonId, String filename) throws AppException{
+        byte[] bytes;
+        try {
+            StringBuilder fileLocation = new StringBuilder(lessonDirectory + lessonId + AppConstants.FORWARD_SLASH + filename);
+            bytes = AppUtils.getFileFromLocalFile(fileLocation.toString());
+        }catch (Exception e){
+            throw new AppException(e);
+        }
+        return bytes;
     }
 }

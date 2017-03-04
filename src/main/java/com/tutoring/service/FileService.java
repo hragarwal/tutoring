@@ -2,6 +2,7 @@ package com.tutoring.service;
 
 import java.io.IOException;
 
+import com.tutoring.exception.AppException;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.tutoring.util.ResponseVO;
@@ -12,4 +13,5 @@ import com.tutoring.util.ResponseVO;
 public interface FileService {
 
     ResponseVO uploadFile(MultipartHttpServletRequest multipartHttpServletRequest, long profileId) throws IOException;
+    byte[] downloadFile(long lessonId, String filename) throws AppException;
 }

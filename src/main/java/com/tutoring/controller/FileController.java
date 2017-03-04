@@ -6,6 +6,7 @@ import com.tutoring.service.FileService;
 import com.tutoring.util.AppUtils;
 import com.tutoring.util.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +38,18 @@ public class FileController {
         }
         return responseVO;
 
+    }
+
+    @RequestMapping(value = "/download/{lessonId}/{filename}", method = RequestMethod.GET)
+    public void downloadFile (@PathVariable("lessonId") long lessonId,
+                              @PathVariable("filename") String filename, HttpServletResponse response) throws AppException{
+        try{
+            byte [] bytes = fileService.downloadFile(lessonId,filename);
+            response.addHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+            AppUtils.prepareFileAndFlushResponse(response, bytes,filename);
+        }catch (Exception e){
+            throw new AppException(e);
+        }
     }
 
 }
