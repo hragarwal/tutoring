@@ -1,7 +1,7 @@
 var app = angular.module('app', ['ngRoute','ngResource','ngStorage','interceptorFactory','fileAppDirectives',
                                 'loginController','registerController','homeController','lessonController', 
                                  'forgotPasswordController','changePasswordController','chatServices',
-                                'factories','services']);
+                                'editProfileController','factories','services']);
 app.config(function($routeProvider,$httpProvider){
     $httpProvider.interceptors.push('httpInterceptor');
     $routeProvider
@@ -17,6 +17,11 @@ app.config(function($routeProvider,$httpProvider){
         .when('/forgotPassword',{
             templateUrl: '../views/forgotPassword.html',
             controller: 'ForgotPasswordController'
+        })
+
+        .when('/editProfile',{
+            templateUrl: '../views/editProfile.html',
+            controller: 'EditProfileController'
         })
 
         .when('/changePassword',{

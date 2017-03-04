@@ -14,6 +14,18 @@ angular.module('services', ['factories'])
 						});
       }
 
+			this.updateProfile = function (profile){
+				return $http({
+					method: 'PUT',
+					headers: {
+						'accept': 'application/json',
+						'content-type': 'application/json'
+					},
+					data: profile,
+					url: '/updateProfile/'
+				});
+			}
+
 			this.forgotPassword = function (emailId){
 				return $http({
 					method: 'POST',

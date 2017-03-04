@@ -1,0 +1,49 @@
+<div class="section">
+    <h3>Edit Profile</h3>
+
+    <div class="home-section">
+
+        <form name="editProfileForm" novalidate="">
+
+            <div class="form-group">
+                <label for="" class="col-sm-4 control-label">Name</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control required" ng-model="profile.name" name="name" id="name" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="col-sm-4 control-label">Email</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control required" ng-model="profile.email" name="email" id="email" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="col-sm-4 control-label">Country</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control required" ng-model="profile.country" name="country" id="country" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="col-sm-4 control-label">Contact Number</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control required" ng-model="profile.contactNumber" name="contactNumber" id="contactNumber" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="col-sm-4 control-label">Skype Id</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control required" ng-model="profile.skypeId" name="skypeId" id="skypeId" />
+                </div>
+            </div>
+        </form>
+
+        <button type="submit" ng-click="updateProfile(editProfileForm)">
+            <span>Update</span>
+        </button>
+    </div>
+
+</div>

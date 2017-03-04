@@ -19,15 +19,14 @@ public interface ProfileService {
      * @throws AppException the app exception
      */
     public ResponseVO createProfile(Profile profile) throws AppException;
-    
+
     /**
-     * Update user profile.
      *
-     * @param profile the profile
-     * @return the profile
-     * @throws AppException the app exception
+     * @param profile
+     * @return
+     * @throws AppException
      */
-    public Profile updateProfile(Profile profile) throws AppException;
+    public ResponseVO updateProfile(Profile profile) throws AppException;
     
     /**
      * Gets the user profile by user id.

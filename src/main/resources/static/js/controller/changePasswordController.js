@@ -1,5 +1,5 @@
 angular.module('changePasswordController', ['factories','services'])
-    .controller('ChangePasswordController', function($scope,ProfileService) {
+    .controller('ChangePasswordController', function($scope,ProfileService,TutoringFactory) {
         console.log("Inside ChangePasswordController");
 
       $scope.profile={
@@ -13,7 +13,12 @@ angular.module('changePasswordController', ['factories','services'])
           if($scope.profile.password==$scope.profile.confirmPassword){
             ProfileService.changePassword($scope.profile)
                 .then(function successCallback(response) {
-                  alert(response.data.message);
+                  if(response.data.status == AppConstants.API_SUCCESS) {
+                    alert(response.data.message);
+                    TutoringFactory.setProfile(response.data.data);
+                  } else {
+                    alert(response.data.message);
+                  }
                   //Reset data again
                   $scope.profile={
                     "oldPassword":"",

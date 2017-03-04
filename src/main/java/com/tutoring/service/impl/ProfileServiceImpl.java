@@ -55,8 +55,25 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Profile updateProfile(Profile profile) {
-        return profileDAO.save(profile);
+    public ResponseVO updateProfile(Profile profile) {
+        ResponseVO responseVO;
+        Profile returnProfile = profileDAO.findOne(profile.getId());
+
+        if(!profile.getEmail().equals(returnProfile.getEmail()) &&
+                Objects.nonNull(profileDAO.findByEmail(profile.getEmail()))) {
+            responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE,
+                    MessageReader.READER.getProperty("api.profile.create.emailexist"));
+        }else{
+            returnProfile.setName(profile.getName());
+            returnProfile.setEmail(profile.getEmail());
+            returnProfile.setCountry(profile.getCountry());
+            returnProfile.setContactNumber(profile.getContactNumber());
+            returnProfile.setSkypeId(profile.getSkypeId());
+            responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,
+                    MessageReader.READER.getProperty("api.profile.create.success"));
+            responseVO.setData(returnProfile);
+        }
+        return responseVO;
     }
 
     @Override

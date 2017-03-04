@@ -1,7 +1,9 @@
 package com.tutoring.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tutoring.util.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,22 @@ public class ProfileController{
 		ResponseVO responseVO;
 		try {
 			responseVO = profileService.createProfile(profile);
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			throw new AppException(e);
+		}
+		return responseVO;
+	}
+
+	@RequestMapping(value = Mappings.UPDATE_PROFILE, method = RequestMethod.PUT)
+	public ResponseVO updateProfile(@RequestBody Profile profile, HttpServletRequest httpServletRequest,
+									HttpServletResponse response) throws AppException{
+		ResponseVO responseVO;
+		try {
+			responseVO = profileService.updateProfile(profile);
+			if(responseVO.getStatus()==AppConstants.SUCCESS) {
+				httpServletRequest.getSession().setAttribute(AppConstants.PROFILE, responseVO.getData());
+			}
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
