@@ -1,5 +1,5 @@
 angular.module('changePasswordController', ['factories','services'])
-    .controller('ChangePasswordController', function($scope,ProfileService,TutoringFactory) {
+    .controller('ChangePasswordController', function($scope,ProfileService,TutoringFactory,AppConstants) {
         console.log("Inside ChangePasswordController");
 
       $scope.profile={

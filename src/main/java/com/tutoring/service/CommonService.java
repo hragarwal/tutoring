@@ -9,6 +9,20 @@ import com.tutoring.util.ResponseVO;
  */
 public interface CommonService {
 
-    ResponseVO forgotPassword (String emailId) throws AppException;
-    ResponseVO changePassword (Profile passwordUpdateProfile, Profile userProfile) throws AppException;
+	/**
+	 * 
+	 * @param emailId - email id of user profile
+	 * @return response for forgot password
+	 * @throws AppException
+	 */
+    public ResponseVO forgotPassword (String emailId) throws AppException;
+    
+    /**
+     * Returns the user profile details.
+     * @param passwordUpdateProfile - updated user profile details
+     * @param userProfile - user profile details
+     * @return user profile
+     * @throws AppException
+     */
+    public ResponseVO changePassword (Profile passwordUpdateProfile, Profile userProfile) throws AppException;
 }

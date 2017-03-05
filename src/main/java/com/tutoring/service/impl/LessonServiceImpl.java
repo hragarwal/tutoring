@@ -6,6 +6,7 @@ import com.tutoring.dao.SubjectDAO;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Files;
 import com.tutoring.model.Lesson;
+import com.tutoring.model.Profile;
 import com.tutoring.service.LessonService;
 import com.tutoring.util.LessonStates;
 import org.apache.commons.collections.IteratorUtils;
@@ -40,12 +41,12 @@ public class LessonServiceImpl implements LessonService {
 	@Value("${file.save.location.lesson}")
 	private String lessonSaveLocation;
 
-	public boolean createLesson(Lesson lesson, long studentId) throws AppException {
+	public boolean createLesson(Lesson lesson,  Profile profile) throws AppException {
 		try {
 			lesson.setSubject(subjectDAO.findOne(Long.valueOf(lesson.getSubjectID())));
 			lesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.AVAILABLE)));
 			Lesson returnLesson = lessonDAO.save(lesson);
-			File profileDir = new File(profileSaveLocation + studentId);
+			File profileDir = new File(profileSaveLocation + profile.getId());
 			File lessonDir = new File(lessonSaveLocation + returnLesson.getId());
 			FileUtils.copyDirectory(profileDir, lessonDir);
 			Set<Files> questionFileList = new HashSet<>();
@@ -55,6 +56,7 @@ public class LessonServiceImpl implements LessonService {
 				if(file.isFile()){
 					questionFile = new Files();
 					questionFile.setFilePath(file.getName());
+					questionFile.setCreatedBy(profile.getEmail());
 					questionFileList.add(questionFile);
 				}
 			}

@@ -9,7 +9,9 @@ public class Mappings {
 
 	public static final String LOGIN ="login";
 	
-	public static final String PROFILE ="profile";
+	public static final String SIGN_UP ="signup";
+	
+	public static final String FORGOT_PASSWORD="forgotPassword";
 
 	public static final String SEND_MESSAGE ="sendmessage";
 	
@@ -32,8 +34,6 @@ public class Mappings {
 	public static final String LESSON_AVAILABLE = "available";
 	
 	public static final String LESSON_BY_STATUS = "status";
-
-	public static final String FORGOT_PASSWORD="forgotPassword";
 
 	public static final String CHANGE_PASSWORD="changePassword";
 

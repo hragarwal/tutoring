@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tutoring.annotations.LessonAuthorize;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.model.Profile;
@@ -44,7 +43,7 @@ public class LessonController {
 			Profile studentProfile = AppUtils.getCurrentUserProfile(request);
 			lesson.setStudentProfile(studentProfile);
 			lesson.setCreatedBy(studentProfile.getEmail());
-			boolean isSuccess = lessonService.createLesson(lesson,studentProfile.getId());
+			boolean isSuccess = lessonService.createLesson(lesson,studentProfile);
 			if(isSuccess) {
 				List<Lesson> lessons = lessonService.getLessonsByProfile(studentProfile.getId());
 				responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.create.success"),

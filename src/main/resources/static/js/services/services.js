@@ -10,7 +10,7 @@ angular.module('services', ['factories'])
 								'content-type': 'application/json'
 							},
 							data: profile,
-							url: '/profile/'
+							url: '/signup/'
 						});
       }
 

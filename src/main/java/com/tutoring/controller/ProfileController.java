@@ -22,10 +22,11 @@ public class ProfileController{
 	@Autowired
 	private ProfileService profileService;
 	
-	@RequestMapping(value = Mappings.PROFILE, method = RequestMethod.POST)
+	@RequestMapping(value = Mappings.SIGN_UP, method = RequestMethod.POST)
 	public ResponseVO createProfile(@RequestBody Profile profile, HttpServletResponse response) throws AppException{
 		ResponseVO responseVO;
 		try {
+			profile.setEmail(profile.getEmail().toLowerCase());
 			responseVO = profileService.createProfile(profile);
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -42,6 +43,8 @@ public class ProfileController{
 			responseVO = profileService.updateProfile(profile);
 			if(responseVO.getStatus()==AppConstants.SUCCESS) {
 				httpServletRequest.getSession().setAttribute(AppConstants.PROFILE, responseVO.getData());
+			} else if(responseVO.getStatus() == 2) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			}
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

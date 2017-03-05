@@ -2,6 +2,7 @@ package com.tutoring.service;
 
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
+import com.tutoring.model.Profile;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface LessonService {
 	 * @return response for newly submitted lesson
 	 * @throws AppException
 	 */
-	public boolean createLesson(Lesson lesson, long studentId) throws AppException;
+	public boolean createLesson(Lesson lesson, Profile profile) throws AppException;
 	
 	/**
 	 * Returns list of all past lessons.

@@ -15,6 +15,7 @@ import com.tutoring.exception.AppException;
 import com.tutoring.model.Profile;
 import com.tutoring.service.ProfileService;
 import com.tutoring.util.AppConstants;
+import com.tutoring.util.AppUtils;
 import com.tutoring.util.JWTGenerators;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.PasswordUtil;
@@ -46,7 +47,13 @@ public class ProfileServiceImpl implements ProfileService {
     				MessageReader.READER.getProperty("api.profile.create.emailexist"));
     	}
     	// try to create new profile
+    	profile.setCreatedBy(profile.getEmail());
+    	profile.setIsActive(true);
     	profile.setRole(roleDAO.findByName(RoleStates._STUDENT));
+    	if(!AppUtils.valiateProfile(profile)) {
+    		return  new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, 
+            		MessageReader.READER.getProperty("api.insufficient.data.error"));
+    	}
     	profile.setPassword(PasswordUtil.hashPassword(profile.getPassword()));
         profile = profileDAO.save(profile);
         String accessToken = jwtGenerators.encrypt(profile.getEmail());

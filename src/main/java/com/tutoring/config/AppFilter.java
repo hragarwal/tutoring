@@ -27,7 +27,7 @@ public class AppFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		
+
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class AppFilter implements Filter {
 
 		Object accessToken = httpServletRequest.getSession().getAttribute(AppConstants.ACCESS_TOKEN);
 		String token = null;
-		
+
 		if(Objects.nonNull(accessToken)) {
 			token = String.valueOf(accessToken);
 		}
@@ -56,6 +56,7 @@ public class AppFilter implements Filter {
 				chain.doFilter(request,response);
 			}else{
 				if(response instanceof ServletResponse){
+					System.out.println("App shutdown called after");
 					httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 					return;
 				}

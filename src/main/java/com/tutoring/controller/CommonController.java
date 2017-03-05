@@ -40,6 +40,7 @@ public class CommonController{
 	public ResponseVO validateUser(@RequestBody Profile profile, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO;
 		try {
+			profile.setEmail(profile.getEmail().toLowerCase());
 			responseVO = loginService.validateUser(profile);
 			if(Objects.nonNull(responseVO) && responseVO.getStatus() == AppConstants.SUCCESS) {
 				request.getSession().setAttribute(AppConstants.ACCESS_TOKEN, responseVO.getAccessToken());
@@ -75,13 +76,16 @@ public class CommonController{
 	}
 
 	@RequestMapping(value = Mappings.CHANGE_PASSWORD, method = RequestMethod.POST)
-	public ResponseVO changePassword(HttpServletRequest httpServletRequest, @RequestBody Profile passwordUpdateProfile) throws AppException{
+	public ResponseVO changePassword(@RequestBody Profile passwordUpdateProfile,  HttpServletRequest request,
+			HttpServletResponse response) throws AppException{
 		ResponseVO responseVO;
 		try {
-			Profile profile = AppUtils.getCurrentUserProfile(httpServletRequest);
+			Profile profile = AppUtils.getCurrentUserProfile(request);
 			responseVO = commonService.changePassword(passwordUpdateProfile, profile);
 			if(responseVO.getStatus()==AppConstants.SUCCESS) {
-				httpServletRequest.getSession().setAttribute(AppConstants.PROFILE, responseVO.getData());
+				request.getSession().setAttribute(AppConstants.PROFILE, responseVO.getData());
+			} else if(responseVO.getStatus() == 2) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			}
 		}catch (Exception e){
 			throw new AppException(e);

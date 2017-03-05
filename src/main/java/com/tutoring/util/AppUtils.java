@@ -1,12 +1,5 @@
 package com.tutoring.util;
 
-import com.tutoring.model.Profile;
-import org.apache.commons.io.IOUtils;
-import org.springframework.util.FileCopyUtils;
-
-import javax.activation.MimetypesFileTypeMap;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,19 +11,38 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.activation.MimetypesFileTypeMap;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
+import org.springframework.util.FileCopyUtils;
+
+import com.tutoring.model.Profile;
+
 /**
  * The Class AppUtils contains the utility method for application.
  */
 public class AppUtils {
-	
+
 	private static Pattern pattern;
 
+	private static int PASSWORD_MIN_LENGTH = 6;
+
 	/** The exclude URL. */
-	private static String [] excludeURL = { Mappings.LOGIN, Mappings.PROFILE,
+	private static String [] excludeURL = { Mappings.LOGIN, Mappings.SIGN_UP,
 			Mappings.IMAGE_URL, Mappings.JS_URL, Mappings.CSS_URL, Mappings.HTML_URL, Mappings.FORGOT_PASSWORD};
-	
+
+
+	private static final String EMAIL_PATTERN =
+			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+					+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
 	static {
 		pattern = Pattern.compile("[a-zA-Z0-9_.+-]+\\s*@+\\s*[a-zA-Z0-9-]+\\s*\\.+\\s*[a-zA-Z0-9-.]+");
+
 	}
 
 	/**
@@ -84,7 +96,7 @@ public class AppUtils {
 
 		return null;
 	}
-	
+
 	/**
 	 * Return the profile id of current user
 	 * @param request - http servlet request 
@@ -94,7 +106,7 @@ public class AppUtils {
 		Object object = request.getSession().getAttribute(AppConstants.PROFILE);
 		if(Objects.nonNull(object)) {
 			Profile profile =  (Profile) object;
-				return profile.getId();
+			return profile.getId();
 		}
 		return 0;
 	}
@@ -127,5 +139,35 @@ public class AppUtils {
 		response.setContentType(mimetypesFileTypeMap.getContentType(filename));
 		response.setContentLength(bytes.length);
 		FileCopyUtils.copy(bytes, response.getOutputStream());
+	}
+
+	/**
+	 * Returns true if email is valid or otherwise returns false.
+	 * @param email - email string
+	 * @return
+	 */
+	public static boolean isValidEmailAddress(String email) {
+		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
+
+	/**
+	 * Returns the profile details
+	 * @param profile - user profile details
+	 * @return
+	 */
+	public static boolean valiateProfile(Profile profile) {
+		if(Objects.isNull(profile)) {
+			return false;
+		}
+		else if(AppUtils.isBlank(profile.getPassword()) || profile.getPassword().length() < PASSWORD_MIN_LENGTH ||
+				AppUtils.isBlank(profile.getEmail()) || !isValidEmailAddress(profile.getEmail()) ||
+				AppUtils.isBlank(profile.getName()) ||
+				AppUtils.isBlank(profile.getCountry()) || 
+				AppUtils.isBlank(profile.getCreatedBy())) {
+			return false;
+		}
+		return true;
 	}
 }
