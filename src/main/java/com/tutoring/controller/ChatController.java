@@ -53,6 +53,7 @@ public class ChatController {
 			}
 
 			message.setLesson(lesson);
+			message.setMessageType(AppConstants.MESSAGE_TYPE_TEXT);
 			message.setCreatedBy(currentProfile.getEmail());
 			responseVO = messageService.save(message);
 			if(Objects.isNull(responseVO)) {

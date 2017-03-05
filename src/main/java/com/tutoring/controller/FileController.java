@@ -28,11 +28,12 @@ public class FileController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public ResponseVO uploadFile(MultipartHttpServletRequest multipartHttpServletRequest,
-                                 HttpServletResponse response) throws AppException{
+                                 HttpServletResponse response,
+                                 @RequestParam(name = "lessonId", required = false) long lessonId) throws AppException{
         ResponseVO responseVO;
         try {
             Profile profile = AppUtils.getCurrentUserProfile(multipartHttpServletRequest);
-            responseVO = fileService.uploadFile(multipartHttpServletRequest, profile.getId());
+            responseVO = fileService.uploadFile(multipartHttpServletRequest, profile.getId(), lessonId);
         }catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             throw new AppException(e);

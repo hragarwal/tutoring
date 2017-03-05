@@ -160,10 +160,10 @@ angular.module('services', ['factories'])
 
 	  	// upload file service
 		.service('FileService', function ($http) {
-			this.uploadFile = function(file){
+			this.uploadFile = function(file, lessonId){
 				var fd = new FormData();
 				fd.append('file', file);
-				$http.post('/file/upload', fd, {
+				return $http.post('/file/upload?lessonId='+lessonId, fd, {
 					transformRequest: angular.identity,
 					headers: {'Content-Type': undefined}
 				});

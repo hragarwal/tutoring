@@ -6,7 +6,7 @@ angular.module('fileAppDirectives', ['factories'])
     link: function(scope, element, attrs) {
 
       var config = {
-        url: AppConstants.HTTP_BASE_URL+'/file/upload',
+        url: AppConstants.HTTP_BASE_URL+'/file/upload?lessonId=0',
         maxFilesize: 5,
         paramName: "uploadfile",
         maxThumbnailFilesize: 5,

@@ -18,6 +18,9 @@ public class Message extends AuditableBaseEntity {
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
+    private String messageType;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "LESSON_ID", nullable = false)
     private Lesson lesson;
@@ -81,6 +84,16 @@ public class Message extends AuditableBaseEntity {
 	public void setRead(boolean isRead) {
 		this.isRead = isRead;
 	}
-    
-	
+
+    public String getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
+    }
+
+    public void setIsRead(boolean isRead) {
+        this.isRead = isRead;
+    }
 }

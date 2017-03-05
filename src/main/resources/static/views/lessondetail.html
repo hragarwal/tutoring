@@ -1,99 +1,105 @@
 <div align="center">
-	<table border="1">
-   <tr>
-   	
-   	<th>Subject</th>
-      <th>Task Description</th>
-      <th>Title</th>
-      <th>Status</th>
-   </tr>
-   
-   <tr>
-      
-      <td>{{lesson.subject.name}}</td>
-      
-      <td>{{lesson.taskDescription}}</td>
-      <td>{{lesson.title}}</td>
-      <td>{{lesson.status.name}}</td>
-   </tr>
-</table>
-
-<br><br>
-
-<b>Messages</b>
-
-
-<div align="center">
     <table border="1">
         <tr>
-            <th>#</th>
-            <th>Filename</th>
+
+            <th>Subject</th>
+            <th>Task Description</th>
+            <th>Title</th>
+            <th>Status</th>
         </tr>
 
-        <tr ng-repeat="file in lesson.questionFileList">
-            <td>{{$index+1}}</td>
-            <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}" class="contact">{{file.filePath}}</a></td>
+        <tr>
+
+            <td>{{lesson.subject.name}}</td>
+
+            <td>{{lesson.taskDescription}}</td>
+            <td>{{lesson.title}}</td>
+            <td>{{lesson.status.name}}</td>
         </tr>
     </table>
 
-</div>
-<!-- <table border="1">
-   <tr>
-   	<th>#</th>
-   	<th>Sender</th>
-      <th>Message/Query</th>
-      <th>Sent At</th>
-   </tr>
-   
-   <tr ng-repeat="message in messageList">
-      <td>{{$index+1}}</td>
-      <td>{{message.createdBy}}</td>
-      
-      <td>{{message.description}}</td>
-      <td>{{message.createdDate | date:'dd MMM yyyy h:m a'}}</td>
-    
-   </tr>
-</table> -->
+    <br><br>
 
-<div align="center">
-		<table border="1">
-   		<tr>
-		   	<th>#</th>
-		   	<th>Sender</th>
-		      <th>Message/Query</th>
-		      <th>Sent At</th>
-   		</tr>
-      
-   <tr ng-repeat="message in messageList">
-      <td>{{$index+1}}</td>
-      <td>{{message.createdBy}}</td>
-      
-      <td>{{message.description}}</td>
-      <td>{{message.createdDate | date:'dd MMM yyyy h:m a'}}</td>
-    
-   </tr>
-</table>
-   <!--    <p ng-repeat="message in messages | orderBy:'time':true" class="message">
-        <span ng-class="{self: message.self}">{{message.description}}</span>
-      </p> -->
+    <b>Messages</b>
+
+
+    <div align="center">
+        <table border="1">
+            <tr>
+                <th>#</th>
+                <th>Filename</th>
+            </tr>
+
+            <tr ng-repeat="file in lesson.questionFileList">
+                <td>{{$index+1}}</td>
+                <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}" class="contact">{{file.filePath}}</a></td>
+            </tr>
+        </table>
+
     </div>
-    
- <div class="container">
+    <!-- <table border="1">
+       <tr>
+           <th>#</th>
+           <th>Sender</th>
+          <th>Message/Query</th>
+          <th>Sent At</th>
+       </tr>
+
+       <tr ng-repeat="message in messageList">
+          <td>{{$index+1}}</td>
+          <td>{{message.createdBy}}</td>
+
+          <td>{{message.description}}</td>
+          <td>{{message.createdDate | date:'dd MMM yyyy h:m a'}}</td>
+
+       </tr>
+    </table> -->
+
+    <div align="center">
+        <table border="1">
+            <tr>
+                <th>#</th>
+                <th>Sender</th>
+                <th>Message/Query</th>
+                <th>Sent At</th>
+            </tr>
+
+            <tr ng-repeat="message in messageList">
+                <td>{{$index+1}}</td>
+                <td>{{message.createdBy}}</td>
+                <td ng-if="message.messageType!='file'">{{message.description}}</td>
+                <td ng-if="message.messageType=='file'">
+                    <a href="/file/download/{{lesson.id}}?filename={{message.description}}" class="contact">
+                        {{message.description}}
+                    </a>
+                </td>
+                <td>{{message.createdDate | date:'dd MMM yyyy h:m a'}}</td>
+
+            </tr>
+        </table>
+        <!--    <p ng-repeat="message in messages | orderBy:'time':true" class="message">
+             <span ng-class="{self: message.self}">{{message.description}}</span>
+           </p> -->
+    </div>
+
+    <div class="container">
         <input type="text" placeholder="Compose a new message..." ng-model="message.description" />
         <div class="info">
-          <button  ng-click="addMessage();">Send</button>
+            <button  ng-click="addMessage();">Send</button>
         </div>
-      <hr />
-   </div> 
-      
+        <hr />
+        <input type="file" file-model = "myFile">
+        <button ng-click = "uploadFile()">upload me</button>
+    </div>
 
 
-<br><br>
-<!-- <div align="center">
-<b>Post Your Messages</b>
-<textarea rows="4" cols="50" ng-model="userMessage" id="userMessage" wrap="hard">
-</textarea>
-<br>
-<button type="button" ng-click="postMessage()">Post Your Question</button>
-</div> -->
+
+    <br><br>
+    <!-- <div align="center">
+    <b>Post Your Messages</b>
+    <textarea rows="4" cols="50" ng-model="userMessage" id="userMessage" wrap="hard">
+    </textarea>
+    <br>
+    <button type="button" ng-click="postMessage()">Post Your Question</button>
+    </div> -->
 </div>

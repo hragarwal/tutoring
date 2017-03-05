@@ -34,7 +34,15 @@ public final class AppConstants {
 	public static final String LESSON="lesson";
     
     public static final String ACCESS_TOKEN="accessToken";
-    
-    public static final String MESSAGE_PROPERTIES_FILE="message.properties";
+
+	public static final String MESSAGE_TYPE_TEXT="text";
+
+	public static final String MESSAGE_TYPE_FILE="file";
+
+	public static final String FILE_TYPE_EXE=".exe";
+
+	public static final String MESSAGE_PROPERTIES_FILE="message.properties";
+
+
 
 }
