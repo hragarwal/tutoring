@@ -39,28 +39,30 @@ angular.module('homeController', ['factories','services'])
 
 
       // fetch all subjects from lesson
-      LessonService.getLessonSubjects()
-          .then(function successCallback(response) {
-            if(response.data.status == AppConstants.API_SUCCESS) {
-              $scope.subjectsList= response.data.data;
-            } else {
-              alert(response);
-            }
-          }, function errorCallback(response) {
-            console.error("There is a error..");
-          });
-
+      if(TutoringFactory.getSubjectList()){
+        $scope.subjectsList = TutoringFactory.getSubjectList();
+      }else {
+        LessonService.getLessonSubjects()
+            .then(function successCallback(response) {
+              if (response.data.status == AppConstants.API_SUCCESS) {
+                $scope.subjectsList = response.data.data;
+                TutoringFactory.setSubjectList($scope.subjectsList);
+              }
+            }, function errorCallback(response) {
+              console.error("There is a error..");
+            });
+      }
       // fetch all lesson status
-      LessonService.getLessonStatus()
-          .then(function successCallback(response) {
-            if(response.data.status == AppConstants.API_SUCCESS) {
-              TutoringFactory.setLessonStatus(response.data.data);
-            } else {
-              alert(response);
-            }
-          }, function errorCallback(response) {
-            console.error("There is a error..");
-          });
+      if(!TutoringFactory.getLessonStatus()){
+        LessonService.getLessonStatus()
+            .then(function successCallback(response) {
+              if (response.data.status == AppConstants.API_SUCCESS) {
+                TutoringFactory.setLessonStatus(response.data.data);
+              }
+            }, function errorCallback(response) {
+              console.error("There is a error..");
+            });
+      }
 
       $scope.lesson={
         "subjectID":"",

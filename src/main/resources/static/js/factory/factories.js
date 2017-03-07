@@ -20,6 +20,8 @@ angular.module('factories',[])
           $sessionStorage.profile="";
           $sessionStorage.lessonStatus="";
           $sessionStorage.lesson="";
+          $sessionStorage.subjectList="";
+          $sessionStorage.lessonStatus=""
         }
         factory.setProfile= function (profile) {
           $sessionStorage.profile = profile;
@@ -32,7 +34,7 @@ angular.module('factories',[])
   	      $sessionStorage.lessonStatus = lessonStatus;
   	    }
   	    factory.getLessonStatus= function () {
-  	      return this.checkIfSessionExistFOrData($sessionStorage.lessonStatus);
+  	      return $sessionStorage.lessonStatus;
   	    }
         factory.setLesson= function (lesson) {
           $sessionStorage.lesson = lesson;
@@ -45,6 +47,12 @@ angular.module('factories',[])
         }
         factory.getUnAuthorizedFlag = function(){
           return this.checkIfSessionExistFOrData($sessionStorage.unAuthorizedFlagShown);
+        }
+        factory.setSubjectList= function (subjectList) {
+          $sessionStorage.subjectList = subjectList;
+        }
+        factory.getSubjectList= function () {
+          return $sessionStorage.subjectList;
         }
   	    
       return factory;
