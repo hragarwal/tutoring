@@ -37,6 +37,10 @@ app.config(function($routeProvider,$httpProvider){
             templateUrl: '../views/lessondetail.html',
             controller: 'lessonController'
         })
+        .when('/lessontalks',{
+            templateUrl: '../views/lessontalks.html',
+            controller: 'lessonController'
+        })
         .otherwise(
             { redirectTo: '/login'}
         );

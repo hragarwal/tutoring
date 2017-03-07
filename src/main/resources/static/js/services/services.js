@@ -81,6 +81,17 @@ angular.module('services', ['factories'])
 	      });
 	    }
 	    
+	    this.getLessonStatus = function (){
+			  return $http({
+		        method: 'GET',
+		        headers: {
+		          'accept': 'application/json',
+		          'content-type': 'application/json'
+		        },
+		        url: '/lessonstatus/'
+		      });
+		    }
+	    
 	    this.getLessonSubjects = function (){
 			  return $http({
 		        method: 'GET',
@@ -124,6 +135,18 @@ angular.module('services', ['factories'])
 		        url: '/lesson/'+lessonId
 		      });
 		    }
+	    
+	    this.updateLessonStatus = function (lesson){
+		  return $http({
+	        method: 'PUT',
+	        headers: {
+	          'accept': 'application/json',
+	          'content-type': 'application/json'
+	        },
+	        data: lesson,
+	        url: '/lesson/'
+	      });
+		}
 	    
 	    this.postMyMessage = function (userMessage, lessonID){
 	    	var postLessonMessage = {

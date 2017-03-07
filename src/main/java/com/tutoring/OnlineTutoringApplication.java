@@ -11,7 +11,7 @@ public class OnlineTutoringApplication {
 
 	/**
 	 * The main method.
-	 *
+	 * 
 	 * @param args the arguments
 	 */
 	public static void main(String[] args) {

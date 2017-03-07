@@ -1,8 +1,13 @@
 package com.tutoring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.tutoring.util.AppConstants;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.
@@ -12,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController{
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public String home() {
+    public String home(HttpServletRequest request, HttpServletResponse response) {
+    	request.getSession().removeAttribute(AppConstants.PROFILE);
+    	request.getSession().removeAttribute(AppConstants.ACCESS_TOKEN);
         return "index";
     }
 }

@@ -4,14 +4,17 @@
 
 			<!-- When a link in the menu is clicked, we set the active variable -->
 			
-			<!-- <a href="#" class="tutorhome" ng-click="setActiveTab('tutorhome')">Available Lesson</a> -->
+			<div ng-if="currentProfile.role.id == 8">
+				<a href="#" class="tutorhome" ng-click="setActiveTab('tutorhome')">Available Lesson</a> 
+				||
+			</div>
+			
+			<a href="#" class="home" ng-click="setActiveTab('lessons')">Lesson History	</a>
 			||
-			<a href="#" class="home" ng-click="setActiveTab('lessons')">List Lessons</a>
+			<div ng-if="currentProfile.role.id == 16">
+				<a href="#" class="about" ng-click="setActiveTab('newLesson')">New Lesson</a>
 			||
-			<a href="#" class="about" ng-click="setActiveTab('newLesson')">New Lesson</a>
-			||
-			<a href="#" class="contact" ng-click="setActiveTab('profile')">Profile</a>
-			||
+			</div>
 			<a href class="contact" ng-click="routeToPage('changePassword')">Change Password</a>
 			||
 			<a href class="contact" ng-click="routeToPage('editProfile')">Edit Profile</a>
@@ -147,16 +150,12 @@
    					</tr>
 	   				<tr ng-repeat = "lesson in availableLessonList">
 	      				<td>{{$index+1}}</td>
-	      				<td><a href ng-click="openLesson(lesson.id)">{{lesson.subject.name}}</a></td>
+	      				<td><a href ng-click="openLesson(lesson.id, lesson.status.id)">{{lesson.subject.name}}</a></td>
 	      				<td>{{lesson.taskDescription}}</td>
 	      				<td>{{lesson.title}}</td>
 	      				<td>{{lesson.status.name}}</td>
 	   				</tr>
 				</table>
         	</div>
-		</div>
-		
-		<div ng-show="active" ng-if="active=='profile'">
-				my profile
 		</div>
 		

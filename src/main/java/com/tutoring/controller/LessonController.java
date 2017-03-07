@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tutoring.annotations.LessonAuthorize;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.model.Profile;
@@ -58,7 +59,7 @@ public class LessonController {
 		return responseVO;
 	}
 
-	//@LessonAuthorize - not required as we are fetching profile for that particular user only from current session
+	@LessonAuthorize // - not required as we are fetching profile for that particular user only from current session
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ResponseVO getLessonByStudentProfile(HttpServletRequest request, HttpServletResponse response) throws AppException {
 		try {
@@ -126,8 +127,25 @@ public class LessonController {
 		return responseVO;
     }
 	
-    /*@RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Lesson> getAllLessons(HttpServletRequest request, HttpServletResponse response){
-        return null;
-    }*/
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public ResponseVO getAllLessons(@RequestBody Lesson lesson, 
+    		HttpServletRequest request, HttpServletResponse response)  throws AppException {
+    	ResponseVO responseVO = null;
+		try {
+			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
+			// accept allow only if tutor is there 
+			if(LessonStates.isLessonStates(lesson.getStatus().getId(), LessonStates.ACCEPTED) && 
+					!RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.TUTOR)) {
+				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.notallowed.action"));
+				return responseVO;
+			}
+			else {
+				responseVO = lessonService.updateLessonStatus(lesson, currentProfile);
+			}
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			throw new AppException(e);
+		}
+		return responseVO;
+    }
 }

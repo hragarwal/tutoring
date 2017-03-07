@@ -5,41 +5,24 @@
             <th>Task Description</th>
             <th>Title</th>
             <th>Status</th>
-            <th>Fee Amount $</th>
-            <th>Estimated work hours</th>
         </tr>
-
         <tr>
             <td>{{lesson.subject.name}}</td>
             <td>{{lesson.taskDescription}}</td>
             <td>{{lesson.title}}</td>
             <td>{{lesson.status.name}}</td>
-            <td>{{lesson.dueAmount}}</td>
-            <td>{{lesson.estimatedWorkEffort}}</td>
         </tr>
     </table>
     <br><br>
-
     <b>Messages</b>
 
-	
     <div align="center">
-    
-    	 <div class="col-sm-8">
-	           <select ng-model="lesson.subjectID">
-	           <option value="-1">Update Status</option>
-	           <div>
-       				<option ng-repeat="lessonStatus in lessonStausList" ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">
-	      				{{lessonStatus.name}}
-	      			</option>
-       			</select>
-	        </div>
-	        
         <table border="1">
             <tr>
                 <th>#</th>
                 <th>Filename</th>
             </tr>
+
             <tr ng-repeat="file in lesson.questionFileList">
                 <td>{{$index+1}}</td>
                 <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}" class="contact">{{file.filePath}}</a></td>
@@ -47,7 +30,6 @@
         </table>
 
     </div>
-
     <div align="center">
         <table border="1">
             <tr>
@@ -69,16 +51,38 @@
                 <td>{{message.createdDate | date:'dd MMM yyyy h:m a'}}</td>
             </tr>
         </table>
+        
+        <div>
+        <!-- please put only allow to number -->
+        
+        	<div class="form-group">
+		        <label for="" class="col-sm-4 control-label">Fee Amount $ *</label>
+		        <div class="col-sm-8">
+		          <!-- only allow number to be entered -->
+		          <input type="text" class="form-control required" ng-model="lessonUpdate.dueAmount" name="dueAmount" id="dueAmount" />
+		        </div>
+	    	</div>
+	    	
+	    	<div class="form-group">
+		        <label for="" class="col-sm-4 control-label">Estimated Work Effort (in Hours)</label>
+		        <div class="col-sm-8">
+		          <!-- only allow number to be entered -->
+		          <input type="text" class="form-control required" ng-model="lessonUpdate.estimatedWorkEffort" name="estimatedWorkEffort" id="estimatedWorkEffort" />
+		        </div>
+	    	</div>
     </div>
 
     <div class="container">
         <input type="text" placeholder="Compose a new message..." ng-model="message.description" />
         <div class="info">
             <button  ng-click="addMessage();">Send</button>
+            
+             <button  ng-click="updateStatus(2);">Accept Lesson</button>
         </div>
         <hr />
         <input type="file" file-model = "myFile">
         <button ng-click = "uploadFile()">upload me</button>
     </div>
+
     <br><br>
 </div>

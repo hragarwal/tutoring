@@ -20,4 +20,5 @@ public abstract class PersistableBaseEntity {
     public long getId() {
         return id;
     }
+
 }

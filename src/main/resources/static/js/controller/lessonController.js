@@ -1,20 +1,32 @@
 angular.module('lessonController', ['factories','services','chatServices'])
 		.controller('lessonController', function($scope, LessonService, AppConstants,FileService,
-																						 $sessionStorage, ChatServices, TutoringFactory) {
+												$sessionStorage, ChatServices, TutoringFactory) {
 
 			$scope.lesson = $sessionStorage.lesson;
-      $scope.maxFilesize=5;
+			$scope.maxFilesize=5;
 			LessonService.getAllMessagesForLesson($scope.lesson.id)
 					.then(function successCallback(response) {
-						if(response.data.status == AppConstants.API_SUCCESS) {
-							$scope.messageList = response.data.data;
-						} else {
-							alert(response.data.message);
-						}
-					}, function errorCallback(response) {
-						console.error("There is a error..");
-					});
-
+				if(response.data.status == AppConstants.API_SUCCESS) {
+					$scope.messageList = response.data.data;
+				} else {
+					alert(response.data.message);
+				}
+			}, function errorCallback(response) {
+				console.error("There is a error..");
+			});
+			
+			$scope.currentProfile =  TutoringFactory.getProfile();
+			$scope.lessonStausList =  TutoringFactory.getLessonStatus();
+			
+			$scope.lessonUpdate={
+		  	        "id": $scope.lesson.id,
+		  	        "status":{
+						"id":"",
+					},
+		  	        "dueAmount":"",
+		  	        "estimatedWorkEffort":"",
+		    };
+			
 			$scope.message={
 				"lesson":{
 					"id":$scope.lesson.id
@@ -27,6 +39,10 @@ angular.module('lessonController', ['factories','services','chatServices'])
 				ChatServices.send($scope.message);
 				$scope.message.description = "";
 			};
+			
+			  $scope.lessonFilterExpression = function(lesson) {
+	                return (lesson.id> $scope.lesson.id );
+	            };
 
 			ChatServices.receive().then(null, null, function(message) {
 				var responseMessage = JSON.parse(message);
@@ -38,7 +54,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 			});
 
 			$scope.uploadFile = function(){
-				console.log($scope.myFile);
+			console.log($scope.myFile);
         if(!$scope.myFile){
           alert("Please add a file");
         }else if($scope.myFile.name.indexOf(".exe")>-1){
@@ -59,9 +75,25 @@ angular.module('lessonController', ['factories','services','chatServices'])
                 console.error("There is a error..");
               });
         }
-
 			}
 
+			
+		$scope.updateStatus = function(lessonStatus){
+			 $scope.lessonUpdate.status.id = lessonStatus;
+			 LessonService.updateLessonStatus($scope.lessonUpdate)
+			 .then(function successCallback(response) {
+			 if(response.data.status == AppConstants.API_SUCCESS) {
+			 $scope.message = response.data.data;
+			 	alert(response.data.message);
+			 	$location.path('home');
+			 } else {
+			 alert(response.data.message);
+			 }
+			 }, function errorCallback(response) {
+			 console.error("There is a error..");
+			 });
+			 }
+			
 			/*$scope.postMessage = function(){
 			 LessonService.postMyMessage($scope.userMessage, $scope.lesson.id)
 			 .then(function successCallback(response) {

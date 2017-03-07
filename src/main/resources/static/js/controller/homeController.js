@@ -1,9 +1,27 @@
 angular.module('homeController', ['factories','services'])
-.controller('homeController', function($scope, LessonService, AppConstants, $location, $sessionStorage, FileService) {
+.controller('homeController', function($scope, LessonService, AppConstants, $location, 
+		$sessionStorage, FileService, TutoringFactory) {
 	
 	console.log("Inside lessonController");
-	  $scope.active="lessons";
     $scope.headingTitle = "Create Lesson";
+    $scope.currentProfile =  TutoringFactory.getProfile();
+    
+    if($scope.currentProfile.role.id ==16) {
+    	$scope.active="lessons";
+    } else  {
+    	$scope.active="tutorhome";
+    	 // get all available lesson for profile not for student
+        LessonService.getAllAvailableLessons()
+        .then(function successCallback(response) {
+                    if(response.data.status == AppConstants.API_SUCCESS) {
+                    	$scope.availableLessonList = response.data.data;
+                 	  } else {
+                 		  alert(response);
+                 	  }
+                  }, function errorCallback(response) {
+                    console.error("There is a error..");
+         });
+    }
     
     // get all lesson for profile
     LessonService.getAllLessons()
@@ -17,23 +35,25 @@ angular.module('homeController', ['factories','services'])
                 console.error("There is a error..");
      });
     
-    // get all available lesson for profile not for student
-   /* LessonService.getAllAvailableLessons()
-    .then(function successCallback(response) {
-                if(response.data.status == AppConstants.API_SUCCESS) {
-                	$scope.availableLessonList = response.data.data;
-             	  } else {
-             		  alert(response);
-             	  }
-              }, function errorCallback(response) {
-                console.error("There is a error..");
-     });*/
+   
     
     // fetch all subjects from lesson
     LessonService.getLessonSubjects()
     .then(function successCallback(response) {
                 if(response.data.status == AppConstants.API_SUCCESS) {
              		  $scope.subjectsList= response.data.data;
+             	  } else {
+             		  alert(response);
+             	  }
+              }, function errorCallback(response) {
+                console.error("There is a error..");
+     });
+    
+    // fetch all lesson status
+    LessonService.getLessonStatus()
+    .then(function successCallback(response) {
+                if(response.data.status == AppConstants.API_SUCCESS) {
+                	TutoringFactory.setLessonStatus(response.data.data);
              	  } else {
              		  alert(response);
              	  }
@@ -66,19 +86,22 @@ angular.module('homeController', ['factories','services'])
         }
       }
     
-    $scope.openLesson = function(lessonId)
+    $scope.openLesson = function(lessonId, lessonStatus)
     {
     	LessonService.getLesson(lessonId)
         .then(function successCallback(response) {
-                    if(response.data.status == AppConstants.API_SUCCESS) {
-                    	$sessionStorage.lesson = response.data.data;
-                    	$location.path('lessondetail');
-                    	
-                 	  } else {
-                 		  alert(response);
-                 	  }
-                  }, function errorCallback(response) {
-                    console.error("There is a error..");
+            if(response.data.status == AppConstants.API_SUCCESS) {
+            	$sessionStorage.lesson = response.data.data;
+            	if(lessonStatus == 1) {
+            		$location.path('lessontalks');
+            	} else {
+            		$location.path('lessondetail');
+            	}
+         	  } else {
+         		  alert(response);
+         	  }
+          }, function errorCallback(response) {
+            console.error("There is a error..");
          });
     };
 

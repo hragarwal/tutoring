@@ -29,6 +29,5 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	 */
 	@Query("select l from Lesson l where status.id=:lessonStatus")
 	public List<Lesson> getAvailableLessons(@Param("lessonStatus") long lessonStatus);
-
-
+	
 }

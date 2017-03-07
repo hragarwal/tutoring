@@ -3,6 +3,7 @@ package com.tutoring.service;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.model.Profile;
+import com.tutoring.util.ResponseVO;
 
 import java.util.List;
 
@@ -45,5 +46,14 @@ public interface LessonService {
 	 * @throws AppException
 	 */
 	public List<Lesson> getAvailableLessons(long lessonStatus) throws AppException;
+	
+	/**
+	 * Update the lesson status 
+	 * @param lesson - lesson details
+	 * @param currentProfile - current profile details
+	 * @return response of update call
+	 * @throws AppException
+	 */
+	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws AppException;
 	
 }

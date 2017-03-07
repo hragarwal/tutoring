@@ -14,5 +14,14 @@ angular.module('factories',[])
         factory.getProfile= function () {
           return $sessionStorage.profile;
         }
+        // to store all lesson status
+        factory.setLessonStatus= function (lessonStatus) {
+  	      $sessionStorage.lessonStatus = lessonStatus;
+  	    }
+  	    factory.getLessonStatus= function () {
+  	      return $sessionStorage.lessonStatus;
+  	    }
+  	    
       return factory;
     });
+
