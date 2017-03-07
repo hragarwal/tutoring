@@ -41,4 +41,5 @@ public class Mappings {
 	
 	public static final String GET_ALL_LESSON_STATUS="lessonstatus";
 
+	public static final String LOGOUT="logout";
 }

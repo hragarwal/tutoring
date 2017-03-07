@@ -4,20 +4,22 @@
 
 			<!-- When a link in the menu is clicked, we set the active variable -->
 			
-			<div ng-if="currentProfile.role.id == 8">
+			<div ng-if="!isStudent">
 				<a href="#" class="tutorhome" ng-click="setActiveTab('tutorhome')">Available Lesson</a> 
 				||
 			</div>
 			
 			<a href="#" class="home" ng-click="setActiveTab('lessons')">Lesson History	</a>
 			||
-			<div ng-if="currentProfile.role.id == 16">
+			<div ng-if="isStudent">
 				<a href="#" class="about" ng-click="setActiveTab('newLesson')">New Lesson</a>
 			||
 			</div>
 			<a href class="contact" ng-click="routeToPage('changePassword')">Change Password</a>
 			||
 			<a href class="contact" ng-click="routeToPage('editProfile')">Edit Profile</a>
+			||
+			<a href class="contact" ng-click="logout()">Logout</a>
 		</nav>
 
 		<!-- ng-show will show an element if the value in the quotes is truthful,

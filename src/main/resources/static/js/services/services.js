@@ -50,6 +50,17 @@ angular.module('services', ['factories'])
 				});
 			}
 
+			this.logoutUser = function (){
+				return $http({
+					method: 'GET',
+					headers: {
+						'accept': 'application/json',
+						'content-type': 'application/json'
+					},
+					url: '/logout/'
+				});
+			}
+
     })
 
     // login service

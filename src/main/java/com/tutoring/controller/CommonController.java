@@ -93,4 +93,10 @@ public class CommonController{
 		return responseVO;
 	}
 
+	@RequestMapping(value = Mappings.LOGOUT, method = RequestMethod.GET)
+	public void logout(HttpServletRequest request){
+		request.getSession().removeAttribute(AppConstants.PROFILE);
+		request.getSession().removeAttribute(AppConstants.ACCESS_TOKEN);
+	}
+
 }

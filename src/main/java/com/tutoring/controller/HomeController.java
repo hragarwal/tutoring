@@ -18,8 +18,6 @@ public class HomeController{
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String home(HttpServletRequest request, HttpServletResponse response) {
-    	request.getSession().removeAttribute(AppConstants.PROFILE);
-    	request.getSession().removeAttribute(AppConstants.ACCESS_TOKEN);
         return "index";
     }
 }

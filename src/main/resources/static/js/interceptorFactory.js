@@ -1,6 +1,6 @@
-angular.module('interceptorFactory',[])
+angular.module('interceptorFactory',['factories'])
 
-    .factory('httpInterceptor',function($q,$rootScope){
+    .factory('httpInterceptor',function($q,$rootScope,TutoringFactory){
       var httpInterceptor = {
         request:function(config){
           return config;
@@ -13,8 +13,11 @@ angular.module('interceptorFactory',[])
         },
         responseError: function(response){
           if(response.status==401){
-            alert("Unauthorized");
-            $rootScope.$broadcast('unauthorized');
+            if(!TutoringFactory.getUnAuthorizedFlag()){
+              alert("Session expired");
+              TutoringFactory.setUnAuthorizedFlag(true);
+              $rootScope.$broadcast('unauthorized');
+            }
           }else{
             alert("System encountered some error, please try after sometime");
           }

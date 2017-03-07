@@ -14,6 +14,7 @@ angular.module('loginController', ['factories','services'])
               .then(function successCallback(response) {
             	  if(response.data.status == AppConstants.API_SUCCESS) {
             		  TutoringFactory.setProfile(response.data.data);
+                  TutoringFactory.setUnAuthorizedFlag(false);
             		  $location.path('home');
             	  } else {
             		  alert(response.data.message);
