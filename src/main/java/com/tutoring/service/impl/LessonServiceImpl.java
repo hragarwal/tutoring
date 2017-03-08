@@ -28,6 +28,7 @@ import com.tutoring.util.AppUtils;
 import com.tutoring.util.LessonStates;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
+import org.springframework.util.StringUtils;
 
 @Service
 @Transactional
@@ -63,12 +64,12 @@ public class LessonServiceImpl implements LessonService {
 					questionFile = new Files();
 					questionFile.setFileType(AppConstants.FILE_QUESTION_TYPE);
 					questionFile.setFilePath(file.getName());
-					questionFile.setActualFileName(file.getName().split(AppConstants.UNDERSCORE)[0]);
+					questionFile.setActualFileName(AppUtils.getActualFilenameFromServerFile(file.getName()));
 					questionFile.setCreatedBy(profile.getEmail());
 					questionFileList.add(questionFile);
 				}
 			}
-			returnLesson.setQuestionFileList(questionFileList);
+			returnLesson.setFileList(questionFileList);
 			return true;
 		}catch (IOException e){
 			throw new AppException(e);
@@ -97,9 +98,9 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
-	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws AppException {
+	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws IOException {
 		Lesson returnLesson = lessonDAO.findOne(lesson.getId());
-		String formattedMessage= AppConstants.BLANK;
+		String formattedMessage;
 		if(returnLesson.getStatus().getId() == lesson.getStatus().getId()) {
 			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.error"), LessonStates.getAllLessonStates().get(lesson.getStatus().getId()));
 			return new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, formattedMessage);
@@ -127,6 +128,41 @@ public class LessonServiceImpl implements LessonService {
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.WAITING_PAYMENT)));
 			returnLesson.setModifiedBy(currentProfile.getEmail());
 		}
+		/* Answer submitted by tutor*/
+		else if(lesson.getStatus().getId() == LessonStates.SUBMITTED){
+			if(StringUtils.isEmpty(lesson.getLessonAnswerDesc())){
+				return new ResponseVO(AppConstants.ERROR,AppConstants.TEXT_ERROR,
+						MessageReader.READER.getProperty("api.message.lesson.answer.description"));
+			}
+			returnLesson.setLessonAnswerDesc(lesson.getLessonAnswerDesc());
+			Set<Files> fileList = returnLesson.getFileList();
+			File profileDir = new File(profileSaveLocation + currentProfile.getId());
+			File lessonDir = new File(lessonSaveLocation + returnLesson.getId() + AppConstants.ANSWER_DIR);
+			FileUtils.copyDirectory(profileDir, lessonDir);
+			Files answerFile;
+			File[] listOfFiles = lessonDir.listFiles();
+			for(File file : listOfFiles){
+				if(file.isFile()){
+					answerFile = new Files();
+					answerFile.setFileType(AppConstants.FILE_ANSWER_TYPE);
+					answerFile.setFilePath(file.getName());
+					answerFile.setActualFileName(AppUtils.getActualFilenameFromServerFile(file.getName()));
+					answerFile.setCreatedBy(currentProfile.getEmail());
+					fileList.add(answerFile);
+				}
+			}
+			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.SUBMITTED)));
+			returnLesson.setModifiedBy(currentProfile.getEmail());
+		}
+		//Student marked lesson as completed
+		else if(lesson.getStatus().getId() == LessonStates.COMPLETED){
+			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.COMPLETED)));
+			returnLesson.setModifiedBy(currentProfile.getEmail());
+		}
+
+		//Clean the user profile directory for after every status update because user might upload it by changing just
+		//submitted status on UI and than again reset to some lower value
+		AppUtils.deleteDirectoryForUser(currentProfile,profileSaveLocation);
 		formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.success"), LessonStates._ACCEPTED);
 		return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, formattedMessage);
 	}

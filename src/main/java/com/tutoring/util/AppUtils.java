@@ -15,6 +15,7 @@ import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.util.FileCopyUtils;
 
@@ -170,6 +171,21 @@ public class AppUtils {
 	}
 
 	public static String getUniqueFilename(String filename){
-		return filename + AppConstants.UNDERSCORE + DateTimeUtil.getCurrentDate().getTime();
+		int dotIndex = filename.lastIndexOf(".");
+		String fileNameWithoutExt = filename.substring(0, dotIndex);
+		String extension = filename.substring(dotIndex,filename.length());
+		return fileNameWithoutExt + AppConstants.UNDERSCORE + DateTimeUtil.getCurrentDate().getTime() + extension;
+	}
+
+	public static void deleteDirectoryForUser(Profile profile, String profileDirectory) throws IOException{
+		File file = new File(profileDirectory + profile.getId());
+		FileUtils.deleteDirectory(file);
+	}
+
+	public static String getActualFilenameFromServerFile(String filename){
+		int underScoreIndex = filename.lastIndexOf(AppConstants.UNDERSCORE);
+		int dotIndex = filename.lastIndexOf(".");
+		String actualFilename = filename.substring(0,underScoreIndex) + filename.substring(dotIndex,filename.length());
+		return actualFilename;
 	}
 }

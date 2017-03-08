@@ -25,7 +25,7 @@
     <div align="center">
     
     	 <div class="col-sm-8">
-	           <select ng-model="lessonUpdate.status.id">
+	           <select ng-model="lessonUpdate.status.id" ng-change="checkSubmittedStatus(lessonUpdate.status.id)">
                    <option value="-1">Update Status</option>
                     <option  ng-repeat="lessonStatus in lessonStausList"
                              ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">
@@ -39,9 +39,9 @@
                 <th>#</th>
                 <th>Filename</th>
             </tr>
-            <tr ng-repeat="file in lesson.questionFileList | filter:{ fileType: 'question' }">
+            <tr ng-repeat="file in lesson.fileList | filter:{ fileType: 'question' }">
                 <td>{{$index+1}}</td>
-                <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}" class="contact">
+                <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=question" class="contact">
                     {{file.actualFileName}}</a></td>
             </tr>
         </table>
@@ -62,7 +62,7 @@
                 <td>{{message.createdBy}}</td>
                 <td ng-if="message.messageType!='file'">{{message.description}}</td>
                 <td ng-if="message.messageType=='file'">
-                    <a href="/file/download/{{lesson.id}}?filename={{message.description}}" class="contact">
+                    <a href="/file/download/{{lesson.id}}?filename={{message.description}}&fileType=question" class="contact">
                         {{message.actualFileName}}
                     </a>
                 </td>
@@ -76,12 +76,49 @@
         <div class="info">
             <button  ng-click="addMessage();">Send</button>
         </div>
+        <br />
+        <input type="file" file-model = "myFile">
+        <button ng-click = "uploadFile()">upload me</button>
+        <br>
+        <br>
+        <hr/>
+        <div class="info" ng-if="showAnswerFillSection">
+            <textarea rows="4" cols="20" ng-model="lessonUpdate.lessonAnswerDesc"></textarea>
+            <div class="col-xs-6 col-xs-offset-3" style="width: 600px;">
+                <div class="well">
+                    <form action="" class="dropzone" dropzone="" id="dropzone">
+                        <div class="dz-default dz-message">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="pull-right">
+                <!--<button class="btn btn-success" ng-click="processDropzone()">Upload File</button>-->
+                <button class="btn btn-danger" ng-click="resetDropzone()">Reset drop wizard</button>
+            </div>
+        </div>
+
+        <div class="info" ng-if="showAnswerFromTutor">
+            Lesson Answers submitted by Tutor
+            <p>Description : {{lesson.lessonAnswerDesc}}</p>
+            <table border="1">
+                <tr>
+                    <th>#</th>
+                    <th>Filename</th>
+                </tr>
+                <tr ng-repeat="file in lesson.fileList | filter:{ fileType: 'answer' }">
+                    <td>{{$index+1}}</td>
+                    <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=answer" class="contact">
+                        {{file.actualFileName}}</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <br>
         <div class="info">
             <button  ng-click="updateStatus(lessonUpdate.status.id)">Update Status</button>
         </div>
-        <hr />
-        <input type="file" file-model = "myFile">
-        <button ng-click = "uploadFile()">upload me</button>
+        <br>
     </div>
     <br><br>
 </div>

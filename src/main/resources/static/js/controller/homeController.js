@@ -111,14 +111,18 @@ angular.module('homeController', ['factories','services'])
       $scope.setActiveTab = function(tabName){
         $scope.active=tabName;
         if(tabName=="newLesson"){
-          FileService.deleteTempUserFiles()
-              .then(function successCallback(response) {
-                console.log("Success, files deleted");
-              }, function errorCallback(response) {
-                console.error("There is a error..");
-              });
+          deleteTemporaryFilesOnServer();
         }
       };
+
+      function deleteTemporaryFilesOnServer(){
+        FileService.deleteTempUserFiles()
+            .then(function successCallback(response) {
+              console.log("Success, files deleted");
+            }, function errorCallback(response) {
+              console.error("There is a error..");
+            });
+      }
 
       $scope.routeToPage = function(routeUrl){
         $location.path(routeUrl);

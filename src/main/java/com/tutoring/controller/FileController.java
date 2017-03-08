@@ -45,11 +45,13 @@ public class FileController {
 
     @RequestMapping(value = "/download/{lessonId}", method = RequestMethod.GET)
     public void downloadFile (@PathVariable("lessonId") long lessonId,
-                              @RequestParam("filename") String filename, HttpServletResponse response) throws AppException{
+                              @RequestParam("filename") String filename,
+                              @RequestParam("fileType") String fileType,
+                              HttpServletResponse response) throws AppException{
         try{
-            byte [] bytes = fileService.downloadFile(lessonId,filename);
+            byte [] bytes = fileService.downloadFile(lessonId,filename,fileType);
             response.addHeader("Content-Disposition", "attachment; filename=\"" +
-                    filename.split(AppConstants.UNDERSCORE)[0] + "\"");
+                    AppUtils.getActualFilenameFromServerFile(filename) + "\"");
             AppUtils.prepareFileAndFlushResponse(response, bytes,filename);
         }catch (Exception e){
             throw new AppException(e);

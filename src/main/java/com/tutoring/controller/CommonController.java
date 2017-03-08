@@ -56,9 +56,8 @@ public class CommonController{
 	@RequestMapping(value = "/files/delete", method = RequestMethod.DELETE)
 	public void deleteTemporaryUserFiles(HttpServletRequest httpServletRequest) throws AppException{
 		try{
-			long profileId = AppUtils.getCurrentUserProfileID(httpServletRequest);
-			File file = new File(profileDirectory + profileId);
-			FileUtils.deleteDirectory(file);
+			Profile profile = AppUtils.getCurrentUserProfile(httpServletRequest);
+			AppUtils.deleteDirectoryForUser(profile,profileDirectory);
 		}catch (Exception e){
 			throw new AppException(e);
 		}

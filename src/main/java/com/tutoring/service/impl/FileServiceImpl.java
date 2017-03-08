@@ -108,11 +108,15 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public byte[] downloadFile(long lessonId, String filename) throws AppException{
+    public byte[] downloadFile(long lessonId, String filename, String fileType) throws AppException{
         byte[] bytes;
         try {
+            String subDirectory = AppConstants.QUESTION_DIR;
+            if(fileType.equalsIgnoreCase(AppConstants.FILE_ANSWER_TYPE)){
+                subDirectory = AppConstants.ANSWER_DIR;
+            }
             StringBuilder fileLocation = new StringBuilder(lessonDirectory +
-                    lessonId + AppConstants.QUESTION_DIR+ filename);
+                    lessonId + subDirectory + filename);
             bytes = AppUtils.getFileFromLocalFile(fileLocation.toString());
         }catch (Exception e){
             throw new AppException(e);

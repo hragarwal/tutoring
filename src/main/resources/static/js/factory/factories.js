@@ -4,7 +4,9 @@ angular.module('factories',[])
     .constant("AppConstants", {
       "HTTP_BASE_URL": "http://localhost:8080",
       "API_SUCCESS" : 0,
-      "STUDENT_ROLE_ID":16
+      "STUDENT_ROLE_ID":16,
+      "LESSON_SUBMITTED":32,
+      "LESSON_COMPLETED":64
     })
 
     .factory('TutoringFactory', function($sessionStorage,$location){

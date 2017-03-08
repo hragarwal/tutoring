@@ -5,6 +5,7 @@ import com.tutoring.model.Lesson;
 import com.tutoring.model.Profile;
 import com.tutoring.util.ResponseVO;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface LessonService {
@@ -54,6 +55,6 @@ public interface LessonService {
 	 * @return response of update call
 	 * @throws AppException
 	 */
-	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws AppException;
+	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws IOException;
 	
 }

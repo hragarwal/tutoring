@@ -1,9 +1,21 @@
 angular.module('lessonController', ['factories','services','chatServices'])
-		.controller('lessonController', function($scope, LessonService, AppConstants,FileService,
+		.controller('lessonController', function($scope, LessonService, AppConstants,FileService,$location,
 																						 $sessionStorage, ChatServices, TutoringFactory) {
 
 			$scope.lesson = TutoringFactory.getLesson();
 			$scope.maxFilesize=5;
+			$scope.showAnswerFillSection=false;
+			$scope.showAnswerFromTutor=false;
+			if($scope.lesson.status.id==AppConstants.LESSON_SUBMITTED ||
+					$scope.lesson.status.id==AppConstants.LESSON_COMPLETED){
+				$scope.showAnswerFromTutor = true;
+			}
+			$scope.currentProfile =  TutoringFactory.getProfile();
+			$scope.isStudent=false;
+			if($scope.currentProfile.role.id ==  AppConstants.STUDENT_ROLE_ID) {
+				$scope.isStudent=true;
+			}
+
 			LessonService.getAllMessagesForLesson($scope.lesson.id)
 					.then(function successCallback(response) {
 						if(response.data.status == AppConstants.API_SUCCESS) {
@@ -15,7 +27,6 @@ angular.module('lessonController', ['factories','services','chatServices'])
 						console.error("There is a error..");
 					});
 
-			$scope.currentProfile =  TutoringFactory.getProfile();
 			$scope.lessonStausList =  TutoringFactory.getLessonStatus();
 
 			$scope.lessonUpdate={
@@ -25,6 +36,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 				},
 				"dueAmount":"",
 				"estimatedWorkEffort":"",
+				"lessonAnswerDesc":""
 			};
 
 			$scope.message={
@@ -80,21 +92,32 @@ angular.module('lessonController', ['factories','services','chatServices'])
 
 			$scope.updateStatus = function(lessonStatus){
 				if(lessonStatus) {
-				$scope.lessonUpdate.status.id = lessonStatus;
-				LessonService.updateLessonStatus($scope.lessonUpdate)
-						.then(function successCallback(response) {
-							if(response.data.status == AppConstants.API_SUCCESS) {
-								$scope.message = response.data.data;
-								alert(response.data.message);
-								$location.path('home');
-							} else {
-								alert(response.data.message);
-							}
-						}, function errorCallback(response) {
-							console.error("There is a error..");
-						});
-				} else {
+					if(lessonStatus==AppConstants.LESSON_SUBMITTED && !$scope.lessonUpdate.lessonAnswerDesc){
+						alert("Please enter the lesson answer description");
+					}else {
+						$scope.lessonUpdate.status.id = lessonStatus;
+						LessonService.updateLessonStatus($scope.lessonUpdate)
+								.then(function successCallback(response) {
+									if (response.data.status == AppConstants.API_SUCCESS) {
+										$scope.message = response.data.data;
+										alert(response.data.message);
+										$location.path('home');
+									} else {
+										alert(response.data.message);
+									}
+								}, function errorCallback(response) {
+									console.error("There is a error..");
+								});
+					}
+				}else {
 					alert('Please select valid status.');
+				}
+			}
+
+			$scope.checkSubmittedStatus = function (currentSelectedLessonId) {
+				console.log("currentSelectedLessonId:"+currentSelectedLessonId);
+				if(currentSelectedLessonId==AppConstants.LESSON_SUBMITTED){
+					$scope.showAnswerFillSection = true;
 				}
 			}
 

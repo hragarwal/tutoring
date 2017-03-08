@@ -59,28 +59,26 @@ public class Lesson extends AuditableBaseEntity {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "LESSON_ID")
-    private Set<Files> questionFileList;
+    private Set<Files> fileList;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "LESSON_ID")
-    private Set<LessonAnswer> answerFileList;
+    private String lessonAnswerDesc;
     
     private transient int subjectID;
 
-    public Set<Files> getQuestionFileList() {
-        return questionFileList;
+    public Set<Files> getFileList() {
+        return fileList;
     }
 
-    public void setQuestionFileList(Set<Files> questionFileList) {
-        this.questionFileList = questionFileList;
+    public void setFileList(Set<Files> fileList) {
+        this.fileList = fileList;
     }
 
-    public Set<LessonAnswer> getAnswerFileList() {
-        return answerFileList;
+    public String getLessonAnswerDesc() {
+        return lessonAnswerDesc;
     }
 
-    public void setAnswerFileList(Set<LessonAnswer> answerFileList) {
-        this.answerFileList = answerFileList;
+    public void setLessonAnswerDesc(String lessonAnswerDesc) {
+        this.lessonAnswerDesc = lessonAnswerDesc;
     }
 
     public Subject getSubject() {
