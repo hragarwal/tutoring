@@ -59,6 +59,7 @@ public class FileServiceImpl implements FileService {
                 String uploadedFile = itr.next();
                 MultipartFile multipartFile = multipartHttpServletRequest.getFile(uploadedFile);
                 String filename = multipartFile.getOriginalFilename();
+                String serverFileName = AppUtils.getUniqueFilename(filename);
                 byte[] bytes = multipartFile.getBytes();
                 if(filename.contains(AppConstants.FILE_TYPE_EXE)){
                     return new ResponseVO(AppConstants.ERROR,AppConstants.TEXT_ERROR,
@@ -67,9 +68,11 @@ public class FileServiceImpl implements FileService {
                     return new ResponseVO(AppConstants.ERROR,AppConstants.TEXT_ERROR,
                             MessageReader.READER.getProperty("api.message.file.upload.noData"));
                 }else if(lessonId>0){
-                    file = new File(lessonDirectory + lessonId + AppConstants.FORWARD_SLASH + filename);
+                    file = new File(lessonDirectory + lessonId + AppConstants.QUESTION_DIR +
+                            serverFileName);
                 }else {
-                    file = new File(profileDirectory + profileId + AppConstants.FORWARD_SLASH + filename);
+                    file = new File(profileDirectory + profileId + AppConstants.FORWARD_SLASH +
+                            serverFileName);
                 }
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -87,8 +90,9 @@ public class FileServiceImpl implements FileService {
                     }else{
                         message.setReceiverProfile(lesson.getStudentProfile());
                     }
+                    message.setActualFileName(filename);
                     message.setLesson(lesson);
-                    message.setDescription(filename);
+                    message.setDescription(serverFileName);
                     message.setMessageType(AppConstants.MESSAGE_TYPE_FILE);
                     message.setCreatedBy(currentProfile.getEmail());
                     responseVO = messageService.save(message);
@@ -107,7 +111,8 @@ public class FileServiceImpl implements FileService {
     public byte[] downloadFile(long lessonId, String filename) throws AppException{
         byte[] bytes;
         try {
-            StringBuilder fileLocation = new StringBuilder(lessonDirectory + lessonId + AppConstants.FORWARD_SLASH + filename);
+            StringBuilder fileLocation = new StringBuilder(lessonDirectory +
+                    lessonId + AppConstants.QUESTION_DIR+ filename);
             bytes = AppUtils.getFileFromLocalFile(fileLocation.toString());
         }catch (Exception e){
             throw new AppException(e);

@@ -3,6 +3,7 @@ package com.tutoring.controller;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Profile;
 import com.tutoring.service.FileService;
+import com.tutoring.util.AppConstants;
 import com.tutoring.util.AppUtils;
 import com.tutoring.util.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,8 @@ public class FileController {
                               @RequestParam("filename") String filename, HttpServletResponse response) throws AppException{
         try{
             byte [] bytes = fileService.downloadFile(lessonId,filename);
-            response.addHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+            response.addHeader("Content-Disposition", "attachment; filename=\"" +
+                    filename.split(AppConstants.UNDERSCORE)[0] + "\"");
             AppUtils.prepareFileAndFlushResponse(response, bytes,filename);
         }catch (Exception e){
             throw new AppException(e);

@@ -9,17 +9,16 @@ insert into role (id,name) values
 (16,'Student');
 
 -- data for the table subject
-insert  into subject (id,name) values 
-(1,'Computer Science'),
-(2,'Android Programming'),
-(3,'J2EE Programming'),
-(4,'C Programming'),
-(5,'C++ Programming');
+insert  into subject (id,is_active,name) values
+(1,1,'Computer Science'),
+(2,1,'Android Programming'),
+(3,1,'J2EE Programming'),
+(4,1,'C Programming'),
+(5,1,'C++ Programming');
 
 -- lesson status data 
 insert into lesson_status (id, name) values (1, 'Available');
 insert into lesson_status (id, name) values (2, 'Accepted');
-insert into lesson_status (id, name) values (4, 'Rejected');
 insert into lesson_status (id, name) values (8, 'In Progress');
 insert into lesson_status (id, name) values (16, 'Waiting Payment');
 insert into lesson_status (id, name) values (32, 'Submitted');

@@ -53,7 +53,7 @@ public class LessonServiceImpl implements LessonService {
 			lesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.AVAILABLE)));
 			Lesson returnLesson = lessonDAO.save(lesson);
 			File profileDir = new File(profileSaveLocation + profile.getId());
-			File lessonDir = new File(lessonSaveLocation + returnLesson.getId());
+			File lessonDir = new File(lessonSaveLocation + returnLesson.getId() + AppConstants.QUESTION_DIR);
 			FileUtils.copyDirectory(profileDir, lessonDir);
 			Set<Files> questionFileList = new HashSet<>();
 			Files questionFile;
@@ -61,7 +61,9 @@ public class LessonServiceImpl implements LessonService {
 			for(File file : listOfFiles){
 				if(file.isFile()){
 					questionFile = new Files();
+					questionFile.setFileType(AppConstants.FILE_QUESTION_TYPE);
 					questionFile.setFilePath(file.getName());
+					questionFile.setActualFileName(file.getName().split(AppConstants.UNDERSCORE)[0]);
 					questionFile.setCreatedBy(profile.getEmail());
 					questionFileList.add(questionFile);
 				}

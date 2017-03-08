@@ -18,6 +18,8 @@ public class Message extends AuditableBaseEntity {
     @Column(nullable = false)
     private String description;
 
+    private String actualFileName;
+
     @Column(nullable = false)
     private String messageType;
 
@@ -95,5 +97,13 @@ public class Message extends AuditableBaseEntity {
 
     public void setIsRead(boolean isRead) {
         this.isRead = isRead;
+    }
+
+    public String getActualFileName() {
+        return actualFileName;
+    }
+
+    public void setActualFileName(String actualFileName) {
+        this.actualFileName = actualFileName;
     }
 }

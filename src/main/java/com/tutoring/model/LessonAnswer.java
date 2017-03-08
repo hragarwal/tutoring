@@ -12,18 +12,8 @@ import javax.persistence.Table;
 @Table(name = "LESSON_ANSWER")
 public class LessonAnswer extends AuditableBaseEntity {
 
-    private String filePath;
-
     @Column(nullable = false)
     private String description;
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
 
     public String getDescription() {
         return description;

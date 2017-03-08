@@ -168,4 +168,8 @@ public class AppUtils {
 		}
 		return true;
 	}
+
+	public static String getUniqueFilename(String filename){
+		return filename + AppConstants.UNDERSCORE + DateTimeUtil.getCurrentDate().getTime();
+	}
 }

@@ -20,6 +20,8 @@ public final class AppConstants {
 	public static final String SPACE = " ";
 	
 	public static final String HYPHEN = "-";
+
+	public static final String UNDERSCORE = "_";
 	
 	public static final String COMMA = ",";
 	
@@ -43,6 +45,10 @@ public final class AppConstants {
 
 	public static final String MESSAGE_PROPERTIES_FILE="message.properties";
 
+	public static final String QUESTION_DIR="/question/";
+	public static final String ANSWER_DIR="/answer/";
 
+	public static final String FILE_QUESTION_TYPE="question";
+	public static final String FILE_ANSWER_TYPE="answer";
 
 }

@@ -26,11 +26,11 @@
     
     	 <div class="col-sm-8">
 	           <select ng-model="lessonUpdate.status.id">
-	           <option value="-1">Update Status</option>
-	           <div>
-       				<option  ng-repeat="lessonStatus in lessonStausList" ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">
-	      				{{lessonStatus.name}}
-	      			</option>
+                   <option value="-1">Update Status</option>
+                    <option  ng-repeat="lessonStatus in lessonStausList"
+                             ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">
+                        {{lessonStatus.name}}
+                    </option>
        			</select>
 	        </div>
 	        
@@ -39,9 +39,10 @@
                 <th>#</th>
                 <th>Filename</th>
             </tr>
-            <tr ng-repeat="file in lesson.questionFileList">
+            <tr ng-repeat="file in lesson.questionFileList | filter:{ fileType: 'question' }">
                 <td>{{$index+1}}</td>
-                <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}" class="contact">{{file.filePath}}</a></td>
+                <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}" class="contact">
+                    {{file.actualFileName}}</a></td>
             </tr>
         </table>
 
@@ -62,7 +63,7 @@
                 <td ng-if="message.messageType!='file'">{{message.description}}</td>
                 <td ng-if="message.messageType=='file'">
                     <a href="/file/download/{{lesson.id}}?filename={{message.description}}" class="contact">
-                        {{message.description}}
+                        {{message.actualFileName}}
                     </a>
                 </td>
                 <td>{{message.createdDate | date:'dd MMM yyyy h:m a'}}</td>
