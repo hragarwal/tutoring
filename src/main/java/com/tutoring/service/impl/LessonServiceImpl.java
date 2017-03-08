@@ -114,10 +114,19 @@ public class LessonServiceImpl implements LessonService {
 			returnLesson.setModifiedBy(currentProfile.getEmail());
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.ACCEPTED)));
 			returnLesson.setTutorProfile(currentProfile);
-			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.success"), LessonStates._ACCEPTED);
-			return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, formattedMessage);
 		}
-		return null;
+		/* started working IN PROGRESS */
+		else if(lesson.getStatus().getId() == LessonStates.IN_PROGRESS) {
+			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.IN_PROGRESS)));
+			returnLesson.setModifiedBy(currentProfile.getEmail());
+		}
+		/* Waiting Payment task is finished by tutor*/
+		else if(lesson.getStatus().getId() == LessonStates.WAITING_PAYMENT) {
+			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.WAITING_PAYMENT)));
+			returnLesson.setModifiedBy(currentProfile.getEmail());
+		}
+		formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.success"), LessonStates._ACCEPTED);
+		return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, formattedMessage);
 	}
 	
 	

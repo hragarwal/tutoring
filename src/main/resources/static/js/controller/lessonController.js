@@ -79,6 +79,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 
 
 			$scope.updateStatus = function(lessonStatus){
+				if(lessonStatus) {
 				$scope.lessonUpdate.status.id = lessonStatus;
 				LessonService.updateLessonStatus($scope.lessonUpdate)
 						.then(function successCallback(response) {
@@ -92,6 +93,9 @@ angular.module('lessonController', ['factories','services','chatServices'])
 						}, function errorCallback(response) {
 							console.error("There is a error..");
 						});
+				} else {
+					alert('Please select valid status.');
+				}
 			}
 
 			/*$scope.postMessage = function(){

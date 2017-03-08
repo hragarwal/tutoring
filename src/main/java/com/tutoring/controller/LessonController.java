@@ -128,7 +128,7 @@ public class LessonController {
     }
 	
     @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public ResponseVO getAllLessons(@RequestBody Lesson lesson, 
+    public ResponseVO updateLessonStatus(@RequestBody Lesson lesson, 
     		HttpServletRequest request, HttpServletResponse response)  throws AppException {
     	ResponseVO responseVO = null;
 		try {

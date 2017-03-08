@@ -8,7 +8,6 @@
             <th>Fee Amount $</th>
             <th>Estimated work hours</th>
         </tr>
-
         <tr>
             <td>{{lesson.subject.name}}</td>
             <td>{{lesson.taskDescription}}</td>
@@ -26,10 +25,10 @@
     <div align="center">
     
     	 <div class="col-sm-8">
-	           <select ng-model="lesson.subjectID">
+	           <select ng-model="lessonUpdate.status.id">
 	           <option value="-1">Update Status</option>
 	           <div>
-       				<option ng-repeat="lessonStatus in lessonStausList" ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">
+       				<option  ng-repeat="lessonStatus in lessonStausList" ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">
 	      				{{lessonStatus.name}}
 	      			</option>
        			</select>
@@ -75,6 +74,9 @@
         <input type="text" placeholder="Compose a new message..." ng-model="message.description" />
         <div class="info">
             <button  ng-click="addMessage();">Send</button>
+        </div>
+        <div class="info">
+            <button  ng-click="updateStatus(lessonUpdate.status.id)">Update Status</button>
         </div>
         <hr />
         <input type="file" file-model = "myFile">
