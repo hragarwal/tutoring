@@ -12,6 +12,8 @@ import javax.persistence.Table;
 public class LessonStatus extends PersistableBaseEntity {
 
     private String name;
+    
+    private long allowedRoles;
 
     public String getName() {
         return name;
@@ -20,4 +22,14 @@ public class LessonStatus extends PersistableBaseEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+	public long getAllowedRoles() {
+		return allowedRoles;
+	}
+
+	public void setAllowedRoles(long allowedRoles) {
+		this.allowedRoles = allowedRoles;
+	}
+    
+    
 }

@@ -6,6 +6,7 @@ import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.collections.IteratorUtils;
@@ -28,6 +29,8 @@ import com.tutoring.util.AppUtils;
 import com.tutoring.util.LessonStates;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
+import com.tutoring.util.RoleStates;
+
 import org.springframework.util.StringUtils;
 
 @Service
@@ -53,23 +56,26 @@ public class LessonServiceImpl implements LessonService {
 			lesson.setSubject(subjectDAO.findOne(Long.valueOf(lesson.getSubjectID())));
 			lesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.AVAILABLE)));
 			Lesson returnLesson = lessonDAO.save(lesson);
+
 			File profileDir = new File(profileSaveLocation + profile.getId());
 			File lessonDir = new File(lessonSaveLocation + returnLesson.getId() + AppConstants.QUESTION_DIR);
-			FileUtils.copyDirectory(profileDir, lessonDir);
-			Set<Files> questionFileList = new HashSet<>();
-			Files questionFile;
-			File[] listOfFiles = lessonDir.listFiles();
-			for(File file : listOfFiles){
-				if(file.isFile()){
-					questionFile = new Files();
-					questionFile.setFileType(AppConstants.FILE_QUESTION_TYPE);
-					questionFile.setFilePath(file.getName());
-					questionFile.setActualFileName(AppUtils.getActualFilenameFromServerFile(file.getName()));
-					questionFile.setCreatedBy(profile.getEmail());
-					questionFileList.add(questionFile);
+			if(profileDir.exists()) {
+				FileUtils.copyDirectory(profileDir, lessonDir);
+				Set<Files> questionFileList = new HashSet<>();
+				Files questionFile;
+				File[] listOfFiles = lessonDir.listFiles();
+				for(File file : listOfFiles){
+					if(file.isFile()){
+						questionFile = new Files();
+						questionFile.setFileType(AppConstants.FILE_QUESTION_TYPE);
+						questionFile.setFilePath(file.getName());
+						questionFile.setActualFileName(AppUtils.getActualFilenameFromServerFile(file.getName()));
+						questionFile.setCreatedBy(profile.getEmail());
+						questionFileList.add(questionFile);
+					}
 				}
+				returnLesson.setFileList(questionFileList);
 			}
-			returnLesson.setFileList(questionFileList);
 			return true;
 		}catch (IOException e){
 			throw new AppException(e);
@@ -105,7 +111,7 @@ public class LessonServiceImpl implements LessonService {
 			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.error"), LessonStates.getAllLessonStates().get(lesson.getStatus().getId()));
 			return new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, formattedMessage);
 		}
-		
+
 		// if lesson update is for ACCEPTED
 		if(lesson.getStatus().getId() == LessonStates.ACCEPTED) {
 			// if due amount not specified 
@@ -123,7 +129,7 @@ public class LessonServiceImpl implements LessonService {
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.IN_PROGRESS)));
 			returnLesson.setModifiedBy(currentProfile.getEmail());
 		}
-		/* Waiting Payment task is finished by tutor*/
+		/* Waiting Payment task is finished by tutor */
 		else if(lesson.getStatus().getId() == LessonStates.WAITING_PAYMENT) {
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.WAITING_PAYMENT)));
 			returnLesson.setModifiedBy(currentProfile.getEmail());
@@ -166,6 +172,6 @@ public class LessonServiceImpl implements LessonService {
 		formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.success"), LessonStates._ACCEPTED);
 		return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, formattedMessage);
 	}
-	
-	
+
+
 }

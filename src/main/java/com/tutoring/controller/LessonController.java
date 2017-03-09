@@ -133,9 +133,8 @@ public class LessonController {
     	ResponseVO responseVO = null;
 		try {
 			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
-			// accept allow only if tutor is there 
-			if(LessonStates.isLessonStates(lesson.getStatus().getId(), LessonStates.ACCEPTED) && 
-					!RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.TUTOR)) {
+			// check if user is allowed to take the action
+			if(!AppUtils.isAccessible(currentProfile.getRole().getId(), lesson.getStatus().getId())) {
 				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.notallowed.action"));
 				return responseVO;
 			}

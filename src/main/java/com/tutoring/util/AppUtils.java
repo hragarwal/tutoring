@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.Pattern;import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.util.FileCopyUtils;
 
+import com.tutoring.model.LessonStatus;
 import com.tutoring.model.Profile;
 
 /**
@@ -188,4 +190,39 @@ public class AppUtils {
 		String actualFilename = filename.substring(0,underScoreIndex) + filename.substring(dotIndex,filename.length());
 		return actualFilename;
 	}
+
+	/**
+	 * This method check if user is validate to perform action on lesson or not.
+	 * @param currentProfileRoleId - user role id of current profile
+	 * @param updateLessonStatus - status to be update for lesson
+	 * @return true if user is allowed to perform the action otherwise false.
+	 */
+	public static boolean isAccessible(long currentProfileRoleId, long updateLessonStatus) {
+
+		if(updateLessonStatus == LessonStates.ACCEPTED && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
+			return true;
+		} 
+
+		else if(updateLessonStatus == LessonStates.IN_PROGRESS && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
+			return true;
+		}
+
+		else if(updateLessonStatus == LessonStates.WAITING_PAYMENT && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
+			return true;
+		}
+
+		else if(updateLessonStatus == LessonStates.SUBMITTED && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
+			return true;
+		}
+
+		else if(updateLessonStatus == LessonStates.COMPLETED && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.STUDENT)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static List<LessonStatus> getAvailableLessonStatus(List<LessonStatus> lessonStatus, long currentRole) {
+		return lessonStatus.stream().filter(status -> RoleStates.isRoleAccessible(currentRole, status.getAllowedRoles())).collect(Collectors.toList());
+	}
+
 }

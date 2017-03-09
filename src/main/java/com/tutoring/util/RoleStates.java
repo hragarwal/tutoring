@@ -1,6 +1,8 @@
 package com.tutoring.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -82,7 +84,7 @@ public class RoleStates {
 		return (userRole & allowedRules) > 0 ? true : false;
 	}
 	
-	/*public static List<Long> getAllRolesForUser(long userRole){
+	public static List<Long> getAllRolesForUser(long userRole){
 		List<Long> userRoles = new ArrayList<>();
 		for(Map.Entry<Long, String> entries : states.entrySet()) {
 			if((entries.getKey() & userRole) > 0) {
@@ -90,6 +92,6 @@ public class RoleStates {
 			}
 		}
 		return userRoles;
-	}*/
+	}
 	
 }

@@ -43,9 +43,9 @@ public class Lesson extends AuditableBaseEntity {
     @JoinColumn(name = "STATUS_ID", nullable = false)
     private LessonStatus status;
 
-    private Double dueAmount;
+    private double dueAmount;
 
-    private Double estimatedWorkEffort;
+    private double estimatedWorkEffort;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TUTOR_ID")
@@ -137,19 +137,19 @@ public class Lesson extends AuditableBaseEntity {
         this.status = status;
     }
 
-    public Double getDueAmount() {
+    public double getDueAmount() {
         return dueAmount;
     }
 
-    public void setDueAmount(Double dueAmount) {
+    public void setDueAmount(double dueAmount) {
         this.dueAmount = dueAmount;
     }
 
-    public Double getEstimatedWorkEffort() {
+    public double getEstimatedWorkEffort() {
         return estimatedWorkEffort;
     }
 
-    public void setEstimatedWorkEffort(Double estimatedWorkEffort) {
+    public void setEstimatedWorkEffort(double estimatedWorkEffort) {
         this.estimatedWorkEffort = estimatedWorkEffort;
     }
 

@@ -16,6 +16,7 @@ import com.tutoring.dao.LessonStatusDAO;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.LessonStatus;
 import com.tutoring.util.AppConstants;
+import com.tutoring.util.AppUtils;
 import com.tutoring.util.Mappings;
 import com.tutoring.util.ResponseVO;
 
@@ -24,7 +25,7 @@ import com.tutoring.util.ResponseVO;
  * @author CHIRAG 
  */
 @RestController
-public class StausController {
+public class StatusController {
 	
 	@Autowired
 	private LessonStatusDAO lessonStatusDAO;
@@ -33,8 +34,9 @@ public class StausController {
 	public ResponseVO fetchLessonStatus(HttpServletRequest request, HttpServletResponse response) throws AppException {
 		try {
 			Iterator<LessonStatus> lessonStatus= lessonStatusDAO.findAll().iterator();
-			List<LessonStatus> lessonStatusList =  IteratorUtils.toList(lessonStatus);
-			return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,AppConstants.BLANK, lessonStatusList, null);
+			List<LessonStatus> list= AppUtils.getAvailableLessonStatus(IteratorUtils.toList(lessonStatus), AppUtils.getCurrentUserProfile(request).getRole().getId());
+			return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,AppConstants.BLANK, 
+					list, null);
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException("Exception occurred while executing method fetchLessonStatus ", e);
