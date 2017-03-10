@@ -48,8 +48,12 @@ angular.module('lessonController', ['factories','services','chatServices'])
 			};
 
 			$scope.addMessage = function() {
-				ChatServices.send($scope.message);
-				$scope.message.description = "";
+				if($scope.message) {
+					ChatServices.send($scope.message);
+					$scope.message.description = "";
+				}else{
+					alert("Please add a message to sent");
+				}
 			};
 
 			$scope.lessonFilterExpression = function(lesson) {
@@ -92,7 +96,9 @@ angular.module('lessonController', ['factories','services','chatServices'])
 
 			$scope.updateStatus = function(lessonStatus){
 				if(lessonStatus) {
-					if(lessonStatus==AppConstants.LESSON_SUBMITTED && !$scope.lessonUpdate.lessonAnswerDesc){
+					if(!$scope.lessonUpdate.dueAmount){
+						alert("Please enter price for the lesson");
+					}else if(lessonStatus==AppConstants.LESSON_SUBMITTED && !$scope.lessonUpdate.lessonAnswerDesc){
 						alert("Please enter the lesson answer description");
 					}else {
 						$scope.lessonUpdate.status.id = lessonStatus;
