@@ -1,12 +1,11 @@
 package com.tutoring.controller;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tutoring.annotations.InvalidMessage;
@@ -34,6 +33,9 @@ public class ChatController {
 
 	@Autowired
 	private ProfileService profileService;
+	
+	@Autowired
+    private SimpMessagingTemplate template;
 
 	@InvalidMessage
 	@MessageMapping("/chat")
@@ -72,5 +74,10 @@ public class ChatController {
 			throw new AppException(e);
 		}
 		return responseVO;
+	}
+	
+	public void sendFileMessage(Message message) {
+		this.template.convertAndSend("/topic/message", new ResponseVO(AppConstants.SUCCESS, 
+				AppConstants.TEXT_MESSAGE, AppConstants.TEXT_MESSAGE, message, AppConstants.BLANK));
 	}
 }

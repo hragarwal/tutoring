@@ -69,7 +69,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 							== TutoringFactory.getProfile().id))
 						 $scope.messageList.push(responseMessage.data);
 					} else {
-						alert('i am not for you');
+						//alert('i am not for you');
 					}
 				} else {
 					alert(responseMessage.message);

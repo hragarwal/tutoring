@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Objects;
 
+import com.tutoring.controller.ChatController;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.model.Message;
@@ -46,6 +47,9 @@ public class FileServiceImpl implements FileService {
     private ProfileService profileService;
     @Autowired
     private MessageService messageService;
+    
+    @Autowired
+    ChatController chatController;
 
     @Override
     public ResponseVO uploadFile(MultipartHttpServletRequest multipartHttpServletRequest,
@@ -96,6 +100,8 @@ public class FileServiceImpl implements FileService {
                     message.setMessageType(AppConstants.MESSAGE_TYPE_FILE);
                     message.setCreatedBy(currentProfile.getEmail());
                     responseVO = messageService.save(message);
+                    // send file message for lesson
+                    chatController.sendFileMessage(message);
                 }
                 responseVO.setStatus(AppConstants.SUCCESS);
             }
