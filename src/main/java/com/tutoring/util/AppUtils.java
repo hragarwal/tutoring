@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;import java.util.stream.Collector;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.activation.MimetypesFileTypeMap;
@@ -135,7 +135,7 @@ public class AppUtils {
 		return null;
 	}
 
-	public static void  prepareFileAndFlushResponse(HttpServletResponse response, byte[] bytes, String filename) throws IOException{
+	public static void prepareFileAndFlushResponse(HttpServletResponse response, byte[] bytes, String filename) throws IOException{
 		MimetypesFileTypeMap mimetypesFileTypeMap = new MimetypesFileTypeMap();
 		response.setContentType(mimetypesFileTypeMap.getContentType(filename));
 		response.setContentLength(bytes.length);
@@ -172,6 +172,11 @@ public class AppUtils {
 		return true;
 	}
 
+	/**
+	 * Return the unique file name append the time stamp with file
+	 * @param filename - file name 
+	 * @return unique file name
+	 */
 	public static String getUniqueFilename(String filename){
 		int dotIndex = filename.lastIndexOf(".");
 		String fileNameWithoutExt = filename.substring(0, dotIndex);
@@ -179,16 +184,26 @@ public class AppUtils {
 		return fileNameWithoutExt + AppConstants.UNDERSCORE + DateTimeUtil.getCurrentDate().getTime() + extension;
 	}
 
+	/**
+	 * Delete the file directory for user.
+	 * @param profile - current profile details
+	 * @param profileDirectory - file directory
+	 * @throws IOException
+	 */
 	public static void deleteDirectoryForUser(Profile profile, String profileDirectory) throws IOException{
 		File file = new File(profileDirectory + profile.getId());
 		FileUtils.deleteDirectory(file);
 	}
 
+	/**
+	 * Return actual file name 
+	 * @param filename - file name 
+	 * @return actual file name
+	 */
 	public static String getActualFilenameFromServerFile(String filename){
 		int underScoreIndex = filename.lastIndexOf(AppConstants.UNDERSCORE);
 		int dotIndex = filename.lastIndexOf(".");
-		String actualFilename = filename.substring(0,underScoreIndex) + filename.substring(dotIndex,filename.length());
-		return actualFilename;
+		return filename.substring(0,underScoreIndex) + filename.substring(dotIndex,filename.length());
 	}
 
 	/**
@@ -221,6 +236,12 @@ public class AppUtils {
 		return false;
 	}
 	
+	/**
+	 * Return list of all applicable list of lesson status for user.
+	 * @param lessonStatus - applicable lesson status 
+	 * @param currentRole - role of current user
+	 * @return list of all lesson status available for user.
+	 */
 	public static List<LessonStatus> getAvailableLessonStatus(List<LessonStatus> lessonStatus, long currentRole) {
 		return lessonStatus.stream().filter(status -> RoleStates.isRoleAccessible(currentRole, status.getAllowedRoles())).collect(Collectors.toList());
 	}

@@ -6,7 +6,6 @@ import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.collections.IteratorUtils;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.tutoring.dao.LessonDAO;
 import com.tutoring.dao.LessonStatusDAO;
@@ -29,9 +29,6 @@ import com.tutoring.util.AppUtils;
 import com.tutoring.util.LessonStates;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
-import com.tutoring.util.RoleStates;
-
-import org.springframework.util.StringUtils;
 
 @Service
 @Transactional

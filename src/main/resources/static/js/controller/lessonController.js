@@ -63,7 +63,14 @@ angular.module('lessonController', ['factories','services','chatServices'])
 			ChatServices.receive().then(null, null, function(message) {
 				var responseMessage = JSON.parse(message);
 				if(responseMessage.status == AppConstants.API_SUCCESS) {
-					$scope.messageList.push(responseMessage.data);
+					if(responseMessage.data.lesson.id == $scope.lesson.id){
+						if(responseMessage.data.lesson.status.id == 1 || (responseMessage.data.receiverProfile.id 
+							== TutoringFactory.getProfile().id) || (responseMessage.data.senderProfile.id 
+							== TutoringFactory.getProfile().id))
+						 $scope.messageList.push(responseMessage.data);
+					} else {
+						alert('i am not for you');
+					}
 				} else {
 					alert(responseMessage.message);
 				}

@@ -1,5 +1,7 @@
 package com.tutoring.controller;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import com.tutoring.service.LessonService;
 import com.tutoring.service.MessageService;
 import com.tutoring.service.ProfileService;
 import com.tutoring.util.AppConstants;
+import com.tutoring.util.LessonStates;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
 
@@ -28,10 +31,10 @@ public class ChatController {
 
 	@Autowired
 	private LessonService lessonService;
-	
+
 	@Autowired
 	private ProfileService profileService;
-	
+
 	@InvalidMessage
 	@MessageMapping("/chat")
 	@SendTo("/topic/message")
@@ -42,14 +45,19 @@ public class ChatController {
 			Profile currentProfile = profileService.getProfile(message.getCurrentProfile());
 			message.setSenderProfile(currentProfile);
 
-			//if sender id  equals student id than message is generated for tutor 
-			if(currentProfile.getId() == lesson.getStudentProfile().getId()) {
-				Profile tutorProfile = lesson.getTutorProfile();
-				if(Objects.nonNull(tutorProfile)) 
-					message.setReceiverProfile(tutorProfile);
-			}
-			else {   
-				message.setReceiverProfile(lesson.getStudentProfile());
+			if(lesson.getStatus().getId() == LessonStates.AVAILABLE) {
+				message.setReceiverProfile(null);
+			} 
+			else {
+				//if sender id  equals student id than message is generated for tutor 
+				if(currentProfile.getId() == lesson.getStudentProfile().getId()) {
+					Profile tutorProfile = lesson.getTutorProfile();
+					if(Objects.nonNull(tutorProfile)) 
+						message.setReceiverProfile(tutorProfile);
+				}
+				else {   
+					message.setReceiverProfile(lesson.getStudentProfile());
+				}
 			}
 
 			message.setLesson(lesson);
