@@ -166,7 +166,7 @@ public class LessonServiceImpl implements LessonService {
 		//Clean the user profile directory for after every status update because user might upload it by changing just
 		//submitted status on UI and than again reset to some lower value
 		AppUtils.deleteDirectoryForUser(currentProfile,profileSaveLocation);
-		formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.success"), LessonStates._ACCEPTED);
+		formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.success"), LessonStates.getLessonStates(lesson.getStatus().getId()).toLowerCase());
 		return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, formattedMessage);
 	}
 

@@ -5,6 +5,7 @@ angular.module('factories',[])
       "HTTP_BASE_URL": "http://localhost:8080",
       "API_SUCCESS" : 0,
       "STUDENT_ROLE_ID":16,
+  	  "LESSON_ACCEPTED" : 2,
       "LESSON_SUBMITTED":32,
       "LESSON_COMPLETED":64
     })

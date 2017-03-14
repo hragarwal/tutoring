@@ -103,7 +103,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 
 			$scope.updateStatus = function(lessonStatus){
 				if(lessonStatus) {
-					if(!$scope.lessonUpdate.dueAmount){
+					if(lessonStatus ==  AppConstants.LESSON_ACCEPTED && !$scope.lessonUpdate.dueAmount){
 						alert("Please enter price for the lesson");
 					}else if(lessonStatus==AppConstants.LESSON_SUBMITTED && !$scope.lessonUpdate.lessonAnswerDesc){
 						alert("Please enter the lesson answer description");

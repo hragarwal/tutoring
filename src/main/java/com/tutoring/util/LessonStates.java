@@ -86,7 +86,7 @@ public class LessonStates {
 	 * @param key the key
 	 * @return the lesson states
 	 */
-	public static String getLessonStates(int key){
+	public static String getLessonStates(long key){
 		return states.get(key);
 	}
 	
