@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -20,10 +21,12 @@ public abstract class AuditableBaseEntity extends PersistableBaseEntity {
 
     @Column(name = "CREATED_DATE")
     @CreatedDate
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date createdDate;
 
     @LastModifiedDate
     @Column(name = "MODIFIED_DATE")
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date modifiedDate;
 
     @CreatedBy
