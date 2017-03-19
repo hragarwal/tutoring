@@ -1,5 +1,5 @@
 angular.module('loginController', ['factories','services'])
-    .controller('LoginController', function($scope,LoginService,AppConstants,$location,TutoringFactory,$sessionStorage) {
+    .controller('LoginController', function($scope,LoginService,AppConstants,$location,TutoringFactory,$rootScope) {
       console.log("Inside loginController");
       $scope.headingTitle = "Login";
 
@@ -15,8 +15,8 @@ angular.module('loginController', ['factories','services'])
               .then(function successCallback(response) {
             	  if(response.data.status == AppConstants.API_SUCCESS) {
             		  TutoringFactory.setProfile(response.data.data);
-                      TutoringFactory.setUnAuthorizedFlag(false);
-                      $sessionStorage.isLoggedIn = true;
+                  TutoringFactory.setUnAuthorizedFlag(false);
+                  $rootScope.isLoggedIn = true;
             		  $location.path('home');
             	  } else {
             		  //alert(response.data.message);

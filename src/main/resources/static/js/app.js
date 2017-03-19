@@ -50,6 +50,7 @@ app.config(function($routeProvider,$httpProvider){
     $rootScope.$on('unauthorized', function() {
         console.log("user is not authorized");
         $location.path('login');
+        $rootScope.isLoggedIn=false;
     });
 });
 

@@ -1,13 +1,10 @@
 angular.module('homeController', ['factories','services'])
     .controller('homeController', function($scope, LessonService, AppConstants, $location,ProfileService,
-                                           $sessionStorage, FileService, TutoringFactory,$route) {
+                                           $sessionStorage, FileService, TutoringFactory,$route,$rootScope) {
 
       console.log("Inside lessonController");
       $scope.headingTitle = "Create Lesson";
       $scope.currentProfile =  TutoringFactory.getProfile();
-      
-      $scope.isLoggedIn = $sessionStorage.isLoggedIn;
-      
       $scope.isStudent=false;
       if($scope.currentProfile.role.id ==  AppConstants.STUDENT_ROLE_ID) {
         $scope.active="lessons";
@@ -138,6 +135,7 @@ angular.module('homeController', ['factories','services'])
             .then(function successCallback(response) {
               console.log("User successfully logged out");
               $location.path('login');
+              $rootScope.isLoggedIn=false;
             }, function errorCallback(response) {
               console.error("There is a error..");
             });
