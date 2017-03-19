@@ -1,3 +1,69 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
+		  <div class="card card-signup">
+			<form class="form" name="registerForm" novalidate="">
+			  <div class="header header-primary text-center">
+				<h4>{{headingTitle}}</h4>
+			  </div>
+			  <div class="content">
+			  <div class="clearfix"></div>
+			  <h3 class="mt-0"></h3>
+			  <div class="alert alert-danger hide alertMessage" role="alert"></div>
+			  
+			  <div class="form-group">
+	<input type="text" class="form-control required" ng-model="profile.name" name="name" id="name" placeholder="Enter Your Name"/>
+ 
+</div>
+
+<div class="form-group">
+	<input type="email" class="form-control required" ng-model="profile.email" name="email" id="email"  placeholder="Enter Your Email"/>
+ 
+</div>
+
+<div class="form-group">
+	<input type="text" class="form-control required" ng-model="profile.country" name="country" id="country"  placeholder="Country"/>
+	 
+</div>
+
+<div class="form-group">
+	<input type="text" class="form-control required" ng-model="profile.contactNumber" name="contactNumber" id="contactNumber"  placeholder="Contact Number"/>
+	 
+</div>
+
+<div class="form-group">
+	<input type="text" class="form-control required" ng-model="profile.skypeId" name="skypeId" id="skypeId"  placeholder="Enter Your Skype Id"/>
+	 
+</div>
+
+<div class="form-group">
+	<input type="password" class="form-control required" ng-model="profile.password"
+	name="password" id="password"  ng-minlength="6"  placeholder="Password..."/>
+ 
+</div>
+
+<div class="form-group">
+	<input type="password" class="form-control required" ng-model="profile.confirmPassword"
+	name="confirmPassword" id="confirmPassword" ng-minlength="6"  placeholder="Confirm Password..."/>
+ 
+</div>
+			  
+			  
+			  
+			    
+			  </div>
+			  <div class="text-center">
+				<button type="submit" class="btn btn-primary btn-raised"  ng-click="createProfile(registerForm)">Sign Up</button>
+			  </div>
+			 
+			  <a href="#!/login" class="btn btn-link btn-lg">Back to Login</a>
+			</form>
+		  </div>
+		</div>
+	</div>
+</div>
+
+<!-- 
 <div class="section">
     <h3>{{headingTitle}}</h3>
 
@@ -63,4 +129,4 @@
         </button>
     </div>
 
-</div>
+</div> -->

@@ -1,3 +1,62 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-sm-8 col-xs-12">
+
+
+<section class="boxs">						
+						<!-- boxs header -->
+						<div class="boxs-header dvd dvd-btm">
+							<h1 class="font-thin h3">Edit Profile</h1>
+							
+						</div>
+						<div class="boxs-body">
+							<form name="editProfileForm" novalidate="">
+								<div class="row">
+									 
+								
+								 <div class="form-group col-md-6">
+	<label for="name">Name</label>
+	
+		<input type="text" class="form-control required" ng-model="profile.name" name="name" id="name" required/>
+ </div>
+
+<div class="form-group col-md-6">
+	<label for="email">Email</label>
+	
+		<input type="email" class="form-control required" ng-model="profile.email" name="email" id="email" required/>
+ </div>
+</div>
+<div class="form-group">
+	<label for="country">Country</label>
+	
+		<input type="text" class="form-control required" ng-model="profile.country" name="country" id="country" required/>
+ </div>
+
+<div class="form-group">
+	<label for="contactNumber">Contact Number</label>
+	
+		<input type="text" class="form-control required" ng-model="profile.contactNumber" name="contactNumber" id="contactNumber" />
+ </div>
+
+<div class="form-group">
+	<label for="skypeId">Skype Id</label>
+	
+		<input type="text" class="form-control required" ng-model="profile.skypeId" name="skypeId" id="skypeId" />
+ </div>
+							</form>
+						</div>
+						<div class="boxs-footer text-right bg-tr-black lter dvd dvd-top">
+							<button type="submit" class="btn btn-raised btn-danger" ng-click="updateProfile(editProfileForm)">Update</button>
+						</div>
+					</section>		
+						</div>
+						</div>
+						</div>
+
+
+
+<!-- 
+
 <div class="section">
     <h3>Edit Profile</h3>
 
@@ -46,4 +105,4 @@
         </button>
     </div>
 
-</div>
+</div> -->

@@ -1,10 +1,13 @@
 angular.module('homeController', ['factories','services'])
     .controller('homeController', function($scope, LessonService, AppConstants, $location,ProfileService,
-                                           $sessionStorage, FileService, TutoringFactory) {
+                                           $sessionStorage, FileService, TutoringFactory,$route) {
 
       console.log("Inside lessonController");
       $scope.headingTitle = "Create Lesson";
       $scope.currentProfile =  TutoringFactory.getProfile();
+      
+      $scope.isLoggedIn = $sessionStorage.isLoggedIn;
+      
       $scope.isStudent=false;
       if($scope.currentProfile.role.id ==  AppConstants.STUDENT_ROLE_ID) {
         $scope.active="lessons";
@@ -58,6 +61,7 @@ angular.module('homeController', ['factories','services'])
             .then(function successCallback(response) {
               if (response.data.status == AppConstants.API_SUCCESS) {
                 TutoringFactory.setLessonStatus(response.data.data);
+            	$route.reload();
               }
             }, function errorCallback(response) {
               console.error("There is a error..");
@@ -138,5 +142,4 @@ angular.module('homeController', ['factories','services'])
               console.error("There is a error..");
             });
       }
-
     });

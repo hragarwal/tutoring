@@ -1,6 +1,7 @@
 angular.module('changePasswordController', ['factories','services'])
     .controller('ChangePasswordController', function($scope,ProfileService,TutoringFactory,AppConstants) {
         console.log("Inside ChangePasswordController");
+        $scope.headingTitle = "Change Password";
 
       $scope.profile={
         "oldPassword":"",
@@ -17,7 +18,8 @@ angular.module('changePasswordController', ['factories','services'])
                     alert(response.data.message);
                     TutoringFactory.setProfile(response.data.data);
                   } else {
-                    alert(response.data.message);
+                   // alert(response.data.message);
+                    $('.alertMessage').html(response.data.message).removeClass('hide');
                   }
                   //Reset data again
                   $scope.profile={
@@ -27,12 +29,15 @@ angular.module('changePasswordController', ['factories','services'])
                   };
                 }, function errorCallback(response) {
                   console.error("There is a error..");
+                  $('.alertMessage').html("There is a error..").removeClass('hide');
                 });
           }else{
-            alert("New password and confirm password doesn't match");
+           // alert("New password and confirm password doesn't match");
+            $('.alertMessage').html("New password and confirm password doesn't match").removeClass('hide');
           }
         }else{
-          alert("Please enter all fields");
+         // alert("Please enter all fields");
+          $('.alertMessage').html("Please enter all fields").removeClass('hide');
         }
       }
     });

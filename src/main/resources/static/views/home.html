@@ -1,34 +1,33 @@
-<div align="center">
-<!-- <div ng-include="demo.html"></div> -->
-<nav class="{{active}}" ng-click="$event.preventDefault()">
+<style>
+	body{
+		background: #eee;
+	}
+	.navbar-custom {
+		background: #2f3e47;
+	}
+</style>
 
-			<!-- When a link in the menu is clicked, we set the active variable -->
-			
-			<div ng-if="!isStudent">
-				<a href="#" class="tutorhome" ng-click="setActiveTab('tutorhome')">Available Lesson</a> 
-				||
-			</div>
-			
-			<a href="#" class="home" ng-click="setActiveTab('lessons')">Lesson History	</a>
-			||
-			<div ng-if="isStudent">
-				<a href="#" class="about" ng-click="setActiveTab('newLesson')">New Lesson</a>
-			||
-			</div>
-			<a href class="contact" ng-click="routeToPage('changePassword')">Change Password</a>
-			||
-			<a href class="contact" ng-click="routeToPage('editProfile')">Edit Profile</a>
-			||
-			<a href class="contact" ng-click="logout()">Logout</a>
-		</nav>
-
-		<!-- ng-show will show an element if the value in the quotes is truthful,
-			 while ng-hide does the opposite. Because the active variable is not set
-			 initially, this will cause the first paragraph to be visible. -->
+<nav class="navbar" class="{{active}}" ng-click="$event.preventDefault()">
+  <div class="container"> 
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+		<li ng-if="!isStudent"><a href="#" class="tutorhome" ng-click="setActiveTab('tutorhome')">Available Lesson</a></li>
+		<li><a href="#" class="home" ng-click="setActiveTab('lessons')">Lesson History</a></li>
+		<li ng-if="isStudent"><a href="#" class="about" ng-click="setActiveTab('newLesson')">New Lesson</a></li>
+      </ul> 
+      <ul class="nav navbar-nav navbar-right">
+			<li><a href class="contact" ng-click="routeToPage('changePassword')">Change Password</a></li>
+			<li><a href class="contact" ng-click="routeToPage('editProfile')">Edit Profile</a></li>
+			<li><a href class="contact" ng-click="logout()">Logout</a></li>
+	  </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
 
-		<div ng-show="active" ng-if="active=='lessons'">
-			        <div><h4 align="center">Lessons</h4>
+
+		<div ng-show="active" ng-if="active=='lessons'" class="container">
+			        <h1>Lessons</h1>
         
 
 <table border="1">
@@ -54,6 +53,16 @@
         </div>
 
 		</div>
+
+
+<div align="center">
+<!-- <div ng-include="demo.html"></div> -->
+ 
+		<!-- ng-show will show an element if the value in the quotes is truthful,
+			 while ng-hide does the opposite. Because the active variable is not set
+			 initially, this will cause the first paragraph to be visible. -->
+
+
 		
 		<div ng-show="active" ng-if="active=='newLesson'">
 			<div class="section">

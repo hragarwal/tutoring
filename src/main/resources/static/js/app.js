@@ -1,5 +1,5 @@
 var app = angular.module('app', ['ngRoute','ngResource','ngStorage','interceptorFactory','fileAppDirectives',
-                                'loginController','registerController','homeController','lessonController', 
+                                'loginController','registerController','homeController','lessonController','indexController', 
                                  'forgotPasswordController','changePasswordController','chatServices',
                                 'editProfileController','factories','services','fileModalDirective']);
 app.config(function($routeProvider,$httpProvider){
@@ -42,7 +42,7 @@ app.config(function($routeProvider,$httpProvider){
             controller: 'lessonController'
         })
         .otherwise(
-            { redirectTo: '/login'}
+            { redirectTo: '/landing', templateUrl: '../views/landing.html'}
         );
 })
 
