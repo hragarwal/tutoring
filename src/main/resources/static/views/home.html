@@ -6,167 +6,292 @@
 		background: #2f3e47;
 	}
 </style>
-
 <nav class="navbar" class="{{active}}" ng-click="$event.preventDefault()">
-  <div class="container"> 
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-		<li ng-if="!isStudent"><a href="#" class="tutorhome" ng-click="setActiveTab('tutorhome')">Available Lesson</a></li>
-		<li><a href="#" class="home" ng-click="setActiveTab('lessons')">Lesson History</a></li>
-		<li ng-if="isStudent"><a href="#" class="about" ng-click="setActiveTab('newLesson')">New Lesson</a></li>
-      </ul> 
-      <ul class="nav navbar-nav navbar-right">
-			<li><a href class="contact" ng-click="routeToPage('changePassword')">Change Password</a></li>
-			<li><a href class="contact" ng-click="routeToPage('editProfile')">Edit Profile</a></li>
-			<li><a href class="contact" ng-click="logout()">Logout</a></li>
-	  </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+	<div class="container">
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li ng-if="!isStudent"><a href="#" class="tutorhome" ng-click="setActiveTab('tutorhome')">Available Lesson</a></li>
+				<li><a href="#" class="home" ng-click="setActiveTab('lessons')">Lesson History</a></li>
+				<li ng-if="isStudent"><a href="#" class="about" ng-click="setActiveTab('newLesson')">New Lesson</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href class="contact" ng-click="routeToPage('changePassword')">Change Password</a></li>
+				<li><a href class="contact" ng-click="routeToPage('editProfile')">Edit Profile</a></li>
+				<li><a href class="contact" ng-click="logout()">Logout</a></li>
+			</ul>
+		</div>
+	</div>
 </nav>
 
 
-
-		<div ng-show="active" ng-if="active=='lessons'" class="container">
-			        <h1>Lessons</h1>
-        
-
-<table border="1">
-   <tr>
-   	<th>#</th>
-   	<th>Subject</th>
-      <th>Task Description</th>
-      <th>Title</th>
-      <th>Status</th>
-   </tr>
-   
-   <tr ng-repeat = "lesson in lessonList">
-      <td>{{$index+1}}</td>
-      
-      <td><a href ng-click="openLesson(lesson.id)">{{lesson.subject.name}}</a></td>
-      
-      <td>{{lesson.taskDescription}}</td>
-      <td>{{lesson.title}}</td>
-      <td>{{lesson.status.name}}</td>
-   </tr>
-</table>
-        </div>
-        </div>
-
-		</div>
-
-
-<div align="center">
-<!-- <div ng-include="demo.html"></div> -->
- 
-		<!-- ng-show will show an element if the value in the quotes is truthful,
-			 while ng-hide does the opposite. Because the active variable is not set
-			 initially, this will cause the first paragraph to be visible. -->
-
-
-		
-		<div ng-show="active" ng-if="active=='newLesson'">
-			<div class="section">
-    <h3>{{headingTitle}}</h3>
-
-    <div class="home-section">
-    
-    <form name="lessonForm" novalidate="">
-    
-	     <div class="form-group">
-	        <label for="" class="col-sm-4 control-label">Subject</label>
-	        <div class="col-sm-8">
-				   <select required ng-model="lesson.subjectID">
-	           <option value="-1">Select Subject</option>
-       				<option ng-repeat="subject in subjectsList" value="{{subject.id}}">
-	      				{{subject.name}}
-	      			</option>
-       			</select>
-	        </div>
-	    </div>
-    
-	    <div class="form-group">
-	        <label for="" class="col-sm-4 control-label">Title</label>
-	        <div class="col-sm-8">
-	          <input type="text" class="form-control required" ng-model="lesson.title"  id="title" required/>
-	        </div>
-	    </div>
-	    
-	    <div class="form-group">
-	        <label for="" class="col-sm-4 control-label">Task Description</label>
-	        <div class="col-sm-8">
-	          <input type="text" class="form-control required" ng-model="lesson.taskDescription"  id="taskDescription" required/>
-	        </div>
-	    </div>
-	    
-	     <div class="form-group">
-	        <label for="" class="col-sm-4 control-label">Special Requirements</label>
-	        <div class="col-sm-8">
-	          <input type="text" class="form-control required" ng-model="lesson.specialRequirement" id="specialRequirement" />
-	        </div>
-	    </div>
-	    
-	    <div class="form-group">
-	        <label for="" class="col-sm-4 control-label">Deadline</label>
-	        <div class="col-sm-8">
-	         <input type="date" ng-model="lesson.deadline" id="deadline" required>
-	        </div>
-	    </div>
-	    
-	    <!-- <div class="form-group">
-	        <label for="" class="col-sm-4 control-label">Upload Files</label>
-	        <div class="col-sm-8">
-	          <label for="" class="col-sm-4 control-label">Please provide a file uploader view.</label>
-	        </div>
-	    </div> -->
-	</form>
-
-		<div class="col-xs-6 col-xs-offset-3" style="width: 600px;">
-			<div class="well">
-				<form action="" class="dropzone" dropzone="" id="dropzone">
-					<div class="dz-default dz-message">
-					</div>
-				</form>
+<!-- <section class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-7">
+				<ul>
+					<li>
+						<a href="#" class="" ng-click="setActiveTab('lessons')">Lesson History</a>
+					</li>
+				</ul>
+				<button class="btn btn-primary btn-raised btn-fab btn-fab-mini btn-round">
+					<i class="material-icons"></i>
+				</button>	
 			</div>
 		</div>
-		<div class="pull-right">
-			<!--<button class="btn btn-success" ng-click="processDropzone()">Upload File</button>-->
-			<button class="btn btn-danger" ng-click="resetDropzone()">Reset drop wizard</button>
-		</div>
-		<!--<div>
-			<form>
-				<label>File to download</label>
-				<input ng-model="filename" type="text" placeholder="Filename" />
-				<a class="btn btn-primary" href="" ng-href="{{ partialDownloadLink + filename }}">Download File</a>
-			</form>
-		</div>-->
-	
-        <button type="submit" ng-click="createLesson(lessonForm)">
-            <span>Submit Lesson</span>
-        </button>
-    </div>
-
-</div>
-		</div>
 		
-		
-		<div ng-show="active" ng-if="active=='tutorhome'">
-			<div><h4 align="center">Lessons</h4>
-				<table border="1">
-   					<tr>
-   						<th>#</th>
-   						<th>Subject</th>
-      					<th>Task Description</th>
-      					<th>Title</th>
-      					<th>Status</th>
-   					</tr>
-	   				<tr ng-repeat = "lesson in availableLessonList">
-	      				<td>{{$index+1}}</td>
-	      				<td><a href ng-click="openLesson(lesson.id, lesson.status.id)">{{lesson.subject.name}}</a></td>
-	      				<td>{{lesson.taskDescription}}</td>
-	      				<td>{{lesson.title}}</td>
-	      				<td>{{lesson.status.name}}</td>
-	   				</tr>
+	</div>
+</section>
+ -->
+		<div ng-show="active" ng-if="active=='lessons'" class="container">
+			<h4 class="inner-page-headings center">Lessons</h4>
+			
+			<div class="card white z-depth-1">
+				<table class="table table-striped responsive-table centered">
+					<thead class="table-header blue lighten-1">
+						<tr>
+							<th>#</th>
+							<th>Subject</th>
+							<th>Task Description</th>
+							<th>Title</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					
+					<tbody class="table-body">
+						<tr ng-repeat = "lesson in lessonList">
+							<td>{{$index+1}}</td>
+							
+							<td><a href ng-click="openLesson(lesson.id)">{{lesson.subject.name}}</a></td>
+							
+							<td>{{lesson.taskDescription}}</td>
+							<td>{{lesson.title}}</td>
+							<td>{{lesson.status.name}}</td>
+						</tr>
+					</tbody>
 				</table>
-        	</div>
+			</div>
+
+			
 		</div>
-		
+	
+
+
+	<!-- <div ng-include="demo.html"></div> -->
+	
+	<!-- ng-show will show an element if the value in the quotes is truthful,
+		while ng-hide does the opposite. Because the active variable is not set
+	initially, this will cause the first paragraph to be visible. -->
+	
+	<!-- <div> -->
+		<div class="section"  ng-show="active" ng-if="active=='newLesson'">
+			<div class="container">
+				<div id="lesson-section" class="row">
+					
+					<h4 class="inner-page-headings center">{{headingTitle}}</h4>
+					<div class="col s12 m8 l8 push-m2 push-l2 white z-depth-1 center">
+						<form name="lessonForm"></form>
+							<div class="row">
+							<div class="col s12">
+								<div class="row no-bot-margin-row">
+									<div class="col s3">
+										<p class="field-label">Subject</p>
+									</div>
+									<div class="input-field col s9">
+										<select id="lesson_select" material-select ng-model="lesson.subjectID">
+											<option value="" disabled selected>Select a subject</option>
+											<option ng-repeat="subject in subjectsList" value="{{subject.id}}">
+											{{subject.name}}
+											</option>
+											<!-- <option value="1">One</option>
+											<option value="2">One</option>
+											<option value="3">One</option> -->
+
+    									</select>
+									</div>
+								</div>
+								
+								<div class="row no-bot-margin-row">
+									<div class="col s3">
+										<p class="field-label">Lesson Title</p>
+									</div>
+									<div class="input-field col s9">
+										<input type="text" class="validate" ng-model="lesson.title" id="title" required>
+									</div>
+								</div>
+
+								<div class="row no-bot-margin-row">
+									<div class="col s3">
+										<p class="field-label">Task Description</p>
+									</div>
+									<div class="input-field col s9">
+										<input  type="text" class="validate" ng-model="lesson.taskDescription" id="taskDescription" required>
+									</div>
+								</div>
+
+								<div class="row no-bot-margin-row">
+									<div class="col s3">
+										<p class="field-label">Special Requirements</p>
+									</div>
+									<div class="input-field col s9">
+										<input  type="text" class="validate" ng-model="lesson.specialRequirement" id="specialRequirement" required>
+									</div>
+								</div>
+
+								<div class="row no-bot-margin-row">
+									<div class="col s3">
+										<p class="field-label">Deadline</p>
+									</div>
+									<div class="input-field col s9">
+										
+										<input  ng-model="lesson.deadline" id="deadline" input-date
+										    type="text"
+										    name="created"
+										    id="inputCreated"
+										    ng-model="currentTime"
+										    container=""
+										    format="dd/mm/yyyy"
+										    months-full="{{ month }}"
+										    months-short="{{ monthShort }}"
+										    weekdays-full="{{ weekdaysFull }}"
+										    weekdays-short="{{ weekdaysShort }}"
+										    weekdays-letter="{{ weekdaysLetter }}"
+										    disable="disable"
+										    min="{{ minDate }}"
+										    max="{{ maxDate }}"
+										    today="today"
+										    first-day="1"
+										    clear="clear"
+										    close="close"
+										    select-years="15"
+										    on-start="onStart()"
+										    on-render="onRender()"
+										    on-open="onOpen()"
+										    on-close="onClose()"
+										    on-set="onSet()"
+										    on-stop="onStop()" required>
+										    
+										</input>
+										<label for="deadline"><i class="material-icons">perm_contact_calendar</i></label>
+									</div>
+								</div>
+
+								<div class="row no-bot-margin-row">
+									<div class="col s3">
+										<p class="field-label">Dropzone</p>
+									</div>
+									<div class="input-field col s9">
+										<div class="well">
+											<form action="" class="dropzone" dropzone="" id="dropzone">
+												<div class="dz-default dz-message"><i class="material-icons left">cloud_upload</i>Drop files here</div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+								<div class="row" style="margin-top: 12px;">
+									<div class="col s4 offset-s3">
+										<button class="btn grey waves-effect waves-light"><i class="material-icons left" style="margin-right: 5px;">file_upload</i>Upload File</button>
+									</div>
+									<div class="col s4 offset-s1">
+										<button class="waves-effect waves-red btn-flat" ng-click="resetDropzone()">Clear File</button>
+									</div>
+								</div>
+
+								<div class="row" style="margin-top: 40px;">
+									<button class="btn green waves-effect waves-light" type="submit" ng-click="createLesson(lessonForm)">Submit Lesson</button>
+								</div>
+
+
+							</div>
+						</form>
+					</div>			
+						<!-- <form name="lessonForm"class=" login-form-wrapper-div"> -->
+							
+							<!-- <div class="form-group">
+								<label for="" class="col-sm-4 col-md-4 col-lg-4 control-label">Subject</label>
+								<div class="col-sm-8 col-md-8 col-lg-8">
+									<select class="form-control" required ng-model="lesson.subjectID">
+										<option value="-1">Select Subject</option>
+										<option ng-repeat="subject in subjectsList" value="{{subject.id}}">
+											{{subject.name}}
+										</option>
+									</select>
+								</div>
+							</div> -->
+							
+							<!-- <div class="form-group">
+								<label for="" class="col-sm-4 col-md-4 col-lg-4 control-label">Title</label>
+								<div class="col-sm-8 col-md-8 col-lg-8">
+									<input type="text" class="form-control required" ng-model="lesson.title"  id="title" required/>
+								</div>
+							</div> -->
+							
+							<!-- <div class="form-group">
+								<label for="" class="col-sm-4 col-md-4 col-lg-4 control-label">Task Description</label>
+								<div class="col-sm-8 col-md-8 col-lg-8">
+									<input type="text" class="form-control required" ng-model="lesson.taskDescription"  id="taskDescription" required/>
+								</div>
+							</div> -->
+							
+							<!-- <div class="form-group">
+								<label for="" class="col-sm-4 col-md-4 col-lg-4 control-label">Special Requirements</label>
+								<div class="col-sm-8 col-md-8 col-lg-8">
+									<input type="text" class="form-control required" ng-model="lesson.specialRequirement" id="specialRequirement" />
+								</div>
+							</div> -->
+							
+							<!-- <div class="form-group">
+								<label for="" class="col-sm-4 col-md-4 col-lg-4 control-label">Deadline</label>
+								<div class="col-sm-8 col-md-8 col-lg-8">
+									<input type="date" ng-model="lesson.deadline" id="deadline" required>
+								</div>
+							</div> -->
+							
+							<!-- <div class="form-group">
+									<label for="" class="col-sm-4 control-label">Upload Files</label>
+									<div class="col-sm-8">
+											<label for="" class="col-sm-4 control-label">Please provide a file uploader view.</label>
+									</div>
+							</div> -->
+						<!-- </form> -->
+						<!-- <div class="col-xs-3 col-xs-offset-3">
+							<div class="well">
+								<form action="" class="dropzone" dropzone="" id="dropzone">
+									<div class="dz-default dz-message">
+									</div>
+								</form>
+							</div>
+						</div> -->
+						<!-- <div class="pull-right">
+							<button class="btn btn-success" ng-click="processDropzone()">Upload File</button>
+							<button class="btn btn-danger" ng-click="resetDropzone()">Reset drop wizard</button>
+						</div> -->
+						
+						<!-- <button class="btn btn-raised btn-primary" type="submit" ng-click="createLesson(lessonForm)">Submit Lesson</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- </div> -->
+	
+	
+	<div ng-show="active" ng-if="active=='tutorhome'">
+		<div><h4 align="center">Lessons</h4>
+			<table border="1">
+				<tr>
+					<th>#</th>
+					<th>Subject</th>
+					<th>Task Description</th>
+					<th>Title</th>
+					<th>Status</th>
+				</tr>
+				<tr ng-repeat = "lesson in availableLessonList">
+					<td>{{$index+1}}</td>
+					<td><a href ng-click="openLesson(lesson.id, lesson.status.id)">{{lesson.subject.name}}</a></td>
+					<td>{{lesson.taskDescription}}</td>
+					<td>{{lesson.title}}</td>
+					<td>{{lesson.status.name}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>

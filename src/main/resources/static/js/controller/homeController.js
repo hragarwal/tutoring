@@ -41,6 +41,7 @@ angular.module('homeController', ['factories','services'])
       // fetch all subjects from lesson
       if(TutoringFactory.getSubjectList()){
         $scope.subjectsList = TutoringFactory.getSubjectList();
+        
       }else {
         LessonService.getLessonSubjects()
             .then(function successCallback(response) {
@@ -112,8 +113,30 @@ angular.module('homeController', ['factories','services'])
       $scope.setActiveTab = function(tabName){
         $scope.active=tabName;
         if(tabName=="newLesson"){
+          // $('#lesson_select').material_select();
+
+          //   // $(".select-wrapper input.select-dropdown").css({"height": "40px", "border": "none"});
+            
+          //   $('#deadline-date').pickadate({
+          //       selectMonths: true, // Creates a dropdown to control month
+          //       selectYears: 15, // Creates a dropdown of 15 years to control year,
+          //       today: 'Today',
+          //       clear: 'Clear',
+          //       close: 'Ok',
+          //       closeOnSelect: false // Close upon selecting a date,
+          //   });
+          //   alert("Done");
           deleteTemporaryFilesOnServer();
+          
+        
+            
+            // $(".dropdown-content").css('top', 'initial');
+            
+       
+        
+    
         }
+
       };
 
       function deleteTemporaryFilesOnServer(){

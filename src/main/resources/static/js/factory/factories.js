@@ -2,7 +2,7 @@ angular.module('factories',[])
 
 
     .constant("AppConstants", {
-      "HTTP_BASE_URL": "http://localhost:9080",
+      "HTTP_BASE_URL": "http://localhost:9090",
       "API_SUCCESS" : 0,
       "STUDENT_ROLE_ID":16,
   	  "LESSON_ACCEPTED" : 2,

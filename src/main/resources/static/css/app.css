@@ -14,3 +14,144 @@
 .photo{
     padding-right: 5px;
 }*/
+body {
+	font-family: Montserrat, Roboto, sans-serif;
+	display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+nav {
+	background: #ff00cc;  /* fallback for old browsers */  /* Chrome 10-25, Safari 5.1-6 */
+	background: -webkit-linear-gradient(left, #333399, #ff00cc);
+	background: -o-linear-gradient(left, #333399, #ff00cc);
+	background: linear-gradient(to right, #333399, #ff00cc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	font-weight: 300;
+
+}
+
+.nav-container {
+	width: 92%;
+}
+
+.logo-nav  {
+	width: 221px;
+}
+
+.cls-1 {
+	fill: #ffa000;
+}
+
+.logo-nav .cls-1 {
+	fill: white;
+}
+
+.logo-nav .cls-2 {
+	fill: white;
+}
+
+.logo {
+	margin-top: 25px;
+    width: 221px;
+}
+
+.profile-photo {
+    width: 34px;	
+    margin-right: 10px;
+}
+
+.dropdown-content {
+	top: initial;
+}
+
+.page-footer {
+	padding-top: 0;
+}
+
+.page-footer>#footer-content {
+	display: none;
+}
+
+
+.no-bot-margin-row {
+	margin-bottom: 0;
+}
+
+
+#signup-row, #login-row {
+	margin-top: 50px;
+}
+
+#top-row {
+	margin-left: -.75rem;
+	margin-right: -.75rem;
+	
+}
+
+#top-row-strip {
+	background: #ff00cc;  /* fallback for old browsers */  /* Chrome 10-25, Safari 5.1-6 */
+	background: -webkit-linear-gradient(left, #333399, #ff00cc);
+	background: -o-linear-gradient(left, #333399, #ff00cc);
+	background: linear-gradient(to right, #333399, #ff00cc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	margin-top: 0;
+	width: 100%;
+	height: 8px;
+}
+
+.field-label {
+	margin-top: 26px;
+	text-align: left;
+}
+
+.logo-placeholder {
+	width: 60px;
+	height: 60px;
+	background-color: rgba(0,0,0,0.7);	
+	margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+}
+
+.sign-up-text, .login-text {
+    margin-top: 15px;
+	margin-bottom: 0;
+    font-size: 17pt;
+}
+
+
+
+
+/*~~~~~~~~~~Lesson History Page~~~~~~~~~~*/
+
+.inner-page-headings {
+	font-size: 20pt;
+	text-transform: uppercase;
+	margin-top: 40px;
+    color: #3d3d3d;
+}
+
+.table-header {
+	
+}
+
+.table-header tr th {
+	border-radius: 0;
+    color: white;
+    font-weight: 400;
+    /* text-transform: uppercase; */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.table-body tr td {
+	font-weight: 300;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+

@@ -1,4 +1,4 @@
-<div align="center">
+<!-- <div align="center">
     <table border="1">
         <tr>
             <th>Subject</th>
@@ -93,7 +93,7 @@
                 </div>
             </div>
             <div class="pull-right">
-                <!--<button class="btn btn-success" ng-click="processDropzone()">Upload File</button>-->
+                
                 <button class="btn btn-danger" ng-click="resetDropzone()">Reset drop wizard</button>
             </div>
         </div>
@@ -122,3 +122,42 @@
     </div>
     <br><br>
 </div>
+
+
+
+ -->
+
+
+ <div class="container">
+     <div class="row">
+         <div class="col s12">
+             <h4 class="inner-page-headings center">Lesson Detail</h4>
+
+             <div class="card white z-depth-1">
+                 <table class="table table-striped responsive-table centered">
+                    <thead class="table-header blue lighten-1">
+                        <tr>
+                            <th>Subject</th>
+                            <th>Task Description</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Fee Amount $</th>
+                            <th>Estimated work hours</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody class="table-body">
+                        <tr>
+                            <td>{{lesson.subject.name}}</td>
+                            <td>{{lesson.taskDescription}}</td>
+                            <td>{{lesson.title}}</td>
+                            <td>{{lesson.status.name}}</td>
+                            <td>{{lesson.dueAmount}}</td>
+                            <td>{{lesson.estimatedWorkEffort}}</td>
+                        </tr>
+                    </tbody>
+                 </table>
+             </div>
+         </div>
+     </div>
+ </div>
