@@ -56,15 +56,15 @@
 
 		<div ng-show="active" ng-if="active=='lessons'" class="container">
 			<h4 class="inner-page-headings center">Lessons</h4>
-			
 			<div class="card white z-depth-1">
 				<table class="table highlight responsive-table centered">
 					<thead class="table-header blue lighten-1">
 						<tr>
 							<th>#</th>
 							<th>Subject</th>
-							<th>Task Description</th>
 							<th>Title</th>
+							<th>Deadline</th>
+							<th>Task Description</th>
 							<th>Status</th>
 						</tr>
 					</thead>
@@ -72,29 +72,17 @@
 					<tbody class="table-body">
 						<tr ng-repeat = "lesson in lessonList">
 							<td>{{$index+1}}</td>
-							
 							<td><a href ng-click="openLesson(lesson.id)">{{lesson.subject.name}}</a></td>
-							
-							<td>{{lesson.taskDescription}}</td>
 							<td>{{lesson.title}}</td>
+							<td>{{lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</td>							
+							<td>{{lesson.taskDescription}}</td>
 							<td>{{lesson.status.name}}</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-
-			
 		</div>
 	
-
-
-	<!-- <div ng-include="demo.html"></div> -->
-	
-	<!-- ng-show will show an element if the value in the quotes is truthful,
-		while ng-hide does the opposite. Because the active variable is not set
-	initially, this will cause the first paragraph to be visible. -->
-	
-	<!-- <div> -->
 		<div class="section"  ng-show="active" ng-if="active=='newLesson'">
 			<div class="container">
 				<div id="lesson-section" class="row">
@@ -111,13 +99,7 @@
 									<div class="input-field col s9">
 										<select id="lesson_select" material-select ng-model="lesson.subjectID">
 											<option value="" disabled selected>Select a subject</option>
-											<option ng-repeat="subject in subjectsList" value="{{subject.id}}">
-											{{subject.name}}
-											</option>
-											<!-- <option value="1">One</option>
-											<option value="2">One</option>
-											<option value="3">One</option> -->
-
+											<option ng-repeat="subject in subjectsList" value="{{subject.id}}">{{subject.name}}</option>
     									</select>
 									</div>
 								</div>
@@ -154,44 +136,13 @@
 										<p class="field-label">Deadline</p>
 									</div>
 									<div class="input-field col s9">
-										
-										<!-- <input  ng-model="lesson.deadline" id="deadline" input-date
-										    type="text"
-										    name="created"
-										    id="inputCreated"
-										    ng-model="currentTime"
-										    container=""
-										    format="dd/mm/yyyy"
-										    months-full="{{ month }}"
-										    months-short="{{ monthShort }}"
-										    weekdays-full="{{ weekdaysFull }}"
-										    weekdays-short="{{ weekdaysShort }}"
-										    weekdays-letter="{{ weekdaysLetter }}"
-										    disable="disable"
-										    min="{{ minDate }}"
-										    max="{{ maxDate }}"
-										    today="today"
-										    first-day="1"
-										    clear="clear"
-										    close="close"
-										    select-years="15"
-										    on-start="onStart()"
-										    on-render="onRender()"
-										    on-open="onOpen()"
-										    on-close="onClose()"
-										    on-set="onSet()"
-										    on-stop="onStop()" required>
-										    
-										</input>
-										<label for="deadline"><i class="material-icons">perm_contact_calendar</i></label> -->
 										<input type="date" ng-model="lesson.deadline" id="deadline" required>
-										<!-- <label for="deadline"><i class="material-icons">perm_contact_calendar</i></label> -->
 									</div>
 								</div>
 
 								<div class="row no-bot-margin-row">
 									<div class="col s3">
-										<p class="field-label">Dropzone</p>
+										<p class="field-label">Attach Files</p>
 									</div>
 									<div class="input-field col s9">
 										<div class="well">

@@ -151,16 +151,5 @@ angular.module('homeController', ['factories','services'])
       $scope.routeToPage = function(routeUrl){
         $location.path(routeUrl);
       }
-
-      $scope.logout = function(){
-        TutoringFactory.clearSessionStorage();
-        ProfileService.logoutUser()
-            .then(function successCallback(response) {
-              console.log("User successfully logged out");
-              $location.path('login');
-              $rootScope.isLoggedIn=false;
-            }, function errorCallback(response) {
-              console.error("There is a error..");
-            });
-      }
+      
     });
