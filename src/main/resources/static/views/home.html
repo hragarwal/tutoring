@@ -6,7 +6,7 @@
 		background: #2f3e47;
 	}
 </style>
-<nav class="navbar" class="{{active}}" ng-click="$event.preventDefault()">
+<!-- <nav class="navbar" class="{{active}}" ng-click="$event.preventDefault()">
 	<div class="container">
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
@@ -21,7 +21,7 @@
 			</ul>
 		</div>
 	</div>
-</nav>
+</nav> -->
 
 
 <!-- <section class="section">
@@ -42,6 +42,26 @@
 	</div>
 </section>
  -->
+		<div class="breadcrumbs-container">
+			<div class="container">
+				<div class="row" style="margin-top: 20px;">
+					<div class="col s12">
+						<div class="row" ng-click="$event.preventDefault()">
+							<div class="col s3">
+								<a href="" class="breadcrumb">Lesson List</a>
+								<a href="" class="breadcrumb">Inner Lesson</a>
+								<a href="#"  class="btn green waves-effect waves-light" ng-click="setActiveTab('lessons')">Lesson History</a>
+							</div>
+							<div class="col s6">
+								<a href="#" class="btn red waves-effect waves-light" ng-click="setActiveTab('newLesson')"><i class="material-icons left" >add</i>New Lesson</a>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div ng-show="active" ng-if="active=='lessons'" class="container">
 			<h4 class="inner-page-headings center">Lessons</h4>
 			

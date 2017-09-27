@@ -1,4 +1,11 @@
 
+
+
+
+
+
+
+
 .menu-list{
     padding-left: 30px;
     padding-top: 20px;
@@ -15,10 +22,11 @@
     padding-right: 5px;
 }*/
 body {
-	font-family: Montserrat, Roboto, sans-serif;
+	/*font-family: Montserrat, Roboto, sans-serif;*/
 	display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-color: #eee;
 }
 
 main {
@@ -127,6 +135,24 @@ nav {
 
 /*~~~~~~~~~~Lesson History Page~~~~~~~~~~*/
 
+.breadcrumbs-container .breadcrumb {
+	color: #3d3d3d;
+	display: none;
+}
+
+.breadcrumbs-container .row {
+	/*margin-top: 20px;*/
+	margin-bottom: 0;
+}
+
+
+.breadcrumb:before {
+	color: #3d3d3d;
+}
+
+
+
+
 .inner-page-headings {
 	font-size: 20pt;
 	text-transform: uppercase;
@@ -153,5 +179,186 @@ nav {
     padding-bottom: 10px;
 }
 
+.table-header-modified {
+	color: white;
+}
 
 
+
+.lesson-detail-header {
+	margin-left: -11.25px;
+	margin-right: -11.25px;
+	margin-top: 0;
+	padding: 5px 0;
+
+
+	/*background-color: red;*/
+}
+
+.lesson-detail-header p {
+	color: white;
+	font-size: 14pt;
+	margin-top: 0;
+	margin-bottom: 0;
+	text-transform: uppercase;
+}
+
+.lesson-detail-container {
+	width: 92%;
+}
+
+.lesson-cards {
+	padding-left: 11.25px;
+	padding-right: 11.25px;
+	/*padding-bottom: 11.25px;*/
+}
+
+.lesson-row {
+	margin-bottom: 0;
+	height: 46px;
+	border-bottom: 1px solid #eee;
+}
+
+.lesson-detail-table-header {
+	font-weight: 500;
+    border-right: 1px solid #eee;
+    height: 100%;
+}
+
+.lesson-detail-table-header p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.lesson-detail-table-content {
+
+}
+
+.lesson-detail-table-content p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.chat-card {
+	padding-left: 11.25px;
+	padding-right: 11.25px;
+	height: 400px;
+	background-color: #f4f0eb;
+}
+
+.chat-container {
+	height: 246px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 11.25px;
+}
+
+.chat-bubble-row {
+	margin-top: 20px;
+}
+
+.chat-bubble-col {
+	/*height: 60px;*/
+	/*padding-right: 21px;*/
+}
+
+.chat-bubble {
+	width: 70%;
+    height: 100%;
+    background-color: #ceffa7;
+    border-radius: 2px 2px 2px 2px;
+    
+}
+
+.chat-bubble-right {
+	float: right;
+	border-radius: 4px 0 4px 4px;
+	box-shadow: 2px 3px rgba(0,0,0,0.07);
+}
+
+.chat-bubble-left {
+	float: left;
+	border-radius: 0 4px 4px 4px;
+	box-shadow: -2px 3px rgba(0,0,0,0.07);
+}
+
+.chat-bubble-right .chat-bubble-header {
+    background-color: #c6fb9d;
+    height: 25px;
+    border-radius: 4px 0 0 0;
+    color: #313131;
+	
+}
+
+.chat-bubble-left .chat-bubble-header {
+    background-color: #c6fb9d;
+    height: 25px;
+    border-radius: 0 4px 0 0;
+    color: #313131;
+	
+}
+
+
+
+.sender-name {
+	font-size: 10pt;
+	margin-left: 7px;
+	font-weight: 500;
+	float: left;
+	margin-top: 3px;
+}
+
+.sender-time {
+	font-size: 10pt;
+	margin-right: 7px;
+	font-weight: 500;
+	float: right;
+	margin-top: 3px;
+}
+
+.chat-bubble-message {
+    padding-left: 11px;
+    padding-right: 7px;
+}
+
+.chat-message {
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+.chat-message-composer-container {
+	margin-top: 20px;
+}
+
+#chat-message-composer {
+	overflow: hidden;
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid #e2e2e2;
+    height: 72px;
+}
+
+.chat-message-composer-input-field {
+	margin-bottom: 5px;
+}
+
+.chat-message-composer-row {
+	background-color: #f1e8de;
+}
+
+.chat-image-link {
+	color: #2780de;
+	text-decoration: underline;
+}
+
+.chat-button-col {
+	padding-left: 0;
+}
+
+.chat-button-row {
+	margin-bottom: 0;
+}
+
+.send-message-btn:hover {
+	background-color: #dedbdb;
+}
