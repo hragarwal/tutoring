@@ -127,10 +127,6 @@
                                 <div class="lesson-detail-header blue-grey lighten-1">
                                     <p class="center">{{lesson.subject.name}}</p>
                                 </div>
-                                <!-- <div class="row lesson-row">
-                                    <div class="col s3">Subject</div>
-                                    <div class="col s9">{{lesson.subject.name}}</div>
-                                </div> -->
                                 <div class="row lesson-row valign-wrapper">
                                     <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Task Description</p></div>
                                     <div class="col s9 lesson-detail-table-content"><p>{{lesson.taskDescription}}</p></div>
@@ -200,100 +196,21 @@
                                 <div class="lesson-detail-header blue-grey lighten-1">
                                     <p class="center">Chat</p>
                                 </div>  
-                                <!-- <table class="table highlight responsive-table">
-                                    <thead class="table-header-modified blue lighten-1">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Sender</th>
-                                            <th>Message/Query</th>
-                                            <th>Sent At</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="message in messageList">
-                                            <td>{{$index+1}}</td>
-                                            <td>{{message.createdBy}}</td>
-                                            <td ng-if="message.messageType!='file'">{{message.description}}</td>
-                                            <td ng-if="message.messageType=='file'">
-                                                <a href="/file/download/{{lesson.id}}?filename={{message.description}}&fileType=question" class="contact">
-                                                    {{message.actualFileName}}
-                                                </a>
-                                            </td>
-                                            <td>{{message.createdDate | date:'dd MMM yyyy hh:mm a'}}</td>
-                                        </tr>
-                                    </tbody>
-                                    
-                                </table> -->
-
 
                                 <div class="chat-container">
-                                    <div class="row chat-bubble-row">
+                                <div class="row chat-bubble-row" ng-repeat="message in messageList">
                                         <div class="col s12 chat-bubble-col">
-                                            <div class="chat-bubble chat-bubble-right">
+                                            <div ng-init="cssClass = message.senderProfile.id == currentProfile.id" 
+                                            ng-class = "cssClass ? 'chat-bubble chat-bubble-right' : 'chat-bubble chat-bubble-left'">
                                                 <div class="chat-bubble-header">
-                                                    <span class="sender-name">Varun Mashru</span>
-                                                    <span class="sender-time">22.37</span>
+                                                    <span class="sender-name">{{cssClass ? 'Me' : message.senderProfile.name}}</span>
+                                                    <span class="sender-time">{{ message.createdDate  | date : "h:mm a MMM dd" }}</span>
                                                 </div>
                                                 <div class="chat-bubble-message">
-                                                    <p class="chat-message">
-                                                        <a href="#!" class="chat-image-link">
-                                                            <i class="material-icons left">image</i><span class="chat-image-path">Image1.jpg</span>
-                                                        </a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row chat-bubble-row">
-                                        <div class="col s12 chat-bubble-col">
-                                            <div class="chat-bubble chat-bubble-left">
-                                                <div class="chat-bubble-header">
-                                                    <span class="sender-name">Chirag Agrawal</span>
-                                                    <span class="sender-time">22.34</span>
-                                                </div>
-                                                <div class="chat-bubble-message">
-                                                    <p class="chat-message">Sure! I'll let you know.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row chat-bubble-row">
-                                        <div class="col s12 chat-bubble-col">
-                                            <div class="chat-bubble chat-bubble-right">
-                                                <div class="chat-bubble-header">
-                                                    <span class="sender-name">Varun Mashru</span>
-                                                    <span class="sender-time">22.37</span>
-                                                </div>
-                                                <div class="chat-bubble-message">
-                                                    <p class="chat-message">Alright</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row chat-bubble-row">
-                                        <div class="col s12 chat-bubble-col">
-                                            <div class="chat-bubble chat-bubble-right">
-                                                <div class="chat-bubble-header">
-                                                    <span class="sender-name">Varun Mashru</span>
-                                                    <span class="sender-time">22.37</span>
-                                                </div>
-                                                <div class="chat-bubble-message">
-                                                    <p class="chat-message">Hey, what's up? Any plans for today? If yes, then let me know. Okay?</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row chat-bubble-row">
-                                        <div class="col s12 chat-bubble-col">
-                                            <div class="chat-bubble chat-bubble-left">
-                                                <div class="chat-bubble-header">
-                                                    <span class="sender-name">Varun Mashru</span>
-                                                    <span class="sender-time">22.37</span>
-                                                </div>
-                                                <div class="chat-bubble-message">
-                                                    <p class="chat-message">
-                                                        <a href="#!" class="chat-image-link">
-                                                            <i class="material-icons left">picture_as_pdf</i><span class="chat-image-path">Lesson_detail.pdf</span>
+                                                    <p ng-show="message.messageType !='file'" class="chat-message">{{message.description}}</p>
+                                                    <p ng-show="message.messageType =='file'" class="chat-message">
+                                                        <a href="/file/download/{{lesson.id}}?filename={{message.description}}&fileType=question" class="chat-image-link">
+                                                            <i class="material-icons left">image</i><span class="chat-image-path"> {{message.actualFileName}}</span>
                                                         </a>
                                                     </p>
                                                 </div>
@@ -306,32 +223,31 @@
                                     <div class="row valign-wrapper chat-message-composer-row">
                                         <div class="col s10">
                                             <div class="input-field chat-message-composer-input-field">
-                                                <textarea name="chat-message-composer" id="chat-message-composer" rows="4"></textarea>    
+                                                <textarea name="chat-message-composer" id="chat-message-composer" rows="4" ng-model="message.description"></textarea>    
                                             </div>
                                             
                                         </div>
                                         <div class="col s2 chat-button-col" style="padding-left: 0;">
                                             <div class="row valign-wrapper chat-button-row" style="margin-bottom: 0;">
                                                 <div class="col s6">
-                                                    <button class="btn-floating green darken-1 waves-effect waves-light" id="send-message-btn"><i class="material-icons">send</i></button>
+                                                    <button class="btn-floating green darken-1 waves-effect waves-light" id="send-message-btn" ng-click="addMessage();"><i class="material-icons">send</i></button>
                                                 </div>
                                                 <div class="col s6" style="padding-left: 0;">
-                                                    <button class="btn-floating btn-flat waves-effect waves-light send-message-btn"><i class="material-icons grey-text">attach_file</i></button>
+                                                	<input type="file" file-model = "myFile">
+                                                </div>
+                                                  
+                                                <div class="col s6" style="padding-left: 0;">
+                                                    <button class="btn-floating btn-flat waves-effect waves-light send-message-btn" ng-click="uploadFile()"><i class="material-icons grey-text">attach_file</i></button>
                                                 </div>
                                             </div>
-                                            
                                         </div>
                                     </div>
-                                    
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
-            
         </div>
     </div>
 </div>

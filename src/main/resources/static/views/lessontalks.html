@@ -1,4 +1,4 @@
-<div align="center">
+<!-- <div align="center">
     <table border="1">
         <tr>
             <th>Subject</th>
@@ -54,12 +54,12 @@
         </table>
         
         <div>
-        <!-- please put only allow to number -->
+        please put only allow to number
         
         	<div class="form-group">
 		        <label for="" class="col-sm-4 control-label">Fee Amount $ *</label>
 		        <div class="col-sm-8">
-		          <!-- only allow number to be entered -->
+		          only allow number to be entered
 		          <input type="text" class="form-control required" ng-model="lessonUpdate.dueAmount" name="dueAmount" id="dueAmount"/>
 		        </div>
 	    	</div>
@@ -67,7 +67,7 @@
 	    	<div class="form-group">
 		        <label for="" class="col-sm-4 control-label">Estimated Work Effort (in Hours)</label>
 		        <div class="col-sm-8">
-		          <!-- only allow number to be entered -->
+		          only allow number to be entered
 		          <input type="text" class="form-control required" ng-model="lessonUpdate.estimatedWorkEffort" name="estimatedWorkEffort" id="estimatedWorkEffort" />
 		        </div>
 	    	</div>
@@ -86,4 +86,132 @@
     </div>
 
     <br><br>
+</div> -->
+
+<div class="container lesson-detail-container">
+<div class="row">
+        <div class="col s12">
+            <h4 class="inner-page-headings center">Lesson Detail</h4>
+              <div class="row">
+             <div class="col s12 m6 l6">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card white z-depth-1 lesson-cards">
+                                <div class="lesson-detail-header blue-grey lighten-1">
+                                    <p class="center">{{lesson.subject.name}}</p>
+                                </div>
+                                <div class="row lesson-row valign-wrapper">
+                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Task Description</p></div>
+                                    <div class="col s9 lesson-detail-table-content"><p>{{lesson.taskDescription}}</p></div>
+                                </div>
+                                <div class="row lesson-row valign-wrapper">
+                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Title</p></div>
+                                    <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.title}}</p></div>
+                                </div>
+                                <div class="row lesson-row valign-wrapper">
+                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Status</p></div>
+                                    <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.status.name}}</p></div>
+                                </div>
+                                <div class="row lesson-row valign-wrapper">
+                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Fee amount</p></div>
+                                    <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.dueAmount}}</p></div>
+                                </div>
+                                <div class="row lesson-row valign-wrapper">
+                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Estimated work hours</p></div>
+                                    <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.estimatedWorkEffort}}</p></div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card white z-depth-1 lesson-cards">
+                                <div class="lesson-detail-header blue-grey lighten-1">
+                                    <p class="center">Lesson files</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <table class="table highlight">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Filename</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="file in lesson.fileList | filter:{ fileType: 'question' }">
+                                                    <td>{{$index+1}}</td>
+                                                    <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=question" class="contact">
+                                                    {{file.actualFileName}}</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div class="col s12 m6 l6">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card z-depth-1 chat-card">
+                                <div class="lesson-detail-header blue-grey lighten-1">
+                                    <p class="center">Chat</p>
+                                </div>  
+
+                                <<div class="chat-container">
+                                <div class="row chat-bubble-row" ng-repeat="message in messageList">
+                                        <div class="col s12 chat-bubble-col">
+                                            <div ng-init="cssClass = message.senderProfile.id == currentProfile.id" 
+                                            ng-class = "cssClass ? 'chat-bubble chat-bubble-right' : 'chat-bubble chat-bubble-left'">
+                                                <div class="chat-bubble-header">
+                                                    <span class="sender-name">{{cssClass ? 'Me' : message.senderProfile.name}}</span>
+                                                    <span class="sender-time">{{ message.createdDate  | date : "h:mm a MMM dd" }}</span>
+                                                </div>
+                                                <div class="chat-bubble-message">
+                                                    <p ng-show="message.messageType !='file'" class="chat-message">{{message.description}}</p>
+                                                    <p ng-show="message.messageType =='file'" class="chat-message">
+                                                        <a href="/file/download/{{lesson.id}}?filename={{message.description}}&fileType=question" class="chat-image-link">
+                                                            <i class="material-icons left">image</i><span class="chat-image-path"> {{message.actualFileName}}</span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="chat-message-composer-container">
+                                    <div class="row valign-wrapper chat-message-composer-row">
+                                        <div class="col s10">
+                                            <div class="input-field chat-message-composer-input-field">
+                                                <textarea name="chat-message-composer" id="chat-message-composer" rows="4" ng-model="message.description"></textarea>    
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col s2 chat-button-col" style="padding-left: 0;">
+                                            <div class="row valign-wrapper chat-button-row" style="margin-bottom: 0;">
+                                                <div class="col s6">
+                                                    <button class="btn-floating green darken-1 waves-effect waves-light" id="send-message-btn" ng-click="addMessage();"><i class="material-icons">send</i></button>
+                                                </div>
+                                                <div class="col s6" style="padding-left: 0;">
+                                                	<input type="file" file-model = "myFile">
+                                                </div>
+                                                  
+                                                <div class="col s6" style="padding-left: 0;">
+                                                    <button class="btn-floating btn-flat waves-effect waves-light send-message-btn" ng-click="uploadFile()"><i class="material-icons grey-text">attach_file</i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
 </div>
