@@ -4,8 +4,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +46,7 @@ public class ProfileServiceImpl implements ProfileService {
     public ResponseVO createProfile(Profile profile) throws AppException {
     	// check weather email is already exist.
     	if(Objects.nonNull(profileDAO.findByEmail(profile.getEmail()))) {
-    		return new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, 
+    		return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, 
     				MessageReader.READER.getProperty("api.profile.create.emailexist"));
     	}
     	// try to create new profile
@@ -51,13 +54,13 @@ public class ProfileServiceImpl implements ProfileService {
     	profile.setIsActive(true);
     	profile.setRole(roleDAO.findByName(RoleStates._STUDENT));
     	if(!AppUtils.valiateProfile(profile)) {
-    		return  new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, 
+    		return  new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, 
             		MessageReader.READER.getProperty("api.insufficient.data.error"));
     	}
     	profile.setPassword(PasswordUtil.hashPassword(profile.getPassword()));
         profile = profileDAO.save(profile);
         String accessToken = jwtGenerators.encrypt(profile.getEmail());
-        return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, 
+        return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, 
         		MessageReader.READER.getProperty("api.profile.create.success"), profile, accessToken);
     }
 

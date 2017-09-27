@@ -1,6 +1,6 @@
 angular.module('interceptorFactory',['factories'])
 
-    .factory('httpInterceptor',function($q,$rootScope,TutoringFactory){
+    .factory('httpInterceptor',function($q, $rootScope, TutoringFactory){
       var httpInterceptor = {
         request:function(config){
           return config;
@@ -12,17 +12,14 @@ angular.module('interceptorFactory',['factories'])
           return $q.reject(rejectReason);
         },
         responseError: function(response){
-          if(response.status==401){
-            if(!TutoringFactory.getUnAuthorizedFlag()){
+          if(response.status == 401 && TutoringFactory.getAuthorized()){
               alert("Session expired");
-              TutoringFactory.setUnAuthorizedFlag(true);
+              TutoringFactory.setAuthorized(false);
               $rootScope.$broadcast('unauthorized');
-            }
-          }else{
-            alert("System encountered some error, please try after sometime");
           }
           return $q.reject(response);
         }
       };
       return httpInterceptor;
-    });
+      
+});

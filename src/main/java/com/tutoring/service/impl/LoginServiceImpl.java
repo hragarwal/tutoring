@@ -2,6 +2,8 @@ package com.tutoring.service.impl;
 
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,13 +41,13 @@ public class LoginServiceImpl implements LoginService {
 			boolean passwordVerify =  PasswordUtil.verifyPassword(profile.getPassword(), returnProfile.getPassword());
 			if(passwordVerify){
 				accessToken = jwtGenerator.encrypt(profile.getEmail());
-				responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, "Login Successfull", returnProfile, accessToken);
+				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, "Login Successfull", returnProfile, accessToken);
 			} else {
-				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, 
+				responseVO = new ResponseVO(HttpServletResponse.SC_UNAUTHORIZED, AppConstants.TEXT_ERROR, 
 						MessageReader.READER.getProperty("api.login.invalid.password"));
 			}
 		} else {
-			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, 
+			responseVO = new ResponseVO(HttpServletResponse.SC_UNAUTHORIZED, AppConstants.TEXT_ERROR, 
 					MessageReader.READER.getProperty("api.login.invalid.email"));
 		}
 		return responseVO;

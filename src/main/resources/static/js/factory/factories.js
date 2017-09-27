@@ -4,6 +4,7 @@ angular.module('factories',[])
     .constant("AppConstants", {
       "HTTP_BASE_URL": "http://localhost:8080",
       "API_SUCCESS" : 0,
+      "API_OK" : 200,
       "STUDENT_ROLE_ID":16,
   	  "LESSON_ACCEPTED" : 2,
       "LESSON_SUBMITTED":32,
@@ -45,11 +46,11 @@ angular.module('factories',[])
         factory.getLesson= function () {
           return this.checkIfSessionExistFOrData($sessionStorage.lesson);
         }
-        factory.setUnAuthorizedFlag = function(flag){
-          $sessionStorage.unAuthorizedFlagShown=flag;
+        factory.setAuthorized = function(flag){
+          $sessionStorage.isAuthorized = flag;
         }
-        factory.getUnAuthorizedFlag = function(){
-          return this.checkIfSessionExistFOrData($sessionStorage.unAuthorizedFlagShown);
+        factory.getAuthorized = function(){
+          return this.checkIfSessionExistFOrData($sessionStorage.isAuthorized);
         }
         factory.setSubjectList= function (subjectList) {
           $sessionStorage.subjectList = subjectList;

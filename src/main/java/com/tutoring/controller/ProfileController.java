@@ -28,6 +28,7 @@ public class ProfileController{
 		try {
 			profile.setEmail(profile.getEmail().toLowerCase());
 			responseVO = profileService.createProfile(profile);
+			response.setStatus(responseVO.getStatus());
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);

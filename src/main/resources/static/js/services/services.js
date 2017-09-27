@@ -12,7 +12,7 @@ angular.module('services', ['factories'])
 							data: profile,
 							url: '/signup/'
 						});
-      }
+      			}
 
 			this.updateProfile = function (profile){
 				return $http({
