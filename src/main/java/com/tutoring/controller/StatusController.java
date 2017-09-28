@@ -35,10 +35,9 @@ public class StatusController {
 		try {
 			Iterator<LessonStatus> lessonStatus= lessonStatusDAO.findAll().iterator();
 			List<LessonStatus> list= AppUtils.getAvailableLessonStatus(IteratorUtils.toList(lessonStatus), AppUtils.getCurrentUserProfile(request).getRole().getId());
-			return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,AppConstants.BLANK, 
+			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE,AppConstants.BLANK, 
 					list, null);
 		} catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException("Exception occurred while executing method fetchLessonStatus ", e);
 		}
 	}

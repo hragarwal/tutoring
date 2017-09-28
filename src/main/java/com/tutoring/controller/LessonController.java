@@ -65,10 +65,8 @@ public class LessonController {
 		try {
 			Profile profile = AppUtils.getCurrentUserProfile(request);
 			List<Lesson> lessons = lessonService.getLessonsByProfile(profile.getId());
-			return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_ERROR, AppConstants.SPACE,
-					lessons, null);
+			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, AppConstants.SPACE, lessons, null);
 		} catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 	}
@@ -79,10 +77,9 @@ public class LessonController {
 		ResponseVO responseVO;
 		try {
 			Lesson lesson2 = lessonService.getLessonsByLessonId(lessonId);
-			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_ERROR, AppConstants.SPACE,
+			responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, AppConstants.SPACE,
 					lesson2, null);
 		} catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 		return responseVO;
@@ -97,19 +94,18 @@ public class LessonController {
 			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.SUPER_ADMIN |
 					RoleStates.ADMIN | RoleStates.TUTOR)) {
 				List<Lesson> lessons = lessonService.getAvailableLessons(LessonStates.AVAILABLE);
-				responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, lessons, null);
+				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, lessons, null);
 			} else {
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.unauthorized.data.error"));
+				responseVO = new ResponseVO(HttpServletResponse.SC_UNAUTHORIZED, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.unauthorized.data.error"));
 			}
+			response.setStatus(responseVO.getStatus());
 		} catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 		return responseVO;
     }
 	
-	
+	/* Currently we are not using this method */
 	@RequestMapping(value = Mappings.LESSON_BY_STATUS, method = RequestMethod.GET)
     public ResponseVO getLessonByStatus(HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
@@ -118,10 +114,9 @@ public class LessonController {
 			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.SUPER_ADMIN |
 					RoleStates.ADMIN | RoleStates.TUTOR)) {
 				List<Lesson> lessons = lessonService.getAvailableLessons(LessonStates.AVAILABLE);
-				responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, lessons, null);
+				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, lessons, null);
 			} 
 		} catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 		return responseVO;

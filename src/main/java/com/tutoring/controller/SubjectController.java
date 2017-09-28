@@ -30,9 +30,8 @@ public class SubjectController{
 		ResponseVO responseVO;
 		try {
 			List<Subject> subjects = subjectService.getAllSubjects();
-			responseVO  = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,AppConstants.BLANK, subjects, null);
+			responseVO  = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE,AppConstants.BLANK, subjects, null);
 		} catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException("Exception occurred while executing method fetchSubjects ", e);
 		}
 		return responseVO;
