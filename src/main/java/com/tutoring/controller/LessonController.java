@@ -47,13 +47,13 @@ public class LessonController {
 			boolean isSuccess = lessonService.createLesson(lesson,studentProfile);
 			if(isSuccess) {
 				List<Lesson> lessons = lessonService.getLessonsByProfile(studentProfile.getId());
-				responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.create.success"),
+				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.create.success"),
 						lessons, null);
 			} else {
-				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("api.message.lesson.create.error"));
+				responseVO = new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("api.message.lesson.create.error"));
 			}
+			response.setStatus(responseVO.getStatus());
 		} catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 		return responseVO;

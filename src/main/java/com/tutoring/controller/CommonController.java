@@ -48,7 +48,6 @@ public class CommonController{
 			}
 			response.setStatus(responseVO.getStatus());
 		} catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 		return responseVO;

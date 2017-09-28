@@ -72,24 +72,21 @@ angular.module('homeController', ['factories','services'])
         "taskDescription":"",
         "specialRequirement":"",
       };
-
-      $scope.createLesson = function(lessonForm){
+        
+      $scope.createLesson = function(lessonForm) {
         if(lessonForm.$valid){
-          LessonService.createLesson($scope.lesson)
-              .then(function successCallback(response) {
-                if(response.data.status == AppConstants.API_SUCCESS) {
-                  $scope.lessonList = response.data.data;
+        	LessonService.createLesson($scope.lesson).then(function(response) {
+	    		  $scope.lessonList = response.data.data;
                   alert("created");
-                } else {
-                  alert(response.data.message);
-                }
-              }, function errorCallback(response) {
-                console.error("There is a error..");
-              });
+           }).catch(function (error) {
+        	   alert(error.data.message);
+           }).finally(function () {
+           });
         }else{
-          alert("Enter all fields");
+        	alert("Enter all fields");
         }
       }
+      
 
       $scope.openLesson = function(lessonId, lessonStatus)
       {
@@ -113,28 +110,7 @@ angular.module('homeController', ['factories','services'])
       $scope.setActiveTab = function(tabName){
         $scope.active=tabName;
         if(tabName=="newLesson"){
-          // $('#lesson_select').material_select();
-
-          //   // $(".select-wrapper input.select-dropdown").css({"height": "40px", "border": "none"});
-            
-          //   $('#deadline-date').pickadate({
-          //       selectMonths: true, // Creates a dropdown to control month
-          //       selectYears: 15, // Creates a dropdown of 15 years to control year,
-          //       today: 'Today',
-          //       clear: 'Clear',
-          //       close: 'Ok',
-          //       closeOnSelect: false // Close upon selecting a date,
-          //   });
-          //   alert("Done");
           deleteTemporaryFilesOnServer();
-          
-        
-            
-            // $(".dropdown-content").css('top', 'initial');
-            
-       
-        
-    
         }
 
       };
