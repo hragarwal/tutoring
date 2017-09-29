@@ -17,7 +17,7 @@ public class Mappings {
 	
 	public static final String SUBJECT ="subject";
 
-	public static final String IMAGES_URL [] = new String[] {".jpeg", ".svg", ".jpg"};
+	public static final String IMAGES_URL [] = new String[] {".jpeg", ".svg", ".jpg",".otf",".eot",".ttf",".woff",".woff2",".png"};
 	
 	public static final String JS_URL=".js";
 
