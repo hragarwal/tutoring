@@ -40,9 +40,9 @@
 					<div class="col s12">
 						<div class="row" ng-click="$event.preventDefault()">
 							<div class="col s6">
-								
+								<a href="#" ng-show="!isStudent" id="tutorhome" class="tab-buttons" ng-click="setActiveTab('tutorhome')">Available Lesson</a>
 								<a href="#" id="lesson-history-tab" class="tab-buttons" ng-click="setActiveTab('lessons')">Lesson History</a>
-								<a href="#" id="new-lesson-tab" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</a>
+								<a href="#" ng-show="isStudent" id="newLesson" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</a>
 							</div>
 							
 						</div>
@@ -53,7 +53,7 @@
 		</div>
 
 		<div ng-show="active" ng-if="active=='lessons'" class="container">
-			<h4 class="inner-page-headings center">Lessons</h4>
+			<h4 class="inner-page-headings center">Lesson History</h4>
 			<div class="card white z-depth-1">
 				<table class="table highlight responsive-table centered">
 					<thead class="table-header blue lighten-1">
@@ -62,8 +62,8 @@
 							<th>Subject</th>
 							<th>Title</th>
 							<th>Deadline</th>
-							<th>Task Description</th>
 							<th>Status</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					
@@ -73,8 +73,8 @@
 							<td><a href ng-click="openLesson(lesson.id)">{{lesson.subject.name}}</a></td>
 							<td>{{lesson.title}}</td>
 							<td>{{lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</td>							
-							<td></td>
 							<td>{{lesson.status.name}}</td>
+							<td></td>
 						</tr>
 						<tr ng-repeat-end>
 							<td colspan="6">Task Description : {{lesson.taskDescription}}</td>
@@ -83,6 +83,36 @@
 				</table>
 			</div>
 		</div>
+		
+	<div ng-show="active" ng-if="active=='tutorhome'" class="container">
+		<h4 class="inner-page-headings center">Available Lessons</h4>
+			<div class="card white z-depth-1">
+			<table class="table highlight responsive-table centered">
+					<thead class="table-header blue lighten-1">
+				<tr>
+					<th>#</th>
+					<th>Subject</th>
+					<th>Title</th>
+					<th>Deadline</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+				<tbody class="table-body">
+						<tr ng-repeat-start = "lesson in availableLessonList">
+							<td>{{$index+1}}</td>
+							<td><a href ng-click="openLesson(lesson.id, lesson.status.id)">{{lesson.subject.name}}</a></td>
+							<td>{{lesson.title}}</td>
+							<td>{{lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</td>							
+							<td>{{lesson.status.name}}</td>
+							<td></td>
+						</tr>
+						<tr ng-repeat-end>
+							<td colspan="6">Task Description : {{lesson.taskDescription}}</td>
+						</tr>
+					</tbody>
+			</table>
+		</div>
+	</div>
 	
 		<div class="section"  ng-show="active" ng-if="active=='newLesson'">
 			<div class="container">
@@ -90,7 +120,7 @@
 					
 					<h4 class="inner-page-headings center">{{headingTitle}}</h4>
 					<div class="col s12 m8 l8 push-m2 push-l2 white z-depth-1 center">
-						<form name="lessonForm" class="lesson-form"></form>
+						<form name="lessonForm" class="lesson-form">
 							<div class="row">
 							<div class="col s12">
 								<div class="row no-bot-margin-row">
@@ -166,98 +196,10 @@
 								<div class="row" style="margin-top: 40px;">
 									<button class="btn green waves-effect waves-light" type="submit" ng-click="createLesson(lessonForm)">Submit Lesson</button>
 								</div>
-
-
 							</div>
 						</form>
 					</div>			
-						<!-- <form name="lessonForm"class=" login-form-wrapper-div"> -->
-							
-							<!-- <div class="form-group">
-								<label for="" class="col-sm-4 col-md-4 col-lg-4 control-label">Subject</label>
-								<div class="col-sm-8 col-md-8 col-lg-8">
-									<select class="form-control" required ng-model="lesson.subjectID">
-										<option value="-1">Select Subject</option>
-										<option ng-repeat="subject in subjectsList" value="{{subject.id}}">
-											{{subject.name}}
-										</option>
-									</select>
-								</div>
-							</div> -->
-							
-							<!-- <div class="form-group">
-								<label for="" class="col-sm-4 col-md-4 col-lg-4 control-label">Title</label>
-								<div class="col-sm-8 col-md-8 col-lg-8">
-									<input type="text" class="form-control required" ng-model="lesson.title"  id="title" required/>
-								</div>
-							</div> -->
-							
-							<!-- <div class="form-group">
-								<label for="" class="col-sm-4 col-md-4 col-lg-4 control-label">Task Description</label>
-								<div class="col-sm-8 col-md-8 col-lg-8">
-									<input type="text" class="form-control required" ng-model="lesson.taskDescription"  id="taskDescription" required/>
-								</div>
-							</div> -->
-							
-							<!-- <div class="form-group">
-								<label for="" class="col-sm-4 col-md-4 col-lg-4 control-label">Special Requirements</label>
-								<div class="col-sm-8 col-md-8 col-lg-8">
-									<input type="text" class="form-control required" ng-model="lesson.specialRequirement" id="specialRequirement" />
-								</div>
-							</div> -->
-							
-							<!-- <div class="form-group">
-								<label for="" class="col-sm-4 col-md-4 col-lg-4 control-label">Deadline</label>
-								<div class="col-sm-8 col-md-8 col-lg-8">
-									<input type="date" ng-model="lesson.deadline" id="deadline" required>
-								</div>
-							</div> -->
-							
-							<!-- <div class="form-group">
-									<label for="" class="col-sm-4 control-label">Upload Files</label>
-									<div class="col-sm-8">
-											<label for="" class="col-sm-4 control-label">Please provide a file uploader view.</label>
-									</div>
-							</div> -->
-						<!-- </form> -->
-						<!-- <div class="col-xs-3 col-xs-offset-3">
-							<div class="well">
-								<form action="" class="dropzone" dropzone="" id="dropzone">
-									<div class="dz-default dz-message">
-									</div>
-								</form>
-							</div>
-						</div> -->
-						<!-- <div class="pull-right">
-							<button class="btn btn-success" ng-click="processDropzone()">Upload File</button>
-							<button class="btn btn-danger" ng-click="resetDropzone()">Reset drop wizard</button>
-						</div> -->
-						
-						<!-- <button class="btn btn-raised btn-primary" type="submit" ng-click="createLesson(lessonForm)">Submit Lesson</button> -->
 					</div>
 				</div>
 			</div>
-		</div>
-	<!-- </div> -->
 	
-	
-	<div ng-show="active" ng-if="active=='tutorhome'">
-		<div><h4 align="center">Lessons</h4>
-			<table border="1">
-				<tr>
-					<th>#</th>
-					<th>Subject</th>
-					<th>Task Description</th>
-					<th>Title</th>
-					<th>Status</th>
-				</tr>
-				<tr ng-repeat = "lesson in availableLessonList">
-					<td>{{$index+1}}</td>
-					<td><a href ng-click="openLesson(lesson.id, lesson.status.id)">{{lesson.subject.name}}</a></td>
-					<td>{{lesson.taskDescription}}</td>
-					<td>{{lesson.title}}</td>
-					<td>{{lesson.status.name}}</td>
-				</tr>
-			</table>
-		</div>
-	</div>

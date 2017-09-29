@@ -17,7 +17,7 @@ angular.module('factories',[])
           if(dataObject){
             return dataObject;
           }else{
-            $location.path('login');
+            $location.path('landing');
           }
         }
         factory.clearSessionStorage = function(){

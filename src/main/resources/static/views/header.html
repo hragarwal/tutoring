@@ -16,7 +16,7 @@
                         <li ><a href="#!">Home</a></li>
                         <li ng-show="!isLoggedIn"><a href="#!/login">Sign In</a></li>
                         <li ng-show="!isLoggedIn"><a href="#!/register">Sign Up</a></li>
-                        <li ng-show="isLoggedIn"><a class="dropdown-button valign-wrapper" href="#!" data-activates="dropdown1"><img src="images/profile-photo.jpg" class="circle profile-photo">Varun Mashru<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li ng-show="isLoggedIn"><a class="dropdown-button valign-wrapper" href="#!" data-activates="dropdown1"><img src="images/profile-photo.jpg" class="circle profile-photo">{{ loggedInUsername }}<i class="material-icons right">arrow_drop_down</i></a></li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo" ng-show="!isLoggedIn">
                         <li><a href="#!">Home</a></li>

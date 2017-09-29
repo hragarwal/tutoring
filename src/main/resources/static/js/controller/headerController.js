@@ -8,8 +8,10 @@ angular.module('headerController', ['factories','services'])
       var profile  = TutoringFactory.getProfile();
       if(profile) {
         $rootScope.isLoggedIn = true;
+        $scope.loggedInUsername = profile.name;
       } else {
         $rootScope.isLoggedIn = false;
+        $scope.loggedInUsername = '';
       }
       
       $scope.logout  = function(){
