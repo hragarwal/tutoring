@@ -1,7 +1,8 @@
 var app = angular.module('app', ['ngRoute','ngResource','ngStorage','interceptorFactory','fileAppDirectives',
-                                'loginController','registerController','homeController','lessonController','indexController', 
-                                 'forgotPasswordController','changePasswordController','chatServices',
+                                'loginController','registerController','homeController','lessonController','indexController',
+                                 'headerController','footerController', 'forgotPasswordController','changePasswordController','chatServices',
                                 'editProfileController','factories','services','fileModalDirective', 'ui.materialize']);
+
 app.config(function($routeProvider,$httpProvider){
     $httpProvider.interceptors.push('httpInterceptor');
     $routeProvider

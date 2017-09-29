@@ -21,6 +21,6 @@ angular.module('loginController', ['factories','services'])
         }else{
         	alert("Enter all fields");
         }
-      }
+      };
       
 });

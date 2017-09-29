@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -34,7 +35,7 @@ public class AppUtils {
 
 	/** The exclude URL. */
 	private static String [] excludeURL = { Mappings.LOGIN, Mappings.SIGN_UP,
-			Mappings.IMAGE_URL, Mappings.JS_URL, Mappings.CSS_URL, Mappings.HTML_URL, Mappings.FORGOT_PASSWORD};
+			 Mappings.JS_URL, Mappings.CSS_URL, Mappings.HTML_URL, Mappings.FORGOT_PASSWORD};
 
 
 	private static final String EMAIL_PATTERN =
@@ -58,6 +59,11 @@ public class AppUtils {
 			return true;
 		}
 		for(String urlPart : excludeURL){
+			if(uri.contains(urlPart))
+				return true;
+		}
+		/** for images type */
+		for(String urlPart : Mappings.IMAGES_URL){
 			if(uri.contains(urlPart))
 				return true;
 		}

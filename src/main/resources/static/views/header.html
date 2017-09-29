@@ -1,1 +1,31 @@
-<div align="center"><h2>Header</h2></div>
+<div class="navbar" data-target="#navbar-menu"> 
+        <ul  id="dropdown1" class="dropdown-content" >
+            <li><a href="#!/editProfile" >Edit Profile</a></li>
+            <li><a href="#!/changePassword">Change Password</a></li>
+            <li><a href ng-click="logout();" >Logout</a></li>
+        </ul>
+        <nav class="z-depth-1 grey lighten-1" >
+            <div class="container nav-container">
+                <div class="nav-wrapper" id="nav-bar">
+                    <a href="#!" class="brand-logo">
+                            <img id="logo" src="images/tutorialpoint-logo.svg" width="200"> 
+                    </a>
+                    <div >
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="color: #444;">menu</i></a>
+                    <ul class="right hide-on-med-and-down customnav" id="labels">
+                        <li ><a href="#!">Home</a></li>
+                        <li ng-show="!isLoggedIn"><a href="#!/login">Sign In</a></li>
+                        <li ng-show="!isLoggedIn"><a href="#!/register">Sign Up</a></li>
+                        <li ng-show="isLoggedIn"><a class="dropdown-button valign-wrapper" href="#!" data-activates="dropdown1"><img src="images/profile-photo.jpg" class="circle profile-photo">Varun Mashru<i class="material-icons right">arrow_drop_down</i></a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo" ng-show="!isLoggedIn">
+                        <li><a href="#!">Home</a></li>
+                        <li><a href="#!/login">Sign In</a></li>
+                        <li><a href="#!/register">Sign Up</a></li>
+                    </ul>
+                    </div>
+                    </div>
+                </div>
+        </nav>
+        
+    </div>
