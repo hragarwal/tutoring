@@ -1,5 +1,6 @@
 package com.tutoring.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 @Table(name = "ROLE")
 public class Role extends PersistableBaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
     public String getName() {

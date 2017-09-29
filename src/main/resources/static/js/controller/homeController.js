@@ -57,7 +57,7 @@ angular.module('homeController', ['factories','services'])
         'subjectID': '',
         'title': '',
         'taskDescription': '',
-        'specialRequirement': '',
+        'specialRequirement': ''
       };
         
       $scope.createLesson = function(lessonForm) {
