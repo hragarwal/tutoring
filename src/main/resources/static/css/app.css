@@ -174,7 +174,7 @@ nav {
 }
 
 .table-body tr td {
-	font-weight: 300;
+	/*font-weight: 300;*/
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -215,17 +215,24 @@ nav {
 
 .lesson-row {
 	margin-bottom: 0;
-	height: 46px;
-	border-bottom: 1px solid #eee;
+	min-height: 46px;
+	/*border-bottom: 1px solid #eee;*/
 }
 
 .lesson-detail-table-header {
 	font-weight: 500;
-    border-right: 1px solid #eee;
+    /*border-right: 1px solid #eee;*/
     height: 100%;
 }
 
 .lesson-detail-table-header p {
+	font-weight: 500;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.lesson-detail-table-header p span {
+	font-weight: 400;
 	margin-top: 0;
 	margin-bottom: 0;
 }
@@ -361,4 +368,36 @@ nav {
 
 .send-message-btn:hover {
 	background-color: #dedbdb;
+}
+
+.chat-file-upload-btn {
+	/*visibility: hidden;*/
+}
+
+.tab-buttons {
+	padding: 8px 10px 10px 10px;
+	color: #3d3d3d;
+	border: 1px solid #3d3d3d;
+	margin-right: 10px;
+	transition: all 200ms ease-out;
+}
+
+.tab-buttons:hover {
+	padding: 8px 10px 10px 10px;
+	color: white;
+	/*border: 1px solid #3d3d3d;*/
+	background-color: #3d3d3d;
+	transition: all 200ms ease-in;
+}
+
+
+.lesson-detail-top-row {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-weight: 500;
+}
+
+#update-status-select {
+	margin-bottom: 0;
+	height: 40px;
 }

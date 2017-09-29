@@ -128,29 +128,59 @@
                                     <p class="center">{{lesson.subject.name}}</p>
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
-                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Task Description</p></div>
-                                    <div class="col s9 lesson-detail-table-content"><p>{{lesson.taskDescription}}</p></div>
+                                    <div class="col s6">
+                                        <p class="left lesson-detail-top-row">Chirag Agrawal asked for help in:</p>
+                                    </div>
+                                    <div class="col s6">
+                                        <p class="right lesson-detail-top-row">Expires at 24 Nov 2014 12:45 PM</p>
+                                    </div>
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
-                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Title</p></div>
-                                    <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.title}}</p></div>
+                                    <div class="col s12 lesson-detail-table-header valign-wrapper">
+                                        <p>Title: <span>{{lesson.title}}</span></p>
+                                    </div>
+                                    <!-- <div class="col s9 lesson-detail-table-content"><p>{{lesson.taskDescription}}</p></div> -->
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
-                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Status</p></div>
-                                    <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.status.name}}</p></div>
+                                    <div class="col s6 lesson-detail-table-header valign-wrapper">
+                                        <p>Status: <span>{{lesson.status.name}}</span></p>
+                                    </div>
+                                    <!-- <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.title}}</p></div> -->
+                                    <div class="col s6">
+                                        <select id="update-status-select" ng-model="lessonUpdate.status.id" ng-change="checkSubmittedStatus(lessonUpdate.status.id)" material-select>
+                                            <option value="" disabled selected>Select a status</option>
+                                            <option value="-1">Update Status</option>
+                                            <option  ng-repeat="lessonStatus in lessonStausList" ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">{{lessonStatus.name}}</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
+                                    <div class="col s12 lesson-detail-table-header valign-wrapper">
+                                        <p>Special requirements: <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint recusandae expedita distinctio temporibus maiores.</span></p>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="row lesson-row valign-wrapper">
+                                    <div class="col s12 lesson-detail-table-header valign-wrapper">
+                                        <p>Description: <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit asperiores ratione, commodi, sunt deleniti labore amet unde odio repellat fugiat quasi quae ex voluptatibus voluptas sapiente necessitatibus fuga, nihil est. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nostrum, id. Inventore quibusdam numquam earum natus porro culpa molestiae, minus eos deserunt amet, et ipsum consequatur, aliquid corporis eaque nobis.</span></p>
+                                    </div>
+                                    
+                                </div>
+
+
+                               <!--  <div class="row lesson-row valign-wrapper">
                                     <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Fee amount</p></div>
                                     <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.dueAmount}}</p></div>
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
                                     <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Estimated work hours</p></div>
                                     <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.estimatedWorkEffort}}</p></div>
-                                </div>
+                                </div> -->
                             </div>  
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="display: none;">
                         <div class="col s12">
                             <div class="card white z-depth-1 lesson-cards">
                                 <div class="lesson-detail-header blue-grey lighten-1">
@@ -232,11 +262,10 @@
                                                 <div class="col s6">
                                                     <button class="btn-floating green darken-1 waves-effect waves-light" id="send-message-btn" ng-click="addMessage();"><i class="material-icons">send</i></button>
                                                 </div>
-                                                <div class="col s6" style="padding-left: 0;">
-                                                	<input type="file" file-model = "myFile">
-                                                </div>
+                                                
                                                   
                                                 <div class="col s6" style="padding-left: 0;">
+                                                    <!-- <input class="chat-file-upload-btn" type="file" file-model = "myFile"> -->
                                                     <button class="btn-floating btn-flat waves-effect waves-light send-message-btn" ng-click="uploadFile()"><i class="material-icons grey-text">attach_file</i></button>
                                                 </div>
                                             </div>
