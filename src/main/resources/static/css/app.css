@@ -490,7 +490,7 @@ table tbody tr td.task-desc-data {
 	border-radius: 10px;
 }	
 
-.toast-fail {
+.toast-error {
 	background-color: #ef5350;
 	border-radius: 10px;
 }

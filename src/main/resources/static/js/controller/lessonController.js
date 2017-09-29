@@ -1,6 +1,6 @@
 angular.module('lessonController', ['factories','services','chatServices'])
 		.controller('lessonController', function($scope, LessonService, AppConstants,FileService,$location,
-																						 $sessionStorage, ChatServices, TutoringFactory) {
+																						 AppFactory, $sessionStorage, ChatServices, TutoringFactory) {
 
 			$scope.lesson = TutoringFactory.getLesson();
 			$scope.maxFilesize=5;
@@ -27,7 +27,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 						console.error("There is a error..");
 					});
 
-			$scope.lessonStausList =  TutoringFactory.getLessonStatus();
+			$scope.lessonStatusList =  TutoringFactory.getLessonStatus();
 
 			$scope.lessonUpdate={
 				"id": $scope.lesson.id,
@@ -76,30 +76,62 @@ angular.module('lessonController', ['factories','services','chatServices'])
 				}
 			});
 
-			$scope.uploadFile = function(){
-				console.log($scope.myFile);
-				if(!$scope.myFile){
-					alert("Please add a file");
-				}else if($scope.myFile.name.indexOf(".exe")>-1){
-					alert("Such file types are not allowed");
-				}else if($scope.myFile.size==0){
-					alert("File seems to be of 0KB, please upload a valid file.");
-				}else if($scope.myFile.size>$scope.maxFilesize * 1024 * 1024){
-					alert("Please add a file less than 5 MB");
-				}else{
-					FileService.uploadFile($scope.myFile, $scope.lesson.id)
-							.then(function successCallback(response) {
-								if(response.data.status!=AppConstants.API_SUCCESS){
-									alert(response.data.message);
-								}else{
-									console.log("File uploaded successfully.");
-								}
-							}, function errorCallback(response) {
-								console.error("There is a error..");
-							});
-				}
-			}
+			/*$scope.uploadFile = function() {
+					alert('YOYO');
+					if(!$scope.myFile){
+						alert("Please add a file");
+					}else if($scope.myFile.name.indexOf(".exe")>-1){
+						alert("Such file types are not allowed");
+					}else if($scope.myFile.size==0){
+						alert("File seems to be of 0KB, please upload a valid file.");
+					}else if($scope.myFile.size>$scope.maxFilesize * 1024 * 1024){
+						alert("Please add a file less than 5 MB");
+					}else{
+						FileService.uploadFile($scope.myFile, $scope.lesson.id)
+								.then(function successCallback(response) {
+									if(response.data.status!=AppConstants.API_SUCCESS){
+										alert(response.data.message);
+									}else{
+										console.log("File uploaded successfully.");
+									}
+								}, function errorCallback(response) {
+									console.error("There is a error..");
+								});
+					}
+				
+			};*/
+			
 
+			function uploadFile(){
+				alert('YOYO');
+			};
+			
+			
+			$scope.openSelectFileWindow = function() {
+				$('#selectFile').click();
+			};
+
+			$("#selectFile").change(function(){
+				setTimeout(function(){
+					if($scope.myFile) {
+						if($scope.myFile.name.indexOf('.exe')>-1){
+							AppFactory.toastError('Such file types are not allowed.');
+						}else if($scope.myFile.size==0){
+							AppFactory.toastError('File seems to be of 0KB, please upload a valid file.');
+						}else if($scope.myFile.size>$scope.maxFilesize * 1024 * 1024){
+							AppFactory.toastError('Please add a file less than 5 MB.');
+						}else{
+							FileService.uploadFile($scope.myFile, $scope.lesson.id).then(function(response) {
+								AppFactory.toastSuccess(response.data.message);
+						   }).catch(function (error) {
+							   AppFactory.toastError(error.data.message);
+						   }).finally(function () {
+						   });
+						}
+					} 
+				}, 200);
+				
+			});
 
 			$scope.updateStatus = function(lessonStatus){
 				if(lessonStatus) {

@@ -25,7 +25,7 @@
             <div class="col-sm-8">
                 <select ng-model="lessonUpdate.status.id" ng-change="checkSubmittedStatus(lessonUpdate.status.id)">
                 <option value="-1">Update Status</option>
-                <option  ng-repeat="lessonStatus in lessonStausList"
+                <option  ng-repeat="lessonStatus in lessonStatusList"
                     ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">
                     {{lessonStatus.name}}
                 </option>
@@ -129,23 +129,22 @@
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
                                     <div class="col s6">
-                                        <p class="left lesson-detail-top-row">Chirag Agrawal asked for help in:</p>
+                                        <p class="left lesson-detail-top-row">{{currentProfile.name}} asked for help in:</p>
                                     </div>
                                     <div class="col s6">
-                                        <p class="right lesson-detail-top-row">Expires at 24 Nov 2014 12:45 PM</p>
+                                        <p class="right lesson-detail-top-row">Expires at {{ lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</p>
                                     </div>
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
                                     <div class="col s12 lesson-detail-table-header valign-wrapper">
                                         <p>Title: <span>{{lesson.title}}</span></p>
                                     </div>
-                                    <!-- <div class="col s9 lesson-detail-table-content"><p>{{lesson.taskDescription}}</p></div> -->
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
                                     <div class="col s3 lesson-detail-table-header valign-wrapper">
                                         <p>Attached Files: </p>
                                     </div>
-                                    <div class="col s9">
+                                    <div ng-show ="lesson.fileList != null && lesson.fileList.length > 0" class="col s9">
                                         <div class="row" style="margin-bottom: 0;">
                                             <div class="col s6 valign-wrapper">
                                                 <a class="attached-files-div">
@@ -173,65 +172,42 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col s4 valign-wrapper">
-                                        <div class="attached-files-div">
-                                            <i class="material-icons left" >attach_files</i>
-                                            <p class="attached-file-name">attachment1.jpg</p>
-                                        </div>
+                                    <div class="col s9">
+                                    	No Files
                                     </div>
-                                    <div class="col s4 valign-wrapper">
-                                        <div class="attached-files-div">
-                                            <i class="material-icons left" >attach_files</i>
-                                            <p class="attached-file-name">attachment1.jpg</p>
-                                        </div>
-                                    </div> -->
-
                                 </div>
                                 <div class="row lesson-row lesson-status-row valign-wrapper">
                                     <div class="col s3 lesson-detail-table-header valign-wrapper">
                                         <p>Status: <span>{{lesson.status.name}}</span></p>
                                     </div>
-                                    <!-- <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.title}}</p></div> -->
                                     <div class="col s9">
                                         <div class="row valign-wrapper" style="margin-bottom: 0;">
                                             <div class="col s6" style="height: 46px;">
                                                 <select id="update-status-select" ng-model="lessonUpdate.status.id" ng-change="checkSubmittedStatus(lessonUpdate.status.id)" material-select>
                                                     <option value="" disabled selected>Select a status</option>
                                                     <option value="-1">Update Status</option>
-                                                    <option  ng-repeat="lessonStatus in lessonStausList" ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">{{lessonStatus.name}}</option>
+                                                    <option  ng-repeat="lessonStatus in lessonStatusList" ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">{{lessonStatus.name}}</option>
                                                 </select>
                                             </div>
                                             <div class="col s6">
                                                 <button class="btn blue waves-effect waves-light update-button">Update</button>
                                             </div>
                                         </div>
-                                        
-                                        
                                     </div>
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
                                     <div class="col s12 lesson-detail-table-header valign-wrapper">
-                                        <p class="custom-top-margin">Special requirements: <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint recusandae expedita distinctio temporibus maiores.</span></p>
+                                        <p class="custom-top-margin">Special requirements: <span>{{lesson.specialRequirement}}</span></p>
                                     </div>
                                     
                                 </div>
 
                                 <div class="row lesson-row valign-wrapper">
                                     <div class="col s12 lesson-detail-table-header valign-wrapper">
-                                        <p class="custom-desc-margin">Description: <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit asperiores ratione, commodi, sunt deleniti labore amet unde odio repellat fugiat quasi quae ex voluptatibus voluptas sapiente necessitatibus fuga, nihil est. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, nostrum, id. Inventore quibusdam numquam earum natus porro culpa molestiae, minus eos deserunt amet, et ipsum consequatur, aliquid corporis eaque nobis.</span></p>
+                                        <p class="custom-desc-margin">Description: <span>{{lesson.taskDescription}}</span></p>
                                     </div>
                                     
                                 </div>
-
-
-                               <!--  <div class="row lesson-row valign-wrapper">
-                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Fee amount</p></div>
-                                    <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.dueAmount}}</p></div>
-                                </div>
-                                <div class="row lesson-row valign-wrapper">
-                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Estimated work hours</p></div>
-                                    <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.estimatedWorkEffort}}</p></div>
-                                </div> -->
                             </div>  
                         </div>
                     </div>
@@ -241,15 +217,6 @@
                                 <div class="lesson-detail-header blue-grey lighten-1">
                                     <p class="center">Lesson files</p>
                                 </div>
-                                <!-- <div class="row">
-                                    <div class="col s12">
-                                        <select ng-model="lessonUpdate.status.id" ng-change="checkSubmittedStatus(lessonUpdate.status.id)" material-select>
-                                            <option value="" disabled selected>Select a status</option>
-                                            <option value="-1">Update Status</option>
-                                            <option  ng-repeat="lessonStatus in lessonStausList" ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">{{lessonStatus.name}}             </option>
-                                        </select>
-                                    </div>
-                                </div> -->
                                 <div class="row">
                                     <div class="col s12">
                                         <table class="table highlight">
@@ -320,8 +287,8 @@
                                                 
                                                   
                                                 <div class="col s6" style="padding-left: 0;">
-                                                    <!-- <input class="chat-file-upload-btn" type="file" file-model = "myFile"> -->
-                                                    <button class="btn-floating btn-flat waves-effect waves-light send-message-btn" ng-click="uploadFile()"><i class="material-icons grey-text">attach_file</i></button>
+                                                     <input id="selectFile" ng-hide="true" class="chat-file-upload-btn" type="file" file-model = "myFile"> 
+                                                    <button class="btn-floating btn-flat waves-effect waves-light send-message-btn" ng-click="openSelectFileWindow();"><i class="material-icons grey-text">attach_file</i></button>
                                                 </div>
                                             </div>
                                         </div>
