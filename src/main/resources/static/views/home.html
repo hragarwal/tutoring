@@ -34,15 +34,17 @@
 	</div>
 </section>
  -->
+
+
 		<div class="breadcrumbs-container">
-			<div class="container">
-				<div class="row" style="margin-top: 20px;">
+			<div class="container lesson-buttons-container">
+				<div class="row" style="margin-top: 28px;">
 					<div class="col s12">
 						<div class="row" ng-click="$event.preventDefault()">
 							<div class="col s6">
-								<a href="#" ng-show="!isStudent" id="tutorhome" class="tab-buttons" ng-click="setActiveTab('tutorhome')">Available Lesson</a>
-								<a href="#" id="lesson-history-tab" class="tab-buttons" ng-click="setActiveTab('lessons')">Lesson History</a>
-								<a href="#" ng-show="isStudent" id="newLesson" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</a>
+								<button href="#" ng-show="!isStudent" id="tutorhome" class="tab-buttons" ng-click="setActiveTab('tutorhome')">Available Lesson</button>
+								<button href="#" id="lesson-history-tab" class="tab-buttons" ng-click="setActiveTab('lessons')">Lesson History</button>
+								<button href="#" ng-show="isStudent" id="newLesson" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</button>
 							</div>
 							
 						</div>
@@ -52,10 +54,11 @@
 			</div>
 		</div>
 
-		<div ng-show="active" ng-if="active=='lessons'" class="container">
+		<div ng-show="active" ng-if="active=='lessons'" class="container lesson-history-container">
+
 			<h4 class="inner-page-headings center">Lesson History</h4>
 			<div class="card white z-depth-1">
-				<table class="table highlight responsive-table centered">
+				<table class="table highlight responsive-table">
 					<thead class="table-header blue lighten-1">
 						<tr>
 							<th>#</th>
@@ -76,8 +79,9 @@
 							<td>{{lesson.status.name}}</td>
 							<td></td>
 						</tr>
-						<tr ng-repeat-end>
-							<td colspan="6">Task Description : {{lesson.taskDescription}}</td>
+						<tr class="task-desc-row" ng-repeat-end>
+							<td></td>
+							<td class="task-desc-data" colspan="6"><b>Task Description :</b> {{lesson.taskDescription}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -87,7 +91,7 @@
 	<div ng-show="active" ng-if="active=='tutorhome'" class="container">
 		<h4 class="inner-page-headings center">Available Lessons</h4>
 			<div class="card white z-depth-1">
-			<table class="table highlight responsive-table centered">
+			<table class="table highlight responsive-table">
 					<thead class="table-header blue lighten-1">
 				<tr>
 					<th>#</th>
@@ -104,10 +108,14 @@
 							<td>{{lesson.title}}</td>
 							<td>{{lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</td>							
 							<td>{{lesson.status.name}}</td>
-							<td></td>
+							<td><a href="#!">Details</a></td>
 						</tr>
 						<tr ng-repeat-end>
-							<td colspan="6">Task Description : {{lesson.taskDescription}}</td>
+							<td class="task-desc" colspan="6">
+								<p>
+									Task Description : {{lesson.taskDescription}}
+								</p>
+							</td>
 						</tr>
 					</tbody>
 			</table>
@@ -119,7 +127,7 @@
 				<div id="lesson-section" class="row">
 					
 					<h4 class="inner-page-headings center">{{headingTitle}}</h4>
-					<div class="col s12 m8 l8 push-m2 push-l2 white z-depth-1 center">
+					<div class="col s12 m10 l10 push-m1 push-l1 white z-depth-1 center">
 						<form name="lessonForm" class="lesson-form">
 							<div class="row">
 							<div class="col s12">
@@ -149,7 +157,8 @@
 										<p class="field-label">Task Description</p>
 									</div>
 									<div class="input-field col s9">
-										<input  type="text" class="validate" ng-model="lesson.taskDescription" id="taskDescription" required>
+										<textarea  type="text" class="materialize-textarea validate" ng-model="lesson.taskDescription" id="taskDescription" required>
+										</textarea>
 									</div>
 								</div>
 
@@ -178,7 +187,10 @@
 									<div class="input-field col s9">
 										<div class="well">
 											<form action="" class="dropzone" dropzone="" id="dropzone">
-												<div class="dz-default dz-message"><i class="material-icons left">cloud_upload</i>Drop files here</div>
+												<div class="dz-default valign-wrapper">
+													<p>
+														<i class="material-icons left">cloud_upload</i>Drop files here
+													</p></div>
 											</form>
 										</div>
 									</div>
