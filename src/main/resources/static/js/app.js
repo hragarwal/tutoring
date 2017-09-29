@@ -5,7 +5,8 @@ var app = angular.module('app', ['ngRoute','ngResource','ngStorage','interceptor
 
 app.config(function($routeProvider,$httpProvider){
     $httpProvider.interceptors.push('httpInterceptor');
-    
+    $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
+    $httpProvider.defaults.cache = false;
     $routeProvider
         .when('/login',{
             templateUrl: '../views/login.html',

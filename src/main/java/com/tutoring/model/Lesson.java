@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,8 +29,10 @@ public class Lesson extends AuditableBaseEntity {
     private String title;
 
     @Column(nullable = false)
+    @Lob
     private String taskDescription;
 
+    @Column(length = 2048)
     private String specialRequirement;
 
     @Column(nullable = false)
@@ -53,6 +56,7 @@ public class Lesson extends AuditableBaseEntity {
 
     private String feedback;
 
+    @Lob
     private String lessonResponse;
 
     private boolean isActive = true;
@@ -61,6 +65,7 @@ public class Lesson extends AuditableBaseEntity {
     @JoinColumn(name = "LESSON_ID")
     private Set<Files> fileList;
 
+    @Lob
     private String lessonAnswerDesc;
     
     private transient int subjectID;
