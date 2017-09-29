@@ -30,8 +30,12 @@
 							<div class="col s4">
 								<p class="field-label">Country</p>
 							</div>
+							
 							<div class="input-field col s8">
-								<input ng-model="profile.country" type="text" class="validate">
+								<select id="lesson_select" material-select ng-model="profile.country" class="validate">
+									<option value="" disabled selected>Select a subject</option>
+									<option ng-repeat="country in countries" value="{{country.code}}">{{country.name}}</option>
+    							</select>
 							</div>
 						</div>
 						<div class="row no-bot-margin-row">
