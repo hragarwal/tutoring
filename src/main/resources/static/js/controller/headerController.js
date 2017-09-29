@@ -13,6 +13,10 @@ angular.module('headerController', ['factories','services'])
         $rootScope.isLoggedIn = false;
         $scope.loggedInUsername = '';
       }
+
+      $scope.redirectToUrl = function(url) {
+    	  $location.path(url);
+      }
       
       $scope.logout  = function(){
     	  TutoringFactory.clearSessionStorage();
