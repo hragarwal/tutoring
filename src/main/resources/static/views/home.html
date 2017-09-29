@@ -39,14 +39,12 @@
 				<div class="row" style="margin-top: 20px;">
 					<div class="col s12">
 						<div class="row" ng-click="$event.preventDefault()">
-							<div class="col s3">
-								<a href="" class="breadcrumb">Lesson List</a>
-								<a href="" class="breadcrumb">Inner Lesson</a>
-								<a href="#"  class="btn green waves-effect waves-light" ng-click="setActiveTab('lessons')">Lesson History</a>
-							</div>
 							<div class="col s6">
-								<a href="#" class="btn red waves-effect waves-light" ng-click="setActiveTab('newLesson')"><i class="material-icons left" >add</i>New Lesson</a>
+								
+								<a href="#" id="lesson-history-tab" class="tab-buttons" ng-click="setActiveTab('lessons')">Lesson History</a>
+								<a href="#" id="new-lesson-tab" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</a>
 							</div>
+							
 						</div>
 						
 					</div>
@@ -77,6 +75,9 @@
 							<td>{{lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</td>							
 							<td>{{lesson.taskDescription}}</td>
 							<td>{{lesson.status.name}}</td>
+						</tr>
+						<tr>
+							<td colspan="6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit vitae voluptate accusantium sed optio ab, neque ad ullam praesentium temporibus iste possimus ipsam iusto nisi, eveniet debitis consectetur quod laboriosam.</td>
 						</tr>
 					</tbody>
 				</table>
