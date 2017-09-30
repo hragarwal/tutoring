@@ -24,7 +24,7 @@ angular.module('factories',[])
         factory.clearSessionStorage = function(){
           $sessionStorage.profile="";
           $sessionStorage.lessonStatus="";
-          $sessionStorage.lesson="";
+          $sessionStorage.lessonId="";
           $sessionStorage.subjectList="";
           $sessionStorage.lessonStatus=""
         }
@@ -41,11 +41,11 @@ angular.module('factories',[])
   	    factory.getLessonStatus= function () {
   	      return $sessionStorage.lessonStatus;
   	    }
-        factory.setLesson= function (lesson) {
-          $sessionStorage.lesson = lesson;
+        factory.setLessonId = function (lessonId) {
+          $sessionStorage.lessonId = lessonId;
         }
-        factory.getLesson= function () {
-          return this.checkIfSessionExistFOrData($sessionStorage.lesson);
+        factory.getLessonId= function () {
+          return this.checkIfSessionExistFOrData($sessionStorage.lessonId);
         }
         factory.setAuthorized = function(flag){
           $sessionStorage.isAuthorized = flag;

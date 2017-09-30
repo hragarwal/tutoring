@@ -100,7 +100,7 @@ public class AuthorizeAspect {
 			return true;
 		
 		if(Objects.nonNull(response)) 
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
 		throw new AppException(MessageReader.READER.getProperty("api.unauthorized.data.error"));
 	}
 	

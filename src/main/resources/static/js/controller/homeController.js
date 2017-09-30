@@ -77,17 +77,12 @@ angular.module('homeController', ['factories','services'])
 
       $scope.openLesson = function(lessonId, lessonStatus)
       {
-        LessonService.getLesson(lessonId).then(function(response) {
-        	 TutoringFactory.setLesson(response.data.data);
-             if(lessonStatus == 1) {
-               $location.path('lessontalks');
-             } else {
-               $location.path('lessondetail');
-             }
-    	   }).catch(function (error) {
-    		   alert(error.data.message);
-    	   }).finally(function () {
-    	   });
+        TutoringFactory.setLessonId(lessonId);
+         if(lessonStatus == 1) {
+           $location.path('lessontalks');
+         }else {
+           $location.path('lessondetail');
+         }
       };
       
       $scope.setActiveTab = function(tabName) {

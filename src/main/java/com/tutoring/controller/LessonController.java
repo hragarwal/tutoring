@@ -77,7 +77,7 @@ public class LessonController {
 		ResponseVO responseVO;
 		try {
 			Lesson lesson2 = lessonService.getLessonsByLessonId(lessonId);
-			responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, AppConstants.SPACE,
+			responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, AppConstants.SPACE,
 					lesson2, null);
 		} catch (Exception e) {
 			throw new AppException(e);

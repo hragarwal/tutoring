@@ -1,51 +1,60 @@
 angular.module('lessonController', ['factories','services','chatServices'])
 		.controller('lessonController', function($scope, LessonService, AppConstants,FileService,$location,
 																						 AppFactory, $sessionStorage, ChatServices, TutoringFactory) {
+            LessonService.getLesson(TutoringFactory.getLessonId()).then(function(response) {
+             $scope.lesson = response.data.data;
+             if($scope.lesson.status.id==AppConstants.LESSON_SUBMITTED ||
+                    $scope.lesson.status.id==AppConstants.LESSON_COMPLETED){
+                $scope.showAnswerFromTutor = true;
+             }
+             $scope.lessonUpdate={
+             				"id": $scope.lesson.id,
+             				"status":{
+             					"id":"",
+             				},
+             				"dueAmount":"",
+             				"estimatedWorkEffort":"",
+             				"lessonAnswerDesc":""
+             			};
 
-			$scope.lesson = TutoringFactory.getLesson();
-			$scope.maxFilesize=5;
-			$scope.showAnswerFillSection=false;
-			$scope.showAnswerFromTutor=false;
-			if($scope.lesson.status.id==AppConstants.LESSON_SUBMITTED ||
-					$scope.lesson.status.id==AppConstants.LESSON_COMPLETED){
-				$scope.showAnswerFromTutor = true;
-			}
+             			$scope.message={
+             				"lesson":{
+             					"id":$scope.lesson.id
+             				},
+             				"description":"",
+             				"currentProfile": TutoringFactory.getProfile().id
+             			};
+             $scope.getAllMessagesForLesson();
+           }).catch(function (error) {
+                if(error.status == 406){
+                     $location.path('home');
+                 }
+                 alert(error.data.message);
+           }).finally(function () {
+           });
+             $scope.maxFilesize=5;
+            $scope.showAnswerFillSection=false;
+            $scope.showAnswerFromTutor=false;
 			$scope.currentProfile =  TutoringFactory.getProfile();
 			$scope.isStudent=false;
 			if($scope.currentProfile.role.id ==  AppConstants.STUDENT_ROLE_ID) {
 				$scope.isStudent=true;
 			}
 
-			LessonService.getAllMessagesForLesson($scope.lesson.id)
-					.then(function successCallback(response) {
-						if(response.data.status == AppConstants.API_SUCCESS) {
-							$scope.messageList = response.data.data;
-						} else {
-							alert(response.data.message);
-						}
-					}, function errorCallback(response) {
-						console.error("There is a error..");
-					});
+			$scope.getAllMessagesForLesson = function(){
+                LessonService.getAllMessagesForLesson($scope.lesson.id)
+                        .then(function successCallback(response) {
+                            if(response.data.status == AppConstants.API_SUCCESS) {
+                                $scope.messageList = response.data.data;
+                            } else {
+                                alert(response.data.message);
+                            }
+                        }, function errorCallback(response) {
+                            console.error("There is a error..");
+                        });
+			}
 
 			$scope.lessonStatusList =  TutoringFactory.getLessonStatus();
-
-			$scope.lessonUpdate={
-				"id": $scope.lesson.id,
-				"status":{
-					"id":"",
-				},
-				"dueAmount":"",
-				"estimatedWorkEffort":"",
-				"lessonAnswerDesc":""
-			};
-
-			$scope.message={
-				"lesson":{
-					"id":$scope.lesson.id
-				},
-				"description":"",
-				"currentProfile": TutoringFactory.getProfile().id
-			};
 
 			$scope.addMessage = function() {
 				if($scope.message) {
