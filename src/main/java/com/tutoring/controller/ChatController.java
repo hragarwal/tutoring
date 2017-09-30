@@ -70,7 +70,6 @@ public class ChatController {
 				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.message.send.error"));
 			}
 		} catch (Exception e) {
-			//response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new AppException(e);
 		}
 		return responseVO;

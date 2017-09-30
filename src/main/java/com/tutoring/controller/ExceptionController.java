@@ -20,11 +20,12 @@ public class ExceptionController {
 	public ResponseVO exception(AppException e, HttpServletRequest request, HttpServletResponse response) {
 		ResponseVO responseVO = new ResponseVO(AppConstants.ERROR,
 				AppConstants.TEXT_ERROR, AppConstants.DEFAULT_ERROR_MESSAGE);
-		if(response.getStatus()==HttpServletResponse.SC_OK) {
+		if(response.getStatus() == HttpServletResponse.SC_OK) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}else{
 			responseVO.setMessage(e.getMessage());
 		}
+		responseVO.setStatus(response.getStatus());
 		return responseVO;
 	}
 	
