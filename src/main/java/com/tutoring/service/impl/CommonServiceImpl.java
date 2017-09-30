@@ -2,6 +2,8 @@ package com.tutoring.service.impl;
 
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,19 +56,19 @@ public class CommonServiceImpl implements CommonService {
 		userProfile = profileDAO.findOne(userProfile.getId());
 		boolean passwordVerify =  PasswordUtil.verifyPassword(passwordUpdateProfile.getOldPassword(),
 				userProfile.getPassword());
-		if(passwordVerify){
+		if(passwordVerify) {
 			Profile profile = profileDAO.findOne(userProfile.getId());
 			if(Objects.nonNull(profile)) {
 				profile.setPassword(PasswordUtil.hashPassword(passwordUpdateProfile.getConfirmPassword()));
-				responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,
+				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE,
 						MessageReader.READER.getProperty("api.message.message.password.success"), profile, null);
 			} else {
-				responseVO = new ResponseVO(2, AppConstants.TEXT_ERROR,
+				responseVO = new ResponseVO(HttpServletResponse.SC_UNAUTHORIZED, AppConstants.TEXT_ERROR,
 						MessageReader.READER.getProperty("api.message.message.password.change.error"));
 			}
-		}else{
-			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR,
-					MessageReader.READER.getProperty("api.message.message.password.error"));
+		} else {
+			responseVO = new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_ERROR,
+				MessageReader.READER.getProperty("api.message.message.password.error"));
 		}
 		return responseVO;
 	}
