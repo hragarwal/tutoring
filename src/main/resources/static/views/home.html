@@ -43,12 +43,10 @@
 						<div class="row" ng-click="$event.preventDefault()">
 							<div class="col s6">
 								<button href="#" ng-show="!isStudent" id="tutorhome" class="tab-buttons" ng-click="setActiveTab('tutorhome')">Available Lesson</button>
-								<button href="#" id="lesson-history-tab" class="tab-buttons" ng-click="setActiveTab('lessons')">Lesson History</button>
+								<button href="#" id="lesson-history-tab" class="tab-buttons" id="lessons" ng-click="setActiveTab('lessons')">Lesson History</button>
 								<button href="#" ng-show="isStudent" id="newLesson" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</button>
 							</div>
-							
 						</div>
-						
 					</div>
 				</div>
 			</div>
@@ -124,7 +122,7 @@
 					
 					<h4 class="inner-page-headings center">{{headingTitle}}</h4>
 					<div class="col s12 m10 l10 push-m1 push-l1 white z-depth-1 center">
-						<form name="lessonForm" class="lesson-form">
+						<form name="lessonForm" id="lessonForm" class="lesson-form">
 							<div class="row">
 							<div class="col s12">
 								<div class="row no-bot-margin-row">
@@ -144,7 +142,7 @@
 										<p class="field-label">Lesson Title</p>
 									</div>
 									<div class="input-field col s9">
-										<input type="text" class="validate" ng-model="lesson.title" id="title" required>
+										<input type="text" class="validate" ng-model="lesson.title" id="title">
 									</div>
 								</div>
 
@@ -153,7 +151,7 @@
 										<p class="field-label">Task Description</p>
 									</div>
 									<div class="input-field col s9">
-										<textarea  type="text" class="materialize-textarea validate" ng-model="lesson.taskDescription" id="taskDescription" required>
+										<textarea  type="text" class="materialize-textarea validate" ng-model="lesson.taskDescription" id="taskDescription">
 										</textarea>
 									</div>
 								</div>
@@ -163,7 +161,7 @@
 										<p class="field-label">Special Requirements</p>
 									</div>
 									<div class="input-field col s9">
-										<input  type="text" class="validate" ng-model="lesson.specialRequirement" id="specialRequirement" required>
+										<input  type="text" class="validate" ng-model="lesson.specialRequirement" id="specialRequirement" >
 									</div>
 								</div>
 
@@ -172,8 +170,10 @@
 										<p class="field-label">Deadline</p>
 									</div>
 									<div class="input-field col s9">
-										<input type="date" ng-model="lesson.deadline" id="deadline" required>
+										<input type="date" ng-model="lesson.deadline" id="deadline">
 									</div>
+								</div>
+								</div>
 								</div>
 							</form>
 								<div class="row no-bot-margin-row">
@@ -200,11 +200,10 @@
 								</div>
 
 								<div class="row" style="margin-top: 40px;">
-									<button class="btn green waves-effect waves-light" type="submit" ng-click="createLesson(lessonForm)">Submit Lesson</button>
+									<button class="btn green waves-effect waves-light" type="submit" ng-click="createLesson(lessonForm);">Submit Lesson</button>
 								</div>
 							</div>
 					</div>			
 					</div>
 				</div>
-			</div>
 	

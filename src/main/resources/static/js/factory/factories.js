@@ -5,6 +5,7 @@ angular.module('factories',[])
       "HTTP_BASE_URL": "http://localhost:8080",
       "API_SUCCESS" : 0,
       "API_OK" : 200,
+      'MISSING_FIELD_ERROR' : 'Please enter required fields.',
       "STUDENT_ROLE_ID":16,
   	  "LESSON_ACCEPTED" : 2,
       "LESSON_SUBMITTED":32,

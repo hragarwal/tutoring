@@ -17,12 +17,13 @@ angular.module('registerController', ['factories','services'])
         	  ProfileService.createProfile($scope.profile).then(function(response) {
         		  AppFactory.toastSuccess(response.data.message);
         		  $location.path('login');
+        		  $('#registerForm')[0].reset();
                }).catch(function (error) {
             	   AppFactory.toastError(error.data.message);
                }).finally(function () {
                });
           } else{
-        	  AppFactory.toastError('Please enter all fields');
+        	  AppFactory.toastError(AppConstants.MISSING_FIELD_ERROR);
           }
       }
       

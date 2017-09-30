@@ -19,7 +19,7 @@ angular.module('loginController', ['factories','services'])
            }).finally(function () {
            });
         }else{
-        	 AppFactory.toastError('Enter all fields');
+        	AppFactory.toastError(AppConstants.MISSING_FIELD_ERROR);
         }
       };
       

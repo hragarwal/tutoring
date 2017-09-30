@@ -1,6 +1,6 @@
 angular.module('homeController', ['factories','services'])
-    .controller('homeController', function($scope, LessonService, AppConstants, $location,ProfileService,
-                                           $sessionStorage, FileService, TutoringFactory,$route,$rootScope) {
+    .controller('homeController', function($scope, LessonService, AppConstants, $location, ProfileService,
+                        $sessionStorage, FileService, TutoringFactory,$route,$rootScope, AppFactory) {
 
       $scope.headingTitle = 'Create Lesson';
       $scope.currentProfile =  TutoringFactory.getProfile();
@@ -8,15 +8,15 @@ angular.module('homeController', ['factories','services'])
       if($scope.currentProfile.role.id ==  AppConstants.STUDENT_ROLE_ID) {
     	$scope.active= 'lessons';
       	$scope.isStudent=true;
-  	  } else {
-	        $scope.active='tutorhome';
-	        // get all available lesson for profile not for student
-	        LessonService.getAllAvailableLessons().then(function(response) {
-	    	$scope.availableLessonList = response.data.data;
-	        }).catch(function (error) {
-			   alert(error.data.message);
-	        }).finally(function () {
-	        });
+  	   } else {
+        $scope.active='tutorhome';
+        // get all available lesson for profile not for student
+        LessonService.getAllAvailableLessons().then(function(response) {
+    	$scope.availableLessonList = response.data.data;
+        }).catch(function (error) {
+		   alert(error.data.message);
+        }).finally(function () {
+        });
       }
 
       // get all lesson for profile
@@ -26,8 +26,6 @@ angular.module('homeController', ['factories','services'])
 		   alert(error.data.message);
 	   }).finally(function () {
 	   });
-
-
 
       // fetch all subjects from lesson
       if(TutoringFactory.getSubjectList()){
@@ -63,14 +61,16 @@ angular.module('homeController', ['factories','services'])
       $scope.createLesson = function(lessonForm) {
         if(lessonForm.$valid){
            LessonService.createLesson($scope.lesson).then(function(response) {
-	    		  $scope.lessonList = response.data.data;
-                  alert("created");
+    		  $scope.lessonList = response.data.data;
+    		  AppFactory.toastSuccess(response.data.message);
+    		  $scope.active= 'lessons';
+    		  $('#lessonForm')[0].reset();
            }).catch(function (error) {
-        	   alert(error.data.message);
+        	  AppFactory.toastError(error.data.message);
            }).finally(function () {
            });
         }else{
-        	alert('Enter all fields');
+        	AppFactory.toastError(AppConstants.MISSING_FIELD_ERROR);
         }
       }
       

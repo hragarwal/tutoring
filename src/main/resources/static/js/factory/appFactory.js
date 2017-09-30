@@ -1,7 +1,6 @@
 /**
  * 
  */
-
 angular.module('customFactory',[])
     .factory('AppFactory', function(){
       var appFactory= {};
@@ -15,5 +14,5 @@ angular.module('customFactory',[])
     	  Materialize.toast(message, TOAST_LENGTH, 'toast-error');
       };
       return appFactory;
-    });
+});
 
