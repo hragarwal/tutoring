@@ -154,11 +154,9 @@ angular.module('lessonController', ['factories','services','chatServices'])
 								.then(function successCallback(response) {
 									if (response.data.status == AppConstants.API_SUCCESS) {
 										$scope.message = response.data.data;
-										alert(response.data.message);
-										$location.path('home');
-									} else {
-										alert(response.data.message);
 									}
+									alert(response.data.message);
+                                    $location.path('home');
 								}, function errorCallback(response) {
 									console.error("There is a error..");
 								});
