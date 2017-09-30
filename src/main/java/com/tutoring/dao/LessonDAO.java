@@ -43,9 +43,10 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 
 	@Modifying
 	@Query(nativeQuery = true,
-			value = "update lesson set status_id=256, modified_date=:currentDate " +
+			value = "update lesson set status_id=:newStatusId, modified_date=:currentDate " +
 					"where deadline<=:currentDate and status_id in :statusList")
 	public void updateExpiredLessons(@Param("currentDate")Date currentDate,
-											 @Param("statusList") List<Long> statusList);
+											 @Param("statusList") List<Long> statusList,
+									 @Param("newStatusId") long newStatusId);
 	
 }

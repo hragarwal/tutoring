@@ -180,6 +180,6 @@ public class LessonServiceImpl implements LessonService {
 	public void updateExpiredLessons(Date currentDate) {
 		List<Long> statusList = Arrays.asList(LessonStates.ACCEPTED,LessonStates.AVAILABLE,
 				LessonStates.IN_PROGRESS,LessonStates.WAITING_PAYMENT);
-		lessonDAO.updateExpiredLessons(currentDate,statusList);
+		lessonDAO.updateExpiredLessons(currentDate,statusList,LessonStates.EXPIRED);
 	}
 }
