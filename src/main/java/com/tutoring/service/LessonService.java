@@ -2,6 +2,7 @@ package com.tutoring.service;
 
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
+import com.tutoring.model.LessonStatus;
 import com.tutoring.model.Profile;
 import com.tutoring.util.ResponseVO;
 
@@ -56,5 +57,12 @@ public interface LessonService {
 	 * @throws AppException
 	 */
 	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws IOException;
+
+	/**
+	 * Get lesson status from lesson id
+	 * @param lessonId
+	 * @return
+	 */
+	public LessonStatus getLessonStatus(long lessonId);
 	
 }

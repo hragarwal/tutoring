@@ -1,13 +1,19 @@
 package com.tutoring.service.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
+import com.tutoring.dao.LessonDAO;
+import com.tutoring.dao.LessonStatusDAO;
+import com.tutoring.dao.SubjectDAO;
+import com.tutoring.exception.AppException;
+import com.tutoring.model.Files;
+import com.tutoring.model.Lesson;
+import com.tutoring.model.LessonStatus;
+import com.tutoring.model.Profile;
+import com.tutoring.service.LessonService;
+import com.tutoring.util.AppConstants;
+import com.tutoring.util.AppUtils;
+import com.tutoring.util.LessonStates;
+import com.tutoring.util.MessageReader;
+import com.tutoring.util.ResponseVO;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +22,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.tutoring.dao.LessonDAO;
-import com.tutoring.dao.LessonStatusDAO;
-import com.tutoring.dao.SubjectDAO;
-import com.tutoring.exception.AppException;
-import com.tutoring.model.Files;
-import com.tutoring.model.Lesson;
-import com.tutoring.model.Profile;
-import com.tutoring.service.LessonService;
-import com.tutoring.util.AppConstants;
-import com.tutoring.util.AppUtils;
-import com.tutoring.util.LessonStates;
-import com.tutoring.util.MessageReader;
-import com.tutoring.util.ResponseVO;
+import java.io.File;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -168,6 +168,10 @@ public class LessonServiceImpl implements LessonService {
 		AppUtils.deleteDirectoryForUser(currentProfile,profileSaveLocation);
 		formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.success"), LessonStates.getLessonStates(lesson.getStatus().getId()).toLowerCase());
 		return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, formattedMessage);
+	}
+
+	public LessonStatus getLessonStatus(long lessonId){
+		return lessonDAO.getLessonStatus(lessonId);
 	}
 
 

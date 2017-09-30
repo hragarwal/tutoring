@@ -18,6 +18,9 @@ public interface MessageDAO extends CrudRepository<Message,Long> {
 	 * @param lessonId - lesson id
 	 * @return list of all messages for lessons
 	 */
-	@Query("select m from Message m where lesson.id=:lessonId")
+	@Query("select m from Message m where lesson.id=:lessonId and receiverProfile.id is not null")
 	public List<Message> getMessagesByLessonId(@Param("lessonId") long lessonId);
+
+	@Query("select m from Message m where lesson.id=:lessonId and receiverProfile.id is null")
+	public List<Message> getMessagesByLessonIdAndAvailableStatus(@Param("lessonId") long lessonId);
 }
