@@ -13,6 +13,15 @@ angular.module('customFactory',[])
       appFactory.toastError= function (message) {
     	  Materialize.toast(message, TOAST_LENGTH, 'toast-error');
       };
+      
+      appFactory.toastInfo= function (message) {
+    	  Materialize.toast(message, TOAST_LENGTH, 'toast-info');
+      };
+      
+      appFactory.toastWarning= function (message) {
+    	  Materialize.toast(message, TOAST_LENGTH, 'toast-warning');
+      };
+
       return appFactory;
 });
 

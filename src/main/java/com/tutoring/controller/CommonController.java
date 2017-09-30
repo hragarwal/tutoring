@@ -81,11 +81,10 @@ public class CommonController{
 		try {
 			Profile profile = AppUtils.getCurrentUserProfile(request);
 			responseVO = commonService.changePassword(passwordUpdateProfile, profile);
-			if(responseVO.getStatus()==AppConstants.SUCCESS) {
+			if(responseVO.getStatus()== HttpServletResponse.SC_OK) {
 				request.getSession().setAttribute(AppConstants.PROFILE, responseVO.getData());
-			} else if(responseVO.getStatus() == 2) {
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			}
+			} 
+			response.setStatus(responseVO.getStatus());
 		}catch (Exception e){
 			throw new AppException(e);
 		}
