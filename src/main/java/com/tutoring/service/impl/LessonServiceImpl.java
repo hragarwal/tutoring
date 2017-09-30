@@ -25,6 +25,8 @@ import org.springframework.util.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -174,5 +176,10 @@ public class LessonServiceImpl implements LessonService {
 		return lessonDAO.getLessonStatus(lessonId);
 	}
 
-
+	@Override
+	public void updateExpiredLessons(Date currentDate) {
+		List<Long> statusList = Arrays.asList(LessonStates.ACCEPTED,LessonStates.AVAILABLE,
+				LessonStates.IN_PROGRESS,LessonStates.WAITING_PAYMENT);
+		lessonDAO.updateExpiredLessons(currentDate,statusList);
+	}
 }

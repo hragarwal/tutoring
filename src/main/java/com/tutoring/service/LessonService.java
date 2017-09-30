@@ -7,6 +7,7 @@ import com.tutoring.model.Profile;
 import com.tutoring.util.ResponseVO;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public interface LessonService {
@@ -64,5 +65,12 @@ public interface LessonService {
 	 * @return
 	 */
 	public LessonStatus getLessonStatus(long lessonId);
+
+	/**
+	 * It will update all expired lessons
+	 * @param currentDate
+	 * @return
+	 */
+	public void updateExpiredLessons(Date currentDate);
 	
 }

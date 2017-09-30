@@ -1,8 +1,10 @@
 package com.tutoring.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.tutoring.model.LessonStatus;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -38,5 +40,12 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	 */
 	@Query("select l.status from Lesson l where l.id=:lessonId")
 	public LessonStatus getLessonStatus(@Param("lessonId") long lessonId);
+
+	@Modifying
+	@Query(nativeQuery = true,
+			value = "update lesson set status_id=256, modified_date=:currentDate " +
+					"where deadline<=:currentDate and status_id in :statusList")
+	public void updateExpiredLessons(@Param("currentDate")Date currentDate,
+											 @Param("statusList") List<Long> statusList);
 	
 }
