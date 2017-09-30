@@ -1,5 +1,5 @@
 angular.module('registerController', ['factories','services'])
-    .controller('RegisterController', function($scope, ProfileService, AppConstants) {
+    .controller('RegisterController', function($scope, ProfileService, AppConstants, AppFactory, $location) {
       $scope.headingTitle = "Sign up";
       
       $scope.profile={
@@ -15,13 +15,14 @@ angular.module('registerController', ['factories','services'])
       $scope.createProfile = function(registerForm) {
           if(registerForm.$valid){
         	  ProfileService.createProfile($scope.profile).then(function(response) {
-               		alert(response.data.message);
+        		  AppFactory.toastSuccess(response.data.message);
+        		  $location.path('login');
                }).catch(function (error) {
-            	   alert(error.data.message);
+            	   AppFactory.toastError(error.data.message);
                }).finally(function () {
                });
           } else{
-        	  alert('Enter all fields');
+        	  AppFactory.toastError('Please enter all fields');
           }
       }
       

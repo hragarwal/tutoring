@@ -1,5 +1,5 @@
 angular.module('loginController', ['factories','services'])
-    .controller('LoginController', function($scope,LoginService,AppConstants,$location,TutoringFactory,$rootScope) {
+    .controller('LoginController', function($scope,LoginService,AppConstants,$location,TutoringFactory,$rootScope, AppFactory) {
       $scope.headingTitle = "Login";
 
       $scope.login={
@@ -15,11 +15,11 @@ angular.module('loginController', ['factories','services'])
 	             $rootScope.isLoggedIn = true;
 	           	 $location.path('home');
            }).catch(function (error) {
-        	   alert(error.data.message);
+        	   AppFactory.toastError(error.data.message);
            }).finally(function () {
            });
         }else{
-        	alert("Enter all fields");
+        	 AppFactory.toastError('Enter all fields');
         }
       };
       

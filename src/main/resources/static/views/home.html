@@ -66,7 +66,6 @@
 							<th>Title</th>
 							<th>Deadline</th>
 							<th>Status</th>
-							<th>Action</th>
 						</tr>
 					</thead>
 					
@@ -77,7 +76,6 @@
 							<td>{{lesson.title}}</td>
 							<td>{{lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</td>							
 							<td>{{lesson.status.name}}</td>
-							<td></td>
 						</tr>
 						<tr class="task-desc-row" ng-repeat-end>
 							<td></td>
@@ -99,7 +97,6 @@
 					<th>Title</th>
 					<th>Deadline</th>
 					<th>Status</th>
-					<th>Action</th>
 				</tr>
 				<tbody class="table-body">
 						<tr ng-repeat-start = "lesson in availableLessonList">
@@ -108,7 +105,6 @@
 							<td>{{lesson.title}}</td>
 							<td>{{lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</td>							
 							<td>{{lesson.status.name}}</td>
-							<td><a href="#!">Details</a></td>
 						</tr>
 						<tr ng-repeat-end>
 							<td class="task-desc" colspan="6">
@@ -179,21 +175,19 @@
 										<input type="date" ng-model="lesson.deadline" id="deadline" required>
 									</div>
 								</div>
-
+							</form>
 								<div class="row no-bot-margin-row">
 									<div class="col s3">
 										<p class="field-label">Attach Files</p>
 									</div>
-									<div class="input-field col s9">
+									 <div class="input-field col s9">
 										<div class="well">
 											<form action="" class="dropzone" dropzone="" id="dropzone">
-												<div class="dz-default valign-wrapper">
-													<p>
-														<i class="material-icons left">cloud_upload</i>Drop files here
-													</p></div>
+													<div class="dz-default dz-message">
+												</div>
 											</form>
 										</div>
-									</div>
+									</div> 
 								</div>
 
 								<div class="row" style="margin-top: 12px;">
@@ -209,7 +203,6 @@
 									<button class="btn green waves-effect waves-light" type="submit" ng-click="createLesson(lessonForm)">Submit Lesson</button>
 								</div>
 							</div>
-						</form>
 					</div>			
 					</div>
 				</div>

@@ -4,7 +4,6 @@
 
 angular.module('headerController', ['factories','services'])
     .controller('headerController', function($scope, TutoringFactory, $rootScope, ProfileService, $location) {
-      console.log("Inside HeaderController");
       var profile  = TutoringFactory.getProfile();
       if(profile) {
         $rootScope.isLoggedIn = true;
@@ -15,14 +14,18 @@ angular.module('headerController', ['factories','services'])
       }
 
       $scope.redirectToUrl = function(url) {
+    	  // conditional redirecting for home page
+    	  if(url == 'home') {
+    		  url = $scope.isLoggedIn ? 'home' : 'landing';
+    	  }
     	  $location.path(url);
       }
       
       $scope.logout  = function(){
     	  TutoringFactory.clearSessionStorage();
     	  ProfileService.logoutUser().then(function(response) {
-      		 console.log("User successfully logged out");
-             $location.path('login');
+      		 console.log('User successfully logged out');
+             $location.path('landing');
              $rootScope.isLoggedIn=false;
     	  }).catch(function (error) {
     		 alert(error.data.message);

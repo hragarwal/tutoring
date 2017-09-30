@@ -8,19 +8,19 @@
         <nav class="z-depth-1 grey lighten-1" ng-click="$event.preventDefault()">
             <div class="container nav-container">
                 <div class="nav-wrapper" id="nav-bar">
-                    <a href="#!" class="brand-logo">
+                    <a ng-click="redirectToUrl('home')" href class="brand-logo">
                             <img id="logo" src="images/tutorialpoint-logo.svg" width="200"> 
                     </a>
                     <div>
                         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="color: #444;">menu</i></a>
                         <ul class="right hide-on-med-and-down customnav" id="labels">
-                            <li ><a href="#!">Home</a></li>
+                            <li ><a href ng-click="redirectToUrl('home')">Home</a></li>
                             <li ng-show="!isLoggedIn"><a href ng-click="redirectToUrl('login')">Sign In</a></li>
                             <li ng-show="!isLoggedIn"><a href ng-click="redirectToUrl('register')">Sign Up</a></li>
                             <li ng-show="isLoggedIn"><a class="dropdown-button valign-wrapper" href="javascript:void(0);" data-activates="dropdown1" dropdown ><img src="images/profile-photo.jpg" class="circle profile-photo">{{ loggedInUsername }}<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>
                         <ul class="side-nav" id="mobile-demo" ng-show="!isLoggedIn">
-                            <li><a href="#!">Home</a></li>
+                            <li><a href ng-click="redirectToUrl('home')" >Home</a></li>
                             <li><a href ng-click="redirectToUrl('login')">Sign In</a></li>
                             <li><a href ng-click="redirectToUrl('register')">Sign Up</a></li>
                         </ul>

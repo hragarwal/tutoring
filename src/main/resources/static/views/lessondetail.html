@@ -146,33 +146,15 @@
                                     </div>
                                     <div ng-show ="lesson.fileList != null && lesson.fileList.length > 0" class="col s9">
                                         <div class="row" style="margin-bottom: 0;">
-                                            <div class="col s6 valign-wrapper">
+                                            <div class="col s6 valign-wrapper" ng-repeat="file in lesson.fileList | filter:{ fileType: 'question' }">
                                                 <a class="attached-files-div">
-                                                    <i class="material-icons left" >attach_files</i>
-                                                    <p class="attached-file-name">attachment1.jpg</p>
-                                                </a>
-                                            </div>
-                                            <div class="col s6 valign-wrapper">
-                                                <a class="attached-files-div">
-                                                    <i class="material-icons left" >attach_files</i>
-                                                    <p class="attached-file-name">attachment1.jpg</p>
-                                                </a>
-                                            </div>
-                                            <div class="col s6 valign-wrapper">
-                                                <a class="attached-files-div">
-                                                    <i class="material-icons left" >attach_files</i>
-                                                    <p class="attached-file-name">attachment1.jpg</p>
-                                                </a>
-                                            </div>
-                                            <div class="col s6 valign-wrapper">
-                                                <a class="attached-files-div">
-                                                    <i class="material-icons left" >attach_files</i>
-                                                    <p class="attached-file-name">attachment1.jpg</p>
+                                                    <a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=question"><i class="material-icons left" >attach_files</i>
+                                                    <p class="attached-file-name">{{ file.actualFileName}}</p></a>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col s9">
+                                    <div ng-show="lesson.fileList == null || lesson.fileList.length == 0" class="col s9">
                                     	No Files
                                     </div>
                                 </div>
