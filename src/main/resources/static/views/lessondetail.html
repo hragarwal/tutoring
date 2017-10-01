@@ -128,14 +128,8 @@
                                     <p class="center">{{lesson.subject.name}}</p>
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
-                                    <div class="col s6" ng-if="!isStudent">
-                                        <p class="left lesson-detail-top-row">Student: {{lesson.studentProfile.name}}</p>
-                                    </div>
-                                    <div class="col s6" ng-if="isStudent && lesson.status.id==1">
-                                        <p class="left lesson-detail-top-row">You have requested a lesson</p>
-                                    </div>
-                                    <div class="col s6" ng-if="isStudent && lesson.status.id!=1">
-                                        <p class="left lesson-detail-top-row">Tutor: {{lesson.tutorProfile.name}}</p>
+                                    <div class="col s6">
+                                        <p class="left lesson-detail-top-row">{{currentProfile.name}} asked for help in:</p>
                                     </div>
                                     <div class="col s6">
                                         <p class="right lesson-detail-top-row">Expires at {{ lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</p>
@@ -178,8 +172,7 @@
                                                 </select>
                                             </div>
                                             <div class="col s6">
-                                                <button ng-click="updateStatus(lessonUpdate.status.id)"
-                                                        class="btn blue waves-effect waves-light update-button">Update</button>
+                                                <button class="btn blue waves-effect waves-light update-button">Update</button>
                                             </div>
                                         </div>
                                     </div>
@@ -290,36 +283,4 @@
             </div>
         </div>
     </div>
-
-    <div class="info" ng-if="showAnswerFillSection">
-        <textarea rows="4" cols="20" ng-model="lessonUpdate.lessonAnswerDesc"></textarea>
-        <div class="col-xs-6 col-xs-offset-3" style="width: 600px;">
-            <div class="well">
-                <form action="" class="dropzone" dropzone="" id="dropzone">
-                    <div class="dz-default dz-message">
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="pull-right">
-
-            <button class="btn btn-danger" ng-click="resetDropzone()">Reset drop wizard</button>
-        </div>
-    </div>
-    <div class="info" ng-if="showAnswerFromTutor">
-        Lesson Answers submitted by Tutor
-        <p>Description : {{lesson.lessonAnswerDesc}}</p>
-        <table border="1">
-            <tr>
-                <th>#</th>
-                <th>Filename</th>
-            </tr>
-            <tr ng-repeat="file in lesson.fileList | filter:{ fileType: 'answer' }">
-                <td>{{$index+1}}</td>
-                <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=answer" class="contact">
-                    {{file.actualFileName}}</a></td>
-            </tr>
-        </table>
-    </div>
-
 </div>
