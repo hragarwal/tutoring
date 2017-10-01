@@ -101,6 +101,14 @@
                                     <p class="center">{{lesson.subject.name}}</p>
                                 </div>
                                 <div class="row lesson-row valign-wrapper">
+                                    <div class="col s6" ng-if="!isStudent">
+                                        <p class="left lesson-detail-top-row">Student: {{lesson.studentProfile.name}}</p>
+                                    </div>
+                                    <div class="col s6">
+                                        <p class="right lesson-detail-top-row">Expires at {{ lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</p>
+                                    </div>
+                                </div>
+                                <div class="row lesson-row valign-wrapper">
                                     <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Task Description</p></div>
                                     <div class="col s9 lesson-detail-table-content"><p>{{lesson.taskDescription}}</p></div>
                                 </div>
