@@ -214,4 +214,22 @@
                 </div>
         </div>
     </div>
+    <div class="form-group">
+        <label for="" class="col-sm-4 control-label">Fee Amount $ *</label>
+        <div class="col-sm-8">
+            only allow number to be entered
+            <input type="text" class="form-control required" ng-model="lessonUpdate.dueAmount" name="dueAmount" id="dueAmount"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="" class="col-sm-4 control-label">Estimated Work Effort (in Hours)</label>
+        <div class="col-sm-8">
+            only allow number to be entered
+            <input type="text" class="form-control required" ng-model="lessonUpdate.estimatedWorkEffort" name="estimatedWorkEffort" id="estimatedWorkEffort" />
+        </div>
+    </div>
+    <div class="info">
+        <button  ng-click="updateStatus(2);">Accept Lesson</button>
+    </div>
 </div>
