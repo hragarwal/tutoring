@@ -164,6 +164,10 @@ public class LessonServiceImpl implements LessonService {
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.COMPLETED)));
 			returnLesson.setModifiedBy(currentProfile.getEmail());
 		}
+		else if(lesson.getStatus().getId() == LessonStates.CANCELLED){
+			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.CANCELLED)));
+			returnLesson.setModifiedBy(currentProfile.getEmail());
+		}
 
 		//Clean the user profile directory for after every status update because user might upload it by changing just
 		//submitted status on UI and than again reset to some lower value

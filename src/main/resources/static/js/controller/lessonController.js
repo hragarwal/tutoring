@@ -1,13 +1,20 @@
 angular.module('lessonController', ['factories','services','chatServices'])
 		.controller('lessonController', function($scope, LessonService, AppConstants,FileService,$location,
 												 AppFactory, $sessionStorage, ChatServices, TutoringFactory) {
+        $scope.lessonAvailableStatus = AppConstants.LESSON_AVAILABLE;
+        $scope.lessonExpiredStatus = AppConstants.LESSON_EXPIRED;
         LessonService.getLesson(TutoringFactory.getLessonId()).then(function(response) {
         $scope.lesson = response.data.data;
-         
+        $scope.isStatusUpdateAllowed = false;
+        if($scope.lesson.status.id == AppConstants.LESSON_ACCEPTED ||
+            $scope.lesson.status.id == AppConstants.LESSON_IN_PROGRESS ||
+            $scope.lesson.status.id == AppConstants.LESSON_WAITING_PAYMENT ||
+            $scope.lesson.status.id == AppConstants.LESSON_SUBMITTED){
+                 $scope.isStatusUpdateAllowed = true;
+        }
         if($scope.lesson.status.id == AppConstants.LESSON_SUBMITTED || $scope.lesson.status.id== AppConstants.LESSON_COMPLETED) {
             $scope.showAnswerFromTutor = true;
         }
-         
         $scope.lessonUpdate={
 			"id": $scope.lesson.id,
 			"status":{
