@@ -159,25 +159,6 @@ angular.module('services', ['factories'])
 	      });
 		}
 	    
-	    this.postMyMessage = function (userMessage, lessonID){
-	    	var postLessonMessage = {
-	    			"lesson":{
-	    				"id":lessonID
-	    			},
-	    			"description":userMessage
-	    		
-	    	}
-			  return $http({
-		        method: 'POST',
-		        headers: {
-		          'accept': 'application/json',
-		          'content-type': 'application/json'
-		        },
-		        data: postLessonMessage,
-		        url: '/message/'
-		      });
-		    }
-	    
 	    this.getAllMessagesForLesson = function (lessonID){
 	    	
 			  return $http({
@@ -214,4 +195,19 @@ angular.module('services', ['factories'])
 				url: '/files/delete'
 			});
 		}
+		})
+		
+		// POST USER QUERY
+		.service('SupportService', function ($http) {
+		    this.postQuery = function (userSupport){
+				  return $http({
+			        method: 'POST',
+			        headers: {
+			          'accept': 'application/json',
+			          'content-type': 'application/json'
+			        },
+			        data: userSupport,
+			        url: '/support/'
+			      });
+			    }
 		});

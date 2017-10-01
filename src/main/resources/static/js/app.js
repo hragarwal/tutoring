@@ -1,7 +1,7 @@
 var app = angular.module('app', ['ngRoute','ngResource','ngStorage','interceptorFactory','fileAppDirectives',
                                 'loginController','registerController','homeController','lessonController','indexController',
                                  'headerController','footerController', 'forgotPasswordController','changePasswordController','chatServices',
-                                'editProfileController','factories','services','fileModalDirective', 'ui.materialize', 'customFactory']);
+                                'supportController','editProfileController','factories','services','fileModalDirective', 'ui.materialize', 'customFactory']);
 
 app.config(function($routeProvider,$httpProvider){
     $httpProvider.interceptors.push('httpInterceptor');
@@ -43,6 +43,10 @@ app.config(function($routeProvider,$httpProvider){
         .when('/lessontalks',{
             templateUrl: '../views/lessontalks.html',
             controller: 'lessonController'
+        })
+        .when('/support',{
+            templateUrl: '../views/support.html',
+            controller: 'SupportController'
         })
         .otherwise(
             { redirectTo: '/landing', templateUrl: '../views/landing.html'}

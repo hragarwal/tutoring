@@ -28,6 +28,8 @@ public class Mappings {
 	public static final String DEFAULT_URL="/";
 	
 	public static final String LESSON = "lesson";
+
+	public static final String SUPPORT = "support";
 	
 	public static final String MESSAGE = "message";
 	

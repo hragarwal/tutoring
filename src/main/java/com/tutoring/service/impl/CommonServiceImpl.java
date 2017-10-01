@@ -39,8 +39,8 @@ public class CommonServiceImpl implements CommonService {
 		if(Objects.nonNull(profile)){
 			String newTempPassword = RandomNumberGenerator.randomAlphaNumeric(6);
 			profile.setPassword(PasswordUtil.hashPassword(newTempPassword));
-			mailService.sendMail(newTempPassword,
-					MessageReader.READER.getProperty("api.email.forgotPassword.subject"),emailId);
+			mailService.sentEmail(profile.getEmail(), null, null,
+					MessageReader.READER.getProperty("api.email.forgotPassword.subject"),newTempPassword, null);
 			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,
 					MessageReader.READER.getProperty("api.message.message.email.success"));
 		}else{

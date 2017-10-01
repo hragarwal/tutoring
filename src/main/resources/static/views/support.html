@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
+		  <div class="card card-signup">
+			<form class="form" id="userSupportForm" name="userSupportForm" >
+			  <div class="header header-primary text-center">
+				<h4>Contact Support</h4>
+			  </div>
+			  <div class="content">
+			  <h3 class="mt-0"></h3>
+				<div class="form-group">
+					<input type="email" class="form-control required" ng-model="userSupport.email" placeholder="Contact Email" />
+				</div>
+				
+				<div class="form-group">
+					<input type="text" class="form-control required" ng-model="userSupport.title" placeholder="Title" />
+				</div>
+				
+				<div class="form-group">
+					<textarea rows="4" cols="50" class="form-control required" ng-model="userSupport.message"  placeholder="Message"></textarea>
+				</div>
+			  </div>
+			  <div class="text-center">
+				<button type="submit" class="btn btn-primary btn-raised"  ng-click="postQuery(userSupportForm)">Submit Query</button>
+			  </div>
+			</form>
+		  </div>
+		</div>
+	</div>
+</div>
