@@ -92,7 +92,7 @@ public class MailService {
 			}
 			
 			Transport.send(message);
-			logger.info("Email has been sent successfully to"+ toEmail+ " with subject: "+ subject);
+			logger.info("Email has been sent successfully to "+ toEmail+ " with subject: "+ subject);
 		} catch (MessagingException e) {
 			logger.info("An exception occurred while sending email to "+ toEmail+ " with subject: "+ subject);
 			throw new AppException(e);

@@ -64,10 +64,12 @@ public class CommonController{
 	}
 
 	@RequestMapping(value = Mappings.FORGOT_PASSWORD, method = RequestMethod.POST)
-	public ResponseVO forgotPassword(@RequestBody String emailId) throws AppException{
+	public ResponseVO forgotPassword(@RequestBody String emailId, HttpServletRequest request,
+			HttpServletResponse response) throws AppException{
 		ResponseVO responseVO;
 		try {
 			responseVO =  commonService.forgotPassword(emailId);
+			response.setStatus(responseVO.getStatus());
 		}catch (Exception e){
 			throw new AppException(e);
 		}

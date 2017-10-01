@@ -26,6 +26,6 @@ angular.module('changePasswordController', ['factories','services'])
           } else{
         	  AppFactory.toastError(AppConstants.MISSING_FIELD_ERROR);
           }
-      }
+      };
       
     });

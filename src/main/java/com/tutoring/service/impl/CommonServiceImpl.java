@@ -1,5 +1,6 @@
 package com.tutoring.service.impl;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletResponse;
@@ -33,18 +34,19 @@ public class CommonServiceImpl implements CommonService {
 	private MailService mailService;
 
 	@Override
-	public ResponseVO forgotPassword(String emailId) throws AppException{
+	public ResponseVO forgotPassword(String emailId) throws AppException { 
 		Profile profile = profileDAO.findByEmail(emailId);
-		ResponseVO responseVO=null;
+		ResponseVO responseVO= null;
 		if(Objects.nonNull(profile)){
 			String newTempPassword = RandomNumberGenerator.randomAlphaNumeric(6);
 			profile.setPassword(PasswordUtil.hashPassword(newTempPassword));
+			String formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.message.forgot.password.success"), emailId);
 			mailService.sentEmail(profile.getEmail(), null, null,
-					MessageReader.READER.getProperty("api.email.forgotPassword.subject"),newTempPassword, null);
-			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,
-					MessageReader.READER.getProperty("api.message.message.email.success"));
+					MessageReader.READER.getProperty("api.email.forgotPassword.subject"), newTempPassword, null);
+			responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE,
+					formattedMessage);
 		}else{
-			responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_ERROR,
+			responseVO = new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_ERROR,
 					MessageReader.READER.getProperty("api.login.invalid.email"));
 		}
 		return responseVO;
