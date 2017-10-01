@@ -631,3 +631,56 @@ table tbody tr td.task-desc-data {
 .upload-card {
 	height: 488.5px;
 }
+
+
+.signup-container {
+	width: 92%;
+}
+
+.signup-image-card {
+	/*width: 100%;
+	height: 0;
+	padding-bottom: 100%;*/
+
+    /* z-index: 999; */
+    margin-right: -11.25px;
+    margin-left: -11.25px;
+    /* overflow: hidden; */
+    width: 468px;
+    float: right;
+    background-image: url(http://localhost:8080/images/card-image-blue.jpg);
+    background-size: cover;
+    height: 0;
+    padding-bottom: 468px;
+    transition: all 200ms ease-out;
+}
+
+.signup-image-card:hover {
+	background-image: url(http://localhost:8080/images/card-image.jpg);
+
+	transition: all 200ms ease-in;
+}
+
+.signup-image {
+	width: 100%;
+	
+	background-size: cover;
+}
+
+.card-nav {
+	color: white;
+    font-size: 13pt;
+    margin-top: 426px;
+    font-weight: 400;
+}
+
+.card-nav ul {
+	list-style-type: none;
+    text-align: left;	
+    cursor: pointer;
+}
+
+.card-nav ul li {
+	display: inline;
+    margin-left: 24px;
+}

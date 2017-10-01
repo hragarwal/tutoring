@@ -1,98 +1,118 @@
-<div class="container">
+<div class="container signup-container">
 	<div class="row" id="signup-row">
-		<div class="col s12 m10 l10 push-m1 push-l1 white z-depth-2 center">
-			<form name="registerForm" id="registerForm" class="sign-up-form-wrapper-div">
-				<div class="row" id="top-row">
-					<div class="col s12 center" style="padding: 0;">
-						<div id="top-row-strip"></div>
-						<p class="sign-up-text center">Sign up</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s12 m12 l6">
-						<div class="row no-bot-margin-row">
-							<!-- <div class="col s4">
-								<p class="field-label">Username</p>
-							</div> -->
-							<div class="input-field col s12">
-								<!-- <i class="material-icons prefix">account_circle</i> -->
-								<input id="username" ng-model="profile.name" type="text" class="validate">
-								<label for="username">Username</label>
-							</div>
-						</div>
-						<div class="row no-bot-margin-row">
-							<!-- <div class="col s4">
-								<p class="field-label">Email</p>
-							</div> -->
-							<div class="input-field col s12">
-								<!-- <i class="material-icons prefix">email</i> -->
-								<input id="email" ng-model="profile.email" type="email" class="validate">
-								<label for="email">Email</label>
-							</div>
-						</div>
-						<div class="row no-bot-margin-row">
-							<!-- <div class="col s4">
-								<p class="field-label">Country</p>
-							</div> -->
-							
-							<div class="input-field col s12">
-								<!-- <i class="material-icons prefix">place</i> -->
-								<select id="lesson_select" material-select ng-model="profile.country" class="validate">
-									<option value="" disabled selected>Select a subject</option>
-									<option ng-repeat="country in countries" value="{{country.code}}">{{country.name}}</option>
-    							</select>
-    							<label>Country</label>
-							</div>
-						</div>
-						<div class="row no-bot-margin-row">
-							<!-- <div class="col s4">
-								<p class="field-label">Contact Number</p>
-							</div> -->
-							<div class="input-field col s12">
-								<!-- <i class="material-icons prefix">local_phone</i> -->
-								<input id="contact-number" ng-model="profile.contactNumber" type="text" class="validate">
-								<label for="contact-number">Contact Number</label>
-							</div>
+		<div class="col s10 offset-s1 center">
+			<div class="row valign-wrapper">
+				<div class="col s6 m6 l6 ">
+					<div class="signup-image-card white z-depth-2">
+						<!-- <img src="images/card-image.jpg" alt="" class="signup-image"> -->
+						<div class="card-nav">
+							<ul>
+								<li>Home</li>
+								<li>About</li>
+								<li>Login</li>
+							</ul>
 						</div>
 					</div>
-					<div class="col s12 m12 l6">
-						<div class="row no-bot-margin-row">
-							<!-- <div class="col s4">
-								<p class="field-label">Skype ID</p>
-							</div> -->
-							<div class="input-field col s12">
-								<!-- <i class="material-icons prefix">videocam</i> -->
-								<input id="skype" ng-model="profile.skypeId" type="text">
-								<label for="skype">Skype ID</label>
-							</div>
-						</div>
-						<div class="row no-bot-margin-row">
-							<!-- <div class="col s4">
-								<p class="field-label">Password</p>
-							</div> -->
-							<div class="input-field col s12">
-								<!-- <i class="material-icons prefix">lock</i> -->
-								<input id="password" ng-model="profile.password" type="password" class="validate">
-								<label for="password">Password</label>
-							</div>
-						</div>
-						<div class="row no-bot-margin-row">
-							<!-- <div class="col s4">
-								<p class="field-label">Confirm Password</p>
-							</div> -->
-							<div class="input-field col s12">
-								<!-- <i class="material-icons prefix">lock</i> -->
-								<input id="conf-password" ng-model="profile.confirmPassword" type="password" class="validate">
-								<label for="conf-password">Confirm Password</label>
-							</div>
-						</div>
-					</div>
+
+					
 				</div>
-				
-				<div class="row">
-					<button class="btn waves-effect waves-light" ng-click="createProfile(registerForm);">Sign Up</button>
+				<div class="col s12 m6 l6 white z-depth-2 center">
+					<form name="registerForm" id="registerForm" class="sign-up-form-wrapper-div">
+						<div class="row" id="top-row">
+							<div class="col s12 center" style="padding: 0;">
+								<!-- <div id="top-row-strip"></div> -->
+								<p class="sign-up-text center">Sign up</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12 m12 l6">
+								<div class="row no-bot-margin-row">
+									<!-- <div class="col s4">
+										<p class="field-label">Username</p>
+									</div> -->
+									<div class="input-field col s12">
+										<!-- <i class="material-icons prefix">account_circle</i> -->
+										<input id="username" ng-model="profile.name" type="text" class="validate">
+										<label for="username">Username</label>
+									</div>
+								</div>
+								<div class="row no-bot-margin-row">
+									<!-- <div class="col s4">
+										<p class="field-label">Email</p>
+									</div> -->
+									<div class="input-field col s12">
+										<!-- <i class="material-icons prefix">email</i> -->
+										<input id="email" ng-model="profile.email" type="email" class="validate">
+										<label for="email">Email</label>
+									</div>
+								</div>
+								<div class="row no-bot-margin-row">
+									<!-- <div class="col s4">
+										<p class="field-label">Country</p>
+									</div> -->
+									
+									<div class="input-field col s12">
+										<!-- <i class="material-icons prefix">place</i> -->
+										<select id="lesson_select" material-select ng-model="profile.country" class="validate">
+											<option value="" disabled selected>Select a subject</option>
+											<option ng-repeat="country in countries" value="{{country.code}}">{{country.name}}</option>
+		    							</select>
+		    							<label>Country</label>
+									</div>
+								</div>
+								<div class="row no-bot-margin-row">
+									<!-- <div class="col s4">
+										<p class="field-label">Contact Number</p>
+									</div> -->
+									<div class="input-field col s12">
+										<!-- <i class="material-icons prefix">local_phone</i> -->
+										<input id="contact-number" ng-model="profile.contactNumber" type="text" class="validate">
+										<label for="contact-number">Contact Number</label>
+									</div>
+								</div>
+							</div>
+							<div class="col s12 m12 l6">
+								<div class="row no-bot-margin-row">
+									<!-- <div class="col s4">
+										<p class="field-label">Skype ID</p>
+									</div> -->
+									<div class="input-field col s12">
+										<!-- <i class="material-icons prefix">videocam</i> -->
+										<input id="skype" ng-model="profile.skypeId" type="text">
+										<label for="skype">Skype ID</label>
+									</div>
+								</div>
+								<div class="row no-bot-margin-row">
+									<!-- <div class="col s4">
+										<p class="field-label">Password</p>
+									</div> -->
+									<div class="input-field col s12">
+										<!-- <i class="material-icons prefix">lock</i> -->
+										<input id="password" ng-model="profile.password" type="password" class="validate">
+										<label for="password">Password</label>
+									</div>
+								</div>
+								<div class="row no-bot-margin-row">
+									<!-- <div class="col s4">
+										<p class="field-label">Confirm Password</p>
+									</div> -->
+									<div class="input-field col s12">
+										<!-- <i class="material-icons prefix">lock</i> -->
+										<input id="conf-password" ng-model="profile.confirmPassword" type="password" class="validate">
+										<label for="conf-password">Confirm Password</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<button class="btn waves-effect waves-light" ng-click="createProfile(registerForm);">Sign Up</button>
+						</div>
+					</form>
 				</div>
-			</form>
+			</div>
+			
 		</div>
+			
 	</div>
 </div>
