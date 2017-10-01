@@ -7,9 +7,15 @@ angular.module('factories',[])
       "API_OK" : 200,
       'MISSING_FIELD_ERROR' : 'Please enter required fields.',
       "STUDENT_ROLE_ID":16,
+      "LESSON_AVAILABLE": 1,
   	  "LESSON_ACCEPTED" : 2,
+  	  "LESSON_REJECTED" : 4,
+  	  "LESSON_IN_PROGRESS" : 8,
+      "LESSON_WAITING_PAYMENT" : 16,
       "LESSON_SUBMITTED":32,
-      "LESSON_COMPLETED":64
+      "LESSON_COMPLETED":64,
+      "LESSON_CANCELLED":128,
+      "LESSON_EXPIRED":256
     })
 
     .factory('TutoringFactory', function($sessionStorage,$location){

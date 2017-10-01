@@ -221,21 +221,15 @@ public class AppUtils {
 
 		if(updateLessonStatus == LessonStates.ACCEPTED && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
 			return true;
-		} 
-
-		else if(updateLessonStatus == LessonStates.IN_PROGRESS && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
+		}else if(updateLessonStatus == LessonStates.IN_PROGRESS && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
 			return true;
-		}
-
-		else if(updateLessonStatus == LessonStates.WAITING_PAYMENT && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
+		}else if(updateLessonStatus == LessonStates.WAITING_PAYMENT && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
 			return true;
-		}
-
-		else if(updateLessonStatus == LessonStates.SUBMITTED && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
+		}else if(updateLessonStatus == LessonStates.SUBMITTED && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.TUTOR)) {
 			return true;
-		}
-
-		else if(updateLessonStatus == LessonStates.COMPLETED && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.STUDENT)) {
+		}else if(updateLessonStatus == LessonStates.COMPLETED && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.STUDENT)) {
+			return true;
+		}else if(updateLessonStatus == LessonStates.CANCELLED && RoleStates.isRoleAccessible(currentProfileRoleId, RoleStates.STUDENT)) {
 			return true;
 		}
 		return false;

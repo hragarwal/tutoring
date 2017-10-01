@@ -38,14 +38,23 @@
 
 		<div class="breadcrumbs-container">
 			<div class="container lesson-buttons-container">
-				<div class="row" style="margin-top: 28px;">
+				<div class="row">
 					<div class="col s12">
-						<div class="row" ng-click="$event.preventDefault()">
-							<div class="col s6">
-								<button href="#" ng-show="!isStudent" id="tutorhome" class="tab-buttons" ng-click="setActiveTab('tutorhome')">Available Lesson</button>
-								<button href="#" id="lesson-history-tab" class="tab-buttons" id="lessons" ng-click="setActiveTab('lessons')">Lesson History</button>
-								<button href="#" ng-show="isStudent" id="newLesson" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</button>
+						<div class="page-header">
+							<div class="row valign-wrapper" style="margin-bottom: 0;">
+								<div class="col s5">
+									<h4 class="inner-page-headings center">Lesson History</h4>
+								</div>
+
+								<div class="col s7" ng-click="$event.preventDefault()">
+									<button href="#" ng-show="!isStudent" id="tutorhome" class="tab-buttons" ng-click="setActiveTab('tutorhome')">Available Lesson</button>
+									<button href="#" ng-show="isStudent" id="newLesson" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</button>
+									<button href="#" id="lesson-history-tab" class="tab-buttons" id="lessons" ng-click="setActiveTab('lessons')">Lesson History</button>
+									
+								</div>
+								
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -53,9 +62,24 @@
 		</div>
 
 		<div ng-show="active" ng-if="active=='lessons'" class="container lesson-history-container">
+			<div class="page-header" style="display: none;">
+				<div class="row valign-wrapper" style="margin-bottom: 0;">
+					<div class="col s5">
+						<h4 class="inner-page-headings center">Lesson History</h4>
+					</div>
 
-			<h4 class="inner-page-headings center">Lesson History</h4>
-			<div class="card white z-depth-1">
+					<div class="col s7" ng-click="$event.preventDefault()">
+						<button href="#" ng-show="!isStudent" id="tutorhome" class="tab-buttons" ng-click="setActiveTab('tutorhome')">Available Lesson</button>
+						<button href="#" ng-show="isStudent" id="newLesson" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</button>
+						<button href="#" id="lesson-history-tab" class="tab-buttons" id="lessons" ng-click="setActiveTab('lessons')">Lesson History</button>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<div class="card white z-depth-1" style="margin-top: 0;">
 				<table class="table highlight responsive-table">
 					<thead class="table-header blue lighten-1">
 						<tr>
@@ -116,94 +140,144 @@
 		</div>
 	</div>
 	
-		<div class="section"  ng-show="active" ng-if="active=='newLesson'">
-			<div class="container">
+		<div class="section"  ng-show="active" ng-if="active=='newLesson'" style="padding-top: 0;">
+			<div class="container lesson-history-container">
 				<div id="lesson-section" class="row">
 					
-					<h4 class="inner-page-headings center">{{headingTitle}}</h4>
-					<div class="col s12 m10 l10 push-m1 push-l1 white z-depth-1 center">
-						<form name="lessonForm" id="lessonForm" class="lesson-form">
-							<div class="row">
-							<div class="col s12">
-								<div class="row no-bot-margin-row">
-									<div class="col s3">
-										<p class="field-label">Subject</p>
-									</div>
-									<div class="input-field col s9">
-										<select id="lesson_select" material-select ng-model="lesson.subjectID">
-											<option value="" disabled selected>Select a subject</option>
-											<option ng-repeat="subject in subjectsList" value="{{subject.id}}">{{subject.name}}</option>
-    									</select>
-									</div>
-								</div>
+					<div class="page-header" style="display: none;">
+						<div class="row valign-wrapper" style="margin-bottom: 0;">
+							<div class="col s5">
+								<h4 class="inner-page-headings center">{{headingTitle}}</h4>
+							</div>
+
+							<div class="col s7" ng-click="$event.preventDefault()">
+								<button href="#" ng-show="!isStudent" id="tutorhome" class="tab-buttons" ng-click="setActiveTab('tutorhome')">Available Lesson</button>
+								<button href="#" ng-show="isStudent" id="newLesson" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</button>
+								<button href="#" id="lesson-history-tab" class="tab-buttons" id="lessons" ng-click="setActiveTab('lessons')">Lesson History</button>
 								
-								<div class="row no-bot-margin-row">
-									<div class="col s3">
-										<p class="field-label">Lesson Title</p>
-									</div>
-									<div class="input-field col s9">
-										<input type="text" class="validate" ng-model="lesson.title" id="title">
-									</div>
-								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+					<div class="col s12 m6 l6">
+						<div class="white z-depth-1 center new-lesson-cards">
+							<form name="lessonForm" id="lessonForm" class="lesson-form">
+								<div class="row">
+									<div class="col s12">
+										<div class="row no-bot-margin-row">
+											<!-- <div class="col s3">
+												<p class="field-label">Subject</p>
+											</div> -->
+											<div class="input-field col s12">
 
-								<div class="row no-bot-margin-row">
-									<div class="col s3">
-										<p class="field-label">Task Description</p>
-									</div>
-									<div class="input-field col s9">
-										<textarea  type="text" class="materialize-textarea validate" ng-model="lesson.taskDescription" id="taskDescription">
-										</textarea>
-									</div>
-								</div>
-
-								<div class="row no-bot-margin-row">
-									<div class="col s3">
-										<p class="field-label">Special Requirements</p>
-									</div>
-									<div class="input-field col s9">
-										<input  type="text" class="validate" ng-model="lesson.specialRequirement" id="specialRequirement" >
-									</div>
-								</div>
-
-								<div class="row no-bot-margin-row">
-									<div class="col s3">
-										<p class="field-label">Deadline</p>
-									</div>
-									<div class="input-field col s9">
-										<input type="date" ng-model="lesson.deadline" id="deadline">
-									</div>
-								</div>
-								</div>
-								</div>
-							</form>
-								<div class="row no-bot-margin-row">
-									<div class="col s3">
-										<p class="field-label">Attach Files</p>
-									</div>
-									 <div class="input-field col s9">
-										<div class="well">
-											<form action="" class="dropzone" dropzone="" id="dropzone">
-													<div class="dz-default dz-message">
-												</div>
-											</form>
+												<select id="lesson_select" material-select ng-model="lesson.subjectID">
+													<option value="" disabled selected>Select a subject</option>
+													<option ng-repeat="subject in subjectsList" value="{{subject.id}}">{{subject.name}}</option>
+		    									</select>
+		    									<label for="lesson_select">Subject</label>
+											</div>
 										</div>
-									</div> 
-								</div>
+										
+										<div class="row no-bot-margin-row">
+											<!-- <div class="col s3">
+												<p class="field-label">Lesson Title</p>
+											</div> -->
+											<div class="input-field col s12">
+												<input type="text" class="validate" ng-model="lesson.title" id="title">
+												<label for="title">Lesson Title</label>
+											</div>
+										</div>
 
-								<div class="row" style="margin-top: 12px;">
-									<div class="col s4 offset-s3">
-										<button class="btn grey waves-effect waves-light"><i class="material-icons left" style="margin-right: 5px;">file_upload</i>Upload File</button>
-									</div>
-									<div class="col s4 offset-s1">
-										<button class="waves-effect waves-red btn-flat" ng-click="resetDropzone()">Clear File</button>
-									</div>
-								</div>
+										<div class="row no-bot-margin-row">
+											<!-- <div class="col s3">
+												<p class="field-label">Task Description</p>
+											</div> -->
+											<div class="input-field col s12">
+												<textarea  type="text" class="materialize-textarea validate" ng-model="lesson.taskDescription" id="taskDescription">
+												</textarea>
+												<label for="taskDescription">Task Description</label>
+											</div>
+										</div>
 
-								<div class="row" style="margin-top: 40px;">
-									<button class="btn green waves-effect waves-light" type="submit" ng-click="createLesson(lessonForm);">Submit Lesson</button>
+										<div class="row no-bot-margin-row">
+											<!-- <div class="col s3">
+												<p class="field-label">Special Requirements</p>
+											</div> -->
+											<div class="input-field col s12">
+												<input  type="text" class="validate" ng-model="lesson.specialRequirement" id="specialRequirement" >
+												<label for="specialRequirement">Special Requirement</label>
+											</div>
+										</div>
+
+										<div class="row no-bot-margin-row">
+											<!-- <div class="col s3">
+												<p class="field-label">Deadline</p>
+											</div> -->
+											<div class="input-field col s12">
+												<input type="date" ng-model="lesson.deadline" id="deadline">
+												<label for="deadline">Deadline</label>
+											</div>
+										</div>
+									</div>	
+								</div>	
+							</form>	
+						</div>	
+					</div>
+
+					<div class="col s12 m6 l6">
+						<div class="white z-depth-1 center new-lesson-cards upload-card">
+
+							
+							<div class="row no-bot-margin-row">
+								
+								<div class="col s12">
+									<div class="upload-div">
+										<p class="field-label">Attach Files</p>
+										<div class="input-field">
+											<div class="well">
+												<form action="" class="dropzone" dropzone="" id="dropzone">
+													<div class="dz-default dz-message center valign-wrapper">
+														<div class="dropzone-inner-message">
+															<i class="material-icons left">cloud_upload</i><span>Drop files here</span>
+														</div>
+														
+													</div>
+												</form>
+											</div>
+											
+											<div class=" row upload-btn-div">
+												<div class="col s6">
+													<button class="dropzone-buttons dropzone-upload">Upload File</button>
+												</div>
+												
+												<div class="col s6">
+													<button class="dropzone-buttons dropzone-clear" ng-click="resetDropzone()">Clear File</button>
+												</div>
+											</div>
+										</div> 
+									</div>
+									
+								</div>
+								 
+							</div>
+
+							<div class="row" style="display: none;">
+								<div class="col s4 offset-s3">
+									<button class="btn grey waves-effect waves-light"><i class="material-icons left" style="margin-right: 5px;">file_upload</i>Upload File</button>
+								</div>
+								<div class="col s4 offset-s1">
+									<button class="waves-effect waves-red btn-flat" ng-click="resetDropzone()">Clear File</button>
 								</div>
 							</div>
-					</div>			
-					</div>
-				</div>
+
+							<div class="row" style="margin-top: 40px;">
+								<button class="btn green waves-effect waves-light" type="submit" ng-click="createLesson(lessonForm);">Submit Lesson</button>
+							</div>
+						</div>
+					</div>	
+							
+				</div>			
+			</div>
+		</div>
 	
