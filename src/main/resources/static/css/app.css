@@ -2,6 +2,9 @@
 	--uigradient: linear-gradient(to right, #333399, #ff00cc);
 	
 }
+html {
+	font-family: Roboto, sans-serif;
+}
 
 
 
@@ -25,7 +28,7 @@
     padding-right: 5px;
 }*/
 body {
-	/*font-family: Montserrat, Roboto, sans-serif;*/
+	font-family: Roboto, sans-serif;
 	display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -37,10 +40,11 @@ main {
 }
 
 nav {
-	background: #ff00cc;  /* fallback for old browsers */  /* Chrome 10-25, Safari 5.1-6 */
+	/*background: #ff00cc;  
 	background: -webkit-linear-gradient(left, #333399, #ff00cc);
 	background: -o-linear-gradient(left, #333399, #ff00cc);
-	background: var(--uigradient); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: var(--uigradient);*/
+	background-color: #5f5e5e;
 	font-weight: 300;
 
 }
@@ -114,8 +118,10 @@ nav {
 }
 
 .field-label {
-	margin-top: 26px;
-	text-align: left;
+	margin-top: 0;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14pt;
 }
 
 .logo-placeholder {
@@ -415,35 +421,40 @@ table tbody tr td.task-desc-data {
 }
 
 .tab-buttons {
-	padding: 8px 10px 10px 10px;
-	color: #3d3d3d;
-	border: 1px solid #3d3d3d;
-	background-color: transparent;
-	margin-right: 10px;
+	padding: 5px 20px 7px 20px;
+    color: white;
+    /* text-transform: uppercase; */
+    border: 1.5px solid white;
+    background-color: transparent;
+    margin-right: 10px;
+    transition: all 200ms ease-out;
+    border-radius: 44px;
+    font-weight: 400;
+    float: right;
 	transition: all 200ms ease-out;
 }
 
 .tab-buttons:hover {
-	padding: 8px 10px 10px 10px;
-	color: white;
+	
+	color: #26c6da;
 	/*border: 1px solid #3d3d3d;*/
-	background-color: #3d3d3d;
+	background-color: white;
 	transition: all 200ms ease-in;
 }
 
 .tab-buttons:focus {
-	padding: 8px 10px 10px 10px;
-	color: white;
+	/*padding: 8px 10px 10px 10px;*/
+	color: #26c6da;
 	/*border: 1px solid #3d3d3d;*/
-	background-color: #3d3d3d;
+	background-color: white;
 	transition: all 200ms ease-in;
 }
 
 .tab-buttons:active {
-	padding: 8px 10px 10px 10px;
-	color: white;
+	/*padding: 8px 10px 10px 10px;*/
+	color: #26c6da;
 	/*border: 1px solid #3d3d3d;*/
-	background-color: #3d3d3d;
+	background-color: white;
 	transition: all 200ms ease-in;
 }
 
@@ -513,4 +524,110 @@ table tbody tr td.task-desc-data {
 .dz-default p {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.page-header {
+    margin-top: 20px;
+    height: 88px;
+    background-color: #26c6da;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 24px;
+    margin-bottom: 30px;
+}
+
+.inner-page-headings {
+	font-size: 20pt;
+    font-weight: 300;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 0;
+    float: left;
+}
+
+.inner-page-headings a .material-icons {
+	cursor: pointer;
+	transform: scale(1.0);
+	transition: all 100ms ease-in;
+}
+
+.inner-page-headings a .material-icons:hover {
+	transform: scale(1.2);
+	transition: all 100ms ease-out;
+}
+
+.inner-page-headings a {
+	color: white;
+}
+
+.new-lesson-cards {
+	padding: 11.25px;
+}
+
+.dropzone {
+    height: 150px;
+    border: 2px dashed rgba(0, 0, 0, 0.3);
+    background: white;
+    padding: 20px 20px;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.dropzone .dz-message {
+	margin-top: 0;
+    margin-bottom: 0;
+    height: 105px;
+    border:none;
+}
+
+.dropzone-inner-message {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.dropzone .dz-preview {
+    position: relative;
+    display: table-cell;
+    vertical-align: top;
+    /* margin: 16px; */
+    padding-right: 40px;
+    min-height: 100px;
+}
+
+.upload-div {
+    
+}
+
+.upload-btn-div {
+    margin-top: 14px;
+    padding: 11.25px;
+}
+
+.dropzone-buttons  {
+    /*margin-left: -11.25px;*/
+    border: none;
+    padding: 10px 0;
+    border-radius: 0;
+    width: 100%;
+}
+
+
+.dropzone-upload {
+	margin-left: -11.25px;
+	float: left;
+	color: white;
+	background-color: #4c9dec;
+}
+
+.dropzone-clear {
+	margin-right: -11.25px;
+    float: right;
+    color: #5d5d5d;
+    background-color: #e6e6e6;
+}
+
+
+.upload-card {
+	height: 488.5px;
 }
