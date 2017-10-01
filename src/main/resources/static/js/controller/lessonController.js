@@ -126,9 +126,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 				} else {
 				$scope.lessonUpdate.status.id = lessonStatus;
 				LessonService.updateLessonStatus($scope.lessonUpdate).then(function(response) {
-					if (response.data.status == AppConstants.API_SUCCESS) {
-						$scope.message = response.data.data;
-					}
+					$scope.message = response.data.data;
 					AppFactory.toastSuccess(response.data.message);
                     $location.path('home');
 					}).catch(function (error) {

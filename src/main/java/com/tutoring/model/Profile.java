@@ -12,17 +12,27 @@ import javax.persistence.UniqueConstraint;
  * Created by himanshu.agarwal on 20-02-2017.
  */
 @Entity
-@Table(name = "PROFILE", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
+@Table(name = "PROFILE", uniqueConstraints ={ @UniqueConstraint(name= "uc_profile_email", columnNames = {"email"}),
+			@UniqueConstraint(name= "uc_profile_username", columnNames = {"username"})})
+
 public class Profile extends AuditableBaseEntity {
 
+	@Column(nullable = false)
+    private String username;
+	
     @Column(nullable = false)
     private String name;
+    
     @Column(nullable = false)
     private String email;
+    
     @Column(nullable = false)
     private String country;
+    
     private String contactNumber;
+    
     private String skypeId;
+    
     @Column(nullable = false)
     private String password;
 
@@ -37,8 +47,16 @@ public class Profile extends AuditableBaseEntity {
     private transient String confirmPassword;
 
     private transient String oldPassword;
+    
+    public String getUsername() {
+		return username;
+	}
 
-    public String getOldPassword() {
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getOldPassword() {
         return oldPassword;
     }
 

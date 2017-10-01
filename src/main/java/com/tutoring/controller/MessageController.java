@@ -26,6 +26,7 @@ import com.tutoring.util.Mappings;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
 
+@Deprecated
 @RestController
 @RequestMapping(Mappings.MESSAGE)
 public class MessageController{
@@ -56,7 +57,7 @@ public class MessageController{
 			}
 
 			message.setLesson(lesson);
-			message.setCreatedBy(currentProfile.getEmail());
+			message.setCreatedBy(currentProfile.getUsername());
 			responseVO = messageService.save(message);
 			if(Objects.isNull(responseVO)) {
 				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.message.send.error"));

@@ -3,6 +3,7 @@ angular.module('registerController', ['factories','services'])
       $scope.headingTitle = "Sign up";
       
       $scope.profile={
+    		  	'username': '',
     	        'name': '',
     	        'email': '',
     	        'country': '',

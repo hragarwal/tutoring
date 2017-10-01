@@ -1,5 +1,6 @@
 package com.tutoring.service.impl;
 
+import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,13 +44,22 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ResponseVO createProfile(Profile profile) throws AppException {
+    	String formattedMessage = null;
+    	// check weather username is already exist.
+    	if(Objects.nonNull(profileDAO.findByUsername(profile.getUsername()))) {
+    		formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.profile.create.usernameexist"), profile.getUsername());
+    		return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, 
+    				formattedMessage);
+    	}
+    	
     	// check weather email is already exist.
     	if(Objects.nonNull(profileDAO.findByEmail(profile.getEmail()))) {
+    		formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.profile.create.emailexist"), profile.getEmail());
     		return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, 
-    				MessageReader.READER.getProperty("api.profile.create.emailexist"));
+    				formattedMessage);
     	}
     	// try to create new profile
-    	profile.setCreatedBy(profile.getEmail());
+    	profile.setCreatedBy(profile.getUsername());
     	profile.setIsActive(true);
     	profile.setRole(roleDAO.findByName(RoleStates._STUDENT));
     	if(!AppUtils.valiateProfile(profile)) {
@@ -59,7 +68,7 @@ public class ProfileServiceImpl implements ProfileService {
     	}
     	profile.setPassword(PasswordUtil.hashPassword(profile.getPassword()));
         profile = profileDAO.save(profile);
-        String accessToken = jwtGenerators.encrypt(profile.getEmail());
+        String accessToken = jwtGenerators.encrypt(profile.getUsername());
         return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, 
         		MessageReader.READER.getProperty("api.profile.create.success"), profile, accessToken);
     }

@@ -7,6 +7,8 @@ import javax.persistence.PreUpdate;
 
 import org.springframework.beans.factory.annotation.Configurable;
 
+import com.tutoring.util.DateTimeUtil;
+
 /**
  * Created by himanshu.agarwal on 20-02-2017.
  */
@@ -16,14 +18,14 @@ public class AuditChangeListener {
 
     @PrePersist
     public void onCreate(AuditableBaseEntity target) {
-        Date now = new Date();
+        Date now = DateTimeUtil.getCurrentDate();
         target.setCreatedDate(now);
         target.setModifiedDate(now);
     }
 
     @PreUpdate
     public void onUpdate(AuditableBaseEntity target) {
-        target.setModifiedDate(new Date());
+        target.setModifiedDate(DateTimeUtil.getCurrentDate());
     }
 
 }

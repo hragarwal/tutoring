@@ -78,7 +78,7 @@ public class MailService {
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(toEmail));
 			message.setSubject(subject);
-			message.setSentDate(new Date());
+			message.setSentDate(DateTimeUtil.getCurrentDate());
 			
 			if(Objects.nonNull(files)) {
 				BodyPart messageBodyPart = new MimeBodyPart();

@@ -20,6 +20,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.util.FileCopyUtils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tutoring.model.LessonStatus;
 import com.tutoring.model.Profile;
 
@@ -29,8 +31,13 @@ import com.tutoring.model.Profile;
 public class AppUtils {
 
 	private static Pattern pattern;
+	
+	private static Pattern usernamePattern; 
 
 	private static int PASSWORD_MIN_LENGTH = 6;
+	
+	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9._-]{3,}$";
+
 
 	/** The exclude URL. */
 	private static String [] excludeURL = { Mappings.LOGIN, Mappings.SIGN_UP,
@@ -43,7 +50,7 @@ public class AppUtils {
 
 	static {
 		pattern = Pattern.compile("[a-zA-Z0-9_.+-]+\\s*@+\\s*[a-zA-Z0-9-]+\\s*\\.+\\s*[a-zA-Z0-9-.]+");
-
+		usernamePattern = Pattern.compile(USERNAME_PATTERN);
 	}
 
 	/**
@@ -148,14 +155,22 @@ public class AppUtils {
 	}
 
 	/**
+	 * Returns true if username is valid or otherwise returns false.
+	 * @param username - username string
+	 * @return
+	 */
+	public static boolean isValidUsername(String username) {
+		return usernamePattern.matcher(username).matches();
+	}
+	
+	/**
 	 * Returns true if email is valid or otherwise returns false.
 	 * @param email - email string
 	 * @return
 	 */
 	public static boolean isValidEmailAddress(String email) {
 		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-		Matcher matcher = pattern.matcher(email);
-		return matcher.matches();
+		return pattern.matcher(email).matches();
 	}
 
 	/**
@@ -168,6 +183,7 @@ public class AppUtils {
 			return false;
 		}
 		else if(AppUtils.isBlank(profile.getPassword()) || profile.getPassword().length() < PASSWORD_MIN_LENGTH ||
+				AppUtils.isBlank(profile.getUsername()) || !isValidUsername(profile.getUsername()) ||
 				AppUtils.isBlank(profile.getEmail()) || !isValidEmailAddress(profile.getEmail()) ||
 				AppUtils.isBlank(profile.getName()) ||
 				AppUtils.isBlank(profile.getCountry()) || 
@@ -245,4 +261,9 @@ public class AppUtils {
 		return lessonStatus.stream().filter(status -> RoleStates.isRoleAccessible(currentRole, status.getAllowedRoles())).collect(Collectors.toList());
 	}
 
+	public static String getJSONValue(Object object) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(object);
+	}
+	
 }

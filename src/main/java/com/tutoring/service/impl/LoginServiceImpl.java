@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
 	public ResponseVO validateUser(Profile profile) throws AppException {
 		ResponseVO responseVO;
 		String accessToken;
-		Profile returnProfile = profileDAO.findByEmail(profile.getEmail());
+		Profile returnProfile = profileDAO.authenticateUser(profile.getEmail());
 		if(Objects.nonNull(returnProfile)){
 			boolean passwordVerify =  PasswordUtil.verifyPassword(profile.getPassword(), returnProfile.getPassword());
 			if(passwordVerify){

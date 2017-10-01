@@ -26,7 +26,7 @@ public class JWTGenerators {
 
     public String encrypt(String textData){
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        Date date = new Date();
+        Date date = DateTimeUtil.getCurrentDate();
         byte[] apiSecretKeyBytes = DatatypeConverter.parseBase64Binary(environment.getProperty("aes.secretKey"));
         Key signingKey = new SecretKeySpec(apiSecretKeyBytes,signatureAlgorithm.getJcaName());
         JwtBuilder jwtBuilder = Jwts.builder().setId(textData).setIssuedAt(date).signWith(signatureAlgorithm,signingKey);

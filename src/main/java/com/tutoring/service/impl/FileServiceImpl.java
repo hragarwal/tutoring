@@ -98,7 +98,7 @@ public class FileServiceImpl implements FileService {
                     message.setLesson(lesson);
                     message.setDescription(serverFileName);
                     message.setMessageType(AppConstants.MESSAGE_TYPE_FILE);
-                    message.setCreatedBy(currentProfile.getEmail());
+                    message.setCreatedBy(currentProfile.getUsername());
                     responseVO = messageService.save(message);
                     // send file message for lesson
                     chatController.sendFileMessage(message);

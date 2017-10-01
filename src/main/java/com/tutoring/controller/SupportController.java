@@ -42,7 +42,7 @@ public class SupportController {
 		try {
 			Profile profile = AppUtils.getCurrentUserProfile(request);
 			if(Objects.nonNull(profile)) {
-				support.setCreatedBy(profile.getEmail());
+				support.setCreatedBy(profile.getUsername());
 				support.setUserId(profile.getId());
 				support = supportService.save(support);
 				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.support.post.query"),

@@ -57,20 +57,22 @@ public interface LessonService {
 	 * @return response of update call
 	 * @throws AppException
 	 */
-	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws IOException;
+	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws IOException, AppException;
 
 	/**
 	 * Get lesson status from lesson id
 	 * @param lessonId
 	 * @return
+	 * @throws AppException
 	 */
-	public LessonStatus getLessonStatus(long lessonId);
+	public LessonStatus getLessonStatus(long lessonId) throws AppException;
 
 	/**
 	 * It will update all expired lessons
 	 * @param currentDate
 	 * @return
+	 * @throws AppException
 	 */
-	public void updateExpiredLessons(Date currentDate);
+	public void updateExpiredLessons(Date currentDate) throws AppException;
 	
 }

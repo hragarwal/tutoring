@@ -64,7 +64,7 @@ public class ChatController {
 
 			message.setLesson(lesson);
 			message.setMessageType(AppConstants.MESSAGE_TYPE_TEXT);
-			message.setCreatedBy(currentProfile.getEmail());
+			message.setCreatedBy(currentProfile.getUsername());
 			responseVO = messageService.save(message);
 			if(Objects.isNull(responseVO)) {
 				responseVO = new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.message.send.error"));

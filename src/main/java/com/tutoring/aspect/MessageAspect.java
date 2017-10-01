@@ -83,7 +83,7 @@ public class MessageAspect {
 				// if trying to share personal information
 				if(Objects.nonNull(emails) && !emails.isEmpty()) {
 					logger.info("======== Personal Information Shared Capture ========");
-					logger.info("Profile details= Email: " + currentProfile.getEmail()+ AppConstants.SPACE +" Role: " + currentProfile.getRole().getName());
+					logger.info("Profile details= Username: " + currentProfile.getUsername()+ AppConstants.SPACE +" Role: " + currentProfile.getRole().getName());
 					logger.info("Message details= Description: " + message.getDescription()); 
 					logger.info("Sent By: " + currentProfile.getId()); 
 					logger.info(" Lesson Id: " + message.getLesson().getId());

@@ -40,7 +40,8 @@ public class CommonController{
 	public ResponseVO validateUser(@RequestBody Profile profile, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO;
 		try {
-			profile.setEmail(profile.getEmail().toLowerCase());
+			if(AppUtils.isValidEmailAddress(profile.getEmail()))
+				profile.setEmail(profile.getEmail().toLowerCase());
 			responseVO = loginService.validateUser(profile);
 			if(Objects.nonNull(responseVO) && responseVO.getStatus() == HttpServletResponse.SC_OK) {
 				request.getSession().setAttribute(AppConstants.ACCESS_TOKEN, responseVO.getAccessToken());

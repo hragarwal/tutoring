@@ -1,5 +1,25 @@
 package com.tutoring.service.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
 import com.tutoring.dao.LessonDAO;
 import com.tutoring.dao.LessonStatusDAO;
 import com.tutoring.dao.SubjectDAO;
@@ -14,23 +34,6 @@ import com.tutoring.util.AppUtils;
 import com.tutoring.util.LessonStates;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
-import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -69,7 +72,7 @@ public class LessonServiceImpl implements LessonService {
 						questionFile.setFileType(AppConstants.FILE_QUESTION_TYPE);
 						questionFile.setFilePath(file.getName());
 						questionFile.setActualFileName(AppUtils.getActualFilenameFromServerFile(file.getName()));
-						questionFile.setCreatedBy(profile.getEmail());
+						questionFile.setCreatedBy(profile.getUsername());
 						questionFileList.add(questionFile);
 					}
 				}
@@ -103,40 +106,48 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
-	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws IOException {
+	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws IOException, AppException {
 		Lesson returnLesson = lessonDAO.findOne(lesson.getId());
+		long oldLessonStatusId = returnLesson.getStatus().getId();
 		String formattedMessage;
+		
+		// request to lesson status update must have always > the current status
+		if(lesson.getStatus().getId() < oldLessonStatusId) {
+			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.reject.update.error"), LessonStates.getAllLessonStates().get(lesson.getStatus().getId()));
+			return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
+		}
+		
 		if(returnLesson.getStatus().getId() == lesson.getStatus().getId()) {
 			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.error"), LessonStates.getAllLessonStates().get(lesson.getStatus().getId()));
-			return new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, formattedMessage);
+			return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
 		}
 
 		// if lesson update is for ACCEPTED
 		if(lesson.getStatus().getId() == LessonStates.ACCEPTED) {
 			// if due amount not specified 
 			if(lesson.getDueAmount() <=0) {
-				return new ResponseVO(AppConstants.ERROR, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.insufficient.data.error"));
+				return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.insufficient.data.error"));
 			}
 			returnLesson.setDueAmount(lesson.getDueAmount());
 			returnLesson.setEstimatedWorkEffort(lesson.getEstimatedWorkEffort());
-			returnLesson.setModifiedBy(currentProfile.getEmail());
+			returnLesson.setModifiedBy(currentProfile.getUsername());
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.ACCEPTED)));
 			returnLesson.setTutorProfile(currentProfile);
 		}
 		/* started working IN PROGRESS */
 		else if(lesson.getStatus().getId() == LessonStates.IN_PROGRESS) {
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.IN_PROGRESS)));
-			returnLesson.setModifiedBy(currentProfile.getEmail());
+			returnLesson.setModifiedBy(currentProfile.getUsername());
 		}
 		/* Waiting Payment task is finished by tutor */
 		else if(lesson.getStatus().getId() == LessonStates.WAITING_PAYMENT) {
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.WAITING_PAYMENT)));
-			returnLesson.setModifiedBy(currentProfile.getEmail());
+			returnLesson.setModifiedBy(currentProfile.getUsername());
 		}
 		/* Answer submitted by tutor*/
-		else if(lesson.getStatus().getId() == LessonStates.SUBMITTED){
-			if(StringUtils.isEmpty(lesson.getLessonAnswerDesc())){
-				return new ResponseVO(AppConstants.ERROR,AppConstants.TEXT_ERROR,
+		else if(lesson.getStatus().getId() == LessonStates.SUBMITTED) {
+			if(StringUtils.isEmpty(lesson.getLessonAnswerDesc())) {
+				return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST,AppConstants.TEXT_ERROR,
 						MessageReader.READER.getProperty("api.message.lesson.answer.description"));
 			}
 			returnLesson.setLessonAnswerDesc(lesson.getLessonAnswerDesc());
@@ -152,28 +163,28 @@ public class LessonServiceImpl implements LessonService {
 					answerFile.setFileType(AppConstants.FILE_ANSWER_TYPE);
 					answerFile.setFilePath(file.getName());
 					answerFile.setActualFileName(AppUtils.getActualFilenameFromServerFile(file.getName()));
-					answerFile.setCreatedBy(currentProfile.getEmail());
+					answerFile.setCreatedBy(currentProfile.getUsername());
 					fileList.add(answerFile);
 				}
 			}
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.SUBMITTED)));
-			returnLesson.setModifiedBy(currentProfile.getEmail());
+			returnLesson.setModifiedBy(currentProfile.getUsername());
 		}
 		//Student marked lesson as completed
 		else if(lesson.getStatus().getId() == LessonStates.COMPLETED){
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.COMPLETED)));
-			returnLesson.setModifiedBy(currentProfile.getEmail());
+			returnLesson.setModifiedBy(currentProfile.getUsername());
 		}
 		else if(lesson.getStatus().getId() == LessonStates.CANCELLED){
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.CANCELLED)));
-			returnLesson.setModifiedBy(currentProfile.getEmail());
+			returnLesson.setModifiedBy(currentProfile.getUsername());
 		}
 
 		//Clean the user profile directory for after every status update because user might upload it by changing just
 		//submitted status on UI and than again reset to some lower value
 		AppUtils.deleteDirectoryForUser(currentProfile,profileSaveLocation);
 		formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.success"), LessonStates.getLessonStates(lesson.getStatus().getId()).toLowerCase());
-		return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, formattedMessage);
+		return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, formattedMessage, returnLesson, oldLessonStatusId + AppConstants.BLANK);
 	}
 
 	public LessonStatus getLessonStatus(long lessonId){

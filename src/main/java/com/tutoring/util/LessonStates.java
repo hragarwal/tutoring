@@ -25,18 +25,21 @@ public class LessonStates {
 
 	/** The waiting payment. */
 	public static long WAITING_PAYMENT = 16;
+	
+	/** The waiting payment. */
+	public static long PAYMENT_MADE = 32;
 
 	/** The submitted. */
-	public static long SUBMITTED = 32;
+	public static long SUBMITTED = 64;
 
 	/** The completed. */
-	public static long COMPLETED = 64;
+	public static long COMPLETED = 128;
 
 	/** The cancelled. */
-	public static long CANCELLED = 128;
+	public static long CANCELLED = 256;
 	
 	/** The expired. */
-	public static long EXPIRED = 256;
+	public static long EXPIRED = 512;
 
 	/** The  available. */
 	public static String _AVAILABLE = "Available";
@@ -52,6 +55,9 @@ public class LessonStates {
 
 	/** The  waiting payment. */
 	public static String _WAITING_PAYMENT = "Waiting Payment";
+	
+	/** The  payment made. */
+	public static String _PAYMENT_MADE = "Payment Made";
 
 	/** The  submitted. */
 	public static String _SUBMITTED = "Submitted";
@@ -74,6 +80,7 @@ public class LessonStates {
 		states.put(REJECTED, _REJECTED);
 		states.put(IN_PROGRESS, _IN_PROGRESS);
 		states.put(WAITING_PAYMENT, _WAITING_PAYMENT);
+		states.put(PAYMENT_MADE, _PAYMENT_MADE);
 		states.put(SUBMITTED, _SUBMITTED);
 		states.put(COMPLETED, _COMPLETED);
 		states.put(CANCELLED, _CANCELLED);
