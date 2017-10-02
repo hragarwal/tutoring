@@ -146,4 +146,13 @@ angular.module('lessonController', ['factories','services','chatServices'])
 			}
 		}
 
+		$scope.deleteTemporaryFilesOnServer = function(){
+            	  FileService.deleteTempUserFiles().then(function(response) {
+            		  console.log('Files deleted');
+         	       }).catch(function (error) {
+         	    	  console.log('Error at Files deleted');
+         	       }).finally(function () {
+         	       });
+        }
+
 });

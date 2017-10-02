@@ -88,12 +88,12 @@ angular.module('homeController', ['factories','services'])
       $scope.setActiveTab = function(tabName) {
         $scope.active=tabName;
         if(tabName== 'newLesson'){
-          deleteTemporaryFilesOnServer();
+          $scope.deleteTemporaryFilesOnServer();
         }
 
       };
 
-     function deleteTemporaryFilesOnServer(){
+     $scope.deleteTemporaryFilesOnServer = function(){
     	  FileService.deleteTempUserFiles().then(function(response) {
     		  console.log('Files deleted');
  	       }).catch(function (error) {

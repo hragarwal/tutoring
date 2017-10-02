@@ -252,7 +252,7 @@
 												</div>
 												
 												<div class="col s6">
-													<button class="dropzone-buttons dropzone-clear" ng-click="resetDropzone()">Clear File</button>
+													<button class="dropzone-buttons dropzone-clear" ng-click="resetDropzone();deleteTemporaryFilesOnServer();">Clear File</button>
 												</div>
 											</div>
 										</div> 
@@ -267,7 +267,7 @@
 									<button class="btn grey waves-effect waves-light"><i class="material-icons left" style="margin-right: 5px;">file_upload</i>Upload File</button>
 								</div>
 								<div class="col s4 offset-s1">
-									<button class="waves-effect waves-red btn-flat" ng-click="resetDropzone()">Clear File</button>
+									<button class="waves-effect waves-red btn-flat" ng-click="resetDropzone();deleteTemporaryFilesOnServer();">Clear File</button>
 								</div>
 							</div>
 
