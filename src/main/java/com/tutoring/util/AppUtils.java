@@ -260,14 +260,15 @@ public class AppUtils {
 	public static ResponseVO isValidUpdateStatus(long oldStatus, long updateStatus) {
 		String formattedMessage =null;
 		// request to lesson status update must have always > the current status
+		// if SC_NOT_ACCEPTABLE navigate the use to home page on UI
 		if(updateStatus < oldStatus) {
 			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.reject.update.error"), LessonStates.getAllLessonStates().get(oldStatus));
-			return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
+			return new ResponseVO(HttpServletResponse.SC_NOT_ACCEPTABLE, AppConstants.TEXT_MESSAGE, formattedMessage);
 		}
 		// if status update is for same call
 		else if(oldStatus == updateStatus) {
 			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.reject.update.error"), LessonStates.getAllLessonStates().get(oldStatus));
-			return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
+			return new ResponseVO(HttpServletResponse.SC_NOT_ACCEPTABLE, AppConstants.TEXT_MESSAGE, formattedMessage);
 		}
 		// if lesson already submitted you can't cancelled
 		else if(updateStatus == LessonStates.CANCELLED && oldStatus == LessonStates.SUBMITTED) {

@@ -92,17 +92,17 @@
 					</thead>
 					
 					<tbody class="table-body">
-						<tr ng-repeat-start = "lesson in lessonList">
+						<tr ng-repeat = "lesson in lessonList">
 							<td>{{$index+1}}</td>
 							<td><a href ng-click="openLesson(lesson.id)">{{lesson.subject.name}}</a></td>
 							<td>{{lesson.title}}</td>
 							<td>{{lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</td>							
 							<td>{{lesson.status.name}}</td>
 						</tr>
-						<tr class="task-desc-row" ng-repeat-end>
+						<!-- <tr class="task-desc-row" ng-repeat-end>
 							<td></td>
 							<td class="task-desc-data" colspan="6"><b>Task Description :</b> {{lesson.taskDescription}}</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 			</div>
@@ -121,20 +121,20 @@
 					<th>Status</th>
 				</tr>
 				<tbody class="table-body">
-						<tr ng-repeat-start = "lesson in availableLessonList">
+						<tr ng-repeat = "lesson in availableLessonList">
 							<td>{{$index+1}}</td>
 							<td><a href ng-click="openLesson(lesson.id, lesson.status.id)">{{lesson.subject.name}}</a></td>
 							<td>{{lesson.title}}</td>
 							<td>{{lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</td>							
 							<td>{{lesson.status.name}}</td>
 						</tr>
-						<tr ng-repeat-end>
+						<!-- <tr ng-repeat-end>
 							<td class="task-desc" colspan="6">
 								<p>
 									Task Description : {{lesson.taskDescription}}
 								</p>
 							</td>
-						</tr>
+						</tr>  -->
 					</tbody>
 			</table>
 		</div>

@@ -135,6 +135,9 @@ angular.module('lessonController', ['factories','services','chatServices'])
                     $location.path('home');
 					}).catch(function (error) {
 						AppFactory.toastError(error.data.message);
+						if(error.data.status == 406) {
+							$location.path('home');
+						}
 					}).finally(function () {
 					});
 				}
