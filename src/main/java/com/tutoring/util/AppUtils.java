@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -249,6 +250,31 @@ public class AppUtils {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * This method check if user is validate to perform update lesson actionor not.
+	 * @param oldStatus - user role id of current profile
+	 * @return  if user is allowed to perform the action otherwise null.
+	 */
+	public static ResponseVO isValidUpdateStatus(long oldStatus, long updateStatus) {
+		String formattedMessage =null;
+		// request to lesson status update must have always > the current status
+		if(updateStatus < oldStatus) {
+			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.reject.update.error"), LessonStates.getAllLessonStates().get(oldStatus));
+			return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
+		}
+		// if status update is for same call
+		else if(oldStatus == updateStatus) {
+			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.reject.update.error"), LessonStates.getAllLessonStates().get(oldStatus));
+			return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
+		}
+		// if lesson already submitted you can't cancelled
+		else if(updateStatus == LessonStates.CANCELLED && oldStatus == LessonStates.SUBMITTED) {
+		 formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.reject.update.error"), LessonStates.getAllLessonStates().get(oldStatus));
+		 return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
+		}
+		return null;
 	}
 	
 	/**

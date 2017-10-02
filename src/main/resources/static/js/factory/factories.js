@@ -12,10 +12,11 @@ angular.module('factories',[])
   	  "LESSON_REJECTED" : 4,
   	  "LESSON_IN_PROGRESS" : 8,
       "LESSON_WAITING_PAYMENT" : 16,
-      "LESSON_SUBMITTED":32,
-      "LESSON_COMPLETED":64,
-      "LESSON_CANCELLED":128,
-      "LESSON_EXPIRED":256
+      "LESSON_PAYMENT_MADE" : 32,
+      "LESSON_SUBMITTED":64,
+      "LESSON_COMPLETED":128,
+      "LESSON_CANCELLED":256,
+      "LESSON_EXPIRED":512
     })
 
     .factory('TutoringFactory', function($sessionStorage,$location){
@@ -65,7 +66,26 @@ angular.module('factories',[])
         factory.getSubjectList= function () {
           return $sessionStorage.subjectList;
         }
-  	    
+        factory.getFilterLessonStatusList = function (currentStatus) {
+        	var updateLessonStatus = [];
+        	if($sessionStorage.lessonStatus) {
+        	$sessionStorage.lessonStatus.forEach(function (entry, index, array) {
+        		if(entry.id > currentStatus) {
+        			if(currentStatus == 128) {
+        				return updateLessonStatus;
+        			}
+        			else if(currentStatus == 64 && entry.id == 256) {
+        				// do nothing
+        			}
+        			else {
+        				updateLessonStatus.push(entry);
+        			}
+        		}
+            });
+        	}
+        	return updateLessonStatus;
+        }
+        
       return factory;
     });
 

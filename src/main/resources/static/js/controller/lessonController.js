@@ -9,10 +9,11 @@ angular.module('lessonController', ['factories','services','chatServices'])
         if($scope.lesson.status.id == AppConstants.LESSON_ACCEPTED ||
             $scope.lesson.status.id == AppConstants.LESSON_IN_PROGRESS ||
             $scope.lesson.status.id == AppConstants.LESSON_WAITING_PAYMENT ||
-            $scope.lesson.status.id == AppConstants.LESSON_SUBMITTED){
+            $scope.lesson.status.id == AppConstants.LESSON_SUBMITTED) {
                  $scope.isStatusUpdateAllowed = true;
                  $scope.deleteTemporaryFilesOnServer();
         }
+        
         if($scope.lesson.status.id == AppConstants.LESSON_SUBMITTED || $scope.lesson.status.id== AppConstants.LESSON_COMPLETED) {
             $scope.showAnswerFromTutor = true;
         }
@@ -33,6 +34,9 @@ angular.module('lessonController', ['factories','services','chatServices'])
 			"description":"",
 			"currentProfile": TutoringFactory.getProfile().id
 		};
+		
+        $scope.lessonStatusList =  TutoringFactory.getFilterLessonStatusList($scope.lesson.status.id);
+        
         $scope.getAllMessagesForLesson();
         }).catch(function (error) {
             if(error.status == 406){
@@ -50,6 +54,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 		if($scope.currentProfile.role.id ==  AppConstants.STUDENT_ROLE_ID) {
 			$scope.isStudent=true;
 		}
+		
 
 		$scope.getAllMessagesForLesson = function(){
             LessonService.getAllMessagesForLesson($scope.lesson.id).then(function (response) {
@@ -64,8 +69,6 @@ angular.module('lessonController', ['factories','services','chatServices'])
 			});
 		};
 
-		$scope.lessonStatusList =  TutoringFactory.getLessonStatus();
-
 		$scope.addMessage = function() {
 			if($scope.message) {
 				ChatServices.send($scope.message);
@@ -79,7 +82,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 			var responseMessage = JSON.parse(message);
 			if(responseMessage.status == AppConstants.API_SUCCESS) {
 				if(responseMessage.data.lesson.id == $scope.lesson.id){
-					if(responseMessage.data.lesson.status.id == 1 || (responseMessage.data.receiverProfile.id 
+					if(responseMessage.data.lesson.status.id == AppConstants.LESSON_AVAILABLE || (responseMessage.data.receiverProfile.id 
 						== TutoringFactory.getProfile().id) || (responseMessage.data.senderProfile.id 
 						== TutoringFactory.getProfile().id))
 					 $scope.messageList.push(responseMessage.data);
@@ -131,7 +134,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 					AppFactory.toastSuccess(response.data.message);
                     $location.path('home');
 					}).catch(function (error) {
-					AppFactory.toastError(error.data.message);
+						AppFactory.toastError(error.data.message);
 					}).finally(function () {
 					});
 				}

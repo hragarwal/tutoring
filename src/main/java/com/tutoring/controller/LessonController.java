@@ -146,7 +146,7 @@ public class LessonController {
 			// check if user is allowed to take the action
 			if(!AppUtils.isAccessible(currentProfile.getRole().getId(), lesson.getStatus().getId())) {
 				responseVO = new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.notallowed.action"));
-			}
+			} 
 			else {
 				responseVO = lessonService.updateLessonStatus(lesson, currentProfile);
 				// only if call is success save audit data

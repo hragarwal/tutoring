@@ -190,11 +190,11 @@
                                         <p>Status: <span>{{lesson.status.name}}</span></p>
                                     </div>
                                     <div class="col s9">
-                                        <div class="row valign-wrapper" ng-if="isStatusUpdateAllowed" style="margin-bottom: 0;">
+                                        <div class="row valign-wrapper" ng-if="lessonStatusList.length > 0" style="margin-bottom: 0;">
                                             <div class="col s6" style="height: 46px;">
                                                 <select id="update-status-select" ng-model="lessonUpdate.status.id" ng-change="checkSubmittedStatus(lessonUpdate.status.id)" material-select>
                                                     <option value="" disabled selected>Select a status</option>
-                                                    <option  ng-repeat="lessonStatus in lessonStatusList" ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">{{lessonStatus.name}}</option>
+                                                    <option  ng-repeat="lessonStatus in lessonStatusList" value="{{lessonStatus.id}}">{{lessonStatus.name}}</option>
                                                 </select>
                                             </div>
                                             <div class="col s6">
@@ -202,6 +202,7 @@
                                                         class="btn blue waves-effect waves-light update-button">Update</button>
                                             </div>
                                         </div>
+                                        <div ng-if="lessonStatusList.length <= 0" class="row valign-wrapper" style="margin-bottom: 0;"></div>
                                     </div>
                                 </div>
                                 <div class="row lesson-row valign-wrapper">

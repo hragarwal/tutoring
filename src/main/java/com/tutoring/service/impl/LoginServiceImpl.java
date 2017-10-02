@@ -43,11 +43,11 @@ public class LoginServiceImpl implements LoginService {
 				accessToken = jwtGenerator.encrypt(profile.getEmail());
 				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, "Login Successfull", returnProfile, accessToken);
 			} else {
-				responseVO = new ResponseVO(HttpServletResponse.SC_UNAUTHORIZED, AppConstants.TEXT_ERROR, 
+				responseVO = new ResponseVO(HttpServletResponse.SC_NOT_ACCEPTABLE, AppConstants.TEXT_ERROR, 
 						MessageReader.READER.getProperty("api.login.invalid.password"));
 			}
 		} else {
-			responseVO = new ResponseVO(HttpServletResponse.SC_UNAUTHORIZED, AppConstants.TEXT_ERROR, 
+			responseVO = new ResponseVO(HttpServletResponse.SC_NOT_ACCEPTABLE, AppConstants.TEXT_ERROR, 
 					MessageReader.READER.getProperty("api.login.invalid.email"));
 		}
 		return responseVO;

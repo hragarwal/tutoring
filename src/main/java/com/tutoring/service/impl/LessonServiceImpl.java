@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
@@ -110,16 +111,12 @@ public class LessonServiceImpl implements LessonService {
 		Lesson returnLesson = lessonDAO.findOne(lesson.getId());
 		long oldLessonStatusId = returnLesson.getStatus().getId();
 		String formattedMessage;
+	
+		// check is valid update status call
+		ResponseVO responseVO = AppUtils.isValidUpdateStatus(returnLesson.getStatus().getId(), lesson.getStatus().getId());
 		
-		// request to lesson status update must have always > the current status
-		if(lesson.getStatus().getId() < oldLessonStatusId) {
-			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.reject.update.error"), LessonStates.getAllLessonStates().get(lesson.getStatus().getId()));
-			return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
-		}
-		
-		if(returnLesson.getStatus().getId() == lesson.getStatus().getId()) {
-			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.update.error"), LessonStates.getAllLessonStates().get(lesson.getStatus().getId()));
-			return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
+		if(Objects.nonNull(responseVO)) {
+			return responseVO;
 		}
 
 		// if lesson update is for ACCEPTED
