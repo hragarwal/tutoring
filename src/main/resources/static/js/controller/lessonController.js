@@ -11,6 +11,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
             $scope.lesson.status.id == AppConstants.LESSON_WAITING_PAYMENT ||
             $scope.lesson.status.id == AppConstants.LESSON_SUBMITTED){
                  $scope.isStatusUpdateAllowed = true;
+                 $scope.deleteTemporaryFilesOnServer();
         }
         if($scope.lesson.status.id == AppConstants.LESSON_SUBMITTED || $scope.lesson.status.id== AppConstants.LESSON_COMPLETED) {
             $scope.showAnswerFromTutor = true;
