@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.tutoring.model.Profile;
+import org.springframework.data.repository.query.Param;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.
@@ -30,5 +31,5 @@ public interface ProfileDAO extends CrudRepository<Profile,Long> {
      * @return
      */
 	@Query("select p from Profile p where p.username=:username OR p.email=:username")
-    public Profile authenticateUser(String username);
+    public Profile authenticateUser(@Param("username") String username);
 }
