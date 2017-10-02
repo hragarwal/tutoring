@@ -13,6 +13,7 @@ angular.module('loginController', ['factories','services'])
 	    		 TutoringFactory.setProfile(response.data.data);
 	             TutoringFactory.setAuthorized(true);
 	             $rootScope.isLoggedIn = true;
+	             $rootScope.loggedInUsername = response.data.data.name;
 	           	 $location.path('home');
            }).catch(function (error) {
         	   AppFactory.toastError(error.data.message);

@@ -18,7 +18,13 @@
                             <li ><a href ng-click="redirectToUrl('home')">Home</a></li>
                             <li ng-show="!isLoggedIn"><a href ng-click="redirectToUrl('login')">Sign In</a></li>
                             <li ng-show="!isLoggedIn"><a href ng-click="redirectToUrl('register')">Sign Up</a></li>
-                            <li ng-show="isLoggedIn"><a class="dropdown-button valign-wrapper" href="javascript:void(0);" data-activates="dropdown1" dropdown ><img src="images/profile-photo.jpg" class="circle profile-photo">{{ loggedInUsername }}<i class="material-icons right">arrow_drop_down</i></a></li>
+                            <li ng-show="isLoggedIn">
+                                <a class="dropdown-button valign-wrapper" href="javascript:void(0);"
+                                   data-activates="dropdown1" dropdown >
+                                    <img src="images/profile-photo.jpg" class="circle profile-photo">{{ loggedInUsername }}
+                                    <i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
                         </ul>
                         <ul class="side-nav" id="mobile-demo" ng-show="!isLoggedIn">
                             <li><a href ng-click="redirectToUrl('home')" >Home</a></li>
