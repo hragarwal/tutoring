@@ -2,9 +2,9 @@ package com.tutoring.dao;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.tutoring.model.Profile;
-import org.springframework.data.repository.query.Param;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.

@@ -3,6 +3,7 @@ angular.module('lessonController', ['factories','services','chatServices'])
 												 AppFactory, $sessionStorage, ChatServices, TutoringFactory) {
         $scope.lessonAvailableStatus = AppConstants.LESSON_AVAILABLE;
         $scope.lessonExpiredStatus = AppConstants.LESSON_EXPIRED;
+        $scope.lessonCancelledStatus = AppConstants.LESSON_CANCELLED;
         LessonService.getLesson(TutoringFactory.getLessonId()).then(function(response) {
         $scope.lesson = response.data.data;
         $scope.isStatusUpdateAllowed = false;

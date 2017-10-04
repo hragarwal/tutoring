@@ -149,19 +149,21 @@ public class LessonServiceImpl implements LessonService {
 			}
 			returnLesson.setLessonAnswerDesc(lesson.getLessonAnswerDesc());
 			Set<Files> fileList = returnLesson.getFileList();
-			File profileDir = new File(profileSaveLocation + currentProfile.getId());
-			File lessonDir = new File(lessonSaveLocation + returnLesson.getId() + AppConstants.ANSWER_DIR);
-			FileUtils.copyDirectory(profileDir, lessonDir);
-			Files answerFile;
-			File[] listOfFiles = lessonDir.listFiles();
-			for(File file : listOfFiles){
-				if(file.isFile()){
-					answerFile = new Files();
-					answerFile.setFileType(AppConstants.FILE_ANSWER_TYPE);
-					answerFile.setFilePath(file.getName());
-					answerFile.setActualFileName(AppUtils.getActualFilenameFromServerFile(file.getName()));
-					answerFile.setCreatedBy(currentProfile.getUsername());
-					fileList.add(answerFile);
+			if(fileList != null && fileList.size() > 0) {
+				File profileDir = new File(profileSaveLocation + currentProfile.getId());
+				File lessonDir = new File(lessonSaveLocation + returnLesson.getId() + AppConstants.ANSWER_DIR);
+				FileUtils.copyDirectory(profileDir, lessonDir);
+				Files answerFile;
+				File[] listOfFiles = lessonDir.listFiles();
+				for(File file : listOfFiles){
+					if(file.isFile()){
+						answerFile = new Files();
+						answerFile.setFileType(AppConstants.FILE_ANSWER_TYPE);
+						answerFile.setFilePath(file.getName());
+						answerFile.setActualFileName(AppUtils.getActualFilenameFromServerFile(file.getName()));
+						answerFile.setCreatedBy(currentProfile.getUsername());
+						fileList.add(answerFile);
+					}
 				}
 			}
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.SUBMITTED)));

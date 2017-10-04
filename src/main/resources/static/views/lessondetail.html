@@ -158,8 +158,14 @@
                                     <div class="col s6" ng-if="isStudent && lesson.status.id!=lessonAvailableStatus && lesson.tutorProfile">
                                         <p class="left lesson-detail-top-row">Tutor: {{lesson.tutorProfile.name}}</p>
                                     </div>
-                                    <div class="col s6">
+                                    <div class="col s6" ng-if="isStudent && lesson.status.id==lessonCancelledStatus && !lesson.tutorProfile ">
+                                        <p class="left lesson-detail-top-row">You have cancelled requested lesson</p>
+                                    </div>
+                                    <div class="col s6" ng-show="lesson.status.id != lessonExpiredStatus">
                                         <p class="right lesson-detail-top-row">Expires at {{ lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</p>
+                                    </div>
+                                    <div class="col s6" ng-show="lesson.status.id == lessonExpiredStatus">
+                                        <p class="right lesson-detail-top-row">Expired at {{ lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</p>
                                     </div>
                                 </div>
                                 <div class="row lesson-row valign-wrapper">

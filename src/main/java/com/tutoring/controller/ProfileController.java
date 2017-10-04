@@ -3,7 +3,6 @@ package com.tutoring.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.tutoring.util.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Profile;
 import com.tutoring.service.ProfileService;
+import com.tutoring.util.AppConstants;
 import com.tutoring.util.Mappings;
 import com.tutoring.util.ResponseVO;
 

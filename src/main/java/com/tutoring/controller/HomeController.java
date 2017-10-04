@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.tutoring.util.AppConstants;
-
 /**
  * Created by himanshu.agarwal on 21-02-2017.
  */

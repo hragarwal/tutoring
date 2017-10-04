@@ -19,7 +19,7 @@ angular.module('factories',[])
       "LESSON_EXPIRED":512
     })
 
-    .factory('TutoringFactory', function($sessionStorage,$location){
+    .factory('TutoringFactory', function($sessionStorage,$location, AppConstants){
         var factory={};
         factory.checkIfSessionExistFOrData = function(dataObject){
           if(dataObject){
@@ -71,10 +71,14 @@ angular.module('factories',[])
         	if($sessionStorage.lessonStatus) {
         	$sessionStorage.lessonStatus.forEach(function (entry, index, array) {
         		if(entry.id > currentStatus) {
-        			if(currentStatus == 128) {
+        			// current status is available than completed status should not be visisble for student
+        			if(currentStatus == AppConstants.LESSON_AVAILABLE && entry.id == AppConstants.LESSON_COMPLETED) {
+        				// do nothing
+        			}
+        			else if(currentStatus == AppConstants.LESSON_COMPLETED) {
         				return updateLessonStatus;
         			}
-        			else if(currentStatus == 64 && entry.id == 256) {
+        			else if(currentStatus == AppConstants.LESSON_SUBMITTED && entry.id == AppConstants.LESSON_CANCELLED) {
         				// do nothing
         			}
         			else {

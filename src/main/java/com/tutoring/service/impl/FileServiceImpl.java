@@ -6,16 +6,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Objects;
 
-import com.tutoring.controller.ChatController;
-import com.tutoring.exception.AppException;
-import com.tutoring.model.Lesson;
-import com.tutoring.model.Message;
-import com.tutoring.model.Profile;
-import com.tutoring.service.LessonService;
-import com.tutoring.service.MessageService;
-import com.tutoring.service.ProfileService;
-import com.tutoring.util.AppUtils;
-import com.tutoring.util.MessageReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,8 +13,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.tutoring.controller.ChatController;
+import com.tutoring.exception.AppException;
+import com.tutoring.model.Lesson;
+import com.tutoring.model.Message;
+import com.tutoring.model.Profile;
 import com.tutoring.service.FileService;
+import com.tutoring.service.LessonService;
+import com.tutoring.service.MessageService;
+import com.tutoring.service.ProfileService;
 import com.tutoring.util.AppConstants;
+import com.tutoring.util.AppUtils;
+import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
 
 /**

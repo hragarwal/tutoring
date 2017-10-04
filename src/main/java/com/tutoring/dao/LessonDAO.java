@@ -3,13 +3,13 @@ package com.tutoring.dao;
 import java.util.Date;
 import java.util.List;
 
-import com.tutoring.model.LessonStatus;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.tutoring.model.Lesson;
+import com.tutoring.model.LessonStatus;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.
