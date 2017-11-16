@@ -1,26 +1,81 @@
-<div class="container signup-container">
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 text-center">
+		  <div class="card card-signup">
+			<form class="form" name="registerForm" novalidate="">
+			  <div class="header header-primary text-center">
+				<h4>{{headingTitle}}</h4>
+			  </div>
+			  <div class="content">
+			  <div class="clearfix"></div>
+			  <h3 class="mt-0"></h3>
+			  <div class="alert alert-danger hide alertMessage" role="alert"></div>
+			  
+<div class="col-md-6 col-sm-6">
+	<div class="form-group">
+		<input type="text" class="form-control required" ng-model="profile.username" name="username" id="username" placeholder="Enter Username"/>
+	</div>
+</div>			  
+<div class="col-md-6 col-sm-6">
+	<div class="form-group">
+		<input type="email" class="form-control required" ng-model="profile.email" name="email" id="email"  placeholder="Enter Your Email"/>
+	</div>
+</div>
+<div class="col-md-6 col-sm-6">
+	<div class="form-group">
+		<input type="text" class="form-control required" ng-model="profile.name" name="name" id="name" placeholder="Enter Your Full Name"/>
+	</div>
+</div>
+<div class="col-md-6 col-sm-6">
+	<div class="form-group">
+		<input type="text" class="form-control required" ng-model="profile.contactNumber" name="contactNumber" id="contactNumber"  placeholder="Contact Number"/>
+	</div>
+</div>
+<div class="col-md-6 col-sm-6">	
+	<div class="form-group">
+		<input type="password" class="form-control required" ng-model="profile.password"
+		name="password" id="password"  ng-minlength="6"  placeholder="Password..."/>
+	</div>
+</div>	
+<div class="col-md-6 col-sm-6">
+	<div class="form-group">
+		<input type="password" class="form-control required" ng-model="profile.confirmPassword"
+		name="confirmPassword" id="confirmPassword" ng-minlength="6"  placeholder="Confirm Password..."/>
+	</div>               
+</div>
+<div class="col-md-6 col-sm-6">
+	<div class="form-group">
+		<select id="lesson_select" ng-model="profile.country" class="form-control">
+	        <option value="" disabled selected>Select Your Country</option>
+	        <option ng-repeat="country in countries" value="{{country.code}}">{{country.name}}</option>
+	    </select>
+	</div>
+</div>	
+<div class="col-md-6 col-sm-6">
+	<div class="form-group">
+		<input type="text" class="form-control required" ng-model="profile.skypeId" name="skypeId" id="skypeId"  placeholder="Enter Your Skype Id"/>
+	</div>
+</div>
+  			  </div>
+			  <div class="text-center">
+				<button type="submit" class="btn btn-primary btn-raised"  ng-click="createProfile(registerForm)">Sign Up</button>
+			  </div>
+			 
+			  <a href="#!/login" class="btn btn-link btn-lg">Back to Login</a>
+			</form>
+		  </div>
+		</div>
+	</div>
+</div>
+<!-- <div class="container signup-container">
 	<div class="row" id="signup-row">
 		<div class="col s10 offset-s1 center">
 			<div class="row valign-wrapper">
-				<div class="col s6 m6 l6 ">
-					<div class="signup-image-card white z-depth-2">
-						<!-- <img src="images/card-image.jpg" alt="" class="signup-image"> -->
-						<div class="card-nav">
-							<ul>
-								<li>Home</li>
-								<li>About</li>
-								<li>Login</li>
-							</ul>
-						</div>
-					</div>
-
-					
-				</div>
 				<div class="col s12 m6 l6 white z-depth-2 center">
 					<form name="registerForm" id="registerForm" class="sign-up-form-wrapper-div">
 						<div class="row" id="top-row">
 							<div class="col s12 center" style="padding: 0;">
-								<!-- <div id="top-row-strip"></div> -->
+								<div id="top-row-strip"></div>
 								<p class="sign-up-text center">Sign up</p>
 							</div>
 						</div>
@@ -34,7 +89,7 @@
 								</div>
 								<div class="row no-bot-margin-row">
 									<div class="input-field col s12">
-										<!-- <i class="material-icons prefix">email</i> -->
+										<i class="material-icons prefix">email</i>
 										<input id="email" ng-model="profile.email" type="email" class="validate">
 										<label for="email">Email</label>
 									</div>
@@ -61,14 +116,14 @@
 								</div>
 								<div class="row no-bot-margin-row">
 									<div class="input-field col s12">
-										<!-- <i class="material-icons prefix">lock</i> -->
+										<i class="material-icons prefix">lock</i>
 										<input id="conf-password" ng-model="profile.confirmPassword" type="password" class="validate">
 										<label for="conf-password">Confirm your password</label>
 									</div>
 								</div>
 								<div class="row no-bot-margin-row">
 									<div class="input-field col s12">
-										<!-- <i class="material-icons prefix">place</i> -->
+										<i class="material-icons prefix">place</i>
 										<select id="lesson_select" material-select ng-model="profile.country" class="validate">
 											<option value="" disabled selected>Select a subject</option>
 											<option ng-repeat="country in countries" value="{{country.code}}">{{country.name}}</option>
@@ -95,4 +150,4 @@
 		</div>
 			
 	</div>
-</div>
+</div> -->

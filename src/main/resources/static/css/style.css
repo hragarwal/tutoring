@@ -1,7 +1,7 @@
 body {
   font-family: 'Roboto', sans-serif;
   color: #496174;
-  background: #2f3e47;
+  background: #f3f6fa;
   font-size: 14px;
   line-height: 22px;
   overflow-x:hidden;
@@ -94,12 +94,12 @@ a:hover,a:focus,.a:active {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color:#F15F79;
+  color:#ffa000;
 }
 
 .btn-white-fill:hover {
   background:#fff;
-  color: #F15F79 !important;
+  color: #ffa000 !important;
   box-shadow:0 0 8px rgba(0,0,0,0.18), 0 8px 16px rgba(0,0,0,0.36);
 }
 .btn-custom{
@@ -209,12 +209,12 @@ a:hover,a:focus,.a:active {
   font-size: 15px;
   margin: 5px 0px;
 }
-.navbar-custom .navbar-nav li a.btn-white-fill{ color:#F15F79;font-size:13px;}
-.navbar-custom .navbar-nav li a.btn-white-fill:hover{ background:#fff; color:#F15F79; }
+.navbar-custom .navbar-nav li a.btn-white-fill{ color:#ffa000;font-size:13px;}
+.navbar-custom .navbar-nav li a.btn-white-fill:hover{ background:#fff; color:#ffa000; }
 
 .navbar-custom .nav>li>a:focus,.navbar-custom .nav>li>a:hover,.navbar-custom .navbar-nav li.active a {
-  color:#F15F79;
-  background: #ffffff;
+  color:#ffa000;
+  background: transparent;
 }
 
 .navbar-toggle .icon-bar {
@@ -417,24 +417,25 @@ a:hover,a:focus,.a:active {
 
 
 
-.bg-custom{background:linear-gradient(60deg, #B24592, #F15F79);}
+.bg-custom{background:linear-gradient(60deg, #B24592, #ffa000);}
  
 
-.navbar-custom{ background:transparent;}
+.navbar-custom{ background:#2f3e47;}
 .is-sticky .navbar-custom{
-    background:linear-gradient(60deg, #B24592, #F15F79);
+    background:linear-gradient(60deg, #B24592, #ffa000);
     box-shadow:0 2px 2px rgba(0,0,0,0.05), 0 1px 0 rgba(0,0,0,0.05);
 }
 
 .text-custom,.features-box i,
 .pricing-column .plan-title {
-  color: #F15F79 !important;
+  color: #ffa000 !important;
 }
 
 
 
 .funfactor {
 	text-align: center;	
+	background:#2f3e47;
 }
 .funfactor .fun-info {
   padding-bottom: 20px;
@@ -447,7 +448,7 @@ a:hover,a:focus,.a:active {
 
 .funfactor .icon-container i {
     font-size: 45px;
-    color: #F15F79;
+    color: #ffa000;
     text-align: center;
     -webkit-transition: all ease-in 0.25s;
             transition: all ease-in 0.25s;
@@ -551,7 +552,7 @@ a:hover,a:focus,.a:active {
 }
 
 .card .header-primary {
-  background: linear-gradient(60deg, #B24592, #F15F79);
+  background: linear-gradient(60deg, #B24592, #ffa000);
 }
 
 .card .header-info {
@@ -647,13 +648,13 @@ a:hover,a:focus,.a:active {
   padding-right: 0;
 }
 .btn.btn-raised {
-  background-color: #F15F79;
+  background-color: #ffa000;
   color: #ffffff;
 }
 
 .form-control,.form-group .form-control {
   border: 0;
-  background-image: linear-gradient(#F15F79, #F15F79),linear-gradient(#D2D2D2, #D2D2D2);
+  background-image: linear-gradient(#ffa000, #ffa000),linear-gradient(#D2D2D2, #D2D2D2);
   background-size: 0 2px, 100% 1px;
   background-repeat: no-repeat;
   background-position: center bottom,center calc(100% - 1px);
@@ -670,23 +671,23 @@ a:hover,a:focus,.a:active {
 }
 .form-group.is-focused .form-control {
   outline: none;
-  background-image: linear-gradient(#F15F79, #F15F79),linear-gradient(#D2D2D2, #D2D2D2);
+  background-image: linear-gradient(#ffa000, #ffa000),linear-gradient(#D2D2D2, #D2D2D2);
   background-size: 100% 2px, 100% 1px;
   box-shadow: none;
   transition-duration: 0.3s;
 }
 .form-control.ng-invalid {
-  background-image: linear-gradient(#F15F79, #F15F79),linear-gradient(#ff8e8e, #ff8e8e);
+  background-image: linear-gradient(#ffa000, #ffa000),linear-gradient(#ff8e8e, #ff8e8e);
   color: #ff8e8e;
   border-color: #ff8e8e !important;
 
 }
 .form-group.is-focused .form-control .material-input:after {
-  background-color: #F15F79;
+  background-color: #ffa000;
 }
 
 .form-group.is-focused label,.form-group.is-focused label.control-label {
-  color: #F15F79;
+  color: #ffa000;
 }
 
 .form-group.is-focused.label-placeholder label,.form-group.is-focused.label-placeholder label.control-label {
@@ -791,4 +792,8 @@ a:hover,a:focus,.a:active {
   margin-top: -7px;
   top: 5px;
   position: relative;
+}
+.page-footer {
+	background:#2f3e47;
+	color:#fff;
 }

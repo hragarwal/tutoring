@@ -1,12 +1,43 @@
 <!-- ~~~~~~~~~~~~~~~NEW SIGN UP PAGE CODE~~~~~~~~~~~~~~~ -->
 <div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
+		  <div class="card card-signup">
+			<form class="form"  name="loginForm">
+			  <div class="header header-primary text-center">
+				<h4>{{headingTitle}}</h4>
+			  </div>
+			  <div class="content">
+			  <div class="clearfix"></div>
+			  <h3 class="mt-0"></h3>
+			  <div class="alert alert-danger hide alertMessage" role="alert"></div>
+				<div class="form-group">
+				  <input type="email" class="form-control underline-input required" ng-model="login.email" name="email" id="email" placeholder="Enter Your Email">
+				   
+				</div>
+				<div class="form-group">
+				  <input type="password" placeholder="Password..." class="form-control underline-input required"  ng-model="login.password" name="password" id="password" ng-minlength="6">
+				   
+				</div> 
+			  </div>
+			  <div class="text-center">
+				<button type="submit" class="btn btn-primary btn-raised"  ng-click="validateUser(loginForm)">Login</button>
+			  </div>
+			  <a href="#!/forgotPassword" class="btn btn-link btn-lg">Forgot Password?</a>
+			</form>
+		  </div>
+		</div>
+	</div>
+</div>
+
+<!-- <div class="container">
 	<div class="row" id="login-row">
 		<div class="col s12 m6 l6 push-m3 push-l3 white z-depth-2 center">
 			<form name="loginForm" class=" login-form-wrapper-div">
 				<div class="row" id="top-row">
 					<div class="col s12 center" style="padding: 0;">
 						<div id="top-row-strip"></div>
-						<!-- <img src="images/tutorialpoint-logo.png" width="200" alt="">  -->
+						<img src="images/tutorialpoint-logo.png" width="200" alt=""> 
 						<p class="login-text center">Login</p>
 					</div>
 				</div>
@@ -48,4 +79,4 @@
 			</form>
 		</div>
 	</div>
-</div>
+</div> -->
