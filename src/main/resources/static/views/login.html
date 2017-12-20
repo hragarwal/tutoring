@@ -1,82 +1,36 @@
 <!-- ~~~~~~~~~~~~~~~NEW SIGN UP PAGE CODE~~~~~~~~~~~~~~~ -->
 <div class="container">
-	<div class="row">
-		<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
-		  <div class="card card-signup">
-			<form class="form"  name="loginForm">
-			  <div class="header header-primary text-center">
-				<h4>{{headingTitle}}</h4>
-			  </div>
-			  <div class="content">
-			  <div class="clearfix"></div>
-			  <h3 class="mt-0"></h3>
-			  <div class="alert alert-danger hide alertMessage" role="alert"></div>
-				<div class="form-group">
-				  <input type="email" class="form-control underline-input required" ng-model="login.email" name="email" id="email" placeholder="Enter Your Email">
-				   
-				</div>
-				<div class="form-group">
-				  <input type="password" placeholder="Password..." class="form-control underline-input required"  ng-model="login.password" name="password" id="password" ng-minlength="6">
-				   
-				</div> 
-			  </div>
-			  <div class="text-center">
-				<button type="submit" class="btn btn-primary btn-raised"  ng-click="validateUser(loginForm)">Login</button>
-			  </div>
-			  <a href="#!/forgotPassword" class="btn btn-link btn-lg">Forgot Password?</a>
-			</form>
-		  </div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
+            <div class="card card-signup">
+                <form class="form"  name="loginForm">
+                    <div class="header header-primary text-center">
+                        <h4>{{headingTitle}}</h4>
+                    </div>
+                    <div class="content">
+                        <div class="clearfix"></div>
+                        <h3 class="mt-0 logoTxt"><span class="logop1">Tutorial</span><span class="logop2">Point</span></h3>
+                        <p class="help-block">Learn your way</p>
+                        <div class="alert alert-danger hide alertMessage" role="alert"></div>
+                        <div class="form-group">
+                            <input type="email" class="form-control underline-input required" ng-model="login.email" name="email" id="email" placeholder="Enter Your Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Password..." class="form-control underline-input required"  ng-model="login.password" name="password" id="password" ng-minlength="6">
+                        </div> 
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-raised"  ng-click="validateUser(loginForm)">Submit</button>
+                    </div>
+                    <a href="#!/forgotPassword" class="btn btn-link btn-lg">Forgot Password?</a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-
-<!-- <div class="container">
-	<div class="row" id="login-row">
-		<div class="col s12 m6 l6 push-m3 push-l3 white z-depth-2 center">
-			<form name="loginForm" class=" login-form-wrapper-div">
-				<div class="row" id="top-row">
-					<div class="col s12 center" style="padding: 0;">
-						<div id="top-row-strip"></div>
-						<img src="images/tutorialpoint-logo.png" width="200" alt=""> 
-						<p class="login-text center">Login</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s12 m12 l12">
-						
-						<div class="row no-bot-margin-row">
-							<div class="col s3">
-								<p class="field-label">Email</p>
-							</div>
-							<div class="input-field col s9">
-								<input type="text" class="validate" ng-model="login.email" required>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col s3">
-								<p class="field-label">Password</p>
-							</div>
-							<div class="input-field col s9">
-								<input id="password" type="password" class="validate" ng-model="login.password" ng-minlength="6" required>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col s12">
-								<a href="#!/forgotPassword">Forgot Password?</a>
-							</div>
-						</div>
-
-					</div>
-					
-				</div>
-				
-				
-				<div class="row">
-					<button class="btn green waves-effect waves-light" ng-click="validateUser(loginForm)">Log in</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div> -->
+<div class="footer">
+    <div class="container">
+        <div class="col-lg-12 text-center"> <a href="#!/register" class="text-uppercase text-white">Create an account</a>
+        </div>
+    </div>
+</div>

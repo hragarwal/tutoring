@@ -1,3 +1,50 @@
+<!-- Navbar -->
+<div class="navbar navbar-custom sticky" role="navigation" id="sticky-nav">
+    <div class="container"> 
+        
+        <!-- Navbar-header -->
+        <div class="navbar-header"> 
+            
+            <!-- Responsive menu button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            
+            <!-- LOGO --> 
+            <a class="navbar-brand logo" ng-click="redirectToUrl('home')" href=""><img src="images/tutorialpoint-logo.svg" alt="" /></a> </div>
+        <!-- end navbar-header --> 
+        
+        <!-- menu -->
+        <div class="navbar-collapse collapse" id="navbar-menu"> 
+            
+            <!-- Navbar left -->
+            <ul class="nav navbar-nav nav-custom-left">
+                <li class="active"> <a href=""  ng-click="redirectToUrl('home')" class="nav-link">Home</a> </li>
+                <li> <a href="#features" class="nav-link">Features</a> </li>
+                <li> <a href="#pricing" class="nav-link">Plans</a> </li>
+                <li> <a href="#clients" class="nav-link">Clients</a> </li>
+            </ul>
+            
+            <!-- Navbar right -->
+            <ul class="nav navbar-nav navbar-right" ng-show="!isLoggedIn">
+                <li><a href ng-click="redirectToUrl('login')">Login</a></li>
+                <li><a href ng-click="redirectToUrl('register')" class="btn btn-white-fill navbar-btn">Sign Up</a></li>
+            </ul>
+            
+	        <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn">
+	            <li><a href ng-click="redirectToUrl('support')">Contact Support</a></li>
+	            <li><a href ng-click="redirectToUrl('editProfile')">Edit Profile</a></li>
+	            <li><a href ng-click="redirectToUrl('changePassword')">Change Password</a></li>
+	            <li><a href ng-click="logout();" class="btn btn-white-fill navbar-btn">Logout</a></li>
+	        </ul>
+            
+             
+        </div>
+        <!--/Menu --> 
+    </div>
+    <!-- end container --> 
+</div>
+<!-- End navbar-custom -->
+
+
 
 <!-- Features -->
 <section class="section bg-light" id="features">
@@ -188,3 +235,11 @@
     </div>
 </section>
 <!--End  Clients --> 
+
+ <div class="page-footer grey darken-1">
+            <div class="footer-copyright">
+                <div class="container">
+                    &copy; 2017 Copyright TutorialPoint. All Rights Reserved
+                </div>
+			</div>
+</div>
