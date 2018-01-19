@@ -1,36 +1,40 @@
-<!-- ~~~~~~~~~~~~~~~NEW SIGN UP PAGE CODE~~~~~~~~~~~~~~~ -->
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
-            <div class="card card-signup">
-                <form class="form"  name="loginForm">
-                    <div class="header header-primary text-center">
-                        <h4>{{headingTitle}}</h4>
-                    </div>
-                    <div class="content">
-                        <div class="clearfix"></div>
-                        <h3 class="mt-0 logoTxt"><span class="logop1">Tutorial</span><span class="logop2">Point</span></h3>
-                        <p class="help-block">Learn your way</p>
-                        <div class="alert alert-danger hide alertMessage" role="alert"></div>
-                        <div class="form-group">
-                            <input type="email" class="form-control underline-input required" ng-model="login.email" name="email" id="email" placeholder="Enter Your Email">
+<div class="header header-filter credential-page">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
+                <div class="card card-signup">
+                    <form class="form"  name="loginForm">
+                        <div class="header header-primary text-center">
+                            <h4>{{headingTitle}}</h4>
                         </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="Password..." class="form-control underline-input required"  ng-model="login.password" name="password" id="password" ng-minlength="6">
-                        </div> 
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary btn-raised"  ng-click="validateUser(loginForm)">Submit</button>
-                    </div>
-                    <a href="#!/forgotPassword" class="btn btn-link btn-lg">Forgot Password?</a>
-                </form>
+                        <div class="content text-left">
+                            <div class="clearfix"></div>
+                            <h3 class="mt-0 logoTxt">&nbsp;</h3>
+                            <div class="alert alert-danger hide alertMessage" role="alert"></div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" class="form-control underline-input required" ng-model="login.email" name="email" id="email" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" placeholder="" class="form-control underline-input required"  ng-model="login.password" name="password" id="password" ng-minlength="6">
+                            </div> 
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" ng-disabled="loginProgress" class="btn btn-primary btn-raised"  ng-click="validateUser(loginForm)">Submit <i ng-show="loginProgress" class="fa fa-spin fa-gear"></i></button>
+                        </div>
+                        <a href="#!/forgotPassword" class="btn btn-link btn-lg">Forgot Password?</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="footer">
-    <div class="container">
-        <div class="col-lg-12 text-center"> <a href="#!/register" class="text-uppercase text-white">Create an account</a>
+    <div class="">
+        <div class="container">
+            <div class="col-lg-12 text-center"> <a href="#!/register" class="text-uppercase custom-link">Create an account</a>
+            </div>
         </div>
     </div>
+    
 </div>

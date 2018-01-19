@@ -2,7 +2,7 @@ angular.module('factories',[])
 
 
     .constant("AppConstants", {
-      "HTTP_BASE_URL": "http://localhost:8089",
+      "HTTP_BASE_URL": "http://localhost:8080",
       "API_SUCCESS" : 0,
       "API_OK" : 200,
       'MISSING_FIELD_ERROR' : 'Please enter required fields.',

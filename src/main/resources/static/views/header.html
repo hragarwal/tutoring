@@ -1,48 +1,57 @@
+
 <!-- Navbar -->
-<div class="navbar navbar-custom sticky navbar-header-wrap" role="navigation" id="sticky-nav">
+<div class="navbar navbar-custom sticky" role="navigation" id="sticky-nav">
     <div class="container"> 
-        
-        <!-- Navbar-header -->
         <div class="navbar-header"> 
             
-            <!-- Responsive menu button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
             
             <!-- LOGO --> 
-            <a class="navbar-brand logo" ng-click="redirectToUrl('home')" href=""><img src="images/tutorialpoint-logo.svg" alt="" /></a> </div>
+            <a ng-click="redirectToUrl('home')" href class="brand-logo">
+                <img id="logo" src="images/tutorialpoint-logo.svg" width="200"> 
+            </a>
+            
+        </div>
         <!-- end navbar-header --> 
         
         <!-- menu -->
-        <div class="navbar-collapse collapse" id="navbar-menu"> 
+        <div class="navbar-collapse collapse pdr0" id="navbar-menu"> 
+
             
-            <!-- Navbar left -->
-            <ul class="nav navbar-nav nav-custom-left">
-                <li class="active"> <a href=""  ng-click="redirectToUrl('home')" class="nav-link">Home</a> </li>
-                <li> <a href="#features" class="nav-link">Features</a> </li>
-                <li> <a href="#pricing" class="nav-link">Plans</a> </li>
-                <li> <a href="#clients" class="nav-link">Clients</a> </li>
+            <ul class="nav navbar-nav navbar-right navbar-credential" ng-show="!isLoggedIn">
+                <li> <a href="" ng-click="redirectToUrl('login')">Login</a> </li>
+                <li> <a href="" ng-click="redirectToUrl('register')" class="btn btn-navbar-std">Sign up</a> </li>
             </ul>
             
-            <!-- Navbar right -->
-            <ul class="nav navbar-nav navbar-right" ng-show="!isLoggedIn">
-                <li><a href ng-click="redirectToUrl('login')">Login</a></li>
-                <li><a href ng-click="redirectToUrl('register')" class="btn btn-white-fill navbar-btn">Sign Up</a></li>
+            <ul class="nav navbar-nav navbar-right navbar-user" ng-show="isLoggedIn">
+                
+                <li class="dropdown nav-profile">
+                    <a href class="dropdown-toggle pdr0" data-toggle="dropdown">
+                        <img src="images/profile-photo.png" alt="" class="0 size-30x30 profile-photo">
+                        Hi, {{ loggedInUsername }}
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a role="button" tabindex="0" href ng-click="redirectToUrl('home')"><i class="fa fa-home"></i>Home</a></li>
+                        <li><a role="button" tabindex="0" href ng-click="redirectToUrl('editProfile')"><i class="fa fa-user"></i>Account Settings</a></li>
+                        <li><a role="button" tabindex="0" href ng-click="redirectToUrl('support')"><i class="fa fa-check"></i>Contact Support</a></li>
+                        
+                        <li class="divider"></li>
+                        <li><a href="" role="button" tabindex="0" ng-click="logout();"><i class="fa fa-sign-out"></i>Logout</a></li>
+                    </ul>
+                </li>
+
+                
             </ul>
-            
-	        <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn">
-	            <li><a href ng-click="redirectToUrl('support')">Contact Support</a></li>
-	            <li><a href ng-click="redirectToUrl('editProfile')">Edit Profile</a></li>
-	            <li><a href ng-click="redirectToUrl('changePassword')">Change Password</a></li>
-	            <li><a href ng-click="logout();" class="btn btn-white-fill navbar-btn">Logout</a></li>
-	        </ul>
-            
-             
         </div>
         <!--/Menu --> 
     </div>
     <!-- end container --> 
 </div>
-<!-- End navbar-custom -->
+<!-- End navbar-custom --> 
+
+
+
 
 
 <!-- <div class="navbar" data-target="#navbar-menu"> 
@@ -84,3 +93,4 @@
         </nav>
  -->                                
     <!-- </div> -->
+    

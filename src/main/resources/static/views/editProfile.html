@@ -1,59 +1,116 @@
-<div class="container">
-	<div class="row">
-		<div class="col-md-6 col-sm-8 col-xs-12">
+<div class="header header-filter dashbaord-page">
+    <section class="boxs boxs-tp-grey">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
 
+                    <br/>
+                    <a href="#!/home" class="back-btn-lh"><i class="fa fa-chevron-left"></i> Home</a>
+                    <section class="boxs border-tp">
+                        <div class="boxs-header dvd dvd-btm tp-bar">
+                            <h1 class="custom-font">Edit Profile</h1>
+                        </div>
 
-<section class="boxs">						
-						<!-- boxs header -->
-						<div class="boxs-header dvd dvd-btm">
-							<h1 class="font-thin h3">Edit Profile</h1>
-							
-						</div>
-						<div class="boxs-body">
-							<form name="editProfileForm" novalidate="">
-								<div class="row">
-									 
-								
-								 <div class="form-group col-md-6">
-	<label for="name">Name</label>
-	
-		<input type="text" class="form-control required" ng-model="profile.name" name="name" id="name" required/>
- </div>
+                        <div class="boxs-body mh500 padding0">
 
-<div class="form-group col-md-6">
-	<label for="email">Email</label>
-	
-		<input type="email" class="form-control required" ng-model="profile.email" name="email" id="email" required/>
- </div>
+                            <section class="boxs marginb0">
+                                <div class="boxs-body">
+                                    <p class="text-black">Edit profile and click on UPDATE button to update your profile.</p>
+                                    <form name="editProfileForm" class="editProfileForm" novalidate="">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control required" ng-model="profile.name" name="name" id="name" required/>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control required" ng-model="profile.email" name="email" id="email" required/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="country">Country</label>
+                                                <input type="text" class="form-control required" ng-model="profile.country" name="country" id="country" required/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="contactNumber">Contact Number</label>
+                                                <input type="text" class="form-control required" ng-model="profile.contactNumber" name="contactNumber" id="contactNumber" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-xs-12">
+                                                <label for="skypeId">Skype Id</label>
+                                                <input type="text" class="form-control required" ng-model="profile.skypeId" name="skypeId" id="skypeId" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="boxs-footer text-right">
+                                    <button ng-disabled="profileProgress" type="submit" class="btn btn-raised btn-primary" ng-click="updateProfile(editProfileForm)">Update <i ng-show="profileProgress" class="fa fa-gear fa-spin"></i></button>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+
+                </div>
+
+                <div class="col-md-5">
+
+                    <br/>
+                    <a style="visibility:hidden;" href="#!/home" class="back-btn-lh"><i class="fa fa-chevron-left"></i> Home</a>
+                    <section class="boxs border-tp">
+                        <div class="boxs-header dvd dvd-btm tp-bar">
+                            <h1 class="custom-font">Change Password</h1>
+                        </div>
+
+                        <div class="boxs-body mh500 padding0">
+
+                            <section class="boxs marginb0">
+                                <div class="boxs-body">
+                                    <p class="text-black">To change new password please confirm old password.</p>
+
+                                    <form class="form updatePasswordForm" id="updatePasswordForm" name="updatePasswordForm" novalidate="">
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="email1">Email</label>
+                                                <input type="email" class="form-control required" disabled ng-model="profile.email" name="email1" id="email1" required/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="oldpassword">Old Password</label>
+                                                <input type="password" class="form-control required" ng-model="profilea.oldPassword" name="oldpassword" id="oldpassword" required/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="password">New Password</label>
+                                                <input type="password" class="form-control required" ng-model="profilea.password" name="password" id="password" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-xs-12">
+                                                <label for="skypeId">Confirm Password</label>
+                                                <input type="password" class="form-control required" ng-model="profilea.confirmPassword" name="confirmPassword" id="confirmPassword" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="boxs-footer text-right">
+                                    <button type="submit" ng-disabled="passwordProgress" class="btn btn-raised btn-primary" ng-click="updatePassword(updatePasswordForm)">Update <i ng-show="passwordProgress" class="fa fa-gear fa-spin"></i></button>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
-<div class="form-group">
-	<label for="country">Country</label>
-	
-		<input type="text" class="form-control required" ng-model="profile.country" name="country" id="country" required/>
- </div>
-
-<div class="form-group">
-	<label for="contactNumber">Contact Number</label>
-	
-		<input type="text" class="form-control required" ng-model="profile.contactNumber" name="contactNumber" id="contactNumber" />
- </div>
-
-<div class="form-group">
-	<label for="skypeId">Skype Id</label>
-	
-		<input type="text" class="form-control required" ng-model="profile.skypeId" name="skypeId" id="skypeId" />
- </div>
-							</form>
-						</div>
-						<div class="boxs-footer text-right bg-tr-black lter dvd dvd-top">
-							<button type="submit" class="btn btn-raised btn-danger" ng-click="updateProfile(editProfileForm)">Update</button>
-						</div>
-					</section>		
-						</div>
-						</div>
-						</div>
-
-
 
 <!-- 
 

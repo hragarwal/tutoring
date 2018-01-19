@@ -1,329 +1,262 @@
-<!-- <div align="center">
-    <table border="1">
-        <tr>
-            <th>Subject</th>
-            <th>Task Description</th>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Fee Amount $</th>
-            <th>Estimated work hours</th>
-        </tr>
-        <tr>
-            <td>{{lesson.subject.name}}</td>
-            <td>{{lesson.taskDescription}}</td>
-            <td>{{lesson.title}}</td>
-            <td>{{lesson.status.name}}</td>
-            <td>{{lesson.dueAmount}}</td>
-            <td>{{lesson.estimatedWorkEffort}}</td>
-        </tr>
-    </table>
-    <br><br>
-    <b>Messages</b>
-        
-    <div align="center">
-        
-            <div class="col-sm-8">
-                <select ng-model="lessonUpdate.status.id" ng-change="checkSubmittedStatus(lessonUpdate.status.id)">
-                <option value="-1">Update Status</option>
-                <option  ng-repeat="lessonStatus in lessonStatusList"
-                    ng-if="lessonStatus.id > lesson.status.id" value="{{lessonStatus.id}}">
-                    {{lessonStatus.name}}
-                </option>
-                        </select>
-            </div>
+<div class="header header-filter dashbaord-page">
+    <section class="boxs boxs-tp-grey">
+        <div class="container">
             
-        <table border="1">
-            <tr>
-                <th>#</th>
-                <th>Filename</th>
-            </tr>
-            <tr ng-repeat="file in lesson.fileList | filter:{ fileType: 'question' }">
-                <td>{{$index+1}}</td>
-                <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=question" class="contact">
-                {{file.actualFileName}}</a></td>
-            </tr>
-        </table>
-    </div>
-    <div align="center">
-        <table border="1">
-            <tr>
-                <th>#</th>
-                <th>Sender</th>
-                <th>Message/Query</th>
-                <th>Sent At</th>
-            </tr>
-            <tr ng-repeat="message in messageList">
-                <td>{{$index+1}}</td>
-                <td>{{message.createdBy}}</td>
-                <td ng-if="message.messageType!='file'">{{message.description}}</td>
-                <td ng-if="message.messageType=='file'">
-                    <a href="/file/download/{{lesson.id}}?filename={{message.description}}&fileType=question" class="contact">
-                        {{message.actualFileName}}
-                    </a>
-                </td>
-                <td>{{message.createdDate | date:'dd MMM yyyy hh:mm a'}}</td>
-            </tr>
-        </table>
-    </div>
-    <div class="container">
-        <input type="text" placeholder="Compose a new message..." ng-model="message.description"/>
-        <div class="info">
-            <button  ng-click="addMessage();">Send</button>
-        </div>
-        <br />
-        <input type="file" file-model = "myFile">
-        <button ng-click = "uploadFile()">upload me</button>
-        <br>
-        <br>
-        <hr/>
-        <div class="info" ng-if="showAnswerFillSection">
-            <textarea rows="4" cols="20" ng-model="lessonUpdate.lessonAnswerDesc"></textarea>
-            <div class="col-xs-6 col-xs-offset-3" style="width: 600px;">
-                <div class="well">
-                    <form action="" class="dropzone" dropzone="" id="dropzone">
-                        <div class="dz-default dz-message">
-                        </div>
-                    </form>
+            <div class="row">
+                <div class="col-xs-12">
+                    <br/>
+                    <a href="#!/home" class="back-btn-lh"><i class="fa fa-chevron-left"></i> Lesson History</a>
                 </div>
-            </div>
-            <div class="pull-right">
-                
-                <button class="btn btn-danger" ng-click="resetDropzone()">Reset drop wizard</button>
-            </div>
-        </div>
-        <div class="info" ng-if="showAnswerFromTutor">
-            Lesson Answers submitted by Tutor
-            <p>Description : {{lesson.lessonAnswerDesc}}</p>
-            <table border="1">
-                <tr>
-                    <th>#</th>
-                    <th>Filename</th>
-                </tr>
-                <tr ng-repeat="file in lesson.fileList | filter:{ fileType: 'answer' }">
-                    <td>{{$index+1}}</td>
-                    <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=answer" class="contact">
-                    {{file.actualFileName}}</a></td>
-                </tr>
-            </table>
-        </div>
-        <br>
-        <div class="info">
-            <button  ng-click="updateStatus(lessonUpdate.status.id)">Update Status</button>
-        </div>
-        <br>
-    </div>
-    <br><br>
-</div>
--->
-<div class="container lesson-detail-container">
-    <div class="row">
-        <div class="col s12">
-            <div class="page-header" style="padding-top: 29px;">
-                <div class="row valign-wrapper" style="margin-bottom: 0;">
-                    <div class="col s12">
-                        <h4 class="inner-page-headings center">
-                            <a href="#!/home"><i class="material-icons left">arrow_back</i></a>
-                            <span>Lesson History</span>
-                        </h4>
-                    </div>
-
-                    <!-- <div class="col s7" ng-click="$event.preventDefault()">
-                        <button href="#" ng-show="!isStudent" id="tutorhome" class="tab-buttons" ng-click="setActiveTab('tutorhome')">Available Lesson</button>
-                        <button href="#" ng-show="isStudent" id="newLesson" class="tab-buttons" ng-click="setActiveTab('newLesson')">New Lesson</button>
-                        <button href="#" id="lesson-history-tab" class="tab-buttons" id="lessons" ng-click="setActiveTab('lessons')">Lesson History</button>
-                        
-                    </div> -->
-                    
-                </div>
-                
             </div>
             <div class="row">
-                <div class="col s12 m6 l6">
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="card white z-depth-1 lesson-cards">
-                                <div class="lesson-detail-header blue-grey lighten-1">
-                                    <p class="center">{{lesson.subject.name}}</p>
-                                </div>
-                                <div class="row lesson-row valign-wrapper">
-                                    <div class="col s6" ng-if="!isStudent">
-                                        <p class="left lesson-detail-top-row">Student: {{lesson.studentProfile.name}}</p>
-                                    </div>
-                                    <div class="col s6" ng-if="isStudent && lesson.status.id==lessonAvailableStatus">
-                                        <p class="left lesson-detail-top-row">You have requested a lesson</p>
-                                    </div>
-                                    <div class="col s6" ng-if="isStudent && lesson.status.id==lessonExpiredStatus && !lesson.tutorProfile">
-                                        <p class="left lesson-detail-top-row">No tutor accepted the lesson</p>
-                                    </div>
-                                    <div class="col s6" ng-if="isStudent && lesson.status.id!=lessonAvailableStatus && lesson.tutorProfile">
-                                        <p class="left lesson-detail-top-row">Tutor: {{lesson.tutorProfile.name}}</p>
-                                    </div>
-                                    <div class="col s6" ng-if="isStudent && lesson.status.id==lessonCancelledStatus && !lesson.tutorProfile ">
-                                        <p class="left lesson-detail-top-row">You have cancelled requested lesson</p>
-                                    </div>
-                                    <div class="col s6" ng-show="lesson.status.id != lessonExpiredStatus">
-                                        <p class="right lesson-detail-top-row">Expires at {{ lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</p>
-                                    </div>
-                                    <div class="col s6" ng-show="lesson.status.id == lessonExpiredStatus">
-                                        <p class="right lesson-detail-top-row">Expired at {{ lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</p>
-                                    </div>
-                                </div>
-                                <div class="row lesson-row valign-wrapper">
-                                    <div class="col s12 lesson-detail-table-header valign-wrapper">
-                                        <p>Title: <span>{{lesson.title}}</span></p>
-                                    </div>
-                                </div>
-                                <div class="row lesson-row valign-wrapper">
-                                    <div class="col s3 lesson-detail-table-header valign-wrapper">
-                                        <p>Attached Files: </p>
-                                    </div>
-                                    <div ng-show ="lesson.fileList != null && lesson.fileList.length > 0" class="col s9">
-                                        <div class="row" style="margin-bottom: 0;">
-                                            <div class="col s6 valign-wrapper" ng-repeat="file in lesson.fileList | filter:{ fileType: 'question' }">
-                                                <a class="attached-files-div">
-                                                    <a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=question"><i class="material-icons left" >attach_files</i>
-                                                        <p class="attached-file-name">{{ file.actualFileName}}</p></a>
-                                                </a>
+                <div class="col-md-12">
+                    
+                    
+                    <section class="boxs border-tp">
+                        <div class="boxs-header dvd dvd-btm tp-bar">
+                            <h1 class="custom-font">Lesson Details</h1>
+                        </div>
+
+                        <div class="boxs-body mh500">
+
+
+                            <div class="">
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="card white z-depth-1 lesson-cards">
+
+                                                <div class="lesson-detail-header blue-grey lighten-1">
+                                                    <h4 class="custom-font"><strong>{{lesson.subject.name}}</strong></h4>
+                                                </div>
+
+
+                                                <div class="row lesson-row valign-wrapper nocolor">
+                                                    <div class="col-xs-12" ng-if="!isStudent">
+                                                        <p class="left lesson-detail-top-row">Student: {{lesson.studentProfile.name}}</p>
+                                                    </div>
+                                                    <div class="col-xs-12" ng-if="isStudent && lesson.status.id == lessonAvailableStatus">
+                                                        <p class="left lesson-detail-top-row">You have requested a lesson</p>
+                                                    </div>
+                                                    <div class="col-xs-12" ng-if="isStudent && lesson.status.id == lessonExpiredStatus && !lesson.tutorProfile">
+                                                        <p class="left lesson-detail-top-row">No tutor accepted the lesson</p>
+                                                    </div>
+                                                    <div class="col-xs-12" ng-if="isStudent && lesson.status.id != lessonAvailableStatus && lesson.tutorProfile">
+                                                        <p class="left lesson-detail-top-row">Tutor: {{lesson.tutorProfile.name}}</p>
+                                                    </div>
+                                                    <div class="col-xs-12" ng-if="isStudent && lesson.status.id == lessonCancelledStatus && !lesson.tutorProfile">
+                                                        <p class="left lesson-detail-top-row text-info">You have cancelled requested lesson</p>
+                                                    </div>
+                                                    <div class="col-xs-12" ng-show="lesson.status.id != lessonExpiredStatus">
+                                                        <p class="right lesson-detail-top-row text-danger">Expires at {{ lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</p>
+                                                    </div>
+                                                    <div class="col-xs-12" ng-show="lesson.status.id == lessonExpiredStatus">
+                                                        <p class="right lesson-detail-top-row text-danger">Expired at {{ lesson.deadline | date : 'dd MMM, yyyy h:mm a'}}</p>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row lesson-row valign-wrapper">
+                                                    <div class="col-xs-3 lesson-detail-table-header valign-wrapper">
+                                                        <p>Title</p>
+                                                    </div>
+                                                    <div class="col-xs-3 lesson-detail-table-header valign-wrapper">
+                                                        <p><span>{{lesson.title}}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row lesson-row valign-wrapper">
+                                                    <div class="col-xs-3 lesson-detail-table-header valign-wrapper">
+                                                        <p>Attached Files</p>
+                                                    </div>
+                                                    <div ng-show ="lesson.fileList != null && lesson.fileList.length > 0" class="col-sm-9">
+                                                        <div class="row" style="margin-bottom: 0;">
+                                                            <div class="col-xs-6 valign-wrapper">
+                                                                <div class="attached-files-div" ng-repeat="file in lesson.fileList| filter:{ fileType: 'question' }">
+                                                                    <a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=question">
+                                                                        <!--<i class="material-icons left" >attach_files</i>-->
+                                                                        <p class="attached-file-name">{{ file.actualFileName}}</p>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-show="lesson.fileList == null || lesson.fileList.length == 0" class="col-sm-9">
+                                                        <p>No Files</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row lesson-row lesson-status-row valign-wrapper">
+                                                    <div class="col-xs-3 lesson-detail-table-header valign-wrapper">
+                                                        <p>Status</p>
+                                                    </div>
+                                                    <div class="col-xs-9 lesson-detail-table-header valign-wrapper">
+                                                        <div class="row valign-wrapper" ng-if="lessonStatusList.length > 0" style="margin-bottom: 0;">
+                                                            <div class="col-xs-12">
+                                                                <p>
+                                                                <span class="mgr-50">{{lesson.status.name}}</span>
+                                                                <select id="update-status-select" ng-model="lessonUpdate.status.id" ng-change="checkSubmittedStatus(lessonUpdate.status.id)">
+                                                                    <option value="" disabled selected>Select a status</option>
+                                                                    <option  ng-repeat="lessonStatus in lessonStatusList" value="{{lessonStatus.id}}">{{lessonStatus.name}}</option>
+                                                                </select>
+                                                                <button ng-click="updateStatus(lessonUpdate.status.id)" class="btn btn-raised btn-warning btn-sm btn-update btn-margin0">Update</button>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="lessonStatusList.length <= 0" class="row valign-wrapper" style="margin-bottom: 0;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row lesson-row valign-wrapper">
+                                                    <div class="col-xs-3 lesson-detail-table-header valign-wrapper">
+                                                        <p class="custom-top-margin">Special requirements</p>
+                                                    </div>
+                                                    <div class="col-xs-9 lesson-detail-table-header valign-wrapper">
+                                                        <p class="custom-top-margin"><span>{{lesson.specialRequirement}}</span></p>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row lesson-row valign-wrapper">
+                                                    <div class="col-xs-3 lesson-detail-table-header valign-wrapper">
+                                                        <p class="custom-desc-margin">Description</p>
+                                                    </div>
+                                                    <div class="col-xs-9">
+                                                        <p class="custom-desc-margin"><span>{{lesson.taskDescription}}</span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row lesson-row valign-wrapper">
+                                                    <div class="col-xs-3 lesson-detail-table-header valign-wrapper"><p>Fee amount</p></div>
+                                                    <div class="col-xs-9 lesson-detail-table-content valign-wrapper"><p>{{lesson.dueAmount}}</p></div>
+                                                </div>
+                                                <div class="row lesson-row valign-wrapper">
+                                                    <div class="col-xs-3 lesson-detail-table-header valign-wrapper"><p>Estimated work hours</p></div>
+                                                    <div class="col-xs-9 lesson-detail-table-content valign-wrapper"><p>{{lesson.estimatedWorkEffort}}</p></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div ng-show="lesson.fileList == null || lesson.fileList.length == 0" class="col s9">
-                                        No Files
-                                    </div>
-                                </div>
-                                <div class="row lesson-row lesson-status-row valign-wrapper">
-                                    <div class="col s3 lesson-detail-table-header valign-wrapper">
-                                        <p>Status: <span>{{lesson.status.name}}</span></p>
-                                    </div>
-                                    <div class="col s9">
-                                        <div class="row valign-wrapper" ng-if="lessonStatusList.length > 0" style="margin-bottom: 0;">
-                                            <div class="col s6" style="height: 46px;">
-                                                <select id="update-status-select" ng-model="lessonUpdate.status.id" ng-change="checkSubmittedStatus(lessonUpdate.status.id)" material-select>
-                                                    <option value="" disabled selected>Select a status</option>
-                                                    <option  ng-repeat="lessonStatus in lessonStatusList" value="{{lessonStatus.id}}">{{lessonStatus.name}}</option>
-                                                </select>
-                                            </div>
-                                            <div class="col s6">
-                                                <button ng-click="updateStatus(lessonUpdate.status.id)"
-                                                        class="btn blue waves-effect waves-light update-button">Update</button>
+                                    <div class="row" style="display: none;">
+                                        <div class="col s12">
+                                            <div class="card white z-depth-1 lesson-cards">
+                                                <div class="lesson-detail-header blue-grey lighten-1">
+                                                    <p class="center">Lesson files</p>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <table class="table highlight">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Filename</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="file in lesson.fileList| filter:{ fileType: 'question' }">
+                                                                    <td>{{$index + 1}}</td>
+                                                                    <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=question" class="contact">
+                                                                            {{file.actualFileName}}</a></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div ng-if="lessonStatusList.length <= 0" class="row valign-wrapper" style="margin-bottom: 0;"></div>
                                     </div>
                                 </div>
-                                <div class="row lesson-row valign-wrapper">
-                                    <div class="col s12 lesson-detail-table-header valign-wrapper">
-                                        <p class="custom-top-margin">Special requirements: <span>{{lesson.specialRequirement}}</span></p>
-                                    </div>
-
-                                </div>
-
-                                <div class="row lesson-row valign-wrapper">
-                                    <div class="col s12 lesson-detail-table-header valign-wrapper">
-                                        <p class="custom-desc-margin">Description: <span>{{lesson.taskDescription}}</span></p>
-                                    </div>
-                                </div>
-                                <div class="row lesson-row valign-wrapper">
-                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Fee amount</p></div>
-                                    <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.dueAmount}}</p></div>
-                                </div>
-                                <div class="row lesson-row valign-wrapper">
-                                    <div class="col s3 lesson-detail-table-header valign-wrapper"><p>Estimated work hours</p></div>
-                                    <div class="col s9 lesson-detail-table-content valign-wrapper"><p>{{lesson.estimatedWorkEffort}}</p></div>
-                                </div>
+                                
+                                
                             </div>
+
+
                         </div>
-                    </div>
-                    <div class="row" style="display: none;">
-                        <div class="col s12">
-                            <div class="card white z-depth-1 lesson-cards">
-                                <div class="lesson-detail-header blue-grey lighten-1">
-                                    <p class="center">Lesson files</p>
-                                </div>
-                                <div class="row">
-                                    <div class="col s12">
-                                        <table class="table highlight">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Filename</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr ng-repeat="file in lesson.fileList | filter:{ fileType: 'question' }">
-                                                <td>{{$index+1}}</td>
-                                                <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=question" class="contact">
-                                                    {{file.actualFileName}}</a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </section>
                 </div>
+                <div class="col-md-6">
 
-                <div class="col s12 m6 l6">
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="card z-depth-1 chat-card">
-                                <div class="lesson-detail-header blue-grey lighten-1">
-                                    <p class="center">Chat</p>
-                                </div>
+                    <section class="boxs border-tp chatbox-wrap" ng-class="{'chatbox-close': chatActive == false}">
+                        <div class="boxs-header dvd dvd-btm tp-bar">
+                            <h1 class="custom-font">Chat</h1>
+                        </div>
 
-                                <div class="chat-container">
-                                    <div class="row chat-bubble-row" ng-repeat="message in messageList">
-                                        <div class="col s12 chat-bubble-col">
-                                            <div ng-init="cssClass = message.senderProfile.id == currentProfile.id"
-                                                 ng-class = "cssClass ? 'chat-bubble chat-bubble-right' : 'chat-bubble chat-bubble-left'">
-                                                <div class="chat-bubble-header">
-                                                    <span class="sender-name">{{cssClass ? 'Me' : message.senderProfile.name}}</span>
-                                                    <span class="sender-time">{{ message.createdDate  | date : "h:mm a MMM dd" }}</span>
+                        <div class="boxs-body mh500" style="padding-top: 0px;">
+
+
+                            <div class="">
+                                
+                                <div class="chat-box-page">
+                                    <div class="row chat-box-page-wrap">
+                                        <div class="col-sm-12">
+                                            <div class="card z-depth-1 chat-card">
+
+                                                <div class="chat-container">
+                                                    <div class="row chat-bubble-row" ng-repeat="message in messageList">
+                                                        <div class="col-sm-12 chat-bubble-col">
+                                                            <div ng-init="cssClass = message.senderProfile.id == currentProfile.id"
+                                                                 ng-class = "cssClass ? 'chat-bubble chat-bubble-right' : 'chat-bubble chat-bubble-left'">
+                                                                <div class="chat-bubble-header">
+                                                                    <span class="sender-name">{{cssClass ? 'Me' : message.senderProfile.name}}</span>
+                                                                    <span class="sender-time">{{ message.createdDate | date : "h:mm a MMM dd" }}</span>
+                                                                </div>
+                                                                <div class="chat-bubble-message">
+                                                                    <p ng-show="message.messageType != 'file'" class="chat-message">{{message.description}}</p>
+                                                                    <p ng-show="message.messageType == 'file'" class="chat-message">
+                                                                        <a href="/file/download/{{lesson.id}}?filename={{message.description}}&fileType=question" class="chat-image-link">
+                                                                            <i class="material-icons left">image</i><span class="chat-image-path"> {{message.actualFileName}}</span>
+                                                                        </a>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="chat-bubble-message">
-                                                    <p ng-show="message.messageType !='file'" class="chat-message">{{message.description}}</p>
-                                                    <p ng-show="message.messageType =='file'" class="chat-message">
-                                                        <a href="/file/download/{{lesson.id}}?filename={{message.description}}&fileType=question" class="chat-image-link">
-                                                            <i class="material-icons left">image</i><span class="chat-image-path"> {{message.actualFileName}}</span>
-                                                        </a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                
+                                                <div class="chat-message-composer-container">
+                                                    <div class="row valign-wrapper chat-message-composer-row">
+                                                        <div class="col-xs-12 padding0">
+                                                            <div class="input-field chat-message-composer-input-field form-group">
+                                                                <textarea name="chat-message-composer" id="chat-message-composer" class="form-control" rows="4" ng-model="message.description" placeholder="Enter your message here..."></textarea>
+                                                                
+                                                                <a href="" class="p-10 btn-chat-item" ng-click="openSelectFileWindow();"><i class="fa fa-chain "></i></a>
 
-                                <div class="chat-message-composer-container">
-                                    <div class="row valign-wrapper chat-message-composer-row">
-                                        <div class="col s10">
-                                            <div class="input-field chat-message-composer-input-field">
-                                                <textarea name="chat-message-composer" id="chat-message-composer" rows="4" ng-model="message.description"></textarea>
-                                            </div>
+                                                                <input id="selectFile" ng-hide="true" class="chat-file-upload-btn" type="file" file-model = "myFile">
 
-                                        </div>
-                                        <div class="col s2 chat-button-col" style="padding-left: 0;">
-                                            <div class="row valign-wrapper chat-button-row" style="margin-bottom: 0;">
-                                                <div class="col s6">
-                                                    <button class="btn-floating green darken-1 waves-effect waves-light" id="send-message-btn" ng-click="addMessage();"><i class="material-icons">send</i></button>
-                                                </div>
+                                                                <button class="btn btn-primary btn-chat-item btn-send-chat" ng-click="addMessage();"><i class="fa fa-paper-plane"></i></button>
+                                                            </div>
 
+                                                        </div>
+                                                        <div class="col-xs-3 chat-button-col" style="padding-left: 0;">
+                                                            
+							<div class="media">										
+                                                            <div class="media-body">
+                                                                <div class="text-right">
+                                                                    
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                                <div class="col s6" style="padding-left: 0;">
-                                                    <input id="selectFile" ng-hide="true" class="chat-file-upload-btn" type="file" file-model = "myFile">
-                                                    <button class="btn-floating btn-flat waves-effect waves-light send-message-btn" ng-click="openSelectFileWindow();"><i class="material-icons grey-text">attach_file</i></button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
-                    </div>
+                    </section>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+</div>
+
+
+
+
+
+<div class="container lesson-detail-container">
+
 
     <div class="info" ng-if="showAnswerFillSection">
         <textarea rows="4" cols="20" ng-model="lessonUpdate.lessonAnswerDesc"></textarea>
@@ -348,12 +281,21 @@
                 <th>#</th>
                 <th>Filename</th>
             </tr>
-            <tr ng-repeat="file in lesson.fileList | filter:{ fileType: 'answer' }">
-                <td>{{$index+1}}</td>
+            <tr ng-repeat="file in lesson.fileList| filter:{ fileType: 'answer' }">
+                <td>{{$index + 1}}</td>
                 <td><a href="/file/download/{{lesson.id}}?filename={{file.filePath}}&fileType=answer" class="contact">
-                    {{file.actualFileName}}</a></td>
+                        {{file.actualFileName}}</a></td>
             </tr>
         </table>
     </div>
 
+</div>
+
+<div class="chatIcon">
+    <a href="" class="" ng-click="toggleChatShow()" ng-show="!chatActive">
+        <i class="fa fa-comments" aria-hidden="true"></i>
+    </a>
+    <a href="" ng-click="toggleChatShow()" class="" ng-show="chatActive">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </a>
 </div>
