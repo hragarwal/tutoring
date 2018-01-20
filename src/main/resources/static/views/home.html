@@ -1,219 +1,216 @@
 <div class="header header-filter dashbaord-page">
     <section class="boxs boxs-tp-grey">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
- 			<br/>
-				<section class="boxs border-tp">
-                <div class="boxs-body mh500 padding0">                           
-                            <div class="lessondata-tabs" data-example-id="togglable-tabs">
-                                <ul class="nav nav-tabs" id="myTabs" role="tablist">
-                                	<li ng-click="setActiveTab('pendingLesson')" ng-class="{'active': active == 'pendingLesson'}"><a href="">Pending Lesson</a></li>
-                                	     <li ng-show="isStudent" ng-click="setActiveTab('newLesson')" ng-class="{'active': active == 'newLesson'}" class=""><a href="">New Lesson</a></li>	                                    
-                                    <li ng-click="setActiveTab('lessons')" ng-class="{'active': active == 'lessons'}"><a href="">Lesson History</a></li>
-                                    <li ng-show="!isStudent" ng-click="setActiveTab('tutorhome')" ng-class="{'active': active == 'tutorhome'}" class=""><a href="">Available Lesson</a></li>
-                                </ul>
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade active in padding0" role="tabpanel" id="home" aria-labelledby="home-tab">
+        <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <section class="boxs border-tp">
+                <div class="boxs-body mh500 padding0">
+                    <div class="lessondata-tabs" data-example-id="togglable-tabs">
 
-										<div ng-show="active" ng-if="active == 'pendingLesson'" class="lesson-history-container">
-                                            <section class="boxs marginb0">
-                                                <div class="lessons-list">
-                                                    <div class="boxs-body lesson-wrap" ng-repeat = "lesson in pendingLessonList">
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <p class="lesson-item lesson-subject"><b> <span>{{ lesson.subject.name}}</span></b></p>
-                                                                <p class="lesson-item lesson-title">Title: <span>{{ lesson.title}}</span> </p>
-                                                                <p class="lesson-item lesson-deadline"><a href="" ng-click="openLesson(lesson.id)"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> Show Details</a> </p>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <p class="lesson-item lesson-status">Status: <label class="label" ng-class="{'label-success': lesson.status.name == 'Available', 'label-danger': lesson.status.name == 'Expired' }">{{ lesson.status.name}}</label> </p>
-                                                                <p class="lesson-item lesson-description">Description: <span>{{ lesson.taskDescription | limitTo:30 }}{{lesson.taskDescription.length > 30 ? "..." : ""}}</span> </p>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <p class="lesson-item lesson-created">Created At: <span>{{ lesson.createdDate | date : 'dd MMM, yyyy h:mm a' }}</span> </p>
-                                                                <p class="lesson-item lesson-deadline">Deadline: <span>{{ lesson.deadline | date : 'dd MMM, yyyy h:mm a' }}</span> </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                        <!-- Tabs view start -->
+                        <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                            <li ng-click="setActiveTab('pendingLesson')" ng-class="{'active': active == 'pendingLesson'}"><a href="">Pending Lesson</a></li>
+                            <li ng-show="isStudent" ng-click="setActiveTab('newLesson')" ng-class="{'active': active == 'newLesson'}" class=""><a href="">New Lesson</a></li>
+                            <li ng-click="setActiveTab('lessons')" ng-class="{'active': active == 'lessons'}"><a href="">Lesson History</a></li>
+                            <li ng-show="!isStudent" ng-click="setActiveTab('tutorhome')" ng-class="{'active': active == 'tutorhome'}" class=""><a href="">Available Lesson</a></li>
+                        </ul>
+                        <!-- Tabs view end -->
+
+                        <!-- tabs content view start -->
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade active in padding0" role="tabpanel" id="home" aria-labelledby="home-tab">
+
+                                <!-- Start of Pending lesson tab view -->
+                                <div ng-show="active" ng-if="active == 'pendingLesson'" class="lesson-history-container">
+                                    <section class="boxs marginb0">
+                                        <div class="lessons-list">
+                                            <div class="boxs-body lesson-wrap" ng-repeat = "lesson in pendingLessonList">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p class="lesson-item lesson-subject"><b> <span>{{ lesson.subject.name}}</span></b></p>
+                                                    <p class="lesson-item lesson-title">Title: <span>{{ lesson.title}}</span> </p>
+                                                    <p class="lesson-item lesson-deadline"><a href="" ng-click="openLesson(lesson.id)"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> Show Details</a> </p>
                                                 </div>
-                                                <div class="text-center lesson-no-data" ng-show="pendingLessonList.length == 0">
-                                                    <h2><i class="fa fa-exclamation-circle"></i></h2>
-                                                    <h4>No Pending Lesson.</h4>
-                                                    <p class="text-muted">Let's begin with <a href="" ng-click="setActiveTab('newLesson')">New Lesson</a>.</p>
+                                                <div class="col-md-4">
+                                                    <p class="lesson-item lesson-status">Status: <label class="label" ng-class="{'label-success': lesson.status.name == 'Available', 'label-danger': lesson.status.name == 'Expired' }">{{ lesson.status.name}}</label> </p>
+                                                    <p class="lesson-item lesson-description">Description: <span>{{ lesson.taskDescription | limitTo:30 }}{{lesson.taskDescription.length > 30 ? "..." : ""}}</span> </p>
                                                 </div>
-                                            </section>
-                                        </div>
-                                        
-                                        <div ng-show="active" ng-if="active == 'lessons'" class="lesson-history-container">
-
-                                            <section class="boxs marginb0">
-                                                <div class="lessons-list">
-                                                    <div class="boxs-body lesson-wrap" ng-repeat = "lesson in lessonList">
-                                                        <div class="row">
-																<p ng-show='!isStudent'>{{lesson.studentProfile.name}} </p>       
-																<p><b> <span>{{ lesson.subject.name}}</span></b></p>      
-																<p> <span>{{ lesson.submittedDate | date : 'MMM dd, h:mm a' }}</span></p>             
-																<p> <span>$ {{ lesson.dueAmount | number }}</span></p>                                
-																<p class="lesson-item lesson-deadline"><a href="" ng-click="openLesson(lesson.id)"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> View Details</a> </p>
-                                                        </div>
-                                                    </div>
+                                                <div class="col-md-4">
+                                                    <p class="lesson-item lesson-created">Created At: <span>{{ lesson.createdDate | date : 'dd MMM, yyyy h:mm a' }}</span> </p>
+                                                    <p class="lesson-item lesson-deadline">Deadline: <span>{{ lesson.deadline | date : 'dd MMM, yyyy h:mm a' }}</span> </p>
                                                 </div>
-                                                <div class="text-center lesson-no-data" ng-show="lessonList.length == 0">
-                                                    <h2><i class="fa fa-exclamation-circle"></i></h2>
-                                                    <h4>No lessons found.</h4>
-                                                    <p class="text-muted">Let's begin with <a href="" ng-click="setActiveTab('newLesson')">New Lesson</a>.</p>
-                                                </div>
-                                            </section>
-                                        </div>
-
-                                        <div class="section"  ng-show="active" ng-if="active == 'tutorhome'" style="padding-top: 0; padding-bottom: 0px">
-
-
-                                            <section class="boxs marginb0">
-                                                <div class="lessons-list">
-                                                    <div class="boxs-body lesson-wrap" ng-repeat = "lesson in availableLessonList">
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <p class="lesson-item lesson-subject"><b> <span>{{ lesson.subject.name}}</span></b></p>
-                                                                <p class="lesson-item lesson-title">Title: <span>{{ lesson.title}}</span> </p>
-                                                                <p class="lesson-item lesson-deadline"><a href="" ng-click="openLesson(lesson.id, lesson.status.id)"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> View Details</a> </p>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <p class="lesson-item lesson-status">Status: <label class="label" ng-class="{'label-success': lesson.status.name == 'Available', 'label-danger': lesson.status.name == 'Expired' }">{{ lesson.status.name}}</label> </p>
-                                                                <p class="lesson-item lesson-description">Description: <span>{{ lesson.taskDescription | limitTo:30 }}{{lesson.taskDescription.length > 30 ? "..." : ""}}</span> </p>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <p class="lesson-item lesson-created">Created At: <span>{{ lesson.createdDate | date : 'dd MMM, yyyy h:mm a' }}</span> </p>
-                                                                <p class="lesson-item lesson-deadline">Deadline: <span>{{ lesson.deadline | date : 'dd MMM, yyyy h:mm a' }}</span> </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="text-center lesson-no-data" ng-show="availableLessonList.length == 0">
-                                                    <h2><i class="fa fa-exclamation-circle"></i></h2>
-                                                    <h4>No lessons found.</h4>
-                                                </div>
-
-
-                                            </section>
-
-                                        </div>
-
-                                        <div class="section"  ng-show="active" ng-if="active == 'newLesson'" style="padding-top: 0; padding-bottom: 0px">
-                                            <div class="lesson-history-container">
-                                                <div id="lesson-section" class="row">
-
-                                                    <div class="col-md-12">
-                                                        <div class="white z-depth-1 center new-lesson-cards">
-
-                                                            <section class="boxs">
-                                                                <div class="boxs-body paddingb0">
-                                                                    <form name="lessonForm" id="lessonForm" class="lesson-form">
-
-                                                                        <div class="row">
-                                                                            <div class="col-sm-6">
-                                                                                <div class="form-group">
-                                                                                    <label for="lesson_select">Subject:</label>
-                                                                                    <ui-select ng-model="lesson.subjectID">
-                                                                                        <ui-select-match>
-                                                                                            <span ng-bind="$select.selected.name"></span>
-                                                                                        </ui-select-match>
-                                                                                        <ui-select-choices repeat="subject in subjectsList">
-                                                                                            <span ng-bind="subject.name"></span>
-                                                                                        </ui-select-choices>
-                                                                                    </ui-select>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-6">
-                                                                                <div class="form-group">
-                                                                                    <label for="title">Lesson Title</label>
-                                                                                    <input type="text" class="form-control validate" id="title" ng-model="lesson.title" placeholder="">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-
-                                                                            <div class="col-sm-12">
-                                                                                <div class="form-group">
-                                                                                    <label for="taskDescription">Task Description</label>
-                                                                                    <textarea  type="text" class="form-control validate" ng-model="lesson.taskDescription" id="taskDescription"></textarea>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-sm-6">
-                                                                                <div class="form-group">
-                                                                                    <label for="specialRequirement">Special Requirement</label>
-                                                                                    <input  type="text" class="form-control validate" ng-model="lesson.specialRequirement" id="specialRequirement">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-6">
-                                                                                <div class="form-group">
-                                                                                    <label for="deadline">Deadline</label>
-                                                                                    <input type="date" class="form-control validate" placeholder="" ng-model="lesson.deadline" id="deadline">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-
-
-                                                                    <div class="row no-bot-margin-row attach-files-row">
-                                                                        <div class="col-sm-12">
-                                                                            <div class="upload-div">
-                                                                                <p class="field-label">Attach Files</p>
-                                                                                <div class="input-field">
-                                                                                    <div class="well">
-                                                                                        <form action="" class="dropzone" dropzone="" id="dropzone">
-                                                                                            <div class="dz-default dz-message center valign-wrapper">
-                                                                                                <div class="dropzone-inner-message">
-                                                                                                    <div class="dpz-icon"><i class="material-icons left">cloud_upload</i></div>
-                                                                                                    <p class="dpz-label"><span>Drop & Drop files here</span></p>
-                                                                                                    <p class="dpz-or"><span>or</span></p>
-                                                                                                    <p class="dpz-btn"><button class="btn btn-primary btn-outline btn-browse">Browse Files</button></p>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </form>
-                                                                                    </div>
-
-                                                                                    <div class=" row upload-btn-div">
-                                                                                        <div class="col-sm-6">
-                                                                                            <button class="btn btn-raised btn-sm btn-info dropzone-buttons dropzone-upload hide">Upload File</button>
-                                                                                            <button class="btn btn-raised btn-sm btn-danger dropzone-buttons dropzone-clear" ng-click="resetDropzone();deleteTemporaryFilesOnServer();">Clear File</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div> 
-                                                                            </div>
-
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <div class="col-xs-12 text-right">
-                                                                            <button type="submit" class="btn btn-raised btn-primary" ng-click="createLesson(lessonForm);">Submit</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </section>
-
-
-                                                        </div>	
-                                                    </div>
-
-
-                                                </div>			
+                                            </div>
                                             </div>
                                         </div>
 
-                                    </div>                                 
+                                        <div class="text-center lesson-no-data" ng-show="pendingLessonList.length == 0">
+                                            <h2><i class="fa fa-exclamation-circle"></i></h2>
+                                            <h4>No Pending Lesson.</h4>
+                                            <p class="text-muted">Let's begin with <a href="" ng-click="setActiveTab('newLesson')">New Lesson</a>.</p>
+                                        </div>
+                                    </section>
+                                </div>
+                                <!-- End of Pending lesson tab view -->
+
+                                <!-- start of lesson history tab -->
+                                <div ng-show="active" ng-if="active == 'lessons'" class="lesson-history-container">
+                                    <section class="boxs marginb0">
+                                        <div class="lessons-list">
+                                            <div class="boxs-body lesson-wrap" ng-repeat = "lesson in lessonList">
+                                            <div class="row">
+                                                <p ng-show='!isStudent'>{{lesson.studentProfile.name}} </p>
+                                                <p><b> <span>{{ lesson.subject.name}}</span></b></p>
+                                                <p> <span>{{ lesson.submittedDate | date : 'MMM dd, h:mm a' }}</span></p>
+                                                <p> <span>$ {{ lesson.dueAmount | number }}</span></p>
+                                                <p class="lesson-item lesson-deadline"><a href="" ng-click="openLesson(lesson.id)"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> View Details</a> </p>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center lesson-no-data" ng-show="lessonList.length == 0">
+                                            <h2><i class="fa fa-exclamation-circle"></i></h2>
+                                            <h4>No lessons found.</h4>
+                                            <p class="text-muted">Let's begin with <a href="" ng-click="setActiveTab('newLesson')">New Lesson</a>.</p>
+                                        </div>
+                                    </section>
+                                </div>
+                                <!-- end of lesson history tab -->
+
+                                <!-- Start of available lesson tabs -->
+                                <div class="section"  ng-show="active" ng-if="active == 'tutorhome'" style="padding-top: 0; padding-bottom: 0px">
+                                    <section class="boxs marginb0">
+                                        <div class="lessons-list">
+                                            <div class="boxs-body lesson-wrap" ng-repeat = "lesson in availableLessonList">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p class="lesson-item lesson-subject"><b> <span>{{ lesson.subject.name}}</span></b></p>
+                                                    <p class="lesson-item lesson-title">Title: <span>{{ lesson.title}}</span> </p>
+                                                    <p class="lesson-item lesson-deadline"><a href="" ng-click="openLesson(lesson.id, lesson.status.id)"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> View Details</a> </p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p class="lesson-item lesson-status">Status: <label class="label" ng-class="{'label-success': lesson.status.name == 'Available', 'label-danger': lesson.status.name == 'Expired' }">{{ lesson.status.name}}</label> </p>
+                                                    <p class="lesson-item lesson-description">Description: <span>{{ lesson.taskDescription | limitTo:30 }}{{lesson.taskDescription.length > 30 ? "..." : ""}}</span> </p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p class="lesson-item lesson-created">Created At: <span>{{ lesson.createdDate | date : 'dd MMM, yyyy h:mm a' }}</span> </p>
+                                                    <p class="lesson-item lesson-deadline">Deadline: <span>{{ lesson.deadline | date : 'dd MMM, yyyy h:mm a' }}</span> </p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center lesson-no-data" ng-show="availableLessonList.length == 0">
+                                            <h2><i class="fa fa-exclamation-circle"></i></h2>
+                                            <h4>There are currently no available lesson.</h4>
+                                        </div>
+                                    </section>
+                                </div>
+                                <!-- End of available lesson tabs -->
+
+                                <div class="section"  ng-show="active" ng-if="active == 'newLesson'" style="padding-top: 0; padding-bottom: 0px">
+                                    <div class="lesson-history-container">
+                                    <div id="lesson-section" class="row">
+                                        <div class="col-md-12">
+                                            <div class="white z-depth-1 center new-lesson-cards">
+                                            <section class="boxs">
+                                                <div class="boxs-body paddingb0">
+                                                    <!-- Start of new lesson form -->
+                                                    <form name="lessonForm" id="lessonForm" class="lesson-form">
+
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                <label for="lesson_select">Subject:</label>
+                                                                    <ui-select ng-model="lesson.subjectID">
+                                                                        <ui-select-match><span ng-bind="$select.selected.name"></span></ui-select-match>
+                                                                        <ui-select-choices repeat="subject in subjectsList"><span ng-bind="subject.name"></span>
+                                                                        </ui-select-choices>
+                                                                    </ui-select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="title">Lesson Title</label>
+                                                                    <input type="text" class="form-control validate" id="title" ng-model="lesson.title" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="taskDescription">Task Description</label>
+                                                                    <textarea  type="text" class="form-control validate" ng-model="lesson.taskDescription" id="taskDescription"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="specialRequirement">Special Requirement</label>
+                                                                    <input  type="text" class="form-control validate" ng-model="lesson.specialRequirement" id="specialRequirement">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="deadline">Deadline</label>
+                                                                    <input type="date" class="form-control validate" placeholder="" ng-model="lesson.deadline" id="deadline">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <!-- End of new lesson form -->
+
+                                                    <!-- start of file attachment view -->
+                                                    <div class="row no-bot-margin-row attach-files-row">
+                                                        <div class="col-sm-12">
+                                                            <div class="upload-div">
+                                                            <p class="field-label">Attach Files</p>
+                                                                <div class="input-field">
+                                                                    <div class="well">
+
+                                                                        <form action="" class="dropzone" dropzone="" id="dropzone">
+                                                                        <div class="dz-default dz-message center valign-wrapper">
+                                                                            <div class="dropzone-inner-message">
+                                                                                <div class="dpz-icon"><i class="material-icons left">cloud_upload</i></div>
+                                                                                <p class="dpz-label"><span>Drop & Drop files here</span></p>
+                                                                                <p class="dpz-or"><span>or</span></p>
+                                                                                <p class="dpz-btn"><button class="btn btn-primary btn-outline btn-browse">Browse Files</button></p>
+                                                                            </div>
+                                                                        </div>
+                                                                        </form>
+                                                                    </div>
+
+                                                                    <div class=" row upload-btn-div">
+                                                                        <div class="col-sm-6">
+                                                                            <button class="btn btn-raised btn-sm btn-info dropzone-buttons dropzone-upload hide">Upload File</button>
+                                                                            <button class="btn btn-raised btn-sm btn-danger dropzone-buttons dropzone-clear" ng-click="resetDropzone();deleteTemporaryFilesOnServer();">Clear File</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-xs-12 text-right">
+                                                            <button type="submit" class="btn btn-raised btn-primary" ng-click="createLesson(lessonForm);">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
                 </div>
+                </section>
             </div>
+        </div>
         </div>
     </section>
 </div>
