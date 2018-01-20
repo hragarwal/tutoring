@@ -8,8 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.model.LessonStatus;
+import com.tutoring.model.Profile;
+import com.tutoring.util.ResponseVO;
 
 /**
  * Created by himanshu.agarwal on 21-02-2017.
@@ -48,5 +51,15 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	public void updateExpiredLessons(@Param("currentDate")Date currentDate,
 											 @Param("statusList") List<Long> statusList,
 									 @Param("newStatusId") long newStatusId);
+	
+	/**
+	 * This method used to get lesson list by profile and status.
+	 * @param profile
+	 * @param statusList
+	 * @return
+	 * @throws AppException
+	 */
+	@Query("select l from Lesson l where studentProfile.id=:profileId AND status_id in :statusList")
+	public List<Lesson> getLessonByProfileAndStatus(@Param("profileId") long profileId,  @Param("statusList") List<Long> statusList) throws AppException;
 	
 }

@@ -1,6 +1,7 @@
 package com.tutoring.util;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,7 +26,7 @@ public class LessonStates {
 
 	/** The waiting payment. */
 	public static long WAITING_PAYMENT = 16;
-	
+
 	/** The waiting payment. */
 	public static long PAYMENT_MADE = 32;
 
@@ -37,7 +38,7 @@ public class LessonStates {
 
 	/** The cancelled. */
 	public static long CANCELLED = 256;
-	
+
 	/** The expired. */
 	public static long EXPIRED = 512;
 
@@ -55,7 +56,7 @@ public class LessonStates {
 
 	/** The  waiting payment. */
 	public static String _WAITING_PAYMENT = "Waiting Payment";
-	
+
 	/** The  payment made. */
 	public static String _PAYMENT_MADE = "Payment Made";
 
@@ -67,7 +68,7 @@ public class LessonStates {
 
 	/** The  cancelled. */
 	public static String _CANCELLED = "Cancelled";
-	
+
 	/** The  expired. */
 	public static String _EXPIRED = "Expired";
 
@@ -96,7 +97,7 @@ public class LessonStates {
 	public static String getLessonStates(long key){
 		return states.get(key);
 	}
-	
+
 	/**
 	 * Gets the all lesson states.
 	 *
@@ -105,7 +106,7 @@ public class LessonStates {
 	public static Map<Long, String> getAllLessonStates() {
 		return states;
 	}
-	
+
 	/**
 	 * Checks lesson states.
 	 *
@@ -116,5 +117,15 @@ public class LessonStates {
 	public static boolean isLessonStates(long lessonStates, long allowedStates){
 		return (lessonStates & allowedStates) > 0 ? true : false;
 	}
-	
+
+
+	public static List<Long> getAllValidLessonStatus(long lessonStatus) {
+		List<Long> lessonStatusList = new ArrayList<>();
+		for(Map.Entry<Long, String> lessonStatusEntry : states.entrySet()) {
+			if(isLessonStates(lessonStatus, lessonStatusEntry.getKey())) {
+				lessonStatusList.add(lessonStatusEntry.getKey());
+			}
+		}
+		return lessonStatusList;
+	}
 }

@@ -1,30 +1,25 @@
 <div class="header header-filter dashbaord-page">
-
     <section class="boxs boxs-tp-grey">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <br/>
-                    <section class="boxs border-tp">
-                        <!-- <div class="boxs-header dvd dvd-btm tp-bar">
-                            <h1 class="custom-font">Welcome to Dashboard</h1>
-                        </div> -->
-
-                        <div class="boxs-body mh500 padding0">                           
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+ 			<br/>
+				<section class="boxs border-tp">
+                <div class="boxs-body mh500 padding0">                           
                             <div class="lessondata-tabs" data-example-id="togglable-tabs">
-                                <ul class="nav nav-tabs" id="myTabs" role="tablist">                                    
+                                <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                                	<li ng-click="setActiveTab('pendingLesson')" ng-class="{'active': active == 'pendingLesson'}"><a href="">Pending Lesson</a></li>
+                                	     <li ng-show="isStudent" ng-click="setActiveTab('newLesson')" ng-class="{'active': active == 'newLesson'}" class=""><a href="">New Lesson</a></li>	                                    
                                     <li ng-click="setActiveTab('lessons')" ng-class="{'active': active == 'lessons'}"><a href="">Lesson History</a></li>
                                     <li ng-show="!isStudent" ng-click="setActiveTab('tutorhome')" ng-class="{'active': active == 'tutorhome'}" class=""><a href="">Available Lesson</a></li>
-                                    <li ng-show="isStudent" ng-click="setActiveTab('newLesson')" ng-class="{'active': active == 'newLesson'}" class=""><a href="">New Lesson</a></li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade active in padding0" role="tabpanel" id="home" aria-labelledby="home-tab">
 
-                                        <div ng-show="active" ng-if="active == 'lessons'" class="lesson-history-container">
-
+										<div ng-show="active" ng-if="active == 'pendingLesson'" class="lesson-history-container">
                                             <section class="boxs marginb0">
                                                 <div class="lessons-list">
-                                                    <div class="boxs-body lesson-wrap" ng-repeat = "lesson in lessonList">
+                                                    <div class="boxs-body lesson-wrap" ng-repeat = "lesson in pendingLessonList">
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <p class="lesson-item lesson-subject"><b> <span>{{ lesson.subject.name}}</span></b></p>
@@ -42,36 +37,32 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="text-center lesson-no-data" ng-show="pendingLessonList.length == 0">
+                                                    <h2><i class="fa fa-exclamation-circle"></i></h2>
+                                                    <h4>No Pending Lesson.</h4>
+                                                    <p class="text-muted">Let's begin with <a href="" ng-click="setActiveTab('newLesson')">New Lesson</a>.</p>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        
+                                        <div ng-show="active" ng-if="active == 'lessons'" class="lesson-history-container">
+
+                                            <section class="boxs marginb0">
+                                                <div class="lessons-list">
+                                                    <div class="boxs-body lesson-wrap" ng-repeat = "lesson in lessonList">
+                                                        <div class="row">
+																<p ng-show='!isStudent'>{{lesson.studentProfile.name}} </p>       
+																<p><b> <span>{{ lesson.subject.name}}</span></b></p>      
+																<p> <span>{{ lesson.submittedDate | date : 'MMM dd, h:mm a' }}</span></p>             
+																<p> <span>$ {{ lesson.dueAmount | number }}</span></p>                                
+																<p class="lesson-item lesson-deadline"><a href="" ng-click="openLesson(lesson.id)"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> View Details</a> </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="text-center lesson-no-data" ng-show="lessonList.length == 0">
                                                     <h2><i class="fa fa-exclamation-circle"></i></h2>
                                                     <h4>No lessons found.</h4>
                                                     <p class="text-muted">Let's begin with <a href="" ng-click="setActiveTab('newLesson')">New Lesson</a>.</p>
-                                                </div>
-
-
-                                                <div class="boxs-body p-0 hide">
-                                                    <div class="table-responsive">
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Subject</th>
-                                                                    <th>Title</th>
-                                                                    <th>Deadline</th>
-                                                                    <th>Status</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr ng-repeat = "lesson in lessonList">
-                                                                    <td>{{$index + 1}}</td>
-                                                                    <td><a href ng-click="openLesson(lesson.id)">{{lesson.subject.name}}</a></td>
-                                                                    <td>{{lesson.title}}</td>
-                                                                    <td>{{lesson.deadline| date : 'dd MMM, yyyy h:mm a'}}</td>							
-                                                                    <td>{{lesson.status.name}}</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
                                                 </div>
                                             </section>
                                         </div>
@@ -86,7 +77,7 @@
                                                             <div class="col-md-4">
                                                                 <p class="lesson-item lesson-subject"><b> <span>{{ lesson.subject.name}}</span></b></p>
                                                                 <p class="lesson-item lesson-title">Title: <span>{{ lesson.title}}</span> </p>
-                                                                <p class="lesson-item lesson-deadline"><a href="" ng-click="openLesson(lesson.id, lesson.status.id)"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> Show Details</a> </p>
+                                                                <p class="lesson-item lesson-deadline"><a href="" ng-click="openLesson(lesson.id, lesson.status.id)"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i> View Details</a> </p>
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <p class="lesson-item lesson-status">Status: <label class="label" ng-class="{'label-success': lesson.status.name == 'Available', 'label-danger': lesson.status.name == 'Expired' }">{{ lesson.status.name}}</label> </p>

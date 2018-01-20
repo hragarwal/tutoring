@@ -3,11 +3,13 @@ package com.tutoring.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -32,6 +34,7 @@ import com.tutoring.model.Profile;
 import com.tutoring.service.LessonService;
 import com.tutoring.util.AppConstants;
 import com.tutoring.util.AppUtils;
+import com.tutoring.util.DateTimeUtil;
 import com.tutoring.util.LessonStates;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
@@ -168,6 +171,7 @@ public class LessonServiceImpl implements LessonService {
 			}
 			returnLesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.SUBMITTED)));
 			returnLesson.setModifiedBy(currentProfile.getUsername());
+			returnLesson.setSubmittedDate(DateTimeUtil.getCurrentDate());
 		}
 		//Student marked lesson as completed
 		else if(lesson.getStatus().getId() == LessonStates.COMPLETED){
@@ -195,5 +199,17 @@ public class LessonServiceImpl implements LessonService {
 		List<Long> statusList = Arrays.asList(LessonStates.ACCEPTED,LessonStates.AVAILABLE,
 				LessonStates.IN_PROGRESS,LessonStates.WAITING_PAYMENT);
 		lessonDAO.updateExpiredLessons(currentDate,statusList,LessonStates.EXPIRED);
+	}
+
+	@Override
+	public ResponseVO getLessonByProfileAndStatus(Profile profile, long lessonStatus) throws AppException {
+		List<Long> lessonStatusList = LessonStates.getAllValidLessonStatus(lessonStatus);
+		if(Objects.isNull(lessonStatusList) || lessonStatusList.size() == 0) {
+			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("lesson.data.nofound"));
+		} else {
+			List<Lesson> lessons = lessonDAO.getLessonByProfileAndStatus(profile.getId(), lessonStatusList);
+			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, "Return list of lesson of size "+ lessons.size() + ".",
+					lessons, null);
+		}
 	}
 }

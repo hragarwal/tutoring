@@ -2,11 +2,17 @@ angular.module('homeController', ['factories', 'services'])
         .controller('homeController', function ($scope, LessonService, AppConstants, $location, ProfileService,
                 $sessionStorage, FileService, TutoringFactory, $route, $rootScope, AppFactory) {
 
+        	var pendingLesson = AppConstants.LESSON_AVAILABLE + AppConstants.LESSON_ACCEPTED +
+        		AppConstants.LESSON_IN_PROGRESS + AppConstants.LESSON_WAITING_PAYMENT + 
+        		AppConstants.LESSON_PAYMENT_MADE;
+        		
+        	var lessonHistory = AppConstants.LESSON_SUBMITTED + AppConstants.LESSON_COMPLETED;
+        	
             $scope.headingTitle = 'Create Lesson';
             $scope.currentProfile = TutoringFactory.getProfile();
             $scope.isStudent = false;
             if ($scope.currentProfile.role.id == AppConstants.STUDENT_ROLE_ID) {
-                $scope.active = 'lessons';
+                $scope.active = 'pendingLesson';
                 $scope.isStudent = true;
             } else {
                 $scope.active = 'tutorhome';
@@ -19,9 +25,18 @@ angular.module('homeController', ['factories', 'services'])
                 });
             }
 
-            // get all lesson for profile
-            LessonService.getAllLessons().then(function (response) {
+            // get all lesson for profile for lesson history includes lesson submitted , completed
+            LessonService.getLessonByStatus(lessonHistory).then(function (response) {
                 $scope.lessonList = response.data.data;
+            }).catch(function (error) {
+                alert(error.data.message);
+            }).finally(function () {
+            });
+            
+            // get lesson by status for pending lesson
+            
+            LessonService.getLessonByStatus(pendingLesson).then(function (response) {
+                $scope.pendingLessonList = response.data.data;
             }).catch(function (error) {
                 alert(error.data.message);
             }).finally(function () {

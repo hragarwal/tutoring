@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * Created by himanshu.agarwal on 20-02-2017.
  */
@@ -67,6 +71,10 @@ public class Lesson extends AuditableBaseEntity {
 
     @Lob
     private String lessonAnswerDesc;
+    
+    @Column(name = "SUBMITTED_DATE")
+    @JsonSerialize(using = CustomDateSerializer.class)
+    private Date submittedDate;
     
     private transient int subjectID;
 
@@ -200,6 +208,14 @@ public class Lesson extends AuditableBaseEntity {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public Date getSubmittedDate() {
+		return submittedDate;
+	}
+
+	public void setSubmittedDate(Date submittedDate) {
+		this.submittedDate = submittedDate;
 	}
     
     

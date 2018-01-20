@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,6 +22,7 @@ import com.tutoring.exception.AppException;
 import com.tutoring.model.Audit;
 import com.tutoring.model.AuditContent;
 import com.tutoring.model.Lesson;
+import com.tutoring.model.LessonStatus;
 import com.tutoring.model.Profile;
 import com.tutoring.service.AuditService;
 import com.tutoring.service.LessonService;
@@ -85,6 +87,7 @@ public class LessonController {
 		}
 	}
 
+
 	@LessonAuthorize
 	@RequestMapping(value = "/{lessonId}", method = RequestMethod.GET)
 	public ResponseVO getLesson(@PathVariable("lessonId") long lessonId, HttpServletRequest request, HttpServletResponse response) throws AppException {
@@ -119,17 +122,26 @@ public class LessonController {
 		return responseVO;
 	}
 
-	/* Currently we are not using this method */
-	@RequestMapping(value = Mappings.LESSON_BY_STATUS, method = RequestMethod.GET)
-	public ResponseVO getLessonByStatus(HttpServletRequest request, HttpServletResponse response) throws AppException {
+	/**
+	 * This method used to fetch all the lesson by status.
+	 * Can be used by all profile role.
+	 * 
+	 */
+	@RequestMapping(value = Mappings.LESSON_BY_STATUS +"/{lessonStatus}", method = RequestMethod.GET)
+	public ResponseVO getLessonByStatus(@PathVariable long lessonStatus, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
 		try {
 			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
-			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.SUPER_ADMIN |
+			// if profile is student than use student profile id in created profile id for lesson
+			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.STUDENT)) {
+				responseVO = lessonService.getLessonByProfileAndStatus(currentProfile, lessonStatus);
+			}
+			else if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.SUPER_ADMIN |
 					RoleStates.ADMIN | RoleStates.TUTOR)) {
 				List<Lesson> lessons = lessonService.getAvailableLessons(LessonStates.AVAILABLE);
 				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, lessons, null);
 			} 
+			response.setStatus(responseVO.getStatus());
 		} catch (Exception e) {
 			throw new AppException(e);
 		}

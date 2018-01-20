@@ -75,4 +75,14 @@ public interface LessonService {
 	 */
 	public void updateExpiredLessons(Date currentDate) throws AppException;
 	
+	
+	/**
+	 * This method used to get lesson list by profile and status.
+	 * @param profile
+	 * @param lessonStatus
+	 * @return
+	 * @throws AppException
+	 */
+	public ResponseVO getLessonByProfileAndStatus(Profile profile, long lessonStatus) throws AppException;
+	
 }

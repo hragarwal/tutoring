@@ -158,6 +158,18 @@ angular.module('services', ['factories'])
 	        url: '/lesson/'
 	      });
 		}
+
+	    this.getLessonByStatus = function (lessonStatus){
+			  return $http({
+		        method: 'GET',
+		        headers: {
+		          'accept': 'application/json',
+		          'content-type': 'application/json'
+		        },
+		        url: '/lesson/status/'+ lessonStatus
+		      });
+			}
+
 	    
 	    this.getAllMessagesForLesson = function (lessonID){
 	    	
