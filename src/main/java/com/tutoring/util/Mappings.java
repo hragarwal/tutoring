@@ -39,9 +39,10 @@ public class Mappings {
 
 	public static final String CHANGE_PASSWORD="changePassword";
 
-	public static final String UPDATE_PROFILE="updateProfile";
-	
 	public static final String GET_ALL_LESSON_STATUS="lessonstatus";
 
 	public static final String LOGOUT="logout";
+
+	public static final String PROFILE="profile";
+
 }

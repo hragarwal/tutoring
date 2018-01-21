@@ -77,7 +77,7 @@ public class CommonController{
 		return responseVO;
 	}
 
-	@RequestMapping(value = Mappings.CHANGE_PASSWORD, method = RequestMethod.POST)
+	@RequestMapping(value = Mappings.CHANGE_PASSWORD, method = RequestMethod.PUT)
 	public ResponseVO changePassword(@RequestBody Profile passwordUpdateProfile,  HttpServletRequest request,
 			HttpServletResponse response) throws AppException{
 		ResponseVO responseVO;

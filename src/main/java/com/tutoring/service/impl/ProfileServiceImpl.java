@@ -68,9 +68,8 @@ public class ProfileServiceImpl implements ProfileService {
     	}
     	profile.setPassword(PasswordUtil.hashPassword(profile.getPassword()));
         profile = profileDAO.save(profile);
-        String accessToken = jwtGenerators.encrypt(profile.getUsername());
-        return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, 
-        		MessageReader.READER.getProperty("api.profile.create.success"), profile, accessToken);
+        return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE,
+        		MessageReader.READER.getProperty("api.profile.create.success"), null, null);
     }
 
     @Override
@@ -89,7 +88,7 @@ public class ProfileServiceImpl implements ProfileService {
             returnProfile.setContactNumber(profile.getContactNumber());
             returnProfile.setSkypeId(profile.getSkypeId());
             responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE,
-                    MessageReader.READER.getProperty("api.profile.create.success"));
+                    MessageReader.READER.getProperty("api.profile.update.success"));
             responseVO.setData(returnProfile);
         }
         return responseVO;

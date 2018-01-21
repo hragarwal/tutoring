@@ -3,6 +3,7 @@ package com.tutoring.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tutoring.util.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,8 @@ import com.tutoring.service.ProfileService;
 import com.tutoring.util.AppConstants;
 import com.tutoring.util.Mappings;
 import com.tutoring.util.ResponseVO;
+
+import java.util.Objects;
 
 @RestController
 public class ProfileController{
@@ -35,7 +38,7 @@ public class ProfileController{
 		return responseVO;
 	}
 
-	@RequestMapping(value = Mappings.UPDATE_PROFILE, method = RequestMethod.PUT)
+	@RequestMapping(value = Mappings.PROFILE, method = RequestMethod.PUT)
 	public ResponseVO updateProfile(@RequestBody Profile profile, HttpServletRequest httpServletRequest,
 									HttpServletResponse response) throws AppException{
 		ResponseVO responseVO;
@@ -44,6 +47,29 @@ public class ProfileController{
 			if(responseVO.getStatus()==AppConstants.SUCCESS) {
 				httpServletRequest.getSession().setAttribute(AppConstants.PROFILE, responseVO.getData());
 			} else if(responseVO.getStatus() == 2) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			}
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			throw new AppException(e);
+		}
+		return responseVO;
+	}
+
+	@RequestMapping(value = Mappings.PROFILE, method = RequestMethod.GET)
+	public ResponseVO getCurrentProfile(HttpServletRequest httpServletRequest,
+									HttpServletResponse response) throws AppException{
+		ResponseVO responseVO = null;
+		try {
+			Profile profile = AppUtils.getCurrentUserProfile(httpServletRequest);
+			if(Objects.nonNull(profile)) {
+				profile = profileService.getProfile(profile.getId());
+				if(profile != null) {
+					responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE,
+							"Profile details for id " + profile.getId() + " retrieved successfully.",
+							profile, null);
+				}
+			} else  {
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			}
 		} catch (Exception e) {

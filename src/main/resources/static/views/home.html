@@ -121,8 +121,7 @@
                                                                 <label for="lesson_select">Subject:</label>
                                                                     <ui-select ng-model="lesson.subjectID">
                                                                         <ui-select-match><span ng-bind="$select.selected.name"></span></ui-select-match>
-                                                                        <ui-select-choices repeat="subject in subjectsList"><span ng-bind="subject.name"></span>
-                                                                        </ui-select-choices>
+                                                                        <ui-select-choices repeat="subject in subjectsList"><span ng-bind="subject.name"></span></ui-select-choices>
                                                                     </ui-select>
                                                                 </div>
                                                             </div>
