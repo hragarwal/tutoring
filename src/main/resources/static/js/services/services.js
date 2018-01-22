@@ -52,7 +52,7 @@ angular.module('services', ['factories'])
 
 			this.logoutUser = function (){
 				return $http({
-					method: 'GET',
+					method: 'POST',
 					headers: {
 						'accept': 'application/json',
 						'content-type': 'application/json'
@@ -113,7 +113,8 @@ angular.module('services', ['factories'])
 		        url: '/subject/'
 		      });
 		    }
-	    
+
+	    // not using anywhere currently
 	    this.getAllLessons = function (){
 			  return $http({
 		        method: 'GET',
