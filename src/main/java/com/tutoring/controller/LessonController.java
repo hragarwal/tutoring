@@ -51,7 +51,7 @@ public class LessonController {
 	private Logger logger = LoggerFactory.getLogger(LessonController.class);
 
 
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseVO createLesson(@RequestBody Lesson lesson, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO;
 		try {

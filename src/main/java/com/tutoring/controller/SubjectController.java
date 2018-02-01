@@ -25,7 +25,7 @@ public class SubjectController{
 	@Autowired
 	private SubjectService subjectService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseVO fetchSubjects(HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO;
 		try {
