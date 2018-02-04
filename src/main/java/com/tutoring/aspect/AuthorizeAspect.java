@@ -44,12 +44,12 @@ public class AuthorizeAspect {
 
 		Profile currentProfile = null;
 		HttpServletResponse response = null;
-		long lessonId = 0;
+		String lessonUniqueId = null;
 		Object [] args = joinPoint.getArgs();
 		if(Objects.nonNull(args)) {
 			for(Object object : args) {
-				if(object instanceof Long) {
-					lessonId = (long) object;
+				if(object instanceof String) {
+					lessonUniqueId = (String) object;
 				} else if(object instanceof ServletRequest) {
 					HttpServletRequest request = (HttpServletRequest) object;
 					currentProfile = AppUtils.getCurrentUserProfile(request);
@@ -65,7 +65,7 @@ public class AuthorizeAspect {
 
 		else {
 			//fetch the lesson details
-			Lesson lesson = lessonService.getLessonsByLessonId(lessonId);
+			Lesson lesson = lessonService.getLessonsByUniqueId(lessonUniqueId);
 			
 			// allowed everyone if lesson states is available and profile is tutor 
 			if(lesson == null || LessonStates.isLessonStates(lesson.getStatus().getId(), LessonStates.AVAILABLE) && 

@@ -89,11 +89,11 @@ public class LessonController {
 
 
 	@LessonAuthorize
-	@RequestMapping(value = "/{lessonId}", method = RequestMethod.GET)
-	public ResponseVO getLesson(@PathVariable("lessonId") long lessonId, HttpServletRequest request, HttpServletResponse response) throws AppException {
+	@RequestMapping(value = "/{lessonUniqueId}", method = RequestMethod.GET)
+	public ResponseVO getLessonByUniqueId(@PathVariable("lessonUniqueId") String lessonUniqueId, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO;
 		try {
-			Lesson lesson2 = lessonService.getLessonsByLessonId(lessonId);
+			Lesson lesson2 = lessonService.getLessonsByUniqueId(lessonUniqueId);
 			responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, AppConstants.SPACE,
 					lesson2, null);
 		} catch (Exception e) {

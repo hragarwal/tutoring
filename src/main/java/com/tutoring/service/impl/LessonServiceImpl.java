@@ -3,15 +3,7 @@ package com.tutoring.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -61,6 +53,7 @@ public class LessonServiceImpl implements LessonService {
 		try {
 			lesson.setSubject(subjectDAO.findOne(Long.valueOf(lesson.getSubjectID())));
 			lesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.AVAILABLE)));
+			lesson.setLessonUniqueId(UUID.randomUUID().toString());
 			Lesson returnLesson = lessonDAO.save(lesson);
 
 			File profileDir = new File(profileSaveLocation + profile.getId());
@@ -211,5 +204,10 @@ public class LessonServiceImpl implements LessonService {
 			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, "Return list of lesson of size "+ lessons.size() + ".",
 					lessons, null);
 		}
+	}
+
+	@Override
+	public Lesson getLessonsByUniqueId(String lessonUniqueId) throws AppException {
+		return lessonDAO.getLessonsByUniqueId(lessonUniqueId);
 	}
 }

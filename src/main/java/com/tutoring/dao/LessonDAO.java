@@ -61,5 +61,14 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	 */
 	@Query("select l from Lesson l where studentProfile.id=:profileId AND status_id in :statusList")
 	public List<Lesson> getLessonByProfileAndStatus(@Param("profileId") long profileId,  @Param("statusList") List<Long> statusList) throws AppException;
-	
+
+
+	/**
+	 * Returns lesson details by lesson unique id.
+	 * @return lesson details for specific lesson unique id.
+	 * @throws AppException
+	 */
+	@Query("select l from Lesson l where l.lessonUniqueId=:lessonUniqueId")
+	public Lesson getLessonsByUniqueId(@Param("lessonUniqueId") String uniqueId) throws AppException;
+
 }

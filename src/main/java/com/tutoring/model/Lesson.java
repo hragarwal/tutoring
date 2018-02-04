@@ -25,6 +25,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Table(name = "LESSON")
 public class Lesson extends AuditableBaseEntity {
 
+    @Column(nullable = false, length = 36)
+    private String lessonUniqueId;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "SUBJECT_ID",nullable = false)
     private Subject subject;
@@ -77,6 +80,14 @@ public class Lesson extends AuditableBaseEntity {
     private Date submittedDate;
     
     private transient int subjectID;
+
+    public String getLessonUniqueId() {
+        return lessonUniqueId;
+    }
+
+    public void setLessonUniqueId(String lessonUniqueId) {
+        this.lessonUniqueId = lessonUniqueId;
+    }
 
     public Set<Files> getFileList() {
         return fileList;

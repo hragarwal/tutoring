@@ -84,5 +84,13 @@ public interface LessonService {
 	 * @throws AppException
 	 */
 	public ResponseVO getLessonByProfileAndStatus(Profile profile, long lessonStatus) throws AppException;
-	
+
+	/**
+	 * Returns lesson details by lesson unique id.
+	 * @return lesson details for specific lesson unique id.
+	 * @throws AppException
+	 */
+	public Lesson getLessonsByUniqueId(String uniqueId) throws AppException;
+
+
 }
