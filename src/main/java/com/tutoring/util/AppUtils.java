@@ -1,12 +1,9 @@
 package com.tutoring.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -19,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.springframework.util.FileCopyUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -215,6 +213,24 @@ public class AppUtils {
 	public static void deleteDirectoryForUser(Profile profile, String profileDirectory) throws IOException{
 		File file = new File(profileDirectory + profile.getId());
 		FileUtils.deleteDirectory(file);
+	}
+
+	/**
+	 * Delete the file directory for user.
+	 * @param profile - current profile details
+	 * @param profileDirectory - file directory
+	 * @throws IOException
+	 */
+	public static void deleteFileFromUserDirectory(Profile profile, String profileDirectory, String fileName) throws IOException{
+		final File folder = new File(profileDirectory + profile.getId());
+		String fileType = fileName.substring(fileName.lastIndexOf("."));
+		String name = fileName.substring(0, fileName.lastIndexOf("."));
+		Collection files = FileUtils.listFiles(folder, new WildcardFileFilter(name+ "*"+ fileType), null);
+		for(Object file: files) {
+			if(file instanceof File && ((File) file).exists()) {
+				((File) file).delete();
+			}
+		}
 	}
 
 	/**

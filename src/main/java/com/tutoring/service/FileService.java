@@ -13,6 +13,6 @@ import com.tutoring.util.ResponseVO;
 public interface FileService {
 
     ResponseVO uploadFile(MultipartHttpServletRequest multipartHttpServletRequest,
-                          long profileId, long lessonId) throws IOException,AppException;
-    byte[] downloadFile(long lessonId, String filename, String fileType) throws AppException;
+                          long profileId, String lessonUniqueId) throws IOException,AppException;
+    byte[] downloadFile(String lessonUniqueId, String filename, String fileType) throws AppException;
 }

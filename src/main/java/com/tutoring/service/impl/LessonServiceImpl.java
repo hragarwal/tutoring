@@ -57,7 +57,7 @@ public class LessonServiceImpl implements LessonService {
 			Lesson returnLesson = lessonDAO.save(lesson);
 
 			File profileDir = new File(profileSaveLocation + profile.getId());
-			File lessonDir = new File(lessonSaveLocation + returnLesson.getId() + AppConstants.QUESTION_DIR);
+			File lessonDir = new File(lessonSaveLocation + returnLesson.getLessonUniqueId() + AppConstants.QUESTION_DIR);
 			if(profileDir.exists()) {
 				FileUtils.copyDirectory(profileDir, lessonDir);
 				Set<Files> questionFileList = new HashSet<>();
