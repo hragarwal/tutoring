@@ -43,7 +43,7 @@ public class ChatController {
 	public ResponseVO sendMessage(Message message) throws AppException {
 		ResponseVO responseVO = null;
 		try {
-			Lesson lesson = lessonService.getLessonsByLessonId(message.getLesson().getId());
+			Lesson lesson = lessonService.getLessonsByUniqueId(message.getLesson().getLessonUniqueId());
 			Profile currentProfile = profileService.getProfile(message.getCurrentProfile());
 			message.setSenderProfile(currentProfile);
 

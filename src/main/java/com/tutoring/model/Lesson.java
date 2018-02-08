@@ -3,15 +3,7 @@ package com.tutoring.model;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -22,10 +14,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  */
 
 @Entity
-@Table(name = "LESSON")
+@Table(name = "LESSON",uniqueConstraints ={ @UniqueConstraint(name= "uc_lesson", columnNames = {"lessonUniqueId"})})
 public class Lesson extends AuditableBaseEntity {
 
-    @Column(nullable = false, length = 36)
+    @Column(nullable = false, length = 36, unique = true)
     private String lessonUniqueId;
 
     @ManyToOne(fetch = FetchType.EAGER)
