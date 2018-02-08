@@ -15,14 +15,14 @@ public interface MessageDAO extends CrudRepository<Message,Long> {
 	
 	/**
 	 * Returns list of all messages for specified lesson id
-	 * @param lessonId - lesson id
+	 * @param lessonUniqueId - lesson id
 	 * @return list of all messages for lessons
 	 */
-	@Query("select m from Message m where lesson.id=:lessonId and receiverProfile.id is not null")
-	public List<Message> getMessagesByLessonId(@Param("lessonId") long lessonId);
+	@Query("select m from Message m where lesson.lessonUniqueId=:lessonUniqueId and receiverProfile.id is not null")
+	public List<Message> getMessagesByLessonUniqueId(@Param("lessonUniqueId") String lessonUniqueId);
 
-	@Query("select m from Message m where lesson.id=:lessonId and receiverProfile.id is null")
-	public List<Message> getMessagesByLessonIdAndAvailableStatus(@Param("lessonId") long lessonId);
+	@Query("select m from Message m where lesson.lessonUniqueId=:lessonUniqueId and receiverProfile.id is null")
+	public List<Message> getMessagesByLessonUniqueIdAndAvailableStatus(@Param("lessonUniqueId") String lessonUniqueId);
 	
 	@Query("select count(m.id) from Message m WHERE lesson.id=:lessonId and receiverProfile.id is not null")
 	public List<Message> getMessageCountByLessonId(@Param("lessonId") long lessonId);

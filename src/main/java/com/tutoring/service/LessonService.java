@@ -9,6 +9,8 @@ import com.tutoring.model.Lesson;
 import com.tutoring.model.LessonStatus;
 import com.tutoring.model.Profile;
 import com.tutoring.util.ResponseVO;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface LessonService {
 	
@@ -84,6 +86,15 @@ public interface LessonService {
 	 * @throws AppException
 	 */
 	public ResponseVO getLessonByProfileAndStatus(Profile profile, long lessonStatus) throws AppException;
+
+	/**
+	 * This method used to get lesson list by profile and status.
+	 * @param lessonStatus
+	 * @return
+	 * @throws AppException
+	 */
+	public ResponseVO getLessonByStatusList(long lessonStatus) throws AppException;
+
 
 	/**
 	 * Returns lesson details by lesson unique id.

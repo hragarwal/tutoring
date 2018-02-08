@@ -207,6 +207,18 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
+	public ResponseVO getLessonByStatusList(long lessonStatus) throws AppException {
+		List<Long> lessonStatusList = LessonStates.getAllValidLessonStatus(lessonStatus);
+		if(Objects.isNull(lessonStatusList) || lessonStatusList.size() == 0) {
+			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("lesson.data.nofound"));
+		} else {
+			List<Lesson> lessons = lessonDAO.getLessonByStatusList(lessonStatusList);
+			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, "Return list of lesson of size "+ lessons.size() + ".",
+					lessons, null);
+		}
+	}
+
+	@Override
 	public Lesson getLessonsByUniqueId(String lessonUniqueId) throws AppException {
 		return lessonDAO.getLessonsByUniqueId(lessonUniqueId);
 	}

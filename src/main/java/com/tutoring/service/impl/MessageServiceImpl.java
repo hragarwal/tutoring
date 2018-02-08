@@ -31,11 +31,11 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public List<Message> getMessageByLessonId(long lessonId) throws AppException {
-		if(lessonService.getLessonStatus(lessonId).getId()== LessonStates.AVAILABLE){
-			return messageDAO.getMessagesByLessonIdAndAvailableStatus(lessonId);
+	public List<Message> getMessageByLessonUniqueId(String lessonUniqueId) throws AppException {
+		if(lessonService.getLessonsByUniqueId(lessonUniqueId).getId()== LessonStates.AVAILABLE){
+			return messageDAO.getMessagesByLessonUniqueIdAndAvailableStatus(lessonUniqueId);
 		}
-		return messageDAO.getMessagesByLessonId(lessonId);
+		return messageDAO.getMessagesByLessonUniqueId(lessonUniqueId);
 	}
 
 }

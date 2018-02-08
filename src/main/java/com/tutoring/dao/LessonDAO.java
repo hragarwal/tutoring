@@ -54,14 +54,23 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	
 	/**
 	 * This method used to get lesson list by profile and status.
-	 * @param profile
+	 * @param profileId
 	 * @param statusList
 	 * @return
 	 * @throws AppException
 	 */
-	@Query("select l from Lesson l where studentProfile.id=:profileId AND status_id in :statusList")
+	@Query("select l from Lesson l where (studentProfile.id=:profileId OR tutorProfile.id=:profileId) AND status_id in :statusList")
 	public List<Lesson> getLessonByProfileAndStatus(@Param("profileId") long profileId,  @Param("statusList") List<Long> statusList) throws AppException;
 
+
+	/**
+	 * This method used to get lesson list by profile and status.
+	 * @param statusList
+	 * @return
+	 * @throws AppException
+	 */
+	@Query("select l from Lesson l where status_id in :statusList")
+	public List<Lesson> getLessonByStatusList(@Param("statusList") List<Long> statusList) throws AppException;
 
 	/**
 	 * Returns lesson details by lesson unique id.

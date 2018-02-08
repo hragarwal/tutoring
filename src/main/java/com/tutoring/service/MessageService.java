@@ -19,9 +19,9 @@ public interface MessageService {
 	
 	/**
 	 * Fetch all message for lesson.
-	 * @param lessonId - lesson id 
+	 * @param lessonUniqueId - lesson unique id
 	 * @return list of message details
 	 * @throws AppException
 	 */
-	public List<Message> getMessageByLessonId(long lessonId) throws AppException;
+	public List<Message> getMessageByLessonUniqueId(String lessonUniqueId) throws AppException;
 }

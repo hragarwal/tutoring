@@ -45,7 +45,7 @@ public class LessonController {
 	@Autowired
 	private LessonService lessonService;
 
-	@Autowired 
+	@Autowired
 	private AuditService auditService;
 
 	private Logger logger = LoggerFactory.getLogger(LessonController.class);
@@ -103,8 +103,8 @@ public class LessonController {
 	}
 
 	// this method only for tutor profile to list all available lesson
-	@RequestMapping(value = Mappings.LESSON_AVAILABLE, method = RequestMethod.GET)
-	public ResponseVO getLesson(HttpServletRequest request, HttpServletResponse response) throws AppException {
+	@RequestMapping(value = "/available", method = RequestMethod.GET)
+	public ResponseVO getAvailableLessons(HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
 		try {
 			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
@@ -125,22 +125,21 @@ public class LessonController {
 	/**
 	 * This method used to fetch all the lesson by status.
 	 * Can be used by all profile role.
-	 * 
+	 *
 	 */
-	@RequestMapping(value = Mappings.LESSON_BY_STATUS +"/{lessonStatus}", method = RequestMethod.GET)
+	@RequestMapping(value = "/status" +"/{lessonStatus}", method = RequestMethod.GET)
 	public ResponseVO getLessonByStatus(@PathVariable long lessonStatus, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
 		try {
 			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
 			// if profile is student than use student profile id in created profile id for lesson
-			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.STUDENT)) {
+			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.STUDENT | RoleStates.TUTOR)) {
 				responseVO = lessonService.getLessonByProfileAndStatus(currentProfile, lessonStatus);
 			}
 			else if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.SUPER_ADMIN |
-					RoleStates.ADMIN | RoleStates.TUTOR)) {
-				List<Lesson> lessons = lessonService.getAvailableLessons(LessonStates.AVAILABLE);
-				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, lessons, null);
-			} 
+					RoleStates.ADMIN + RoleStates.SUPPORT)) {
+				responseVO = lessonService.getLessonByStatusList(lessonStatus);
+			}
 			response.setStatus(responseVO.getStatus());
 		} catch (Exception e) {
 			throw new AppException(e);
@@ -150,15 +149,15 @@ public class LessonController {
 
 	// might be we may need to use lessonAuthorize annotations
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public ResponseVO updateLessonStatus(@RequestBody Lesson lesson, 
-			HttpServletRequest request, HttpServletResponse response)  throws AppException {
+	public ResponseVO updateLessonStatus(@RequestBody Lesson lesson,
+										 HttpServletRequest request, HttpServletResponse response)  throws AppException {
 		ResponseVO responseVO = null;
 		try {
 			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
 			// check if user is allowed to take the action
 			if(!AppUtils.isAccessible(currentProfile.getRole().getId(), lesson.getStatus().getId())) {
 				responseVO = new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.notallowed.action"));
-			} 
+			}
 			else {
 				responseVO = lessonService.updateLessonStatus(lesson, currentProfile);
 				// only if call is success save audit data
@@ -188,7 +187,7 @@ public class LessonController {
 		if(lesson.getStatus().getId() == LessonStates.AVAILABLE) {
 			auditContents.add(new AuditContent("Lesson Status", "", "Requested", ""));
 		} else {
-			auditContents.add(new AuditContent("Lesson Status", LessonStates.getAllLessonStates().get(oldLessonStatus), 
+			auditContents.add(new AuditContent("Lesson Status", LessonStates.getAllLessonStates().get(oldLessonStatus),
 					LessonStates.getAllLessonStates().get(lesson.getStatus().getId()), ""));
 		}
 		try {

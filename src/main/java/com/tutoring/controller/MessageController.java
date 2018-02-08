@@ -37,6 +37,7 @@ public class MessageController{
 	@Autowired
 	private LessonService lessonService;
 
+/*
 	@InvalidMessage
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseVO sendMessage(@RequestBody Message message, HttpServletRequest request, HttpServletResponse response) throws AppException {
@@ -68,12 +69,13 @@ public class MessageController{
 		}
 		return responseVO;
 	}
+*/
 
-	@RequestMapping(value = "/{lessonId}", method = RequestMethod.GET)
-	public ResponseVO getMessageByLessonId(@PathVariable("lessonId") long lessonId, HttpServletRequest request, HttpServletResponse response) throws AppException {
+	@RequestMapping(value = "/{lessonUniqueId}", method = RequestMethod.GET)
+	public ResponseVO getMessageByLessonId(@PathVariable("lessonUniqueId") String lessonUniqueId, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
 		try {
-			List<Message> messages = messageService.getMessageByLessonId(lessonId);
+			List<Message> messages = messageService.getMessageByLessonUniqueId(lessonUniqueId);
 			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, messages, null);
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
