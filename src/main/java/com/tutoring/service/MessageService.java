@@ -1,10 +1,11 @@
 package com.tutoring.service;
 
-import java.util.List;
-
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Message;
+import com.tutoring.model.dto.MessageDto;
 import com.tutoring.util.ResponseVO;
+
+import java.util.List;
 
 public interface MessageService {
 
@@ -23,5 +24,5 @@ public interface MessageService {
 	 * @return list of message details
 	 * @throws AppException
 	 */
-	public List<Message> getMessageByLessonUniqueId(String lessonUniqueId) throws AppException;
+	public List<MessageDto> getMessageByLessonUniqueId(String lessonUniqueId) throws AppException;
 }

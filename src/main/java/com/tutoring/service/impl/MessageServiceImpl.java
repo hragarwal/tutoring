@@ -1,7 +1,11 @@
 package com.tutoring.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import com.tutoring.model.dto.MessageDto;
+import org.omg.CORBA.Object;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,15 +31,29 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public ResponseVO save(Message message) throws AppException {
 		message = messageDAO.save(message);
-		return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.message.send.success"), message, null);
+		List<Message> messages = new ArrayList<>(1);
+		messages.add(message);
+		return new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.message.send.success"), buildMessageResponse(messages).get(0), null);
 	}
 
 	@Override
-	public List<Message> getMessageByLessonUniqueId(String lessonUniqueId) throws AppException {
-		if(lessonService.getLessonsByUniqueId(lessonUniqueId).getId()== LessonStates.AVAILABLE){
-			return messageDAO.getMessagesByLessonUniqueIdAndAvailableStatus(lessonUniqueId);
+	public List<MessageDto> getMessageByLessonUniqueId(String lessonUniqueId) throws AppException {
+		List<Message> messages = null;
+		if(lessonService.getLessonsByUniqueId(lessonUniqueId).getStatus().getId()== LessonStates.AVAILABLE){
+			messages = messageDAO.getMessagesByLessonUniqueIdAndAvailableStatus(lessonUniqueId);
+		} else {
+			messages = messageDAO.getMessagesByLessonUniqueId(lessonUniqueId);
 		}
-		return messageDAO.getMessagesByLessonUniqueId(lessonUniqueId);
+		return buildMessageResponse(messages);
 	}
 
+
+	private List<MessageDto> buildMessageResponse(List<Message> messages) {
+		List<MessageDto> messageDtoList = new ArrayList<>();
+		if(Objects.nonNull(messages)) {
+			messages.forEach(message ->  {
+				messageDtoList.add(new MessageDto(message)); });
+		}
+		return messageDtoList;
+	}
 }

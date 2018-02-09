@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tutoring.model.dto.MessageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,7 +76,7 @@ public class MessageController{
 	public ResponseVO getMessageByLessonId(@PathVariable("lessonUniqueId") String lessonUniqueId, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO = null;
 		try {
-			List<Message> messages = messageService.getMessageByLessonUniqueId(lessonUniqueId);
+			List<MessageDto> messages = messageService.getMessageByLessonUniqueId(lessonUniqueId);
 			responseVO = new ResponseVO(AppConstants.SUCCESS, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, messages, null);
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
