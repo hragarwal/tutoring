@@ -1,38 +1,26 @@
 package com.tutoring.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tutoring.annotations.LessonAuthorize;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Audit;
 import com.tutoring.model.AuditContent;
 import com.tutoring.model.Lesson;
-import com.tutoring.model.LessonStatus;
 import com.tutoring.model.Profile;
+import com.tutoring.model.dto.LessonDto;
 import com.tutoring.service.AuditService;
 import com.tutoring.service.LessonService;
-import com.tutoring.util.AppConstants;
-import com.tutoring.util.AppUtils;
-import com.tutoring.util.LessonStates;
-import com.tutoring.util.Mappings;
-import com.tutoring.util.MessageReader;
-import com.tutoring.util.ResponseVO;
-import com.tutoring.util.RoleStates;
+import com.tutoring.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by himanshu.agarwal on 20-02-2017.
@@ -50,6 +38,9 @@ public class LessonController {
 
 	private Logger logger = LoggerFactory.getLogger(LessonController.class);
 
+	@Value("${file.save.location.profile}")
+	private String profileDirectory;
+
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseVO createLesson(@RequestBody Lesson lesson, HttpServletRequest request, HttpServletResponse response) throws AppException {
@@ -61,7 +52,8 @@ public class LessonController {
 			lesson.setCreatedBy(studentProfile.getUsername());
 			boolean isSuccess = lessonService.createLesson(lesson,studentProfile);
 			if(isSuccess) {
-				List<Lesson> lessons = lessonService.getLessonsByProfile(studentProfile.getId());
+				AppUtils.deleteDirectoryForUser(studentProfile, profileDirectory);
+				List<LessonDto> lessons = lessonService.getLessonsByProfile(studentProfile.getId());
 				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.create.success"),
 						lessons, null);
 				saveAuditInfo(studentProfile, lesson, 0);
@@ -80,7 +72,7 @@ public class LessonController {
 	public ResponseVO getLessonByStudentProfile(HttpServletRequest request, HttpServletResponse response) throws AppException {
 		try {
 			Profile profile = AppUtils.getCurrentUserProfile(request);
-			List<Lesson> lessons = lessonService.getLessonsByProfile(profile.getId());
+			List<LessonDto> lessons = lessonService.getLessonsByProfile(profile.getId());
 			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, AppConstants.SPACE, lessons, null);
 		} catch (Exception e) {
 			throw new AppException(e);
@@ -110,7 +102,7 @@ public class LessonController {
 			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
 			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.SUPER_ADMIN |
 					RoleStates.ADMIN | RoleStates.TUTOR)) {
-				List<Lesson> lessons = lessonService.getAvailableLessons(LessonStates.AVAILABLE);
+				List<LessonDto> lessons = lessonService.getAvailableLessons(LessonStates.AVAILABLE);
 				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, AppConstants.SPACE, lessons, null);
 			} else {
 				responseVO = new ResponseVO(HttpServletResponse.SC_UNAUTHORIZED, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.unauthorized.data.error"));
@@ -147,7 +139,7 @@ public class LessonController {
 		return responseVO;
 	}
 
-	// might be we may need to use lessonAuthorize annotations
+	// TODO: might be we may need to use lessonAuthorize annotations
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
 	public ResponseVO updateLessonStatus(@RequestBody Lesson lesson,
 										 HttpServletRequest request, HttpServletResponse response)  throws AppException {
@@ -165,7 +157,7 @@ public class LessonController {
 					saveAuditInfo(currentProfile, (Lesson)responseVO.getData(), Long.valueOf(responseVO.getAccessToken()));
 				}
 			}
-			response.setStatus(responseVO.getStatus());
+			response.setStatus(HttpServletResponse.SC_OK);
 		} catch (Exception e) {
 			throw new AppException(e);
 		}

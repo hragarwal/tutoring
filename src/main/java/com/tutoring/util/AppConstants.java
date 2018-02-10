@@ -49,6 +49,7 @@ public final class AppConstants {
 	public static final String ANSWER_DIR="/answer/";
 
 	public static final String FILE_QUESTION_TYPE="question";
+
 	public static final String FILE_ANSWER_TYPE="answer";
 
 }

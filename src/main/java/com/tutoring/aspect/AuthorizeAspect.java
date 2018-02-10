@@ -7,6 +7,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tutoring.model.dto.LessonDto;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -68,7 +69,7 @@ public class AuthorizeAspect {
 			Lesson lesson = lessonService.getLessonsByUniqueId(lessonUniqueId);
 			
 			// allowed everyone if lesson states is available and profile is tutor 
-			if(lesson == null || LessonStates.isLessonStates(lesson.getStatus().getId(), LessonStates.AVAILABLE) && 
+			if(lesson == null || LessonStates.isLessonStates(lesson.getStatus().getId(), LessonStates.AVAILABLE) &&
 					RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.TUTOR )) {
 				return;	
 			} 

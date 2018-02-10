@@ -1,20 +1,5 @@
 package com.tutoring.service.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.*;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-
 import com.tutoring.dao.LessonDAO;
 import com.tutoring.dao.LessonStatusDAO;
 import com.tutoring.dao.SubjectDAO;
@@ -23,13 +8,22 @@ import com.tutoring.model.Files;
 import com.tutoring.model.Lesson;
 import com.tutoring.model.LessonStatus;
 import com.tutoring.model.Profile;
+import com.tutoring.model.dto.LessonDto;
 import com.tutoring.service.LessonService;
-import com.tutoring.util.AppConstants;
-import com.tutoring.util.AppUtils;
-import com.tutoring.util.DateTimeUtil;
-import com.tutoring.util.LessonStates;
-import com.tutoring.util.MessageReader;
-import com.tutoring.util.ResponseVO;
+import com.tutoring.util.*;
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.*;
 
 @Service
 @Transactional
@@ -82,14 +76,14 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
-	public List<Lesson> getAllLessons() throws AppException {
+	public List<LessonDto> getAllLessons() throws AppException {
 		Iterator<Lesson> lessons =  lessonDAO.findAll().iterator();
-		return IteratorUtils.toList(lessons);
+		return buildLessonResponse(IteratorUtils.toList(lessons));
 	}
 
 	@Override
-	public List<Lesson> getLessonsByProfile(long profileId) throws AppException {
-		return lessonDAO.getLessonsByProfileID(profileId);
+	public List<LessonDto> getLessonsByProfile(long profileId) throws AppException {
+		return buildLessonResponse(lessonDAO.getLessonsByProfileID(profileId));
 	}
 
 	@Override
@@ -98,13 +92,13 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
-	public List<Lesson> getAvailableLessons(long lessonStatus) throws AppException {
-		return lessonDAO.getAvailableLessons(lessonStatus);
+	public List<LessonDto> getAvailableLessons(long lessonStatus) throws AppException {
+		return buildLessonResponse(lessonDAO.getAvailableLessons(lessonStatus));
 	}
 
 	@Override
 	public ResponseVO updateLessonStatus(Lesson lesson, Profile currentProfile) throws IOException, AppException {
-		Lesson returnLesson = lessonDAO.findOne(lesson.getId());
+		Lesson returnLesson = getLessonsByUniqueId(lesson.getLessonUniqueId());
 		long oldLessonStatusId = returnLesson.getStatus().getId();
 		String formattedMessage;
 	
@@ -201,8 +195,9 @@ public class LessonServiceImpl implements LessonService {
 			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("lesson.data.nofound"));
 		} else {
 			List<Lesson> lessons = lessonDAO.getLessonByProfileAndStatus(profile.getId(), lessonStatusList);
-			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, "Return list of lesson of size "+ lessons.size() + ".",
-					lessons, null);
+			List<LessonDto> lessonDtoList = buildLessonResponse(lessons);
+			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, "Return list of lesson of size "+ lessonDtoList.size() + ".",
+					lessonDtoList, null);
 		}
 	}
 
@@ -213,13 +208,23 @@ public class LessonServiceImpl implements LessonService {
 			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("lesson.data.nofound"));
 		} else {
 			List<Lesson> lessons = lessonDAO.getLessonByStatusList(lessonStatusList);
-			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, "Return list of lesson of size "+ lessons.size() + ".",
-					lessons, null);
+			List<LessonDto> lessonDtoList = buildLessonResponse(lessons);
+			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_ERROR, "Return list of lesson of size "+ lessonDtoList.size() + ".",
+					lessonDtoList, null);
 		}
 	}
 
 	@Override
 	public Lesson getLessonsByUniqueId(String lessonUniqueId) throws AppException {
 		return lessonDAO.getLessonsByUniqueId(lessonUniqueId);
+	}
+
+	private List<LessonDto> buildLessonResponse(List<Lesson> messages) {
+		List<LessonDto> lessonDtoList = new ArrayList<>();
+		if(Objects.nonNull(messages)) {
+			messages.forEach(lesson ->  {
+				lessonDtoList.add(new LessonDto(lesson)); });
+		}
+		return lessonDtoList;
 	}
 }

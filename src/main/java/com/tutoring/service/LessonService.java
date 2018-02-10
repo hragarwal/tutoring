@@ -1,16 +1,15 @@
 package com.tutoring.service;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.model.LessonStatus;
 import com.tutoring.model.Profile;
+import com.tutoring.model.dto.LessonDto;
 import com.tutoring.util.ResponseVO;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 public interface LessonService {
 	
@@ -27,7 +26,7 @@ public interface LessonService {
 	 * @return list of all lessons
 	 * @throws AppException
 	 */
-	public List<Lesson> getAllLessons() throws AppException;
+	public List<LessonDto> getAllLessons() throws AppException;
 	
 	
 	/**
@@ -35,7 +34,7 @@ public interface LessonService {
 	 * @return list of all lesson for specific student
 	 * @throws AppException
 	 */
-	public List<Lesson> getLessonsByProfile(long profileId) throws AppException;
+	public List<LessonDto> getLessonsByProfile(long profileId) throws AppException;
 	
 	/**
 	 * Returns lesson details by lesson id.
@@ -50,7 +49,7 @@ public interface LessonService {
 	 * @return List of all lesson with specified status
 	 * @throws AppException
 	 */
-	public List<Lesson> getAvailableLessons(long lessonStatus) throws AppException;
+	public List<LessonDto> getAvailableLessons(long lessonStatus) throws AppException;
 	
 	/**
 	 * Update the lesson status 
