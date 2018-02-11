@@ -47,7 +47,11 @@ public class Profile extends AuditableBaseEntity {
     private transient String confirmPassword;
 
     private transient String oldPassword;
-    
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
 		return username;
 	}

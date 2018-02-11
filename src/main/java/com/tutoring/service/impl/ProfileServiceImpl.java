@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.tutoring.model.dto.ProfileDto;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,7 @@ public class ProfileServiceImpl implements ProfileService {
     	profile.setPassword(PasswordUtil.hashPassword(profile.getPassword()));
         profile = profileDAO.save(profile);
         return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE,
-        		MessageReader.READER.getProperty("api.profile.create.success"), null, null);
+        		MessageReader.READER.getProperty("api.profile.create.success"), new ProfileDto(profile), null);
     }
 
     @Override
@@ -104,4 +105,5 @@ public class ProfileServiceImpl implements ProfileService {
         Iterator<Profile> profileIterable =  profileDAO.findAll().iterator();
         return IteratorUtils.toList(profileIterable);
     }
+
 }
