@@ -25,7 +25,7 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	 * @param profileId - profile id of user to fetch lesson
 	 * @return
 	 */
-	@Query("select l from Lesson l where studentProfile.id=:profileId OR tutorProfile.id=:profileId")
+	@Query("select l from Lesson l where studentProfile.id=:profileId OR tutorProfile.id=:profileId order by l.modifiedDate desc")
 	public List<Lesson> getLessonsByProfileID(@Param("profileId") long profileId);
 
 	/**
@@ -33,7 +33,7 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	 * @param lessonStatus - profile id of user to fetch lesson
 	 * @return
 	 */
-	@Query("select l from Lesson l where status.id=:lessonStatus")
+	@Query("select l from Lesson l where status.id=:lessonStatus order by l.modifiedDate desc")
 	public List<Lesson> getAvailableLessons(@Param("lessonStatus") long lessonStatus);
 
 	/**
@@ -59,7 +59,7 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	 * @return
 	 * @throws AppException
 	 */
-	@Query("select l from Lesson l where (studentProfile.id=:profileId OR tutorProfile.id=:profileId) AND status_id in :statusList")
+	@Query("select l from Lesson l where (studentProfile.id=:profileId OR tutorProfile.id=:profileId) AND status_id in :statusList order by l.modifiedDate desc")
 	public List<Lesson> getLessonByProfileAndStatus(@Param("profileId") long profileId,  @Param("statusList") List<Long> statusList) throws AppException;
 
 
@@ -69,7 +69,7 @@ public interface LessonDAO extends CrudRepository<Lesson,Long> {
 	 * @return
 	 * @throws AppException
 	 */
-	@Query("select l from Lesson l where status_id in :statusList")
+	@Query("select l from Lesson l where status_id in :statusList order by l.modifiedDate desc")
 	public List<Lesson> getLessonByStatusList(@Param("statusList") List<Long> statusList) throws AppException;
 
 	/**

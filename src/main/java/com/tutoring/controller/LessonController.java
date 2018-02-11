@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by himanshu.agarwal on 20-02-2017.
@@ -53,9 +54,8 @@ public class LessonController {
 			boolean isSuccess = lessonService.createLesson(lesson,studentProfile);
 			if(isSuccess) {
 				AppUtils.deleteDirectoryForUser(studentProfile, profileDirectory);
-				List<LessonDto> lessons = lessonService.getLessonsByProfile(studentProfile.getId());
 				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.create.success"),
-						lessons, null);
+						lesson, null);
 				saveAuditInfo(studentProfile, lesson, 0);
 			} else {
 				responseVO = new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("api.message.lesson.create.error"));
@@ -85,12 +85,17 @@ public class LessonController {
 	public ResponseVO getLessonByUniqueId(@PathVariable("lessonUniqueId") String lessonUniqueId, HttpServletRequest request, HttpServletResponse response) throws AppException {
 		ResponseVO responseVO;
 		try {
-			Lesson lesson2 = lessonService.getLessonsByUniqueId(lessonUniqueId);
-			responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, AppConstants.SPACE,
-					lesson2, null);
+			Lesson lesson = lessonService.getLessonsByUniqueId(lessonUniqueId);
+			responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, AppConstants.BLANK,
+					lesson, null);
+			if(Objects.isNull(lesson)) {
+				responseVO = new ResponseVO(HttpServletResponse.SC_NOT_FOUND, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("lesson.data.invalid.id"),
+						lesson, null);
+			}
 		} catch (Exception e) {
 			throw new AppException(e);
 		}
+		response.setStatus(responseVO.getStatus());
 		return responseVO;
 	}
 

@@ -29,6 +29,7 @@ public class JWTGenerators {
         JwtBuilder jwtBuilder = Jwts.builder().setId(profile.getEmail()).setIssuedAt(date)
                 .claim("userId", profile.getId())
                 .claim("roleId", profile.getRole().getId())
+                .claim("username", profile.getName())
                 .signWith(signatureAlgorithm,signingKey);
         return jwtBuilder.compact();
     }
