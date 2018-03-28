@@ -17,13 +17,9 @@ public class MessageDto implements Serializable {
 
     private String lessonUniqueId;
 
-    private long senderId;
+    private ProfileDto sender;
 
-    private String senderName;
-
-    private long receiverId;
-
-    private String receiverName;
+    private ProfileDto receiver;
 
     private boolean isRead;
 
@@ -35,10 +31,8 @@ public class MessageDto implements Serializable {
         this.isRead = message.isRead();
         this.messageType = message.getMessageType();
         this.lessonUniqueId = message.getLesson() != null ? message.getLesson().getLessonUniqueId(): AppConstants.BLANK;
-        this.senderId = message.getSenderProfile()!= null ? message.getSenderProfile().getId() : 0;
-        this.senderName = message.getSenderProfile()!= null ? message.getSenderProfile().getName() : AppConstants.BLANK;
-        this.receiverId = message.getReceiverProfile() != null ? message.getReceiverProfile().getId() : 0;
-        this.receiverName = message.getReceiverProfile()!= null ? message.getReceiverProfile().getName() : AppConstants.BLANK;
+        this.sender = message.getSenderProfile()!= null ? new ProfileDto(message.getSenderProfile()) : null;
+        this.receiver = message.getReceiverProfile() != null ? new ProfileDto(message.getReceiverProfile()) : null;
         this.createdDate = message.getCreatedDate();
     }
 
@@ -82,43 +76,27 @@ public class MessageDto implements Serializable {
         isRead = read;
     }
 
-    public long getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(long senderId) {
-        this.senderId = senderId;
-    }
-
-    public String getSenderName() {
-        return senderName;
-    }
-
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
-    }
-
-    public long getReceiverId() {
-        return receiverId;
-    }
-
-    public void setReceiverId(long receiverId) {
-        this.receiverId = receiverId;
-    }
-
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
-
     public Date getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public ProfileDto getSender() {
+        return sender;
+    }
+
+    public void setSender(ProfileDto sender) {
+        this.sender = sender;
+    }
+
+    public ProfileDto getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(ProfileDto receiver) {
+        this.receiver = receiver;
     }
 }

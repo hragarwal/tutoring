@@ -30,17 +30,17 @@ import com.tutoring.model.Profile;
 public class AppUtils {
 
 	private static Pattern pattern;
-	
-	private static Pattern usernamePattern; 
+
+	private static Pattern usernamePattern;
 
 	private static int PASSWORD_MIN_LENGTH = 6;
-	
+
 	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9._-]{3,}$";
 
 
 	/** The exclude URL. */
 	private static String [] excludeURL = { Mappings.LOGIN, Mappings.SIGN_UP,
-			 Mappings.JS_URL, Mappings.CSS_URL, Mappings.HTML_URL, Mappings.FORGOT_PASSWORD};
+			Mappings.JS_URL, Mappings.CSS_URL, Mappings.HTML_URL, Mappings.FORGOT_PASSWORD, "send"};
 
 
 	private static final String EMAIL_PATTERN =
@@ -103,7 +103,7 @@ public class AppUtils {
 	 */
 	public static Profile getCurrentUserProfile(HttpServletRequest  request)  {
 		Object object = request.getSession().getAttribute(AppConstants.PROFILE);
-		if(Objects.nonNull(object)) 
+		if(Objects.nonNull(object))
 			return (Profile) object;
 
 		return null;
@@ -161,7 +161,7 @@ public class AppUtils {
 	public static boolean isValidUsername(String username) {
 		return usernamePattern.matcher(username).matches();
 	}
-	
+
 	/**
 	 * Returns true if email is valid or otherwise returns false.
 	 * @param email - email string
@@ -185,7 +185,7 @@ public class AppUtils {
 				AppUtils.isBlank(profile.getUsername()) || !isValidUsername(profile.getUsername()) ||
 				AppUtils.isBlank(profile.getEmail()) || !isValidEmailAddress(profile.getEmail()) ||
 				AppUtils.isBlank(profile.getName()) ||
-				AppUtils.isBlank(profile.getCountry()) || 
+				AppUtils.isBlank(profile.getCountry()) ||
 				AppUtils.isBlank(profile.getCreatedBy())) {
 			return false;
 		}
@@ -267,7 +267,7 @@ public class AppUtils {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * This method check if user is validate to perform update lesson actionor not.
 	 * @param oldStatus - user role id of current profile
@@ -288,12 +288,12 @@ public class AppUtils {
 		}
 		// if lesson already submitted you can't cancelled
 		else if(updateStatus == LessonStates.CANCELLED && oldStatus == LessonStates.SUBMITTED) {
-		 formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.reject.update.error"), LessonStates.getAllLessonStates().get(oldStatus));
-		 return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
+			formattedMessage = MessageFormat.format(MessageReader.READER.getProperty("api.lessonstatus.reject.update.error"), LessonStates.getAllLessonStates().get(oldStatus));
+			return new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_MESSAGE, formattedMessage);
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Return list of all applicable list of lesson status for user.
 	 * @param lessonStatus - applicable lesson status 
@@ -308,5 +308,5 @@ public class AppUtils {
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(object);
 	}
-	
+
 }
