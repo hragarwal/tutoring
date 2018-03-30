@@ -5,6 +5,7 @@ import com.tutoring.exception.AppException;
 import com.tutoring.model.Lesson;
 import com.tutoring.model.Message;
 import com.tutoring.model.Profile;
+import com.tutoring.model.dto.MessageDto;
 import com.tutoring.service.FileService;
 import com.tutoring.service.LessonService;
 import com.tutoring.service.MessageService;
@@ -101,7 +102,7 @@ public class FileServiceImpl implements FileService {
                     message.setCreatedBy(currentProfile.getUsername());
                     responseVO = messageService.save(message);
                     // send file message for lesson
-                    chatController.sendFileMessage(message);
+                    chatController.sendFileMessage(responseVO);
                 }
                 responseVO.setStatus(AppConstants.SUCCESS);
             }

@@ -2,6 +2,7 @@ package com.tutoring.controller;
 
 import java.util.Objects;
 
+import com.tutoring.model.dto.MessageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -75,8 +76,7 @@ public class ChatController {
 		return responseVO;
 	}
 	
-	public void sendFileMessage(Message message) {
-		this.template.convertAndSend("/topic/message", new ResponseVO(AppConstants.SUCCESS, 
-				AppConstants.TEXT_MESSAGE, AppConstants.TEXT_MESSAGE, message, AppConstants.BLANK));
+	public void sendFileMessage(ResponseVO responseVO) {
+		this.template.convertAndSend("/topic/message", responseVO);
 	}
 }

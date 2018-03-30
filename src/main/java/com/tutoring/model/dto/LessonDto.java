@@ -45,6 +45,8 @@ public class LessonDto implements Serializable {
 
     private String answerDesc;
 
+    private Date submittedDate;
+
     public LessonDto(Lesson lesson) {
         this.lessonUniqueId = lesson.getLessonUniqueId();
         this.subject = lesson.getSubject() != null ? new SubjectDto(lesson.getSubject()) : null;
@@ -61,6 +63,7 @@ public class LessonDto implements Serializable {
         this.fileList = buildFileList(lesson.getFileList());
         this.createdDate = lesson.getCreatedDate();
         this.answerDesc = lesson.getLessonAnswerDesc();
+        this.submittedDate = lesson.getSubmittedDate();
     }
 
     public Set<FileDto> buildFileList(Set<Files> files){
@@ -190,5 +193,13 @@ public class LessonDto implements Serializable {
 
     public void setAnswerDesc(String answerDesc) {
         this.answerDesc = answerDesc;
+    }
+
+    public Date getSubmittedDate() {
+        return submittedDate;
+    }
+
+    public void setSubmittedDate(Date submittedDate) {
+        this.submittedDate = submittedDate;
     }
 }
