@@ -10,6 +10,7 @@ import com.tutoring.model.Profile;
 import com.tutoring.model.dto.LessonDto;
 import com.tutoring.service.AuditService;
 import com.tutoring.service.LessonService;
+import com.tutoring.service.PushNotificationService;
 import com.tutoring.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,9 @@ public class LessonController {
 	@Autowired
 	private AuditService auditService;
 
+	@Autowired
+	private PushNotificationService notificationService;
+
 	private Logger logger = LoggerFactory.getLogger(LessonController.class);
 
 	@Value("${file.save.location.profile}")
@@ -57,6 +61,7 @@ public class LessonController {
 				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.create.success"),
 						lesson, null);
 				saveAuditInfo(studentProfile, lesson, 0);
+				notificationService.notifyUsers(lesson);
 			} else {
 				responseVO = new ResponseVO(HttpServletResponse.SC_BAD_REQUEST, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("api.message.lesson.create.error"));
 			}
@@ -190,7 +195,7 @@ public class LessonController {
 		try {
 			audit.setContent(AppUtils.getJSONValue(auditContents));
 			auditService.save(audit);
-		} catch (AppException | JsonProcessingException e) {
+		} catch (AppException e) {
 			logger.error("An exception occured while adding info to audit table :", e);
 		}
 	}

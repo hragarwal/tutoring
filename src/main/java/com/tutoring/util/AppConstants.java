@@ -24,7 +24,9 @@ public final class AppConstants {
 	public static final String UNDERSCORE = "_";
 	
 	public static final String COMMA = ",";
-	
+
+	public static final String DOT = ".";
+
 	public static final String SEMI_COLON = ";";
 	
 	public static final String TEXT_MESSAGE = "Message";

@@ -41,8 +41,8 @@ public class CommonController{
 				profile.setEmail(profile.getEmail().toLowerCase());
 			responseVO = loginService.validateUser(profile);
 			if(Objects.nonNull(responseVO) && responseVO.getStatus() == HttpServletResponse.SC_OK) {
-				request.getSession().setAttribute(AppConstants.ACCESS_TOKEN, responseVO.getAccessToken());
-				request.getSession().setAttribute(AppConstants.PROFILE, (Profile) responseVO.getData());
+				// request.getSession().setAttribute(AppConstants.ACCESS_TOKEN, responseVO.getAccessToken());
+				// request.getSession().setAttribute(AppConstants.PROFILE, (Profile) responseVO.getData());
 			}
 			response.setStatus(responseVO.getStatus());
 		} catch (Exception e) {

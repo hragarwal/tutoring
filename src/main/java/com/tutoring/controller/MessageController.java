@@ -27,7 +27,6 @@ import com.tutoring.util.Mappings;
 import com.tutoring.util.MessageReader;
 import com.tutoring.util.ResponseVO;
 
-@Deprecated
 @RestController
 @RequestMapping(Mappings.MESSAGE)
 public class MessageController{

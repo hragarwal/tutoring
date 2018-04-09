@@ -1,14 +1,22 @@
 package com.tutoring.controller;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.TopicManagementResponse;
 import com.tutoring.service.PushNotificationService;
+import com.tutoring.util.AppConstants;
+import com.tutoring.util.AppUtils;
+import com.tutoring.util.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -17,31 +25,37 @@ import java.util.concurrent.ExecutionException;
  */
 
 @RestController
+@RequestMapping("/notification")
 public class NotificationController {
-
-    private final String TOPIC = "JavaSampleApproach";
 
     @Autowired
     PushNotificationService pushNotificationsService;
 
+
+    /**
+     *
+     * @param token - registered device token
+     * @param topic - topic you want to subscribe
+     * @return
+     */
+    @RequestMapping(value = "/{token}/topics/{topic}", method = RequestMethod.POST)
+    public void subscribeTokenToTopic(@PathVariable("token") String token, @PathVariable("topic") String topic)  {
+        String topics[] = AppUtils.getStringArrayFromString(topic, AppConstants.SEMI_COLON);
+        List<String> registrationTokens = Arrays.asList(token);
+        try {
+            // Subscribe the devices corresponding to the registration tokens to the
+            // topic.
+            TopicManagementResponse response = FirebaseMessaging.getInstance().subscribeToTopicAsync(registrationTokens, topic).get();
+            // See the TopicManagementResponse reference documentation
+            // for the contents of response.
+            System.out.println(response.getSuccessCount() + " tokens were subscribed successfully");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @RequestMapping(value = "/send", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<String> send()  {
-
-       /* JSONObject body = new JSONObject();
-        body.put("to", "/topics/" + TOPIC);
-        body.put("priority", "high");
-
-        JSONObject notification = new JSONObject();
-        notification.put("title", "JSA Notification");
-        notification.put("body", "Happy Message!");
-
-        JSONObject data = new JSONObject();
-        data.put("Key-1", "JSA Data 1");
-        data.put("Key-2", "JSA Data 2");
-
-        body.put("notification", notification);
-        body.put("data", data);
-    */
         String body = "{\n" +
                 "\t\t   \"notification\": {\n" +
                 "\t\t      \"title\": \"JSA Notification\",\n" +
@@ -62,7 +76,6 @@ public class NotificationController {
 
         try {
             String firebaseResponse = pushNotification.get();
-
             return new ResponseEntity<>(firebaseResponse, HttpStatus.OK);
         } catch (InterruptedException e) {
             e.printStackTrace();

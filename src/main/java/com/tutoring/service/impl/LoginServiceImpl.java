@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.tutoring.model.dto.ProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +42,7 @@ public class LoginServiceImpl implements LoginService {
 			boolean passwordVerify =  PasswordUtil.verifyPassword(profile.getPassword(), returnProfile.getPassword());
 			if(passwordVerify){
 				accessToken = jwtGenerator.encrypt(returnProfile);
-				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, "Login Successfull", returnProfile, accessToken);
+				responseVO = new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, "Login Successfull", new ProfileDto(returnProfile, true), accessToken);
 			} else {
 				responseVO = new ResponseVO(HttpServletResponse.SC_NOT_ACCEPTABLE, AppConstants.TEXT_ERROR, 
 						MessageReader.READER.getProperty("api.login.invalid.password"));

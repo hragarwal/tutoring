@@ -13,9 +13,20 @@ public class ProfileDto implements Serializable {
 
     private String name;
 
+    private String username;
+
+    private long roleId;
+
     public ProfileDto(Profile profile) {
         this.id = profile.getId();
         this.name = profile.getName();
+    }
+
+    public ProfileDto(Profile profile, boolean detail) {
+        this.id = profile.getId();
+        this.name = profile.getName();
+        this.roleId = profile.getRole().getId();
+        this.username = profile.getUsername();
     }
 
     public long getId() {
@@ -32,5 +43,21 @@ public class ProfileDto implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

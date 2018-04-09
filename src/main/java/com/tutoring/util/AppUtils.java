@@ -304,9 +304,20 @@ public class AppUtils {
 		return lessonStatus.stream().filter(status -> RoleStates.isRoleAccessible(currentRole, status.getAllowedRoles())).collect(Collectors.toList());
 	}
 
-	public static String getJSONValue(Object object) throws JsonProcessingException {
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(object);
+	public static String getJSONValue(Object object) {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			return mapper.writeValueAsString(object);
+		} catch (Exception e) {
+			return  null;
+		}
 	}
 
+
+	public static String[] getStringArrayFromString(String value, String delimeter){
+		if(Objects.isNull(value))
+			return null;
+
+		return value.split(delimeter);
+	}
 }
