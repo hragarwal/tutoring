@@ -17,7 +17,7 @@ public class LessonDto implements Serializable {
 
     private String lessonUniqueId;
 
-    private SubjectDto subject;
+    private SubjectNameDto subject;
 
     private String title;
 
@@ -49,7 +49,7 @@ public class LessonDto implements Serializable {
 
     public LessonDto(Lesson lesson) {
         this.lessonUniqueId = lesson.getLessonUniqueId();
-        this.subject = lesson.getSubject() != null ? new SubjectDto(lesson.getSubject()) : null;
+        this.subject = lesson.getSubjectName() != null ? new SubjectNameDto(lesson.getSubjectName()) : null;
         this.title = lesson.getTitle();
         this.taskDescription = lesson.getTaskDescription();
         this.specialRequirement = lesson.getSpecialRequirement();
@@ -83,11 +83,11 @@ public class LessonDto implements Serializable {
         this.lessonUniqueId = lessonUniqueId;
     }
 
-    public SubjectDto getSubject() {
+    public SubjectNameDto getSubject() {
         return subject;
     }
 
-    public void setSubject(SubjectDto subject) {
+    public void setSubject(SubjectNameDto subject) {
         this.subject = subject;
     }
 

@@ -10,11 +10,23 @@ insert into role (id,name) values
 
 -- data for the table subject
 insert  into subject (id,is_active,name) values
-(1,1,'Computer Science'),
-(2,1,'Android Programming'),
-(3,1,'J2EE Programming'),
-(4,1,'C Programming'),
-(5,1,'C++ Programming');
+(1,1,'Programming'),
+(2,1,'Science'),
+(3,1,'Mathematics');
+
+-- data for the table subject name table
+insert  into subject_name (id,is_active,name,parent_subject_id) values
+(1,1,'Computer Science',1),
+(2,1,'Android Programming',1),
+(3,1,'J2EE Programming',1),
+(4,1,'C Programming',1),
+(5,1,'C++ Programming',1),
+(6,1,'Physics',2),
+(7,1,'Chemistry',2),
+(8,1,'Biology',2),
+(9,1,'Trigonometry',3),
+(10,1,'Differential',3),
+(11,1,'Calculus',3);
 
 -- lesson status data 
 insert into lesson_status (id, allowed_roles, name) values (1, 0, 'Available');  -- default set when it is created

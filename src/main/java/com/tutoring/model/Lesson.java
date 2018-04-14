@@ -22,7 +22,7 @@ public class Lesson extends AuditableBaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "SUBJECT_ID",nullable = false)
-    private Subject subject;
+    private SubjectName subjectName;
 
     @Column(nullable = false)
     private String title;
@@ -97,12 +97,12 @@ public class Lesson extends AuditableBaseEntity {
         this.lessonAnswerDesc = lessonAnswerDesc;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public SubjectName getSubjectName() {
+        return subjectName;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setSubjectName(SubjectName subjectName) {
+        this.subjectName = subjectName;
     }
 
     public String getTitle() {

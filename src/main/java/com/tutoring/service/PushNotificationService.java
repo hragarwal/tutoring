@@ -38,7 +38,7 @@ public class PushNotificationService {
             if (lesson.getStatus().getId() == LessonStates.AVAILABLE) {
                 notificationMessage = new
                         NotificationMessage(NotificationType.NEW_LESSON.getNumVal(), "New Lesson",
-                        lesson.getStudentProfile().getName() + " requested for help in " + lesson.getSubject().getName() + AppConstants.DOT, null);
+                        lesson.getStudentProfile().getName() + " requested for help in " + lesson.getSubjectName().getName() + AppConstants.DOT, null);
                 NewLessonNotification lessonNotification = new NewLessonNotification();
                 lessonNotification.setLessonUniqueId(lesson.getLessonUniqueId());
                 notificationMessage.setData(lessonNotification);
