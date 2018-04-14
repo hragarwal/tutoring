@@ -3,6 +3,7 @@ package com.tutoring.service.impl;
 import com.tutoring.dao.LessonDAO;
 import com.tutoring.dao.LessonStatusDAO;
 import com.tutoring.dao.SubjectDAO;
+import com.tutoring.dao.SubjectNameDAO;
 import com.tutoring.exception.AppException;
 import com.tutoring.model.Files;
 import com.tutoring.model.Lesson;
@@ -38,6 +39,9 @@ public class LessonServiceImpl implements LessonService {
 	@Autowired
 	private SubjectDAO subjectDAO;
 
+	@Autowired
+	private SubjectNameDAO subjectNameDAO;
+
 	@Value("${file.save.location.profile}")
 	private String profileSaveLocation;
 	@Value("${file.save.location.lesson}")
@@ -45,7 +49,7 @@ public class LessonServiceImpl implements LessonService {
 
 	public boolean createLesson(Lesson lesson,  Profile profile) throws AppException {
 		try {
-			lesson.setSubject(subjectDAO.findOne(Long.valueOf(lesson.getSubjectID())));
+			lesson.setSubjectName(subjectNameDAO.findOne(Long.valueOf(lesson.getSubjectID())));
 			lesson.setStatus(lessonStatusDAO.findOne(Long.valueOf(LessonStates.AVAILABLE)));
 			lesson.setLessonUniqueId(UUID.randomUUID().toString());
 			Lesson returnLesson = lessonDAO.save(lesson);
