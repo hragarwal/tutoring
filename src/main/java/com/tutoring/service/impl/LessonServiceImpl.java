@@ -141,7 +141,7 @@ public class LessonServiceImpl implements LessonService {
 			Set<Files> fileList = returnLesson.getFileList();
 			if(fileList != null && fileList.size() > 0) {
 				File profileDir = new File(profileSaveLocation + currentProfile.getId());
-				File lessonDir = new File(lessonSaveLocation + returnLesson.getId() + AppConstants.ANSWER_DIR);
+				File lessonDir = new File(lessonSaveLocation + returnLesson.getLessonUniqueId() + AppConstants.ANSWER_DIR);
 				FileUtils.copyDirectory(profileDir, lessonDir);
 				Files answerFile;
 				File[] listOfFiles = lessonDir.listFiles();
