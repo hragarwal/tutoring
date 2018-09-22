@@ -215,6 +215,19 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
+	public ResponseVO saveFeedback(Lesson lesson) throws IOException, AppException {
+		Lesson lessonDb  = lessonDAO.getLessonsByUniqueId(lesson.getLessonUniqueId());
+		if(Objects.isNull(lessonDb))  {
+			return new ResponseVO(HttpServletResponse.SC_NOT_FOUND, AppConstants.TEXT_ERROR, MessageReader.READER.getProperty("lesson.data.nofound"));
+		}
+		else {
+			lessonDb.setFeedback(lesson.getFeedback());
+			lessonDb.setLike(lesson.isLike());
+			return new ResponseVO(HttpServletResponse.SC_OK, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.lesson.feedback.success"));
+		}
+	}
+
+	@Override
 	public Lesson getLessonsByUniqueId(String lessonUniqueId) throws AppException {
 		return lessonDAO.getLessonsByUniqueId(lessonUniqueId);
 	}

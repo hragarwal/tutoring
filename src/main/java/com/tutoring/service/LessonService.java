@@ -103,4 +103,11 @@ public interface LessonService {
 	public Lesson getLessonsByUniqueId(String uniqueId) throws AppException;
 
 
+	/**
+	 * Update the lesson status
+	 * @param lesson - lesson unique id
+	 * @return response of update call
+	 * @throws AppException
+	 */
+	public ResponseVO saveFeedback(Lesson lesson) throws IOException, AppException;
 }

@@ -174,6 +174,26 @@ public class LessonController {
 		return responseVO;
 	}
 
+	@RequestMapping(value = "/feedback", method = RequestMethod.POST)
+	public ResponseVO saveFeedback(@RequestBody Lesson lesson,
+										 HttpServletRequest request, HttpServletResponse response)  throws AppException {
+		ResponseVO responseVO = null;
+		try {
+			Profile currentProfile = AppUtils.getCurrentUserProfile(request);
+			// check if user is allowed to take the action
+			if(RoleStates.isRoleAccessible(currentProfile.getRole().getId(), RoleStates.STUDENT)) {
+				responseVO = lessonService.saveFeedback(lesson);
+			}
+			else {
+				responseVO = new ResponseVO(HttpServletResponse.SC_FORBIDDEN, AppConstants.TEXT_MESSAGE, MessageReader.READER.getProperty("api.message.lesson.notallowed.action"));
+			}
+			response.setStatus(responseVO.getStatus());
+		} catch (Exception e) {
+			throw new AppException(e);
+		}
+		return responseVO;
+	}
+
 	/**
 	 * This method saves the audit info whenever lesson status is updated.
 	 * Note : Do not throw the exception from this method.
@@ -196,7 +216,7 @@ public class LessonController {
 			audit.setContent(AppUtils.getJSONValue(auditContents));
 			auditService.save(audit);
 		} catch (AppException e) {
-			logger.error("An exception occured while adding info to audit table :", e);
+			logger.error("An exception occurred while adding info to audit table :", e);
 		}
 	}
 }

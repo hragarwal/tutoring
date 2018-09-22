@@ -47,6 +47,8 @@ public class LessonDto implements Serializable {
 
     private Date submittedDate;
 
+    private boolean isLike;
+
     public LessonDto(Lesson lesson) {
         this.lessonUniqueId = lesson.getLessonUniqueId();
         this.subject = lesson.getSubject() != null ? new SubjectDto(lesson.getSubject()) : null;
@@ -64,6 +66,7 @@ public class LessonDto implements Serializable {
         this.createdDate = lesson.getCreatedDate();
         this.answerDesc = lesson.getLessonAnswerDesc();
         this.submittedDate = lesson.getSubmittedDate();
+        this.isLike = lesson.isLike();
     }
 
     public Set<FileDto> buildFileList(Set<Files> files){
@@ -201,5 +204,13 @@ public class LessonDto implements Serializable {
 
     public void setSubmittedDate(Date submittedDate) {
         this.submittedDate = submittedDate;
+    }
+
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
     }
 }

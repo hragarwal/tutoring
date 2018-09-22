@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 /**
  * Created by himanshu.agarwal on 20-02-2017.
  */
-
 @Entity
 @Table(name = "LESSON",uniqueConstraints ={ @UniqueConstraint(name= "uc_lesson", columnNames = {"lessonUniqueId"})})
 public class Lesson extends AuditableBaseEntity {
@@ -54,6 +53,8 @@ public class Lesson extends AuditableBaseEntity {
     private Profile tutorProfile;
 
     private String feedback;
+
+    private boolean isLike;
 
     @Lob
     private String lessonResponse;
@@ -220,6 +221,12 @@ public class Lesson extends AuditableBaseEntity {
 	public void setSubmittedDate(Date submittedDate) {
 		this.submittedDate = submittedDate;
 	}
-    
-    
+
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
+    }
 }
